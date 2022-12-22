@@ -439,42 +439,6 @@ vim.keymap.set('n', [[<C-\>]], ':FloatermToggle<CR>', { silent = true, noremap =
 vim.keymap.set('t', [[<C-[>]], [[<C-\><C-n>]], { silent = true, noremap = true })
 vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true, noremap = true })
 
--- ===
--- === glepnir/dashboard-nvim
--- ===
--- require('dashboard').custom_header = {
---   ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
---   ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
---   ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
---   ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
---   ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
---   ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
--- }
--- require('dashboard').custom_center = {
---   { icon = '  ',
---     desc = 'New  file                               ',
---     action = 'DashboardNewFile',
---     shortcut = 'SPC f n' },
---   { icon = '  ',
---     desc = 'File Browser                            ',
---     action = 'RnvimrToggle',
---     shortcut = 'SPC f b' },
---   { icon = '  ',
---     desc = 'Find  File                              ',
---     action = 'Telescope find_files find_command=rg,--hidden,--files',
---     shortcut = 'SPC f f' },
---   { icon = '  ',
---     desc = 'Find  word                              ',
---     action = 'Telescope live_grep',
---     shortcut = 'SPC f w' },
---   { icon = '  ',
---     desc = 'Open Personal vimfiles                  ',
---     action = 'e ~/.config/nvim/init.lua',
---     shortcut = 'SPC f d' },
--- }
--- require('dashboard').hide_statusline = false
--- require('dashboard').hide_tabline = false
--- require('dashboard').hide_winbar = false
 
 -- ===
 -- === lukas-reineke/indent-blankline.nvim
