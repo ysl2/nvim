@@ -1,6 +1,7 @@
 {
   "Lua.telemetry.enable": false,
   "coc.preferences.hoverTarget": "preview",
+  "snippets.userSnippetsDirectory": "~/.config/nvim/ultisnips",
   "languageserver": {
     "sourcery": {
       "command": "sourcery",
