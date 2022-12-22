@@ -1,0 +1,25 @@
+{
+  "Lua.telemetry.enable": false,
+  "coc.preferences.hoverTarget": "preview",
+  "languageserver": {
+    "sourcery": {
+      "command": "sourcery",
+      "args": [
+        "lsp"
+      ],
+      "filetypes": [
+        "python"
+      ],
+      "initializationOptions": {
+        "extension_version": "coc.vim",
+        "editor_version": "vim"
+      },
+      "settings": {
+        "sourcery": {
+          "metricsEnabled": true
+        }
+      }
+    }
+  }
+}
+
