@@ -28,10 +28,6 @@ vim.keymap.set('n', '<Space>', '', {})
 vim.g.mapleader = ' '
 local opts = { silent = true, noremap = true }
 vim.keymap.set('i', '<C-c>', '<ESC>', opts)
-vim.keymap.set('n', '>>', '>>^', opts)
-vim.keymap.set('n', '<<', '<<^', opts)
-vim.keymap.set('v', '>', '>^', opts)
-vim.keymap.set('v', '<', '<^', opts)
 
 -- Auto delete trailing whitespace.
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
