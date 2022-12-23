@@ -21,6 +21,7 @@
         }
       }
     }
-  }
+  },
+  "suggest.noselect": true
 }
 
