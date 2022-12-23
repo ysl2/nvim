@@ -393,15 +393,17 @@ require('telescope').setup {
         ['<C-k>'] = require('telescope.actions').move_selection_previous,
         ['<C-u>'] = require('telescope.actions').preview_scrolling_up,
         ['<C-d>'] = require('telescope.actions').preview_scrolling_down,
+        ['<C-i>'] = require('telescope.actions.layout').toggle_preview
       }
     },
-    -- layout_config = {
-    --   horizontal = {
-    --     preview_cutoff = 100,
-    --     preview_width = 0.6,
-    --     preview = true
-    --   },
-    -- },
+    layout_config = {
+      horizontal = {
+        preview_cutoff = 0,
+      },
+    },
+    preview = {
+      hide_on_startup = true -- hide previewer when picker starts
+    }
   },
   -- pickers = {
   --   -- Default configuration for builtin pickers goes here:
