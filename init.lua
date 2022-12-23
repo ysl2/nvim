@@ -435,7 +435,6 @@ vim.keymap.set('n', [[<C-\>]], ':FloatermToggle<CR>', { silent = true, noremap =
 vim.keymap.set('t', [[<C-[>]], [[<C-\><C-n>]], { silent = true, noremap = true })
 vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true, noremap = true })
 
-
 -- ===
 -- === lukas-reineke/indent-blankline.nvim
 -- ===
@@ -445,5 +444,5 @@ vim.g.indentLine_fileTypeExclude = { 'startify' }
 -- === nvim-telescope/telescope-file-browser.nvim
 -- ===
 require('telescope').load_extension('file_browser')
-vim.keymap.set('n', [[\e]], [[:Telescope file_browser<CR>]], { silent = true, noremap = true })
+vim.keymap.set('n', [[\e]], [[:Telescope file_browser default_selection_index=2<CR>]], { silent = true, noremap = true })
 
