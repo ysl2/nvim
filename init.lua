@@ -384,7 +384,7 @@ vim.g.xtabline_settings = {
 -- ===
 require('telescope').setup {
   defaults = {
-    -- layout_strategy = 'horizontal',
+    layout_strategy = 'vertical',
     path_display = { 'smart' },
     -- sorting_strategy = 'ascending',
     mappings = {
@@ -397,7 +397,7 @@ require('telescope').setup {
       }
     },
     layout_config = {
-      horizontal = {
+      vertical = {
         preview_cutoff = 0,
       },
     },
