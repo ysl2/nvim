@@ -32,6 +32,8 @@ Terminal editor (e.g. Bash) follows `emacs` keybindings by default.
     Change vim workspace to current file's parent folder.
 `:tabo`
     Only keep current tab and delete all others.
+`:source %`
+    Source current open file as nvim config.
 
 
 ======================
