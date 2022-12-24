@@ -395,9 +395,8 @@ require('telescope').setup {
       i = {
         ['<C-j>'] = require('telescope.actions').move_selection_next,
         ['<C-k>'] = require('telescope.actions').move_selection_previous,
-        ['<C-u>'] = require('telescope.actions').preview_scrolling_up,
-        ['<C-d>'] = require('telescope.actions').preview_scrolling_down,
-        ['<C-i>'] = require('telescope.actions.layout').toggle_preview
+        ['<C-r>'] = require('telescope.actions.layout').toggle_preview,
+        ['<c-b>'] = require('telescope.actions').delete_buffer
       }
     },
     layout_config = {
@@ -409,15 +408,16 @@ require('telescope').setup {
       hide_on_startup = true -- hide previewer when picker starts
     }
   },
-  -- pickers = {
-  --   -- Default configuration for builtin pickers goes here:
-  --   -- picker_name = {
-  --   --   picker_config_key = value,
-  --   --   ...
-  --   -- }
-  --   -- Now the picker_config_key will be applied every time you call this
-  --   -- builtin picker
-  -- },
+  pickers = {
+    -- Default configuration for builtin pickers goes here:
+    git_status = {
+      preview = {
+        hide_on_startup = false -- hide previewer when picker starts
+      }
+    }
+    -- Now the picker_config_key will be applied every time you call this
+    -- builtin picker
+  },
   extensions = {
     -- Your extension configuration goes here:
     file_browser = {
@@ -428,6 +428,7 @@ require('telescope').setup {
 vim.keymap.set('n', [[<TAB>f]], ':Telescope find_files<CR>', { silent = true, noremap = true })
 vim.keymap.set('n', [[<TAB>b]], ':Telescope buffers<CR>', { silent = true, noremap = true })
 vim.keymap.set('n', [[<TAB>s]], ':Telescope live_grep<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', [[<TAB>G]], ':Telescope git_status<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === nvim-telescope/telescope-fzf-native.nvim
@@ -450,5 +451,5 @@ vim.g.indentLine_fileTypeExclude = { 'startify' }
 -- === nvim-telescope/telescope-file-browser.nvim
 -- ===
 require('telescope').load_extension('file_browser')
-vim.keymap.set('n', [[<TAB>e]], [[:Telescope file_browser default_selection_index=2<CR>]], { silent = true, noremap = true })
-
+vim.keymap.set('n', [[<TAB>e]], [[:Telescope file_browser default_selection_index=2<CR>]],
+  { silent = true, noremap = true })
