@@ -34,6 +34,8 @@ Terminal editor (e.g. Bash) follows `emacs` keybindings by default.
     Only keep current tab and delete all others.
 `:source %`
     Source current open file as nvim config.
+`:set scrollbind`, `: set noscrollbind`
+    Set two (or more) windows scrolled together. But note all windows need to be set this. So you should type this in all windows you need to scroll together. So you should type this in all the windows you want to scroll together.
 
 
 ======================
