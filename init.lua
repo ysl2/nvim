@@ -343,7 +343,7 @@ vim.keymap.set('n', '<space>k', ':<C-u>CocPrev<cr>', opts)
 -- Resume latest coc list.
 vim.keymap.set('n', '<space>p', ':<C-u>CocListResume<cr>', opts)
 
-vim.keymap.set('n', [[<TAB>v]], ':CocOutline<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<TAB>v', ':CocOutline<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === easymotion/vim-easymotion
@@ -363,7 +363,7 @@ vim.g.rnvimr_action = {
   ['<C-x>'] = 'NvimEdit split',
   ['<C-v>'] = 'NvimEdit vsplit',
 }
-vim.keymap.set('n', [[<TAB>r]], ':RnvimrToggle<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<TAB>r', ':RnvimrToggle<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === itchyny/lightline.vim
@@ -373,7 +373,7 @@ vim.g.lightline = { colorscheme = 'wombat', }
 -- ===
 -- === kdheepak/lazygit.nvim
 -- ===
-vim.keymap.set('n', [[<TAB>g]], ':LazyGit<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<TAB>g', ':LazyGit<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === mg979/vim-tabline
@@ -425,10 +425,10 @@ require('telescope').setup {
     }
   }
 }
-vim.keymap.set('n', [[<TAB>f]], ':Telescope find_files<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', [[<TAB>b]], ':Telescope buffers<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', [[<TAB>s]], ':Telescope live_grep<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', [[<TAB>G]], ':Telescope git_status<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<TAB>f', ':Telescope find_files<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<TAB>b', ':Telescope buffers<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<TAB>s', ':Telescope live_grep<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<TAB>G', ':Telescope git_status<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === nvim-telescope/telescope-fzf-native.nvim
@@ -451,5 +451,6 @@ vim.g.indentLine_fileTypeExclude = { 'startify' }
 -- === nvim-telescope/telescope-file-browser.nvim
 -- ===
 require('telescope').load_extension('file_browser')
-vim.keymap.set('n', [[<TAB>e]], [[:Telescope file_browser default_selection_index=2<CR>]],
+vim.keymap.set('n', '<TAB>e', [[:Telescope file_browser default_selection_index=2<CR>]],
   { silent = true, noremap = true })
+
