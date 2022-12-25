@@ -45,7 +45,7 @@ Terminal editor (e.g. Bash) follows `emacs` keybindings by default.
 ============
 `:h diff`
     Type this for comprehensive introduction.
-    In fact, all you need is `:set diffthis`, `:set diffoff!`
+    In fact, all you need is `:diffthis`, `:diffoff!`
 `:set scrollbind`, `:set noscrollbind`
     Set two (or more) windows scrolled together. But note all the windows need to be set this. So you should type this in all windows you need to scroll together. So you should type this in all the windows you want to scroll together.
 `:diffthis`
