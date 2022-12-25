@@ -65,13 +65,15 @@ Terminal editor (e.g. Bash) follows `emacs` keybindings by default.
     Use it in visual-line mode. Can run normal mode commands in visual-line mode .
 
 
-============
-=== Pipe ===
-============
+===================
+=== File & Pipe ===
+===================
 `:r !cat temp.txt`
     Read contents from temp.txt and paste them into current line.
 `:w !sudo tee %`
     Write current file using sudo.
+`:set ff=unix`, `:set ff=dos`, `:set ff=mac`
+    Set file format to LF or CRLF.
 
 
 ================

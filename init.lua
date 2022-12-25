@@ -1,24 +1,14 @@
 -- =============
 -- === Basic ===
 -- =============
+vim.opt.fileformat = 'unix'
+vim.opt.wrap = false
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-vim.opt.wrap = false
-
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.api.nvim_create_autocmd('Filetype', {
-  pattern = {
-    'lua',
-    'json'
-  },
-  command = 'setlocal tabstop=2 shiftwidth=2',
-})
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -26,6 +16,14 @@ vim.opt.splitbelow = true
 vim.opt.termguicolors = true
 vim.opt.winblend = 30
 vim.cmd('colorscheme evening')
+
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.api.nvim_create_autocmd('Filetype', {
+  pattern = { 'lua', 'json' },
+  command = 'setlocal tabstop=2 shiftwidth=2',
+})
 
 vim.keymap.set('n', '<Space>', '', {})
 vim.g.mapleader = ' '
@@ -90,6 +88,7 @@ require('packer').startup(
       use 'mhinz/vim-startify'
       use 'airblade/vim-rooter'
       use 'romainl/vim-cool'
+      use 'tpope/vim-obsession'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
