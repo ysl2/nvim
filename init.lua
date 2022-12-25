@@ -85,7 +85,6 @@ require('packer').startup(
       use 'wellle/tmux-complete.vim'
       use 'lukas-reineke/indent-blankline.nvim'
       use 'voldikss/vim-floaterm'
-      use 'mhinz/vim-startify'
       use 'airblade/vim-rooter'
       use 'romainl/vim-cool'
       use 'tpope/vim-obsession'
