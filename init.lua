@@ -362,6 +362,9 @@ vim.g.rnvimr_enable_ex = 1
 vim.g.rnvimr_enable_picker = 1
 vim.g.rnvimr_enable_bw = 1
 vim.cmd('hi link NormalFloat NONE')
+vim.defer_fn(function ()
+    vim.cmd('RnvimrStartBackground')
+end, 1000)
 vim.g.rnvimr_action = {
   ['<CR>'] = 'NvimEdit tabedit',
   ['<C-x>'] = 'NvimEdit split',
