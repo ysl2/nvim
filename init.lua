@@ -85,6 +85,7 @@ require('packer').startup(
       use 'voldikss/vim-floaterm'
       use 'mhinz/vim-startify'
       use 'airblade/vim-rooter'
+      use 'romainl/vim-cool'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
