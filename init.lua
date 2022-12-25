@@ -32,6 +32,10 @@ vim.g.mapleader = ' '
 local opts = { silent = true, noremap = true }
 vim.keymap.set('i', '<C-c>', '<ESC>', opts)
 vim.keymap.set('n', '<C-z>', '<C-a>', opts)
+vim.keymap.set('n', '<C-w>H', ':set nospr<CR>:bp<CR>:vs<CR>:bn<CR>:set spr<CR>', opts)
+vim.keymap.set('n', '<C-w>L', ':bp<CR>:vs<CR>:bn<CR>', opts)
+vim.keymap.set('n', '<C-w>J', ':bp<CR>:sp<CR>:bn<CR>', opts)
+vim.keymap.set('n', '<C-w>K', ':set nosb<CR>:bp<CR>:sp<CR>:bn<CR>:set sb<CR>', opts)
 
 -- Auto delete trailing whitespace.
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
@@ -244,11 +248,11 @@ vim.api.nvim_create_autocmd('CursorHold', {
 })
 
 -- Symbol renaming.
-vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)', { silent = true })
+vim.keymap.set('n', [[\rn]], '<Plug>(coc-rename)', { silent = true })
 
 -- Formatting selected code.
-vim.keymap.set('x', '<leader>f', '<Plug>(coc-format-selected)', { silent = true })
-vim.keymap.set('n', '<leader>f', '<Plug>(coc-format-selected)', { silent = true })
+vim.keymap.set('x', [[\f]], '<Plug>(coc-format-selected)', { silent = true })
+vim.keymap.set('n', [[\f]], '<Plug>(coc-format-selected)', { silent = true })
 
 -- Setup formatexpr specified filetype(s).
 vim.api.nvim_create_autocmd('FileType', {
@@ -269,17 +273,17 @@ vim.api.nvim_create_autocmd('User', {
 -- Applying codeAction to the selected region.
 -- Example: `<leader>aap` for current paragraph
 local opts = { silent = true, nowait = true }
-vim.keymap.set('x', '<leader>a', '<Plug>(coc-codeaction-selected)', opts)
-vim.keymap.set('n', '<leader>a', '<Plug>(coc-codeaction-selected)', opts)
+vim.keymap.set('x', [[\a]], '<Plug>(coc-codeaction-selected)', opts)
+vim.keymap.set('n', [[\a]], '<Plug>(coc-codeaction-selected)', opts)
 
 -- Remap keys for applying codeAction to the current buffer.
-vim.keymap.set('n', '<leader>ac', '<Plug>(coc-codeaction)', opts)
+vim.keymap.set('n', [[\ac]], '<Plug>(coc-codeaction)', opts)
 
 -- Apply AutoFix to problem on the current line.
-vim.keymap.set('n', '<leader>qf', '<Plug>(coc-fix-current)', opts)
+vim.keymap.set('n', [[\qf]], '<Plug>(coc-fix-current)', opts)
 
 -- Run the Code Lens action on the current line.
-vim.keymap.set('n', '<leader>cl', '<Plug>(coc-codelens-action)', opts)
+vim.keymap.set('n', [[\cl]], '<Plug>(coc-codelens-action)', opts)
 
 -- Map function and class text objects
 -- NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -328,23 +332,23 @@ vim.api.nvim_create_user_command('OR', "call CocActionAsync('runCommand', 'edito
 ---@diagnostic disable-next-line: redefined-local
 local opts = { silent = true, nowait = true }
 -- Show all diagnostics.
-vim.keymap.set('n', '<space>a', ':<C-u>CocList diagnostics<cr>', opts)
+-- vim.keymap.set('n', '<space>a', ':<C-u>CocList diagnostics<cr>', opts)
 -- Manage extensions.
-vim.keymap.set('n', '<space>e', ':<C-u>CocList extensions<cr>', opts)
+-- vim.keymap.set('n', '<space>e', ':<C-u>CocList extensions<cr>', opts)
 -- Show commands.
-vim.keymap.set('n', '<space>c', ':<C-u>CocList commands<cr>', opts)
+-- vim.keymap.set('n', '<space>c', ':<C-u>CocList commands<cr>', opts)
 -- Find symbol of current document.
-vim.keymap.set('n', '<space>o', ':<C-u>CocList outline<cr>', opts)
+-- vim.keymap.set('n', '<space>o', ':<C-u>CocList outline<cr>', opts)
 -- Search workspace symbols.
-vim.keymap.set('n', '<space>s', ':<C-u>CocList -I symbols<cr>', opts)
+-- vim.keymap.set('n', '<space>s', ':<C-u>CocList -I symbols<cr>', opts)
 -- Do default action for next item.
-vim.keymap.set('n', '<space>j', ':<C-u>CocNext<cr>', opts)
+-- vim.keymap.set('n', '<space>j', ':<C-u>CocNext<cr>', opts)
 -- Do default action for previous item.
-vim.keymap.set('n', '<space>k', ':<C-u>CocPrev<cr>', opts)
+-- vim.keymap.set('n', '<space>k', ':<C-u>CocPrev<cr>', opts)
 -- Resume latest coc list.
-vim.keymap.set('n', '<space>p', ':<C-u>CocListResume<cr>', opts)
+-- vim.keymap.set('n', '<space>p', ':<C-u>CocListResume<cr>', opts)
 
-vim.keymap.set('n', '<TAB>v', ':CocOutline<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>v', ':CocOutline<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === easymotion/vim-easymotion
@@ -364,7 +368,7 @@ vim.g.rnvimr_action = {
   ['<C-x>'] = 'NvimEdit split',
   ['<C-v>'] = 'NvimEdit vsplit',
 }
-vim.keymap.set('n', '<TAB>r', ':RnvimrToggle<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>r', ':RnvimrToggle<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === itchyny/lightline.vim
@@ -374,7 +378,7 @@ vim.g.lightline = { colorscheme = 'wombat', }
 -- ===
 -- === kdheepak/lazygit.nvim
 -- ===
-vim.keymap.set('n', '<TAB>g', ':LazyGit<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === mg979/vim-tabline
@@ -426,10 +430,10 @@ require('telescope').setup {
     }
   }
 }
-vim.keymap.set('n', '<TAB>f', ':Telescope find_files<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', '<TAB>b', ':Telescope buffers<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', '<TAB>s', ':Telescope live_grep<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', '<TAB>G', ':Telescope git_status<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>f', ':Telescope find_files<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>b', ':Telescope buffers<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>s', ':Telescope live_grep<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>G', ':Telescope git_status<CR>', { silent = true, noremap = true })
 
 -- ===
 -- === nvim-telescope/telescope-fzf-native.nvim
@@ -452,6 +456,6 @@ vim.g.indentLine_fileTypeExclude = { 'startify' }
 -- === nvim-telescope/telescope-file-browser.nvim
 -- ===
 require('telescope').load_extension('file_browser')
-vim.keymap.set('n', '<TAB>e', ':Telescope file_browser default_selection_index=2<CR>',
+vim.keymap.set('n', '<Leader>e', ':Telescope file_browser default_selection_index=2<CR>',
   { silent = true, noremap = true })
 

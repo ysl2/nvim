@@ -18,6 +18,8 @@ Terminal editor (e.g. Bash) follows `emacs` keybindings by default.
     List all buffers.
 `:b 3`, `:b3`
     Jump to the 3rd buffer.
+`<C-w>T`
+    Split current buffer into a whole window. Useful when a window contains many buffers.
 `:tab sball`
     Split all buffer file to tabs.
 `:bn`, `:bp`
