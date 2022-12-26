@@ -490,4 +490,4 @@ vim.api.nvim_create_autocmd('VimEnter', {
     end
   end
 })
-vim.keymap.set('n', '<Leader>o', ':source Session.vim<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>o', ':silent! source Session.vim<CR>', { silent = true, noremap = true })
