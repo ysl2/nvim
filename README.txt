@@ -1,15 +1,9 @@
 ==============
 === Global ===
 ==============
-Terminal editor (e.g. Bash) follows `emacs` keybindings by default.
-
-
-=====================
-=== Bash Terminal ===
-=====================
+Some terminals (e.g. Bash) follow `emacs` keybindings by default.
 `!!`, `!-1`
-    Run last command
-
+    Run last command in Bash.
 
 =========================
 === Windows & Buffers ===
@@ -68,6 +62,8 @@ Terminal editor (e.g. Bash) follows `emacs` keybindings by default.
 ===================
 === File & Pipe ===
 ===================
+`:123`
+    Move to the line 123.
 `:r !cat temp.txt`
     Read contents from temp.txt and paste them into current line.
 `:w !sudo tee %`
