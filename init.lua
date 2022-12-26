@@ -460,3 +460,17 @@ require('telescope').load_extension('file_browser')
 vim.keymap.set('n', '<Leader>e', ':Telescope file_browser default_selection_index=2<CR>',
   { silent = true, noremap = true })
 
+-- ===
+-- === tpope/vim-obsession
+-- ===
+vim.api.nvim_create_autocmd('VimEnter', {
+  pattern = { '*' },
+  nested = true,
+  callback = function ()
+    if vim.fn.argc() == 0 and vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') then
+      vim.cmd(':source Session.vim')
+    end
+  end
+})
+vim.keymap.set('n', '<Leader>o', ':source Session.vim<CR>', { silent = true, noremap = true })
+
