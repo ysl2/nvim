@@ -30,15 +30,38 @@ vim.g.mapleader = ' '
 local opts = { silent = true, noremap = true }
 vim.keymap.set('i', '<C-c>', '<ESC>', opts)
 vim.keymap.set('n', '<C-z>', '<C-a>', opts)
-vim.keymap.set('n', '<C-w>H', ':bel vs | b# | winc p<CR>', opts)
-vim.keymap.set('n', '<C-w>J', ':abo sp | b# | winc p<CR>', opts)
-vim.keymap.set('n', '<C-w>K', ':bel sp | b# | winc p<CR>', opts)
-vim.keymap.set('n', '<C-w>L', ':abo vs | b# | winc p<CR>', opts)
+
+function command_wrapper_check_no_name_buffer (cmdstr)
+  if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
+    return
+  end
+  vim.cmd(cmdstr)
+end
+vim.keymap.set('n', '<C-w>H', ':lua command_wrapper_check_no_name_buffer(":bel vs | b# | winc p")<CR>', opts)
+vim.keymap.set('n', '<C-w>J', ':lua command_wrapper_check_no_name_buffer(":abo sp | b# | winc p")<CR>', opts)
+vim.keymap.set('n', '<C-w>K', ':lua command_wrapper_check_no_name_buffer(":bel sp | b# | winc p")<CR>', opts)
+vim.keymap.set('n', '<C-w>L', ':lua command_wrapper_check_no_name_buffer(":abo vs | b# | winc p")<CR>', opts)
 
 -- Auto delete trailing whitespace.
-vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*' },
   command = [[%s/\s\+$//e]],
+})
+
+-- Auto delete [No Name] buffers.
+vim.api.nvim_create_autocmd('BufLeave', {
+  pattern = { '*' },
+  callback = function ()
+    local buffers = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
+    if next(buffers) == nil then
+      return
+    end
+    local cmdstr = ':silent! bw!'
+    for _, v in pairs(buffers) do
+      cmdstr = cmdstr .. ' ' .. v
+    end
+    vim.cmd(cmdstr)
+  end
 })
 
 
@@ -328,7 +351,7 @@ vim.api.nvim_create_user_command('OR', "call CocActionAsync('runCommand', 'edito
 -- Mappings for CoCList
 -- code actions and coc stuff
 ---@diagnostic disable-next-line: redefined-local
-local opts = { silent = true, nowait = true }
+-- local opts = { silent = true, nowait = true }
 -- Show all diagnostics.
 -- vim.keymap.set('n', '<space>a', ':<C-u>CocList diagnostics<cr>', opts)
 -- Manage extensions.
@@ -449,11 +472,6 @@ vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true, noremap = true })
 vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true, noremap = true })
 
 -- ===
--- === lukas-reineke/indent-blankline.nvim
--- ===
-vim.g.indentLine_fileTypeExclude = { 'startify' }
-
--- ===
 -- === nvim-telescope/telescope-file-browser.nvim
 -- ===
 require('telescope').load_extension('file_browser')
@@ -467,10 +485,9 @@ vim.api.nvim_create_autocmd('VimEnter', {
   pattern = { '*' },
   nested = true,
   callback = function ()
-    if vim.fn.argc() == 0 and vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') then
+    if vim.fn.argc() == 0 and vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') == 1 then
       vim.cmd(':source Session.vim')
     end
   end
 })
 vim.keymap.set('n', '<Leader>o', ':source Session.vim<CR>', { silent = true, noremap = true })
-
