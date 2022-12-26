@@ -30,10 +30,10 @@ vim.g.mapleader = ' '
 local opts = { silent = true, noremap = true }
 vim.keymap.set('i', '<C-c>', '<ESC>', opts)
 vim.keymap.set('n', '<C-z>', '<C-a>', opts)
-vim.keymap.set('n', '<C-w>H', ':bel vs | bp | winc p<CR>', opts)
-vim.keymap.set('n', '<C-w>J', ':abo sp | bp | winc p<CR>', opts)
-vim.keymap.set('n', '<C-w>K', ':bel sp | bp | winc p<CR>', opts)
-vim.keymap.set('n', '<C-w>L', ':abo vs | bp | winc p<CR>', opts)
+vim.keymap.set('n', '<C-w>H', ':bel vs | b# | winc p<CR>', opts)
+vim.keymap.set('n', '<C-w>J', ':abo sp | b# | winc p<CR>', opts)
+vim.keymap.set('n', '<C-w>K', ':bel sp | b# | winc p<CR>', opts)
+vim.keymap.set('n', '<C-w>L', ':abo vs | b# | winc p<CR>', opts)
 
 -- Auto delete trailing whitespace.
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
