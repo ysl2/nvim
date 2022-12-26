@@ -486,7 +486,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   nested = true,
   callback = function ()
     if vim.fn.argc() == 0 and vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') == 1 then
-      vim.cmd(':source Session.vim')
+      vim.cmd(':silent! source Session.vim')
     end
   end
 })
