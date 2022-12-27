@@ -3,8 +3,6 @@
 -- =============
 vim.opt.wrap = false
 vim.opt.fileformat = 'unix'
-vim.opt.encoding='utf-8'
-vim.opt.fileencoding='utf-8'
 
 vim.opt.number = true
 vim.opt.relativenumber = true
