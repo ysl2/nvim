@@ -15,7 +15,6 @@ vim.opt.splitbelow = true
 
 vim.opt.termguicolors = true
 vim.opt.winblend = 30
-vim.cmd('colorscheme evening')
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -91,7 +90,6 @@ require('packer').startup(
       use 'tpope/vim-surround'
       use 'tpope/vim-commentary'
       use 'kevinhwang91/rnvimr'
-      use 'itchyny/lightline.vim'
       use 'kdheepak/lazygit.nvim'
       use 'Asheq/close-buffers.vim'
       use 'numirias/semshi'
@@ -111,6 +109,8 @@ require('packer').startup(
       use 'airblade/vim-rooter'
       use 'romainl/vim-cool'
       use 'tpope/vim-obsession'
+      use 'nvim-lualine/lualine.nvim'
+      use 'folke/tokyonight.nvim'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -491,3 +491,19 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end
 })
 vim.keymap.set('n', '<Leader>o', ':silent! source Session.vim<CR>', { silent = true, noremap = true })
+
+-- ===
+-- === nvim-lualine/lualine.nvim
+-- ===
+require('lualine').setup({
+  options = {
+    theme = 'tokyonight',
+  section_separators = { left = '', right = '' },
+  component_separators = { left = '|', right = '|' }
+  }
+})
+
+-- ===
+-- === folke/tokyonight.nvim
+-- ===
+vim.cmd('colorscheme tokyonight-night')
