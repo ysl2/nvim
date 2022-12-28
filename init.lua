@@ -506,4 +506,4 @@ require('lualine').setup({
 -- ===
 -- === folke/tokyonight.nvim
 -- ===
-vim.cmd('colorscheme tokyonight-night')
+vim.cmd('colorscheme tokyonight')
