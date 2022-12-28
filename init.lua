@@ -395,11 +395,6 @@ vim.g.rnvimr_action = {
 vim.keymap.set('n', '<Leader>r', ':RnvimrToggle<CR>', { silent = true, noremap = true })
 
 -- ===
--- === itchyny/lightline.vim
--- ===
-vim.g.lightline = { colorscheme = 'wombat', }
-
--- ===
 -- === kdheepak/lazygit.nvim
 -- ===
 vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true, noremap = true })
