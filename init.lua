@@ -498,8 +498,8 @@ vim.keymap.set('n', '<Leader>o', ':silent! source Session.vim<CR>', { silent = t
 require('lualine').setup({
   options = {
     theme = 'tokyonight',
-  section_separators = { left = '', right = '' },
-  component_separators = { left = '|', right = '|' }
+    section_separators = { left = '', right = '' },
+    component_separators = { left = '|', right = '|' }
   }
 })
 
