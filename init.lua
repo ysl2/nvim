@@ -26,7 +26,7 @@ vim.api.nvim_create_autocmd('Filetype', {
 
 vim.keymap.set('n', '<Space>', '', {})
 vim.g.mapleader = ' '
-local opts = { silent = true, noremap = true }
+local opts = { silent = true }
 vim.keymap.set('i', '<C-c>', '<ESC>', opts)
 vim.keymap.set('n', '<C-z>', '<C-a>', opts)
 
@@ -43,13 +43,11 @@ vim.keymap.set('n', '<C-w>L', ':lua command_wrapper_check_no_name_buffer(":abo v
 
 -- Auto delete trailing whitespace.
 vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*' },
   command = [[%s/\s\+$//e]],
 })
 
 -- Auto delete [No Name] buffers.
 vim.api.nvim_create_autocmd('BufLeave', {
-  pattern = { '*' },
   callback = function ()
     local buffers = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
     if next(buffers) == nil then
@@ -220,7 +218,7 @@ end
 -- no select by `"suggest.noselect": true` in your configuration file.
 -- NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 -- other plugin before putting this into your config.
-local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
+local opts = { silent = true, expr = true, replace_keycodes = false }
 vim.keymap.set('i', '<TAB>', 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()',
   opts)
 vim.keymap.set('i', '<S-TAB>', [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
@@ -369,7 +367,7 @@ vim.api.nvim_create_user_command('OR', "call CocActionAsync('runCommand', 'edito
 -- Resume latest coc list.
 -- vim.keymap.set('n', '<space>p', ':<C-u>CocListResume<cr>', opts)
 
-vim.keymap.set('n', '<Leader>v', ':CocOutline<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>v', ':CocOutline<CR>', { silent = true })
 
 -- ===
 -- === easymotion/vim-easymotion
@@ -392,12 +390,12 @@ vim.g.rnvimr_action = {
   ['<C-x>'] = 'NvimEdit split',
   ['<C-v>'] = 'NvimEdit vsplit',
 }
-vim.keymap.set('n', '<Leader>r', ':RnvimrToggle<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>r', ':RnvimrToggle<CR>', { silent = true })
 
 -- ===
 -- === kdheepak/lazygit.nvim
 -- ===
-vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true })
 
 -- ===
 -- === mg979/vim-tabline
@@ -449,10 +447,10 @@ require('telescope').setup {
     }
   }
 }
-vim.keymap.set('n', '<Leader>f', ':Telescope find_files<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', '<Leader>b', ':Telescope buffers<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', '<Leader>s', ':Telescope live_grep<CR>', { silent = true, noremap = true })
-vim.keymap.set('n', '<Leader>G', ':Telescope git_status<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>f', ':Telescope find_files<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>b', ':Telescope buffers<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>s', ':Telescope live_grep<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>G', ':Telescope git_status<CR>', { silent = true })
 
 -- ===
 -- === nvim-telescope/telescope-fzf-native.nvim
@@ -462,22 +460,21 @@ require('telescope').load_extension('fzf')
 -- ===
 -- === voldikss/vim-floaterm
 -- ===
-vim.keymap.set('n', [[<C-\>]], ':FloatermToggle<CR>', { silent = true, noremap = true })
-vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true, noremap = true })
-vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true, noremap = true })
+vim.keymap.set('n', [[<C-\>]], ':FloatermToggle<CR>', { silent = true })
+vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
+vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true })
 
 -- ===
 -- === nvim-telescope/telescope-file-browser.nvim
 -- ===
 require('telescope').load_extension('file_browser')
 vim.keymap.set('n', '<Leader>e', ':Telescope file_browser default_selection_index=2<CR>',
-  { silent = true, noremap = true })
+  { silent = true })
 
 -- ===
 -- === tpope/vim-obsession
 -- ===
 vim.api.nvim_create_autocmd('VimEnter', {
-  pattern = { '*' },
   nested = true,
   callback = function ()
     if vim.fn.argc() == 0 and vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') == 1 then
@@ -485,7 +482,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
     end
   end
 })
-vim.keymap.set('n', '<Leader>o', ':silent! source Session.vim<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<Leader>o', ':silent! source Session.vim<CR>', { silent = true })
 
 -- ===
 -- === nvim-lualine/lualine.nvim
