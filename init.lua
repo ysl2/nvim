@@ -2,7 +2,6 @@
 -- === Basic ===
 -- =============
 vim.opt.wrap = false
-vim.opt.fileformat = 'unix'
 
 vim.opt.number = true
 vim.opt.relativenumber = true
