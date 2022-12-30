@@ -5,6 +5,7 @@ Some terminals (e.g. Bash) follow `emacs` keybindings by default.
 `!!`, `!-1`
     Run last command in Bash.
 
+
 =========================
 === Windows & Buffers ===
 =========================
