@@ -28,7 +28,7 @@ Some terminals (e.g. Bash) follow `emacs` keybindings by default.
     Change vim workspace to current file's parent folder.
 `:tabo`
     Only keep current tab and delete all others.
-`:source %`
+`:source %`, `:so %`
     Source current open file as nvim config.
 `<C-w>|`, `<C-w>_`, `<C-w>=`
     `<C-w>|` for maxmium a vertical vsplit window. `<C-w>_` for maxmium a horizontal split window. `<C-w>=` for restore equal size.
