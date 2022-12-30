@@ -32,7 +32,10 @@ Some terminals (e.g. Bash) follow `emacs` keybindings by default.
     Source current open file as nvim config.
 `<C-w>|`, `<C-w>_`, `<C-w>=`
     `<C-w>|` for maxmium a vertical vsplit window. `<C-w>_` for maxmium a horizontal split window. `<C-w>=` for restore equal size.
-
+`split_number C-w C-w`
+    Select a split by it's pane number.
+    The panes are numbered from top-left to bottom-right with the first one getting the number 1.
+    For example to go to split number 3 do this 3 C-w C-w, press Ctrl-w twice.
 
 ============
 === Diff ===
