@@ -410,8 +410,7 @@ vim.g.xtabline_settings = {
 require('telescope').setup {
   defaults = {
     layout_strategy = 'vertical',
-    path_display = { 'smart' },
-    -- sorting_strategy = 'ascending',
+    path_display = { 'tail' },
     mappings = {
       i = {
         ['<C-j>'] = require('telescope.actions').move_selection_next,
