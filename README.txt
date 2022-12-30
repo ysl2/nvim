@@ -37,6 +37,7 @@ Some terminals (e.g. Bash) follow `emacs` keybindings by default.
     The panes are numbered from top-left to bottom-right with the first one getting the number 1.
     For example to go to split number 3 do this 3 C-w C-w, press Ctrl-w twice.
 
+
 ============
 === Diff ===
 ============
