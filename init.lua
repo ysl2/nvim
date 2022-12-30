@@ -29,12 +29,13 @@ local opts = { silent = true }
 vim.keymap.set('i', '<C-c>', '<ESC>', opts)
 vim.keymap.set('n', '<C-z>', '<C-a>', opts)
 
-function command_wrapper_check_no_name_buffer (cmdstr)
+function command_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
     return
   end
   vim.cmd(cmdstr)
 end
+
 vim.keymap.set('n', '<C-w>H', ':lua command_wrapper_check_no_name_buffer(":bel vs | silent! b# | winc p")<CR>', opts)
 vim.keymap.set('n', '<C-w>J', ':lua command_wrapper_check_no_name_buffer(":abo sp | silent! b# | winc p")<CR>', opts)
 vim.keymap.set('n', '<C-w>K', ':lua command_wrapper_check_no_name_buffer(":bel sp | silent! b# | winc p")<CR>', opts)
@@ -47,8 +48,9 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 -- Auto delete [No Name] buffers.
 vim.api.nvim_create_autocmd('BufLeave', {
-  callback = function ()
-    local buffers = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
+  callback = function()
+    local buffers = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr('$')),
+      'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
     if next(buffers) == nil then
       return
     end
@@ -254,6 +256,7 @@ function _G.show_docs()
     vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
   end
 end
+
 vim.keymap.set('n', 'K', '<CMD>lua _G.show_docs()<CR>', { silent = true })
 vim.keymap.set('n', 'gh', '<CMD>lua _G.show_docs()<CR>', { silent = true })
 
@@ -381,8 +384,8 @@ vim.g.rnvimr_enable_ex = 1
 vim.g.rnvimr_enable_picker = 1
 vim.g.rnvimr_enable_bw = 1
 vim.cmd('hi link NormalFloat NONE')
-vim.defer_fn(function ()
-    vim.cmd('RnvimrStartBackground')
+vim.defer_fn(function()
+  vim.cmd('RnvimrStartBackground')
 end, 1000)
 vim.g.rnvimr_action = {
   ['<CR>'] = 'NvimEdit tabedit',
@@ -474,7 +477,7 @@ vim.keymap.set('n', '<Leader>e', ':Telescope file_browser default_selection_inde
 -- ===
 vim.api.nvim_create_autocmd('VimEnter', {
   nested = true,
-  callback = function ()
+  callback = function()
     if vim.fn.argc() == 0 and vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') == 1 then
       vim.cmd(':silent! source Session.vim')
     end
@@ -502,4 +505,3 @@ vim.cmd('colorscheme tokyonight')
 -- === luochen1990/rainbow
 -- ===
 vim.g.rainbow_active = 1
-
