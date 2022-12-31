@@ -15,31 +15,23 @@ vim.opt.splitbelow = true
 vim.opt.termguicolors = true
 vim.opt.winblend = 30
 
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.api.nvim_create_autocmd('Filetype', {
-  pattern = { 'lua', 'json', 'md' },
-  command = 'setlocal tabstop=2 shiftwidth=2',
-})
-
 vim.keymap.set('n', '<Space>', '', {})
 vim.g.mapleader = ' '
 local opts = { silent = true }
 vim.keymap.set('i', '<C-c>', '<ESC>', opts)
 vim.keymap.set('n', '<C-z>', '<C-a>', opts)
 
-function command_wrapper_check_no_name_buffer(cmdstr)
+function Command_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
     return
   end
   vim.cmd(cmdstr)
 end
 
-vim.keymap.set('n', '<C-w>H', ':lua command_wrapper_check_no_name_buffer(":bel vs | silent! b# | winc p")<CR>', opts)
-vim.keymap.set('n', '<C-w>J', ':lua command_wrapper_check_no_name_buffer(":abo sp | silent! b# | winc p")<CR>', opts)
-vim.keymap.set('n', '<C-w>K', ':lua command_wrapper_check_no_name_buffer(":bel sp | silent! b# | winc p")<CR>', opts)
-vim.keymap.set('n', '<C-w>L', ':lua command_wrapper_check_no_name_buffer(":abo vs | silent! b# | winc p")<CR>', opts)
+vim.keymap.set('n', '<C-w>H', ':lua Command_wrapper_check_no_name_buffer(":bel vs | silent! b# | winc p")<CR>', opts)
+vim.keymap.set('n', '<C-w>J', ':lua Command_wrapper_check_no_name_buffer(":abo sp | silent! b# | winc p")<CR>', opts)
+vim.keymap.set('n', '<C-w>K', ':lua Command_wrapper_check_no_name_buffer(":bel sp | silent! b# | winc p")<CR>', opts)
+vim.keymap.set('n', '<C-w>L', ':lua Command_wrapper_check_no_name_buffer(":abo vs | silent! b# | winc p")<CR>', opts)
 
 -- Auto delete trailing whitespace.
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -111,6 +103,7 @@ require('packer').startup(
       use 'nvim-lualine/lualine.nvim'
       use 'folke/tokyonight.nvim'
       use 'mbbill/undotree'
+      use 'tpope/vim-sleuth'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
