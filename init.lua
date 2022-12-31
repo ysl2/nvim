@@ -510,5 +510,14 @@ vim.g.rainbow_active = 1
 -- ===
 -- === mbbill/undotree
 -- ===
+vim.g.undotree_WindowLayout = 3
+if vim.fn.has("persistent_undo") == 1 then
+  target_path = vim.fn.expand(vim.fn.stdpath('data') .. '/.undodir')
+  if vim.fn.isdirectory(target_path) == 0 then
+    vim.fn.mkdir(target_path, "p", 0700)
+  end
+  vim.cmd('set undodir="' .. target_path .. '"')
+  vim.cmd('set undofile')
+end
 vim.keymap.set('n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true })
 
