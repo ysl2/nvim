@@ -110,6 +110,7 @@ require('packer').startup(
       use 'tpope/vim-obsession'
       use 'nvim-lualine/lualine.nvim'
       use 'folke/tokyonight.nvim'
+      use 'mbbill/undotree'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -505,3 +506,9 @@ vim.cmd('colorscheme tokyonight')
 -- === luochen1990/rainbow
 -- ===
 vim.g.rainbow_active = 1
+
+-- ===
+-- === mbbill/undotree
+-- ===
+vim.keymap.set('n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true })
+
