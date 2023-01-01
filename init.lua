@@ -86,7 +86,6 @@ require('packer').startup(
       use 'numirias/semshi'
       use 'jbgutierrez/vim-better-comments'
       use 'luochen1990/rainbow'
-      use 'nvim-tree/nvim-web-devicons'
       use 'mg979/vim-xtabline'
       use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { { 'nvim-lua/plenary.nvim' } } }
       use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -105,6 +104,7 @@ require('packer').startup(
       use 'mbbill/undotree'
       use 'tpope/vim-sleuth'
       use { 'folke/which-key.nvim', config = function() require('which-key').setup {} end }
+      use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons', }, tag = 'nightly' }
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -375,7 +375,6 @@ vim.g.EasyMotion_keys = 'qwertyuiopasdfghjklzxcvbnm'
 -- ===
 -- === kevinhwang91/rnvimr
 -- ===
-vim.g.rnvimr_enable_ex = 1
 vim.g.rnvimr_enable_picker = 1
 vim.g.rnvimr_enable_bw = 1
 vim.cmd('hi link NormalFloat NONE')
@@ -519,7 +518,21 @@ end
 vim.keymap.set('n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true })
 
 -- ===
--- === folke/which-key.nvim
+-- === nvim-tree/nvim-tree.lua
 -- ===
-vim.keymap.set('n', '<Leader>', ':lua require("which-key").show(" ", { mode = "n", auto = true })<CR>', { silent = true })
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+require("nvim-tree").setup({
+  view = {
+    mappings = {
+      list = {
+        { key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
+        { key = "h", action = "close_node" },
+        { key = "v", action = "vsplit" },
+        { key = "C", action = "cd" },
+      }
+    }
+  }
+})
+vim.keymap.set('n', '<Leader>e', ':NvimTreeToggle<CR>', { silent = true })
 
