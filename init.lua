@@ -105,6 +105,7 @@ require('packer').startup(
       use { 'folke/which-key.nvim', config = function() require('which-key').setup {} end }
       use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons', }, tag = 'nightly' }
       use 'tpope/vim-fugitive'
+      use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -184,7 +185,6 @@ vim.g.coc_global_extensions = {
   'coc-yank',
   'coc-sumneko-lua',
   'coc-marketplace',
-  'coc-git',
   'coc-json',
   'coc-snippets',
   'coc-clangd',
