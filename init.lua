@@ -104,6 +104,7 @@ require('packer').startup(
       use 'folke/tokyonight.nvim'
       use 'mbbill/undotree'
       use 'tpope/vim-sleuth'
+      use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -513,4 +514,9 @@ if vim.fn.has("persistent_undo") == 1 then
   vim.cmd('set undofile')
 end
 vim.keymap.set('n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true })
+
+-- ===
+-- === folke/which-key.nvim
+-- ===
+vim.keymap.set('n', '<Leader>', ':lua require("which-key").show(" ", { mode = "n", auto = true })<CR>', { silent = true })
 
