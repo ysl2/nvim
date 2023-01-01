@@ -409,6 +409,7 @@ require('telescope').setup {
   defaults = {
     layout_strategy = 'vertical',
     path_display = { 'tail' },
+    sorting_strategy = 'ascending',
     mappings = {
       i = {
         ['<C-j>'] = require('telescope.actions').move_selection_next,
@@ -420,6 +421,8 @@ require('telescope').setup {
     layout_config = {
       vertical = {
         preview_cutoff = 0,
+        prompt_position = 'top',
+        mirror = true,
       },
     },
     preview = {
