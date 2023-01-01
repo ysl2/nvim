@@ -396,7 +396,7 @@ vim.keymap.set('n', '<Leader>r', ':RnvimrToggle<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true })
 
 -- ===
--- === mg979/vim-tabline
+-- === mg979/vim-xtabline
 -- ===
 vim.g.xtabline_settings = {
   enable_mappings = 0,
@@ -440,9 +440,9 @@ require('telescope').setup {
     -- Now the picker_config_key will be applied every time you call this
     -- builtin picker
   },
-  extensions = {
-    -- Your extension configuration goes here:
-  }
+  -- extensions = {
+  --   -- Your extension configuration goes here:
+  -- }
 }
 vim.keymap.set('n', '<Leader>f', ':Telescope find_files<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>b', ':Telescope buffers<CR>', { silent = true })
@@ -499,12 +499,13 @@ vim.g.rainbow_active = 1
 -- === mbbill/undotree
 -- ===
 vim.g.undotree_WindowLayout = 3
-if vim.fn.has("persistent_undo") == 1 then
-  target_path = vim.fn.expand(vim.fn.stdpath('data') .. '/.undodir')
+if vim.fn.has('persistent_undo') == 1 then
+  local target_path = vim.fn.expand(vim.fn.stdpath('data') .. '/.undodir')
   if vim.fn.isdirectory(target_path) == 0 then
-    vim.fn.mkdir(target_path, "p", 0700)
+    vim.fn.mkdir(target_path, 'p')
   end
-  vim.cmd('set undodir="' .. target_path .. '"')
+  -- vim.cmd('let &undodir="' .. target_path:gsub('%') .. '"')
+  vim.cmd("let &undodir='" .. target_path .. "'")
   vim.cmd('set undofile')
 end
 vim.keymap.set('n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true })
@@ -518,8 +519,8 @@ require('nvim-tree').setup({
   view = {
     mappings = {
       list = {
-        { key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
-        { key = "h", action = "close_node" },
+        { key = { 'l', '<CR>', 'o' }, action = 'edit', mode = 'n' },
+        { key = 'h', action = 'close_node' },
       }
     }
   }
