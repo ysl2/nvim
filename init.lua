@@ -440,9 +440,6 @@ require('telescope').setup {
   },
   extensions = {
     -- Your extension configuration goes here:
-    file_browser = {
-      grouped = true,
-    }
   }
 }
 vim.keymap.set('n', '<Leader>f', ':Telescope find_files<CR>', { silent = true })
@@ -461,11 +458,6 @@ require('telescope').load_extension('fzf')
 vim.keymap.set('n', [[<C-\>]], ':FloatermToggle<CR>', { silent = true })
 vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true })
-
--- ===
--- === nvim-telescope/telescope-file-browser.nvim
--- ===
-require('telescope').load_extension('file_browser')
 
 -- ===
 -- === tpope/vim-obsession
