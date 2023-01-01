@@ -89,7 +89,6 @@ require('packer').startup(
       use 'mg979/vim-xtabline'
       use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { { 'nvim-lua/plenary.nvim' } } }
       use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-      use 'nvim-telescope/telescope-file-browser.nvim'
       use 'gcmt/wildfire.vim'
       use 'honza/vim-snippets'
       use 'itchyny/vim-cursorword'
@@ -105,6 +104,7 @@ require('packer').startup(
       use 'tpope/vim-sleuth'
       use { 'folke/which-key.nvim', config = function() require('which-key').setup {} end }
       use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons', }, tag = 'nightly' }
+      use 'tpope/vim-fugitive'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -466,8 +466,6 @@ vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = tru
 -- === nvim-telescope/telescope-file-browser.nvim
 -- ===
 require('telescope').load_extension('file_browser')
-vim.keymap.set('n', '<Leader>e', ':Telescope file_browser default_selection_index=2<CR>',
-  { silent = true })
 
 -- ===
 -- === tpope/vim-obsession
