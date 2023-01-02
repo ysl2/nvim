@@ -55,6 +55,11 @@ vim.api.nvim_create_autocmd('BufLeave', {
   end
 })
 
+-- Auto highlight after yank.
+vim.api.nvim_create_autocmd('TextYankPost', {
+  command = ':silent! lua vim.highlight.on_yank()',
+})
+
 
 -- ===============
 -- === Plugins ===
@@ -110,7 +115,7 @@ require('packer').startup(
       use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
       use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() require('window-picker').setup() end }
-      use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup {} end }
+      use 'windwp/nvim-autopairs'
       use { 'folke/trouble.nvim', requires = 'nvim-tree/nvim-web-devicons',
         config = function() require('trouble').setup {} end }
       use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim',
@@ -193,7 +198,6 @@ vim.g.coc_global_extensions = {
   'coc-pyright',
   'coc-sh',
   'coc-tabnine',
-  'coc-yank',
   'coc-sumneko-lua',
   'coc-marketplace',
   'coc-json',
@@ -553,4 +557,19 @@ vim.keymap.set('n', '<leader>x',
 -- === folke/zen-mode.nvim
 -- ===
 vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
+
+-- ===
+-- === windwp/nvim-autopairs
+-- ===
+require('nvim-autopairs').setup({ map_cr = false })
+_G.MUtils= {}
+MUtils.completion_confirm=function()
+  if vim.fn["coc#pum#visible"]() ~= 0 then
+    return vim.fn["coc#pum#confirm"]()
+  else
+    return require('nvim-autopairs').autopairs_cr()
+  end
+end
+
+vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true })
 
