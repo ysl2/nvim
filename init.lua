@@ -572,7 +572,6 @@ vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true }
 -- ===
 vim.opt.background = 'dark'
 vim.g.everforest_diagnostic_text_highlight = 1
-vim.g.everforest_diagnostic_line_highlight = 1
 
 
 -- ====================
