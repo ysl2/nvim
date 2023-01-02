@@ -106,7 +106,6 @@ require('packer').startup(
       use 'romainl/vim-cool'
       use 'tpope/vim-obsession'
       use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
-      use 'folke/tokyonight.nvim'
       use 'mbbill/undotree'
       use 'tpope/vim-sleuth'
       use { 'folke/which-key.nvim', config = function() require('which-key').setup {} end }
@@ -123,6 +122,7 @@ require('packer').startup(
       use { 'folke/twilight.nvim', config = function() require('twilight').setup {} end }
       use { 'folke/zen-mode.nvim', config = function() require('zen-mode').setup {} end }
       use 'sainnhe/everforest'
+      use 'liuchengxu/vista.vim'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -379,8 +379,6 @@ vim.api.nvim_create_user_command('OR', "call CocActionAsync('runCommand', 'edito
 -- Resume latest coc list.
 -- vim.keymap.set('n', '<space>p', ':<C-u>CocListResume<cr>', opts)
 
-vim.keymap.set('n', '<Leader>v', ':CocOutline<CR>', { silent = true })
-
 -- ===
 -- === easymotion/vim-easymotion
 -- ===
@@ -572,6 +570,12 @@ vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true }
 -- ===
 vim.opt.background = 'dark'
 vim.g.everforest_diagnostic_text_highlight = 1
+
+-- ===
+-- === liuchengxu/vista.vim
+-- ===
+vim.g.vista_default_executive = 'coc'
+vim.keymap.set('n', '<Leader>v', ':Vista!!<CR>', { silent = true })
 
 
 -- ====================
