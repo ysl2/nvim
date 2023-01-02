@@ -111,6 +111,10 @@ require('packer').startup(
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
       use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() require('window-picker').setup() end }
       use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup {} end }
+      use { 'folke/trouble.nvim', config = function() require('trouble').setup {} end }
+      use { 'folke/todo-comments.nvim', config = function() require('todo-comments').setup {} end }
+      use { 'folke/twilight.nvim', config = function() require('twilight').setup {} end }
+      use { 'folke/zen-mode.nvim', config = function() require('zen-mode').setup {} end }
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -536,4 +540,10 @@ vim.keymap.set('n', '<leader>w', function()
   local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
   vim.api.nvim_set_current_win(picked_window_id)
 end, { desc = 'Pick a window' })
+
+-- ===
+-- === folke/trouble.nvim
+-- ===
+vim.keymap.set('n', '<leader>x',
+  '<cmd>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><cmd>TroubleToggle loclist<CR>', { silent = true })
 
