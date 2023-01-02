@@ -2,6 +2,7 @@
 -- === Basic ===
 -- =============
 vim.opt.wrap = false
+vim.opt.scrolloff = 1
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -86,6 +87,7 @@ require('packer').startup(
       use 'numirias/semshi'
       use 'jbgutierrez/vim-better-comments'
       use 'luochen1990/rainbow'
+      use 'nvim-tree/nvim-web-devicons'
       use 'mg979/vim-xtabline'
       use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { { 'nvim-lua/plenary.nvim' } } }
       use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -103,7 +105,7 @@ require('packer').startup(
       use 'mbbill/undotree'
       use 'tpope/vim-sleuth'
       use { 'folke/which-key.nvim', config = function() require('which-key').setup {} end }
-      use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons', }, tag = 'nightly' }
+      use { 'nvim-tree/nvim-tree.lua', tag = 'nightly' }
       use 'tpope/vim-fugitive'
       use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
