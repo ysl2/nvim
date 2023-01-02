@@ -3,6 +3,7 @@
 -- =============
 vim.opt.wrap = false
 vim.opt.scrolloff = 1
+vim.opt.maxmempattern = 2000
 
 vim.opt.number = true
 vim.opt.relativenumber = true
