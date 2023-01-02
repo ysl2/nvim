@@ -122,6 +122,7 @@ require('packer').startup(
         config = function() require('todo-comments').setup {} end }
       use { 'folke/twilight.nvim', config = function() require('twilight').setup {} end }
       use { 'folke/zen-mode.nvim', config = function() require('zen-mode').setup {} end }
+      use 'sainnhe/everforest'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -491,16 +492,10 @@ vim.keymap.set('n', '<Leader>o', ':silent! source Session.vim<CR>', { silent = t
 -- ===
 require('lualine').setup({
   options = {
-    theme = 'tokyonight',
     section_separators = { left = '', right = '' },
     component_separators = { left = '', right = '' }
   }
 })
-
--- ===
--- === folke/tokyonight.nvim
--- ===
-vim.cmd('colorscheme tokyonight')
 
 -- ===
 -- === luochen1990/rainbow
@@ -516,7 +511,6 @@ if vim.fn.has('persistent_undo') == 1 then
   if vim.fn.isdirectory(target_path) == 0 then
     vim.fn.mkdir(target_path, 'p')
   end
-  -- vim.cmd('let &undodir="' .. target_path:gsub('%') .. '"')
   vim.cmd("let &undodir='" .. target_path .. "'")
   vim.cmd('set undofile')
 end
@@ -562,8 +556,8 @@ vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 -- === windwp/nvim-autopairs
 -- ===
 require('nvim-autopairs').setup({ map_cr = false })
-_G.MUtils= {}
-MUtils.completion_confirm=function()
+_G.MUtils = {}
+MUtils.completion_confirm = function()
   if vim.fn["coc#pum#visible"]() ~= 0 then
     return vim.fn["coc#pum#confirm"]()
   else
@@ -572,4 +566,17 @@ MUtils.completion_confirm=function()
 end
 
 vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true })
+
+-- ===
+-- === sainnhe/everforest
+-- ===
+vim.opt.background = 'dark'
+vim.g.everforest_diagnostic_text_highlight = 1
+vim.g.everforest_diagnostic_line_highlight = 1
+
+
+-- ====================
+-- === Color Scheme ===
+-- ====================
+vim.cmd('colorscheme everforest')
 
