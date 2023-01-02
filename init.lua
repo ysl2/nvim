@@ -100,19 +100,21 @@ require('packer').startup(
       use 'airblade/vim-rooter'
       use 'romainl/vim-cool'
       use 'tpope/vim-obsession'
-      use 'nvim-lualine/lualine.nvim'
+      use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
       use 'folke/tokyonight.nvim'
       use 'mbbill/undotree'
       use 'tpope/vim-sleuth'
       use { 'folke/which-key.nvim', config = function() require('which-key').setup {} end }
-      use { 'nvim-tree/nvim-tree.lua', tag = 'nightly' }
+      use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons', }, tag = 'nightly' }
       use 'tpope/vim-fugitive'
       use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
       use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() require('window-picker').setup() end }
       use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup {} end }
-      use { 'folke/trouble.nvim', config = function() require('trouble').setup {} end }
-      use { 'folke/todo-comments.nvim', config = function() require('todo-comments').setup {} end }
+      use { 'folke/trouble.nvim', requires = 'nvim-tree/nvim-web-devicons',
+        config = function() require('trouble').setup {} end }
+      use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim',
+        config = function() require('todo-comments').setup {} end }
       use { 'folke/twilight.nvim', config = function() require('twilight').setup {} end }
       use { 'folke/zen-mode.nvim', config = function() require('zen-mode').setup {} end }
 
@@ -546,4 +548,9 @@ end, { desc = 'Pick a window' })
 -- ===
 vim.keymap.set('n', '<leader>x',
   '<cmd>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><cmd>TroubleToggle loclist<CR>', { silent = true })
+
+-- ===
+-- === folke/zen-mode.nvim
+-- ===
+vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 
