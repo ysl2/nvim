@@ -563,8 +563,7 @@ MUtils.completion_confirm = function()
     return require('nvim-autopairs').autopairs_cr()
   end
 end
-
-vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true })
+vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { silent = true, expr = true })
 
 -- ===
 -- === liuchengxu/vista.vim
