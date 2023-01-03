@@ -561,8 +561,8 @@ vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 require('nvim-autopairs').setup({ map_cr = false })
 _G.MUtils = {}
 MUtils.completion_confirm = function()
-  if vim.fn["coc#pum#visible"]() ~= 0 then
-    return vim.fn["coc#pum#confirm"]()
+  if vim.fn['coc#pum#visible']() ~= 0 then
+    return vim.fn['coc#pum#confirm']()
   else
     return require('nvim-autopairs').autopairs_cr()
   end
