@@ -567,12 +567,6 @@ end
 vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true })
 
 -- ===
--- === sainnhe/everforest
--- ===
-vim.opt.background = 'dark'
-vim.g.everforest_diagnostic_text_highlight = 1
-
--- ===
 -- === liuchengxu/vista.vim
 -- ===
 vim.g.vista_default_executive = 'coc'
