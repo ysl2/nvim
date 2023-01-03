@@ -58,7 +58,9 @@ vim.api.nvim_create_autocmd('BufLeave', {
 
 -- Auto highlight after yank.
 vim.api.nvim_create_autocmd('TextYankPost', {
-  command = ':silent! lua vim.highlight.on_yank()',
+  callback = function()
+    vim.highlight.on_yank()
+  end
 })
 
 
