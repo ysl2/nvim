@@ -126,6 +126,8 @@ require('packer').startup(
       use { 'folke/zen-mode.nvim', config = function() require('zen-mode').setup {} end }
       use 'sainnhe/everforest'
       use 'liuchengxu/vista.vim'
+      use 'RRethy/vim-illuminate'
+
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
