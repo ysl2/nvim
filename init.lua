@@ -114,7 +114,7 @@ require('packer').startup(
       use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
       use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() require('window-picker').setup() end }
-      use 'windwp/nvim-autopairs'
+      use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup {} end }
       use { 'folke/trouble.nvim', requires = 'nvim-tree/nvim-web-devicons',
         config = function() require('trouble').setup {} end }
       use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim',
