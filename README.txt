@@ -85,3 +85,10 @@ Some terminals (e.g. Bash) follow `emacs` keybindings by default.
 `<C-\><C-n>`
     Exit the terminal.
 
+
+=============
+=== Win32 ===
+=============
+`./neovideOpenFolder.reg` and `./neovimOpenFolder.reg`:
+    Add Neovide / Neovim into right mouse click menu.
+
