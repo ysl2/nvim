@@ -204,6 +204,10 @@ require('nvim-treesitter.configs').setup {
 -- ===
 -- === neoclide/coc.nvim
 -- ===
+if vim.fn.has('win32') == 1 then
+  vim.g.coc_config_home = '~/AppData/Local/nvim/coc-settings.windows'
+end
+
 vim.g.coc_global_extensions = {
   'coc-pyright',
   'coc-sh',

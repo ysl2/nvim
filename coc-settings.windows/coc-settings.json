@@ -1,0 +1,27 @@
+{
+  "Lua.telemetry.enable": false,
+  "coc.preferences.hoverTarget": "preview",
+  "snippets.userSnippetsDirectory": "C:/Users/fa fa/AppData/Local/nvim/ultisnips",
+  "languageserver": {
+    "sourcery": {
+      "command": "sourcery",
+      "args": [
+        "lsp"
+      ],
+      "filetypes": [
+        "python"
+      ],
+      "initializationOptions": {
+        "extension_version": "coc.vim",
+        "editor_version": "vim"
+      },
+      "settings": {
+        "sourcery": {
+          "metricsEnabled": true
+        }
+      }
+    }
+  },
+  "sumneko-lua.serverDir": "C:/Users/fa fa/.vscode/extensions/sumneko.lua-3.6.4-win32-x64/server"
+}
+
