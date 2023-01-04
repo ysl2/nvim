@@ -1,6 +1,7 @@
 -- =============
 -- === Basic ===
 -- =============
+vim.g.neovide_cursor_animation_length = 0
 vim.opt.wrap = false
 vim.opt.scrolloff = 1
 vim.opt.maxmempattern = 2000
@@ -89,8 +90,6 @@ require('packer').startup(
       use 'easymotion/vim-easymotion'
       use 'tpope/vim-surround'
       use 'tpope/vim-commentary'
-      use 'kevinhwang91/rnvimr'
-      use 'kdheepak/lazygit.nvim'
       use 'Asheq/close-buffers.vim'
       use 'numirias/semshi'
       use 'jbgutierrez/vim-better-comments'
@@ -98,11 +97,9 @@ require('packer').startup(
       use 'nvim-tree/nvim-web-devicons'
       use 'mg979/vim-xtabline'
       use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { { 'nvim-lua/plenary.nvim' } } }
-      use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
       use 'gcmt/wildfire.vim'
       use 'honza/vim-snippets'
       use 'itchyny/vim-cursorword'
-      use 'wellle/tmux-complete.vim'
       use 'lukas-reineke/indent-blankline.nvim'
       use 'voldikss/vim-floaterm'
       use 'airblade/vim-rooter'
@@ -128,6 +125,12 @@ require('packer').startup(
       use 'liuchengxu/vista.vim'
       use 'RRethy/vim-illuminate'
 
+      if not (vim.fn.has('win32') == 1) then
+        use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+        use 'kevinhwang91/rnvimr'
+        use 'kdheepak/lazygit.nvim'
+        use 'wellle/tmux-complete.vim'
+      end
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
@@ -153,15 +156,16 @@ end
 
 require('nvim-treesitter.configs').setup {
   -- A list of parser names, or "all"
-  ensure_installed = { 'lua', 'bash', 'bibtex', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'diff', 'help',
-    'http', 'json', 'jsonc', 'latex', 'lua', 'markdown', 'markdown_inline', 'python', 'regex', 'toml', 'vim', 'yaml' },
+  -- ensure_installed = { 'lua', 'bash', 'bibtex', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'diff', 'help',
+  -- 'http', 'json', 'jsonc', 'latex', 'lua', 'markdown', 'markdown_inline', 'python', 'regex', 'toml', 'vim', 'yaml' },
+  ensure_installed = {},
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = true,
+  sync_install = false,
 
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
+  auto_install = false,
 
   -- List of parsers to ignore installing (for "all")
   -- ignore_install = { "javascript" },
@@ -393,23 +397,27 @@ vim.g.EasyMotion_keys = 'qwertyuiopasdfghjklzxcvbnm'
 -- ===
 -- === kevinhwang91/rnvimr
 -- ===
-vim.g.rnvimr_enable_picker = 1
-vim.g.rnvimr_enable_bw = 1
-vim.cmd('hi link NormalFloat NONE')
-vim.defer_fn(function()
-  vim.cmd('RnvimrStartBackground')
-end, 1000)
-vim.g.rnvimr_action = {
-  ['<CR>'] = 'NvimEdit tabedit',
-  ['<C-x>'] = 'NvimEdit split',
-  ['<C-v>'] = 'NvimEdit vsplit',
-}
-vim.keymap.set('n', '<Leader>r', ':RnvimrToggle<CR>', { silent = true })
+if not (vim.fn.has('win32') == 1) then
+  vim.g.rnvimr_enable_picker = 1
+  vim.g.rnvimr_enable_bw = 1
+  vim.cmd('hi link NormalFloat NONE')
+  vim.defer_fn(function()
+    vim.cmd('RnvimrStartBackground')
+  end, 1000)
+  vim.g.rnvimr_action = {
+    ['<CR>'] = 'NvimEdit tabedit',
+    ['<C-x>'] = 'NvimEdit split',
+    ['<C-v>'] = 'NvimEdit vsplit',
+  }
+  vim.keymap.set('n', '<Leader>r', ':RnvimrToggle<CR>', { silent = true })
+end
 
 -- ===
 -- === kdheepak/lazygit.nvim
 -- ===
-vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true })
+if not (vim.fn.has('win32') == 1) then
+  vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true })
+end
 
 -- ===
 -- === mg979/vim-xtabline
@@ -432,7 +440,7 @@ require('telescope').setup {
         ['<C-j>'] = require('telescope.actions').move_selection_next,
         ['<C-k>'] = require('telescope.actions').move_selection_previous,
         ['<C-r>'] = require('telescope.actions.layout').toggle_preview,
-        ['<c-b>'] = require('telescope.actions').delete_buffer
+        ['<C-b>'] = require('telescope.actions').delete_buffer
       }
     },
     layout_config = {
@@ -468,7 +476,9 @@ vim.keymap.set('n', '<Leader>G', ':Telescope git_status<CR>', { silent = true })
 -- ===
 -- === nvim-telescope/telescope-fzf-native.nvim
 -- ===
-require('telescope').load_extension('fzf')
+if not (vim.fn.has('win32') == 1) then
+  require('telescope').load_extension('fzf')
+end
 
 -- ===
 -- === voldikss/vim-floaterm
@@ -483,8 +493,32 @@ vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = tru
 vim.api.nvim_create_autocmd('VimEnter', {
   nested = true,
   callback = function()
-    if vim.fn.argc() == 0 and vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') == 1 then
-      vim.cmd(':silent! source Session.vim')
+    if vim.fn.has('win32') == 1 then
+      -- An empty file will be opened if you use right mouse click. So `bw!` to delete it.
+      -- Once you delete the empty buffer, netrw won't popup. So you needn't do `vim.cmd('silent! au! FileExplorer *')` to silent netrw.
+      vim.cmd(':silent! cd %:p:h')
+      -- vim.fn.argc() is 1 (not 0) if you open from right mouse click on windows platform.
+      -- So it can't be an instance that can be treated as in a workspace.
+      if vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') == 1 then
+        vim.cmd(':silent! %bw! | silent! source Session.vim')
+      end
+      -- Prevent auto creating a [No Name] buffer or a buffer which name is current working directory.
+      local cmdstr = ':silent! bw!'
+      for _, v in pairs(vim.fn.range(1, vim.fn.bufnr('$'))) do
+        if vim.fn.bufname(v) == ''
+            or vim.fn.bufname(v):gsub('%/', [[\]]) == vim.fn.getcwd() .. [[\]]
+            or vim.fn.bufname(v):gsub('%/', [[\]]) == vim.fn.getcwd()
+        then
+          cmdstr = cmdstr .. ' ' .. v
+        end
+      end
+      if not (cmdstr:sub(-1) == '!') then
+        vim.cmd(cmdstr)
+      end
+    else
+      if vim.fn.argc() == 0 and vim.fn.empty(vim.v.this_session) and vim.fn.filereadable('Session.vim') == 1 then
+        vim.cmd(':silent! source Session.vim')
+      end
     end
   end
 })
