@@ -128,6 +128,13 @@ require('packer').startup(
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
       use 'neovim/nvim-lspconfig'
+      use 'hrsh7th/cmp-nvim-lsp'
+      use 'hrsh7th/cmp-buffer'
+      use 'hrsh7th/cmp-path'
+      use 'hrsh7th/cmp-cmdline'
+      use 'hrsh7th/nvim-cmp'
+      use 'L3MON4D3/LuaSnip'
+      use 'saadparwaiz1/cmp_luasnip'
 
       if not (vim.fn.has('win32') == 1) then
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -616,21 +623,27 @@ vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 -- vim.g.vista_default_executive = 'coc'
 vim.keymap.set('n', '<Leader>v', ':Vista!!<CR>', { silent = true })
 
--- williamboman/mason
+-- ===
+-- === williamboman/mason
+-- ===
 require('mason').setup({
   github = { download_url_template = 'https://ghproxy.com/https://github.com/%s/releases/download/%s/%s', }
 })
--- williamboman/mason-lspconfig
-local mylsps = { 'pyright', 'sumneko_lua' }
+
+-- ===
+-- === williamboman/mason-lspconfig
+-- ===
 require('mason-lspconfig').setup({
-  ensure_installed = mylsps,
+  ensure_installed = { 'pyright', 'sumneko_lua' },
   automatic_installation = true,
 })
 
--- neovim/nvim-lspconfig
+-- ===
+-- === neovim/nvim-lspconfig
+-- ===
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '\\e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -644,7 +657,7 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -662,15 +675,96 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '\\f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-for _, v in pairs(mylsps) do
-  require('lspconfig')[v].setup({
-    on_attach = on_attach
+-- ===
+-- === hrsh7th/nvim-cmp
+-- ===
+vim.opt.completeopt = 'menu,menuone,noselect'
+local cmp = require 'cmp'
+require 'cmp'.setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    -- { name = 'vsnip' }, -- For vsnip users.
+    { name = 'luasnip' }, -- For luasnip users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }, {
+    { name = 'buffer' },
   })
-end
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+require('mason-lspconfig').setup_handlers({
+  -- The first entry (without a key) will be the default handler
+  -- and will be called for each installed server that doesn't have
+  -- a dedicated handler.
+  function(server_name) -- default handler (optional)
+    require('lspconfig')[server_name].setup({
+      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      on_attach = on_attach,
+    })
+  end,
+  -- Next, you can provide targeted overrides for specific servers.
+  ["sumneko_lua"] = function()
+    require('lspconfig').sumneko_lua.setup {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" }
+          }
+        }
+      }
+    }
+  end,
+})
 
 
 -- ====================
 -- === Color Scheme ===
 -- ====================
 vim.cmd('colorscheme everforest')
-
