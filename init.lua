@@ -1,7 +1,6 @@
 -- =============
 -- === Basic ===
 -- =============
-vim.g.neovide_cursor_animation_length = 0
 vim.opt.wrap = false
 vim.opt.scrolloff = 1
 vim.opt.maxmempattern = 2000
@@ -21,7 +20,7 @@ vim.opt.winblend = 30
 vim.keymap.set('n', '<Space>', '', {})
 vim.g.mapleader = ' '
 local opts = { silent = true }
-vim.keymap.set('i', '<C-c>', '<ESC>', opts)
+vim.keymap.set('i', '<C-c>', '<c-[>', opts)
 vim.keymap.set('n', '<C-z>', '<C-a>', opts)
 
 function Command_wrapper_check_no_name_buffer(cmdstr)
@@ -559,15 +558,14 @@ require('mason-lspconfig').setup_handlers({
   -- Next, you can provide targeted overrides for specific servers.
   ['sumneko_lua'] = function()
     require('lspconfig').sumneko_lua.setup(vim.tbl_extend('force', lsp_config, {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' }
-            }
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' }
           }
         }
-      })
-    )
+      }
+    }))
   end,
 })
 
@@ -576,3 +574,4 @@ require('mason-lspconfig').setup_handlers({
 -- === Color Scheme ===
 -- ====================
 vim.cmd('colorscheme everforest')
+
