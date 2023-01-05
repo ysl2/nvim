@@ -134,6 +134,7 @@ require('packer').startup(
       use 'hrsh7th/nvim-cmp'
       use 'L3MON4D3/LuaSnip'
       use 'saadparwaiz1/cmp_luasnip'
+      use 'onsails/lspkind.nvim'
 
       if not (vim.fn.has('win32') == 1) then
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -470,6 +471,59 @@ local on_attach = function(client, bufnr)
 end
 
 -- ===
+-- === onsails/lspkind.nvim
+-- ===
+require('lspkind').init({
+  -- DEPRECATED (use mode instead): enables text annotations
+  --
+  -- default: true
+  -- with_text = true,
+
+  -- defines how annotations are shown
+  -- default: symbol
+  -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+  mode = 'symbol_text',
+
+  -- default symbol map
+  -- can be either 'default' (requires nerd-fonts font) or
+  -- 'codicons' for codicon preset (requires vscode-codicons font)
+  --
+  -- default: 'default'
+  preset = 'codicons',
+
+  -- override preset symbols
+  --
+  -- default: {}
+  symbol_map = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "ﰠ",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "塞",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "פּ",
+    Event = "",
+    Operator = "",
+    TypeParameter = ""
+  },
+})
+
+-- ===
 -- === hrsh7th/nvim-cmp
 -- ===
 require('cmp').setup({
@@ -512,6 +566,9 @@ require('cmp').setup({
   }, {
     { name = 'buffer' },
   }),
+  formatting = {
+    format = require('lspkind').cmp_format({})
+  }
 })
 
 -- Set configuration for specific filetype.
@@ -541,29 +598,29 @@ require('cmp').setup.cmdline(':', {
   })
 })
 
+local lsp_config = {
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  on_attach = on_attach,
+}
 require('mason-lspconfig').setup_handlers({
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
   -- a dedicated handler.
   function(server_name) -- default handler (optional)
-    require('lspconfig')[server_name].setup({
-      capabilities = require('cmp_nvim_lsp').default_capabilities(),
-      on_attach = on_attach,
-    })
+    require('lspconfig')[server_name].setup(lsp_config)
   end,
   -- Next, you can provide targeted overrides for specific servers.
   ['sumneko_lua'] = function()
-    require('lspconfig').sumneko_lua.setup {
-      capabilities = require('cmp_nvim_lsp').default_capabilities(),
-      on_attach = on_attach,
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { 'vim' }
+    require('lspconfig').sumneko_lua.setup(vim.tbl_extend('force', lsp_config, {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' }
+            }
           }
         }
-      }
-    }
+      })
+    )
   end,
 })
 
@@ -572,4 +629,3 @@ require('mason-lspconfig').setup_handlers({
 -- === Color Scheme ===
 -- ====================
 vim.cmd('colorscheme everforest')
-
