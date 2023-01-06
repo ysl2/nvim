@@ -467,6 +467,23 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '\\ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '\\f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+end
+
+vim.diagnostic.config({
+  virtual_text = {
+    source = 'always',
+  },
+  float = {
+    source = 'always',
+  },
+  update_in_insert = true,
+})
+
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
 -- ===
@@ -548,6 +565,7 @@ local lsp_config = {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = on_attach,
 }
+
 require('mason-lspconfig').setup_handlers({
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
