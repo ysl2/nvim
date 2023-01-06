@@ -120,7 +120,7 @@ require('packer').startup(
       use 'sainnhe/everforest'
       use 'liuchengxu/vista.vim'
       use 'RRethy/vim-illuminate'
-      use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
+      use { 'akinsho/bufferline.nvim', tag = 'v3.*', requires = 'nvim-tree/nvim-web-devicons' }
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -133,14 +133,11 @@ require('packer').startup(
       use 'L3MON4D3/LuaSnip'
       use 'saadparwaiz1/cmp_luasnip'
       use 'onsails/lspkind.nvim'
-      local function runstr()
-        if vim.fn.has('win32') then
-          return 'powershell ./install.ps1'
-        end
-        return './install.sh'
+      if vim.fn.has('win32') == 1 then
+        use {'tzachar/cmp-tabnine', after = 'nvim-cmp', run='powershell ./install.ps1', requires = 'hrsh7th/nvim-cmp'}
+      else
+        use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
       end
-
-      use { 'tzachar/cmp-tabnine', after = "nvim-cmp", run = runstr(), requires = 'hrsh7th/nvim-cmp' }
 
       if not (vim.fn.has('win32') == 1) then
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -621,6 +618,7 @@ require('bufferline').setup({
     show_buffer_close_icons = false,
     show_close_icon = false,
     diagnostics = 'nvim_lsp',
+    always_show_bufferline = false
   },
 })
 
