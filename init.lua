@@ -490,7 +490,7 @@ end
 -- === hrsh7th/nvim-cmp
 -- ===
 require('cmp').setup({
-  completion = { completeopt = 'menu,menuone' },
+  completion = { completeopt = 'menu,menuone,noinsert' },
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
@@ -500,10 +500,8 @@ require('cmp').setup({
     ['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
     ['<C-f>'] = require('cmp').mapping.scroll_docs(4),
     ['<C-Space>'] = require('cmp').mapping.complete(),
-    ['<CR>'] = require('cmp').mapping.confirm {
-      behavior = require('cmp').ConfirmBehavior.Replace,
-      select = true,
-    },
+    ['<CR>'] = require('cmp').mapping(require('cmp').mapping.confirm { behavior = require('cmp').ConfirmBehavior.Replace,
+      select = true, }, { 'i', 'c' }),
     ['<Tab>'] = require('cmp').mapping(function(fallback)
       if require('cmp').visible() then
         require('cmp').select_next_item()
