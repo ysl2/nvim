@@ -120,8 +120,7 @@ require('packer').startup(
       use 'sainnhe/everforest'
       use 'liuchengxu/vista.vim'
       use 'RRethy/vim-illuminate'
-      use { 'akinsho/bufferline.nvim', config = function() require('bufferline').setup {} end, tag = "v3.*",
-        requires = 'nvim-tree/nvim-web-devicons' }
+      use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -533,7 +532,8 @@ require('cmp').setup({
   sources = require('cmp').config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' }, -- For luasnip users.
-    { name = 'cmp_tabnine' },
+    { name = 'cmp_tabnine' }
+  }, {
     { name = 'buffer' },
   }),
   formatting = {
@@ -562,6 +562,7 @@ require('cmp').setup({
 require('cmp').setup.filetype('gitcommit', {
   sources = require('cmp').config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
     { name = 'buffer' },
   })
 })
@@ -608,6 +609,19 @@ require('mason-lspconfig').setup_handlers({
       }
     }))
   end,
+})
+
+-- ===
+-- === akinsho/bufferline.nvim
+-- ===
+require('bufferline').setup({
+  options = {
+    mode = 'tabs',
+    diagnostics_update_in_insert = true,
+    show_buffer_close_icons = false,
+    show_close_icon = false,
+    diagnostics = 'nvim_lsp',
+  },
 })
 
 
