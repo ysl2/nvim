@@ -1,6 +1,7 @@
 -- =============
 -- === Basic ===
 -- =============
+vim.g.neovide_cursor_animation_length = 0
 vim.opt.wrap = false
 vim.opt.scrolloff = 1
 vim.opt.maxmempattern = 2000
@@ -93,7 +94,6 @@ require('packer').startup(
       use 'jbgutierrez/vim-better-comments'
       use 'luochen1990/rainbow'
       use 'nvim-tree/nvim-web-devicons'
-      use 'mg979/vim-xtabline'
       use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { { 'nvim-lua/plenary.nvim' } } }
       use 'gcmt/wildfire.vim'
       use 'honza/vim-snippets'
@@ -113,8 +113,6 @@ require('packer').startup(
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
       use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() require('window-picker').setup() end }
       use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup {} end }
-      use { 'folke/trouble.nvim', requires = 'nvim-tree/nvim-web-devicons',
-        config = function() require('trouble').setup {} end }
       use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim',
         config = function() require('todo-comments').setup {} end }
       use { 'folke/twilight.nvim', config = function() require('twilight').setup {} end }
@@ -122,6 +120,8 @@ require('packer').startup(
       use 'sainnhe/everforest'
       use 'liuchengxu/vista.vim'
       use 'RRethy/vim-illuminate'
+      use { 'akinsho/bufferline.nvim', config = function() require('bufferline').setup {} end, tag = "v3.*",
+        requires = 'nvim-tree/nvim-web-devicons' }
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -134,6 +134,13 @@ require('packer').startup(
       use 'L3MON4D3/LuaSnip'
       use 'saadparwaiz1/cmp_luasnip'
       use 'onsails/lspkind.nvim'
+      local function runstr()
+        if vim.fn.has('win32') then
+          return 'powershell ./install.ps1'
+        end
+        return './install.sh'
+      end
+      use { 'tzachar/cmp-tabnine', after = "nvim-cmp", run = runstr(), requires = 'hrsh7th/nvim-cmp' }
 
       if not (vim.fn.has('win32') == 1) then
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -400,13 +407,6 @@ vim.keymap.set('n', '<leader>w', function()
 end, { desc = 'Pick a window' })
 
 -- ===
--- === folke/trouble.nvim
--- ===
--- vim.keymap.set('n', '<leader>x',
---   '<cmd>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><cmd>TroubleToggle loclist<CR>', { silent = true })
-vim.keymap.set('n', '<leader>x', '<cmd>TroubleToggle loclist<CR>', { silent = true })
-
--- ===
 -- === folke/zen-mode.nvim
 -- ===
 vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
@@ -414,7 +414,7 @@ vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 -- ===
 -- === liuchengxu/vista.vim
 -- ===
--- vim.g.vista_default_executive = 'coc'
+vim.g.vista_default_executive = 'nvim_lsp'
 vim.keymap.set('n', '<Leader>v', ':Vista!!<CR>', { silent = true })
 
 -- ===
@@ -526,7 +526,7 @@ require('cmp').setup({
   sources = require('cmp').config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' }, -- For luasnip users.
-  }, {
+    { name = 'cmp_tabnine' },
     { name = 'buffer' },
   }),
   formatting = {
@@ -538,7 +538,6 @@ require('cmp').setup({
 require('cmp').setup.filetype('gitcommit', {
   sources = require('cmp').config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-  }, {
     { name = 'buffer' },
   })
 })
