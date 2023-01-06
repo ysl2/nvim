@@ -134,9 +134,9 @@ require('packer').startup(
       use 'saadparwaiz1/cmp_luasnip'
       use 'onsails/lspkind.nvim'
       if vim.fn.has('win32') == 1 then
-        use {'tzachar/cmp-tabnine', after = 'nvim-cmp', run='powershell ./install.ps1', requires = 'hrsh7th/nvim-cmp'}
+        use { 'tzachar/cmp-tabnine', after = 'nvim-cmp', run = 'powershell ./install.ps1', requires = 'hrsh7th/nvim-cmp' }
       else
-        use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+        use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
       end
 
       if not (vim.fn.has('win32') == 1) then
