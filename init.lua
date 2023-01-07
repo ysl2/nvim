@@ -92,7 +92,6 @@ packer.startup(
         run = function() local ts_update = require('nvim-treesitter.install').update({ with_sync = true }) ts_update() end, }
       use 'easymotion/vim-easymotion'
       use 'tpope/vim-surround'
-      use 'tpope/vim-commentary'
       use 'Asheq/close-buffers.vim'
       use 'jbgutierrez/vim-better-comments'
       use 'luochen1990/rainbow'
@@ -124,7 +123,7 @@ packer.startup(
       use 'liuchengxu/vista.vim'
       use 'RRethy/vim-illuminate'
       use { 'akinsho/bufferline.nvim', tag = 'v3.*', requires = 'nvim-tree/nvim-web-devicons' }
-
+      use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
       use 'neovim/nvim-lspconfig'
