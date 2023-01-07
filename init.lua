@@ -20,6 +20,7 @@ vim.opt.winblend = 30
 
 vim.keymap.set('n', '<Space>', '', {})
 vim.g.mapleader = ' '
+vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
 vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
 
 function Command_wrapper_check_no_name_buffer(cmdstr)
@@ -80,7 +81,6 @@ local packer_bootstrap = ensure_packer()
 
 local packer = require('packer')
 local nvim_treesitter_install = require('nvim-treesitter.install')
-local window_picker = require('window-picker')
 packer.startup(
   {
     function(use)
@@ -112,7 +112,7 @@ packer.startup(
       use 'tpope/vim-fugitive'
       use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
-      use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() window_picker.setup() end }
+      use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() require('window-picker').setup() end }
       use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup {} end }
       use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim',
         config = function() require('todo-comments').setup {} end }
@@ -402,7 +402,7 @@ vim.keymap.set('n', '<Leader>e', ':NvimTreeToggle<CR>', { silent = true })
 -- === s1n7ax/nvim-window-picker
 -- ===
 vim.keymap.set('n', '<leader>w', function()
-  local picked_window_id = window_picker.pick_window() or vim.api.nvim_get_current_win()
+  local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
   vim.api.nvim_set_current_win(picked_window_id)
 end, { desc = 'Pick a window' })
 
@@ -436,6 +436,7 @@ mason_lspconfig.setup({
 -- ===
 -- === neovim/nvim-lspconfig
 -- ===
+vim.opt.updatetime = 250
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
@@ -443,6 +444,20 @@ vim.keymap.set('n', '\\e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '\\q', vim.diagnostic.setloclist, opts)
+
+local function preview_location_callback(_, result)
+  if result == nil or vim.tbl_isempty(result) then
+    return nil
+  end
+  vim.lsp.util.preview_location(result[1])
+end
+
+function PeekDefinition()
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
+end
+
+vim.keymap.set('n', 'gp', PeekDefinition, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -468,21 +483,39 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '\\ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '\\f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+  vim.api.nvim_create_autocmd('CursorHold', {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+        source = 'always',
+        prefix = ' ',
+        scope = 'cursor',
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end
+  })
 end
 
 vim.diagnostic.config({
   virtual_text = {
     source = 'always',
+    severity = {
+      min = vim.diagnostic.severity.ERROR,
+    },
   },
   float = {
     source = 'always',
   },
   update_in_insert = true,
+  severity_sort = true,
 })
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
+  local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
@@ -501,7 +534,7 @@ local source_mapping = {
 local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
 local cmp = require('cmp')
@@ -551,9 +584,9 @@ cmp.setup({
     format = function(entry, vim_item)
       vim_item.kind = require('lspkind').symbolic(vim_item.kind, { mode = 'symbol' })
       vim_item.menu = source_mapping[entry.source.name]
-      if entry.source.name == "cmp_tabnine" then
+      if entry.source.name == 'cmp_tabnine' then
         local detail = (entry.completion_item.data or {}).detail
-        vim_item.kind = ""
+        vim_item.kind = ''
         if detail and detail:find('.*%%.*') then
           vim_item.kind = vim_item.kind .. ' ' .. detail
         end
