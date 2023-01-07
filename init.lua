@@ -30,10 +30,10 @@ function Command_wrapper_check_no_name_buffer(cmdstr)
   vim.cmd(cmdstr)
 end
 
-vim.keymap.set('n', '<C-w>H', ':lua Command_wrapper_check_no_name_buffer(":bel vs | silent! b# | winc p")<CR>', opts)
-vim.keymap.set('n', '<C-w>J', ':lua Command_wrapper_check_no_name_buffer(":abo sp | silent! b# | winc p")<CR>', opts)
-vim.keymap.set('n', '<C-w>K', ':lua Command_wrapper_check_no_name_buffer(":bel sp | silent! b# | winc p")<CR>', opts)
-vim.keymap.set('n', '<C-w>L', ':lua Command_wrapper_check_no_name_buffer(":abo vs | silent! b# | winc p")<CR>', opts)
+vim.keymap.set('n', '<C-w>H', ':lua Command_wrapper_check_no_name_buffer(":bel vs | silent! b# | winc p")<CR>', { silent = true })
+vim.keymap.set('n', '<C-w>J', ':lua Command_wrapper_check_no_name_buffer(":abo sp | silent! b# | winc p")<CR>', { silent = true })
+vim.keymap.set('n', '<C-w>K', ':lua Command_wrapper_check_no_name_buffer(":bel sp | silent! b# | winc p")<CR>', { silent = true })
+vim.keymap.set('n', '<C-w>L', ':lua Command_wrapper_check_no_name_buffer(":abo vs | silent! b# | winc p")<CR>', { silent = true })
 
 -- Auto delete trailing whitespace.
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -139,7 +139,9 @@ packer.startup(
       else
         use { 'tzachar/cmp-tabnine', after = 'nvim-cmp', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
       end
-      use "b0o/schemastore.nvim"
+      use 'b0o/schemastore.nvim'
+      use { 'filipdutescu/renamer.nvim', config = function() require('renamer').setup {} end, branch = 'master',
+        requires = { { 'nvim-lua/plenary.nvim' } } }
 
       if not (vim.fn.has('win32') == 1) then
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -440,11 +442,10 @@ mason_lspconfig.setup({
 vim.opt.updatetime = 250
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '\\e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '\\q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '\\e', vim.diagnostic.open_float, { silent = true })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { silent = true })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { silent = true })
+vim.keymap.set('n', '\\q', vim.diagnostic.setloclist, { silent = true })
 
 local function preview_location_callback(_, result)
   if result == nil or vim.tbl_isempty(result) then
@@ -458,7 +459,7 @@ function PeekDefinition()
   return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
 end
 
-vim.keymap.set('n', 'gp', PeekDefinition, opts)
+vim.keymap.set('n', 'gp', PeekDefinition, { silent = true })
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -468,7 +469,7 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  local bufopts = { silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -480,7 +481,7 @@ local on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
   vim.keymap.set('n', '\\D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, bufopts)
+  -- vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '\\ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '\\f', function() vim.lsp.buf.format { async = true } end, bufopts)
@@ -688,6 +689,13 @@ require('bufferline').setup({
     always_show_bufferline = false
   },
 })
+
+-- ===
+-- === filipdutescu/renamer.nvim
+-- ===
+vim.keymap.set('i', '<F2>', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
+vim.keymap.set('n', '\\rn', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
+vim.keymap.set('v', '\\rn', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
 
 
 -- ====================
