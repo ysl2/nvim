@@ -94,7 +94,6 @@ packer.startup(
       use 'tpope/vim-surround'
       use 'Asheq/close-buffers.vim'
       use 'jbgutierrez/vim-better-comments'
-      use 'luochen1990/rainbow'
       use 'nvim-tree/nvim-web-devicons'
       use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { { 'nvim-lua/plenary.nvim' } } }
       use 'gcmt/wildfire.vim'
@@ -102,7 +101,6 @@ packer.startup(
       use 'itchyny/vim-cursorword'
       use 'lukas-reineke/indent-blankline.nvim'
       use 'voldikss/vim-floaterm'
-      use 'airblade/vim-rooter'
       use 'romainl/vim-cool'
       use 'tpope/vim-obsession'
       use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
@@ -120,10 +118,17 @@ packer.startup(
       use { 'folke/twilight.nvim', config = function() require('twilight').setup {} end }
       use { 'folke/zen-mode.nvim', config = function() require('zen-mode').setup {} end }
       use 'sainnhe/everforest'
-      use 'liuchengxu/vista.vim'
       use 'RRethy/vim-illuminate'
       use { 'akinsho/bufferline.nvim', tag = 'v3.*', requires = 'nvim-tree/nvim-web-devicons' }
       use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
+      use 'windwp/nvim-ts-autotag'
+      use 'JoosepAlviste/nvim-ts-context-commentstring'
+      use 'mrjones2014/nvim-ts-rainbow'
+      use 'nvim-treesitter/playground'
+      use { 'simrat39/symbols-outline.nvim', config = function() require('symbols-outline').setup {} end }
+      use { 'folke/trouble.nvim', requires = 'kyazdani42/nvim-web-devicons',
+        config = function() require('trouble').setup {} end }
+      use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -145,6 +150,8 @@ packer.startup(
       use { 'filipdutescu/renamer.nvim', config = function() require('renamer').setup {} end, branch = 'master',
         requires = { { 'nvim-lua/plenary.nvim' } } }
       use { 'glepnir/lspsaga.nvim', branch = 'main' }
+      use { 'rmagatti/goto-preview', config = function() require('goto-preview').setup {} end }
+      use { 'folke/neodev.nvim', config = function() require('neodev').setup {} end }
 
       if not (vim.fn.has('win32') == 1) then
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -177,7 +184,7 @@ end
 
 require('nvim-treesitter.configs').setup {
   -- A list of parser names, or "all"
-  ensure_installed = { 'vim' },
+  ensure_installed = { 'vim', 'query' },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -218,6 +225,10 @@ require('nvim-treesitter.configs').setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+  autotag = { enable = true },
+  context_commentstring = { enable = true },
+  rainbow = { enable = true },
+  playground = { enable = true }
 }
 
 -- ===
@@ -369,11 +380,6 @@ require('lualine').setup({
 })
 
 -- ===
--- === luochen1990/rainbow
--- ===
-vim.g.rainbow_active = 1
-
--- ===
 -- === mbbill/undotree
 -- ===
 vim.g.undotree_WindowLayout = 3
@@ -400,7 +406,13 @@ require('nvim-tree').setup({
         { key = 'h', action = 'close_node' },
       }
     }
-  }
+  },
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_root = true
+  },
 })
 vim.keymap.set('n', '<Leader>e', ':NvimTreeToggle<CR>', { silent = true })
 
@@ -416,12 +428,6 @@ end, { desc = 'Pick a window' })
 -- === folke/zen-mode.nvim
 -- ===
 vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
-
--- ===
--- === liuchengxu/vista.vim
--- ===
-vim.g.vista_default_executive = 'nvim_lsp'
-vim.keymap.set('n', '<Leader>v', ':Vista!!<CR>', { silent = true })
 
 -- ===
 -- === williamboman/mason
@@ -472,7 +478,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '\\D', vim.lsp.buf.type_definition, bufopts)
   -- vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, bufopts)
   -- vim.keymap.set('n', '\\ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '\\f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
   vim.api.nvim_create_autocmd('CursorHold', {
@@ -488,6 +494,7 @@ local on_attach = function(client, bufnr)
       vim.diagnostic.open_float(nil, opts)
     end
   })
+
 end
 
 vim.diagnostic.config({
@@ -709,6 +716,32 @@ vim.keymap.set({ 'n', 'v' }, '\\ca', '<cmd>Lspsaga code_action<CR>', { silent = 
 -- also support open/vsplit/etc operation check definition_action_keys
 -- support tagstack C-t jump back
 vim.keymap.set('n', 'gd', '<cmd>Lspsaga peek_definition<CR>', { silent = true })
+
+-- ===
+-- === rmagatti/goto-preview
+-- ===
+vim.keymap.set('n', 'gr', "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { silent = true })
+
+
+-- ===
+-- === simrat39/symbols-outline.nvim
+-- ===
+vim.keymap.set('n', '<Leader>v', ':SymbolsOutline<CR>', { silent = true })
+
+-- ===
+-- === folke/trouble.nvim
+-- ===
+vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>', { silent = true })
+vim.keymap.set('n', '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>', { silent = true })
+vim.keymap.set('n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>', { silent = true })
+vim.keymap.set('n', '<leader>xl', '<cmd>TroubleToggle loclist<cr>', { silent = true })
+vim.keymap.set('n', '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', { silent = true })
+vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', { silent = true })
+
+-- ===
+-- === ahmedkhalf/project.nvim
+-- ===
+telescope.load_extension('projects')
 
 
 -- ====================
