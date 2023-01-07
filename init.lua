@@ -512,14 +512,16 @@ end
 -- ===
 -- === hrsh7th/nvim-cmp
 -- ===
-local source_mapping = {
-  buffer = '[Buffer]',
-  nvim_lsp = '[LSP]',
-  nvim_lua = '[Lua]',
-  cmp_tabnine = '[TN]',
-  path = '[Path]',
-  luasnip = '[LuaSnip]'
-}
+local function mysplit(inputstr, sep)
+  if sep == nil then
+    sep = "%s"
+  end
+  local t = {}
+  for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+    table.insert(t, str)
+  end
+  return t
+end
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -575,7 +577,8 @@ cmp.setup({
   formatting = {
     format = function(entry, vim_item)
       vim_item.kind = require('lspkind').symbolic(vim_item.kind, { mode = 'symbol_text' })
-      vim_item.menu = source_mapping[entry.source.name]
+      local splits = mysplit(entry.source.name, '_')
+      vim_item.menu = '[' .. string.upper(splits[#splits]) .. ']'
       if entry.source.name == 'cmp_tabnine' then
         local detail = (entry.completion_item.data or {}).detail
         vim_item.kind = ''
