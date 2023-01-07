@@ -486,11 +486,12 @@ end
 -- === hrsh7th/nvim-cmp
 -- ===
 local source_mapping = {
-  buffer = "[Buffer]",
-  nvim_lsp = "[LSP]",
-  nvim_lua = "[Lua]",
-  cmp_tabnine = "[TN]",
-  path = "[Path]",
+  buffer = '[Buffer]',
+  nvim_lsp = '[LSP]',
+  nvim_lua = '[Lua]',
+  cmp_tabnine = '[TN]',
+  path = '[Path]',
+  luasnip = '[LuaSnip]'
 }
 
 require('cmp').setup({
@@ -534,7 +535,7 @@ require('cmp').setup({
   }),
   formatting = {
     format = function(entry, vim_item)
-      vim_item.kind = require('lspkind').symbolic(vim_item.kind, { mode = "symbol" })
+      vim_item.kind = require('lspkind').symbolic(vim_item.kind, { mode = 'symbol' })
       vim_item.menu = source_mapping[entry.source.name]
       if entry.source.name == "cmp_tabnine" then
         local detail = (entry.completion_item.data or {}).detail
@@ -580,6 +581,12 @@ require('cmp').setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+
+-- If you want insert `(` after select function or method item
+require('cmp').event:on(
+  'confirm_done',
+  require('nvim-autopairs.completion.cmp').on_confirm_done()
+)
 
 local lsp_config = {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
