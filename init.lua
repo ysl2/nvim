@@ -147,8 +147,6 @@ packer.startup(
         use { 'tzachar/cmp-tabnine', after = 'nvim-cmp', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
       end
       use 'b0o/schemastore.nvim'
-      use { 'filipdutescu/renamer.nvim', config = function() require('renamer').setup {} end, branch = 'master',
-        requires = { { 'nvim-lua/plenary.nvim' } } }
       use { 'glepnir/lspsaga.nvim', branch = 'main' }
       use { 'rmagatti/goto-preview', config = function() require('goto-preview').setup {} end }
       use { 'folke/neodev.nvim', config = function() require('neodev').setup {} end }
@@ -261,14 +259,6 @@ end
 if not (vim.fn.has('win32') == 1) then
   vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true })
 end
-
--- ===
--- === mg979/vim-xtabline
--- ===
-vim.g.xtabline_settings = {
-  enable_mappings = 0,
-  tab_number_in_left_corner = 0,
-}
 
 -- ===
 -- === nvim-telescope/telescope.nvim
@@ -688,13 +678,6 @@ require('bufferline').setup({
 })
 
 -- ===
--- === filipdutescu/renamer.nvim
--- ===
-vim.keymap.set('i', '<F2>', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
-vim.keymap.set('n', '\\rn', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
-vim.keymap.set('v', '\\rn', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
-
--- ===
 -- === glepnir/lspsaga.nvim
 -- ===
 require('lspsaga').init_lsp_saga({
@@ -710,6 +693,9 @@ vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', { silent = true })
 
 -- Code action
 vim.keymap.set({ 'n', 'v' }, '\\ca', '<cmd>Lspsaga code_action<CR>', { silent = true })
+
+-- Rename
+vim.keymap.set({ 'n', 'v' }, '\\rn', '<cmd>Lspsaga rename<CR>', { silent = true })
 
 -- Peek Definition
 -- you can edit the definition file in this flaotwindow
