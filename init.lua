@@ -80,6 +80,7 @@ local packer_bootstrap = ensure_packer()
 
 local packer = require('packer')
 local nvim_treesitter_install = require('nvim-treesitter.install')
+local window_picker = require('window-picker')
 packer.startup(
   {
     function(use)
@@ -111,7 +112,7 @@ packer.startup(
       use 'tpope/vim-fugitive'
       use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
-      use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() require('window-picker').setup() end }
+      use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() window_picker.setup() end }
       use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup {} end }
       use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim',
         config = function() require('todo-comments').setup {} end }
@@ -401,7 +402,7 @@ vim.keymap.set('n', '<Leader>e', ':NvimTreeToggle<CR>', { silent = true })
 -- === s1n7ax/nvim-window-picker
 -- ===
 vim.keymap.set('n', '<leader>w', function()
-  local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
+  local picked_window_id = window_picker.pick_window() or vim.api.nvim_get_current_win()
   vim.api.nvim_set_current_win(picked_window_id)
 end, { desc = 'Pick a window' })
 
