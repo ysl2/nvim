@@ -84,13 +84,12 @@ end
 local packer_bootstrap = ensure_packer()
 
 local packer = require('packer')
-local nvim_treesitter_install = require('nvim-treesitter.install')
 packer.startup(
   {
     function(use)
       use 'wbthomason/packer.nvim'
       use { 'nvim-treesitter/nvim-treesitter',
-        run = function() local ts_update = nvim_treesitter_install.update({ with_sync = true }) ts_update() end, }
+        run = function() local ts_update = require('nvim-treesitter.install').update({ with_sync = true }) ts_update() end, }
       use 'easymotion/vim-easymotion'
       use 'tpope/vim-surround'
       use 'tpope/vim-commentary'
@@ -167,7 +166,7 @@ packer.startup(
 -- ===
 -- === nvim-treesitter/nvim-treesitter
 -- ===
-nvim_treesitter_install.prefer_git = true
+require('nvim-treesitter.install').prefer_git = true
 local parsers = require('nvim-treesitter.parsers').get_parser_configs()
 for _, p in pairs(parsers) do
   p.install_info.url = p.install_info.url:gsub(
@@ -178,7 +177,7 @@ end
 
 require('nvim-treesitter.configs').setup {
   -- A list of parser names, or "all"
-  ensure_installed = {},
+  ensure_installed = { 'vim' },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
