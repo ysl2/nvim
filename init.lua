@@ -139,6 +139,7 @@ packer.startup(
       else
         use { 'tzachar/cmp-tabnine', after = 'nvim-cmp', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
       end
+      use "b0o/schemastore.nvim"
 
       if not (vim.fn.has('win32') == 1) then
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -429,7 +430,7 @@ require('mason').setup({
 -- ===
 local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup({
-  ensure_installed = { 'pyright', 'sumneko_lua' },
+  ensure_installed = { 'pyright', 'sumneko_lua', 'jsonls' },
   automatic_installation = true,
 })
 
@@ -543,7 +544,7 @@ cmp.setup({
   completion = { completeopt = 'menu,menuone,noinsert' },
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body) -- For `luasnip` users.
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({
@@ -574,15 +575,17 @@ cmp.setup({
     end, { 'i', 's' }),
   }),
   sources = cmp.config.sources({
+    { name = 'cmp_tabnine' },
+  }, {
     { name = 'nvim_lsp' },
-    { name = 'luasnip' }, -- For luasnip users.
-    { name = 'cmp_tabnine' }
+    { name = 'luasnip' },
   }, {
     { name = 'buffer' },
+    { name = 'path' },
   }),
   formatting = {
     format = function(entry, vim_item)
-      vim_item.kind = require('lspkind').symbolic(vim_item.kind, { mode = 'symbol' })
+      vim_item.kind = require('lspkind').symbolic(vim_item.kind, { mode = 'symbol_text' })
       vim_item.menu = source_mapping[entry.source.name]
       if entry.source.name == 'cmp_tabnine' then
         local detail = (entry.completion_item.data or {}).detail
@@ -658,6 +661,16 @@ mason_lspconfig.setup_handlers({
           }
         }
       }
+    }))
+  end,
+  ['jsonls'] = function()
+    lspconfig.jsonls.setup(vim.tbl_extend('force', lsp_config, {
+      settings = {
+        json = {
+          schemas = require('schemastore').json.schemas(),
+          validate = { enable = true },
+        },
+      },
     }))
   end,
 })
