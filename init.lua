@@ -30,10 +30,14 @@ function Command_wrapper_check_no_name_buffer(cmdstr)
   vim.cmd(cmdstr)
 end
 
-vim.keymap.set('n', '<C-w>H', ':lua Command_wrapper_check_no_name_buffer(":bel vs | silent! b# | winc p")<CR>', { silent = true })
-vim.keymap.set('n', '<C-w>J', ':lua Command_wrapper_check_no_name_buffer(":abo sp | silent! b# | winc p")<CR>', { silent = true })
-vim.keymap.set('n', '<C-w>K', ':lua Command_wrapper_check_no_name_buffer(":bel sp | silent! b# | winc p")<CR>', { silent = true })
-vim.keymap.set('n', '<C-w>L', ':lua Command_wrapper_check_no_name_buffer(":abo vs | silent! b# | winc p")<CR>', { silent = true })
+vim.keymap.set('n', '<C-w>H', ':lua Command_wrapper_check_no_name_buffer(":bel vs | silent! b# | winc p")<CR>',
+  { silent = true })
+vim.keymap.set('n', '<C-w>J', ':lua Command_wrapper_check_no_name_buffer(":abo sp | silent! b# | winc p")<CR>',
+  { silent = true })
+vim.keymap.set('n', '<C-w>K', ':lua Command_wrapper_check_no_name_buffer(":bel sp | silent! b# | winc p")<CR>',
+  { silent = true })
+vim.keymap.set('n', '<C-w>L', ':lua Command_wrapper_check_no_name_buffer(":abo vs | silent! b# | winc p")<CR>',
+  { silent = true })
 
 -- Auto delete trailing whitespace.
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -91,7 +95,6 @@ packer.startup(
       use 'tpope/vim-surround'
       use 'tpope/vim-commentary'
       use 'Asheq/close-buffers.vim'
-      use 'numirias/semshi'
       use 'jbgutierrez/vim-better-comments'
       use 'luochen1990/rainbow'
       use 'nvim-tree/nvim-web-devicons'
@@ -142,6 +145,7 @@ packer.startup(
       use 'b0o/schemastore.nvim'
       use { 'filipdutescu/renamer.nvim', config = function() require('renamer').setup {} end, branch = 'master',
         requires = { { 'nvim-lua/plenary.nvim' } } }
+      use { 'glepnir/lspsaga.nvim', branch = 'main' }
 
       if not (vim.fn.has('win32') == 1) then
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -199,7 +203,7 @@ require('nvim-treesitter.configs').setup {
     -- the name of the parser)
     -- list of language that will be disabled
     -- disable = { "c", "rust" },
-    disable = { 'python' },
+    disable = {},
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
     -- disable = function(lang, buf)
     --     local max_filesize = 100 * 1024 -- 100 KB
@@ -447,20 +451,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { silent = true })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { silent = true })
 vim.keymap.set('n', '\\q', vim.diagnostic.setloclist, { silent = true })
 
-local function preview_location_callback(_, result)
-  if result == nil or vim.tbl_isempty(result) then
-    return nil
-  end
-  vim.lsp.util.preview_location(result[1])
-end
-
-function PeekDefinition()
-  local params = vim.lsp.util.make_position_params()
-  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
-end
-
-vim.keymap.set('n', 'gp', PeekDefinition, { silent = true })
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -471,7 +461,7 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
@@ -482,7 +472,7 @@ local on_attach = function(client, bufnr)
   end, bufopts)
   vim.keymap.set('n', '\\D', vim.lsp.buf.type_definition, bufopts)
   -- vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '\\ca', vim.lsp.buf.code_action, bufopts)
+  -- vim.keymap.set('n', '\\ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '\\f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
@@ -504,9 +494,7 @@ end
 vim.diagnostic.config({
   virtual_text = {
     source = 'always',
-    severity = {
-      min = vim.diagnostic.severity.ERROR,
-    },
+    severity = { min = vim.diagnostic.severity.ERROR },
   },
   float = {
     source = 'always',
@@ -696,6 +684,29 @@ require('bufferline').setup({
 vim.keymap.set('i', '<F2>', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
 vim.keymap.set('n', '\\rn', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
 vim.keymap.set('v', '\\rn', '<cmd>lua require("renamer").rename()<cr>', { silent = true })
+
+-- ===
+-- === glepnir/lspsaga.nvim
+-- ===
+require('lspsaga').init_lsp_saga({
+  code_action_lightbulb = {
+    virtual_text = false,
+  },
+})
+-- Lsp finder find the symbol definition implement reference
+-- if there is no implement it will hide
+-- when you use action in finder like open vsplit then you can
+-- use <C-t> to jump back
+vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', { silent = true })
+
+-- Code action
+vim.keymap.set({ 'n', 'v' }, '\\ca', '<cmd>Lspsaga code_action<CR>', { silent = true })
+
+-- Peek Definition
+-- you can edit the definition file in this flaotwindow
+-- also support open/vsplit/etc operation check definition_action_keys
+-- support tagstack C-t jump back
+vim.keymap.set('n', 'gd', '<cmd>Lspsaga peek_definition<CR>', { silent = true })
 
 
 -- ====================
