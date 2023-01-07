@@ -124,6 +124,7 @@ packer.startup(
       use 'RRethy/vim-illuminate'
       use { 'akinsho/bufferline.nvim', tag = 'v3.*', requires = 'nvim-tree/nvim-web-devicons' }
       use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
+
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
       use 'neovim/nvim-lspconfig'
