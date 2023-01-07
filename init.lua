@@ -20,9 +20,7 @@ vim.opt.winblend = 30
 
 vim.keymap.set('n', '<Space>', '', {})
 vim.g.mapleader = ' '
-local opts = { silent = true }
-vim.keymap.set('i', '<C-c>', '<c-[>', opts)
-vim.keymap.set('n', '<C-z>', '<C-a>', opts)
+vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
 
 function Command_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
@@ -80,12 +78,14 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-require('packer').startup(
+local packer = require('packer')
+local nvim_treesitter_install = require('nvim-treesitter.install')
+packer.startup(
   {
     function(use)
       use 'wbthomason/packer.nvim'
       use { 'nvim-treesitter/nvim-treesitter',
-        run = function() local ts_update = require('nvim-treesitter.install').update({ with_sync = true }) ts_update() end, }
+        run = function() local ts_update = nvim_treesitter_install.update({ with_sync = true }) ts_update() end, }
       use 'easymotion/vim-easymotion'
       use 'tpope/vim-surround'
       use 'tpope/vim-commentary'
@@ -136,7 +136,7 @@ require('packer').startup(
       if vim.fn.has('win32') == 1 then
         use { 'tzachar/cmp-tabnine', after = 'nvim-cmp', run = 'powershell ./install.ps1', requires = 'hrsh7th/nvim-cmp' }
       else
-        use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
+        use { 'tzachar/cmp-tabnine', after = 'nvim-cmp', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
       end
 
       if not (vim.fn.has('win32') == 1) then
@@ -149,7 +149,7 @@ require('packer').startup(
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
       if packer_bootstrap then
-        require('packer').sync()
+        packer.sync()
       end
     end,
     config = { git = { default_url_format = 'git@git.zhlh6.cn:%s' } }
@@ -159,7 +159,7 @@ require('packer').startup(
 -- ===
 -- === nvim-treesitter/nvim-treesitter
 -- ===
-require('nvim-treesitter.install').prefer_git = true
+nvim_treesitter_install.prefer_git = true
 local parsers = require('nvim-treesitter.parsers').get_parser_configs()
 for _, p in pairs(parsers) do
   p.install_info.url = p.install_info.url:gsub(
@@ -255,17 +255,19 @@ vim.g.xtabline_settings = {
 -- ===
 -- === nvim-telescope/telescope.nvim
 -- ===
-require('telescope').setup {
+local telescope = require('telescope')
+local telescope_actions = require('telescope.actions')
+telescope.setup {
   defaults = {
     layout_strategy = 'vertical',
     path_display = { 'tail' },
     sorting_strategy = 'ascending',
     mappings = {
       i = {
-        ['<C-j>'] = require('telescope.actions').move_selection_next,
-        ['<C-k>'] = require('telescope.actions').move_selection_previous,
+        ['<C-j>'] = telescope_actions.move_selection_next,
+        ['<C-k>'] = telescope_actions.move_selection_previous,
         ['<C-r>'] = require('telescope.actions.layout').toggle_preview,
-        ['<C-b>'] = require('telescope.actions').delete_buffer
+        ['<C-b>'] = telescope_actions.delete_buffer
       }
     },
     layout_config = {
@@ -302,7 +304,7 @@ vim.keymap.set('n', '<Leader>G', ':Telescope git_status<CR>', { silent = true })
 -- === nvim-telescope/telescope-fzf-native.nvim
 -- ===
 if not (vim.fn.has('win32') == 1) then
-  require('telescope').load_extension('fzf')
+  telescope.load_extension('fzf')
 end
 
 -- ===
@@ -424,7 +426,8 @@ require('mason').setup({
 -- ===
 -- === williamboman/mason-lspconfig
 -- ===
-require('mason-lspconfig').setup({
+local mason_lspconfig = require('mason-lspconfig')
+mason_lspconfig.setup({
   ensure_installed = { 'pyright', 'sumneko_lua' },
   automatic_installation = true,
 })
@@ -494,39 +497,49 @@ local source_mapping = {
   luasnip = '[LuaSnip]'
 }
 
-require('cmp').setup({
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local cmp = require('cmp')
+local luasnip = require('luasnip')
+cmp.setup({
   completion = { completeopt = 'menu,menuone,noinsert' },
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
-  mapping = require('cmp').mapping.preset.insert({
-    ['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
-    ['<C-f>'] = require('cmp').mapping.scroll_docs(4),
-    ['<C-Space>'] = require('cmp').mapping.complete(),
-    ['<CR>'] = require('cmp').mapping(require('cmp').mapping.confirm { behavior = require('cmp').ConfirmBehavior.Replace,
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping(cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace,
       select = true, }, { 'i', 'c' }),
-    ['<Tab>'] = require('cmp').mapping(function(fallback)
-      if require('cmp').visible() then
-        require('cmp').select_next_item()
-      elseif require('luasnip').expand_or_jumpable() then
-        require('luasnip').expand_or_jump()
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Tab>'] = require('cmp').mapping(function(fallback)
-      if require('cmp').visible() then
-        require('cmp').select_prev_item()
-      elseif require('luasnip').jumpable(-1) then
-        require('luasnip').jump(-1)
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
     end, { 'i', 's' }),
   }),
-  sources = require('cmp').config.sources({
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' }, -- For luasnip users.
     { name = 'cmp_tabnine' }
@@ -556,8 +569,8 @@ require('cmp').setup({
 })
 
 -- Set configuration for specific filetype.
-require('cmp').setup.filetype('gitcommit', {
-  sources = require('cmp').config.sources({
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
     { name = 'buffer' },
@@ -565,17 +578,17 @@ require('cmp').setup.filetype('gitcommit', {
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-require('cmp').setup.cmdline({ '/', '?' }, {
-  mapping = require('cmp').mapping.preset.cmdline(),
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = 'buffer' }
   }
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-require('cmp').setup.cmdline(':', {
-  mapping = require('cmp').mapping.preset.cmdline(),
-  sources = require('cmp').config.sources({
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
     { name = 'path' }
   }, {
     { name = 'cmdline' }
@@ -583,7 +596,7 @@ require('cmp').setup.cmdline(':', {
 })
 
 -- If you want insert `(` after select function or method item
-require('cmp').event:on(
+cmp.event:on(
   'confirm_done',
   require('nvim-autopairs.completion.cmp').on_confirm_done()
 )
@@ -593,16 +606,17 @@ local lsp_config = {
   on_attach = on_attach,
 }
 
-require('mason-lspconfig').setup_handlers({
+local lspconfig = require('lspconfig')
+mason_lspconfig.setup_handlers({
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
   -- a dedicated handler.
   function(server_name) -- default handler (optional)
-    require('lspconfig')[server_name].setup(lsp_config)
+    lspconfig[server_name].setup(lsp_config)
   end,
   -- Next, you can provide targeted overrides for specific servers.
   ['sumneko_lua'] = function()
-    require('lspconfig').sumneko_lua.setup(vim.tbl_extend('force', lsp_config, {
+    lspconfig.sumneko_lua.setup(vim.tbl_extend('force', lsp_config, {
       settings = {
         Lua = {
           diagnostics = {
