@@ -16,7 +16,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.termguicolors = true
-vim.opt.winblend = 30
 
 vim.keymap.set('n', '<Space>', '', {})
 vim.g.mapleader = ' '
