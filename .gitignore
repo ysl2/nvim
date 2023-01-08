@@ -1,4 +1,5 @@
 plugin
 Session.vim
 .luarc.json
+coc-settings.json
 
