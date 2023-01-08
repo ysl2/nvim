@@ -125,7 +125,7 @@ packer.startup(
       use 'mrjones2014/nvim-ts-rainbow'
       use 'nvim-treesitter/playground'
       use { 'simrat39/symbols-outline.nvim', config = function() require('symbols-outline').setup {} end }
-      use { 'folke/trouble.nvim', requires = 'kyazdani42/nvim-web-devicons',
+      use { 'folke/trouble.nvim', requires = 'nvim-tree/nvim-web-devicons',
         config = function() require('trouble').setup {} end }
       use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
       use { 'akinsho/toggleterm.nvim', tag = 'v2.*' }
@@ -389,6 +389,18 @@ require('nvim-tree').setup({
         { key = 'h', action = 'close_node' },
       }
     }
+  },
+  renderer = {
+    indent_markers = {
+      enable = true,
+    },
+  },
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
+  },
+  modified = {
+    enable = true,
   },
   sync_root_with_cwd = true,
   respect_buf_cwd = true,
@@ -699,7 +711,6 @@ vim.keymap.set('n', 'gd', '<cmd>Lspsaga peek_definition<CR>', { silent = true })
 -- === rmagatti/goto-preview
 -- ===
 vim.keymap.set('n', 'gr', "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { silent = true })
-
 
 -- ===
 -- === simrat39/symbols-outline.nvim
