@@ -100,7 +100,6 @@ packer.startup(
       use 'honza/vim-snippets'
       use 'itchyny/vim-cursorword'
       use 'lukas-reineke/indent-blankline.nvim'
-      use 'voldikss/vim-floaterm'
       use 'romainl/vim-cool'
       use 'tpope/vim-obsession'
       use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
@@ -129,6 +128,7 @@ packer.startup(
       use { 'folke/trouble.nvim', requires = 'kyazdani42/nvim-web-devicons',
         config = function() require('trouble').setup {} end }
       use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
+      use { 'akinsho/toggleterm.nvim', tag = '*', config = function() require('toggleterm').setup() end }
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -138,7 +138,7 @@ packer.startup(
       use 'hrsh7th/cmp-path'
       use 'hrsh7th/cmp-cmdline'
       use 'hrsh7th/nvim-cmp'
-      use 'L3MON4D3/LuaSnip'
+      use { 'L3MON4D3/LuaSnip', config = function() require('luasnip.loaders.from_snipmate').load() end }
       use 'saadparwaiz1/cmp_luasnip'
       use 'onsails/lspkind.nvim'
       if vim.fn.has('win32') == 1 then
@@ -316,11 +316,11 @@ if not (vim.fn.has('win32') == 1) then
 end
 
 -- ===
--- === voldikss/vim-floaterm
+-- === akinsho/toggleterm.nvim
 -- ===
-vim.keymap.set('n', [[<C-\>]], ':FloatermToggle<CR>', { silent = true })
+vim.keymap.set('n', [[<C-\>]], ':ToggleTerm direction=float<CR>', { silent = true })
 vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
-vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true })
+vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:ToggleTerm<CR>]], { silent = true })
 
 -- ===
 -- === tpope/vim-obsession
