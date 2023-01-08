@@ -112,6 +112,8 @@ packer.startup(
       use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
       use { 's1n7ax/nvim-window-picker', tag = 'v1.*', config = function() require('window-picker').setup() end }
       use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup {} end }
+      use { 'folke/trouble.nvim', requires = 'nvim-tree/nvim-web-devicons',
+        config = function() require('trouble').setup {} end }
       use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim',
         config = function() require('todo-comments').setup {} end }
       use { 'folke/twilight.nvim', config = function() require('twilight').setup {} end }
@@ -124,9 +126,7 @@ packer.startup(
       use 'JoosepAlviste/nvim-ts-context-commentstring'
       use 'mrjones2014/nvim-ts-rainbow'
       use 'nvim-treesitter/playground'
-      use { 'simrat39/symbols-outline.nvim', config = function() require('symbols-outline').setup {} end }
-      use { 'folke/trouble.nvim', requires = 'nvim-tree/nvim-web-devicons',
-        config = function() require('trouble').setup {} end }
+      use { 'ysl2/symbols-outline.nvim', config = function() require('symbols-outline').setup {} end }
       use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
       use 'voldikss/vim-floaterm'
 
