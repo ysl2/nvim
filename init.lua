@@ -128,7 +128,7 @@ packer.startup(
       use { 'folke/trouble.nvim', requires = 'kyazdani42/nvim-web-devicons',
         config = function() require('trouble').setup {} end }
       use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
-      use { 'akinsho/toggleterm.nvim', tag = '*', config = function() require('toggleterm').setup() end }
+      use { 'akinsho/toggleterm.nvim', tag = 'v2.*' }
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -314,13 +314,6 @@ vim.keymap.set('n', '<Leader>G', ':Telescope git_status<CR>', { silent = true })
 if not (vim.fn.has('win32') == 1) then
   telescope.load_extension('fzf')
 end
-
--- ===
--- === akinsho/toggleterm.nvim
--- ===
-vim.keymap.set('n', [[<C-\>]], ':ToggleTerm direction=float<CR>', { silent = true })
-vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
-vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:ToggleTerm<CR>]], { silent = true })
 
 -- ===
 -- === tpope/vim-obsession
@@ -727,6 +720,14 @@ vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', { silent = tr
 -- === ahmedkhalf/project.nvim
 -- ===
 telescope.load_extension('projects')
+
+-- ===
+-- === akinsho/toggleterm.nvim
+-- ===
+require('toggleterm').setup({
+  open_mapping = [[<c-\>]],
+  direction = 'float',
+})
 
 
 -- ====================
