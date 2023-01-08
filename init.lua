@@ -128,7 +128,7 @@ packer.startup(
       use { 'folke/trouble.nvim', requires = 'nvim-tree/nvim-web-devicons',
         config = function() require('trouble').setup {} end }
       use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
-      use { 'akinsho/toggleterm.nvim', tag = 'v2.*' }
+      use 'voldikss/vim-floaterm'
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -733,12 +733,11 @@ vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', { silent = tr
 telescope.load_extension('projects')
 
 -- ===
--- === akinsho/toggleterm.nvim
+-- === voldikss/vim-floaterm
 -- ===
-require('toggleterm').setup({
-  open_mapping = [[<c-\>]],
-  direction = 'float',
-})
+vim.keymap.set('n', [[<C-\>]], ':FloatermToggle<CR>', { silent = true })
+vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
+vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true })
 
 
 -- ====================
