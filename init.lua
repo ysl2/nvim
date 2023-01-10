@@ -670,17 +670,17 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
-function Leave_snippet()
-  if ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
-      and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
-      and not luasnip.session.jump_active
-  then
-    luasnip.unlink_current()
-  end
-end
-
 -- stop snippets when you leave to normal mode
-vim.api.nvim_command([[autocmd ModeChanged * lua Leave_snippet()]])
+vim.api.nvim_create_autocmd('ModeChanged', {
+  callback = function()
+    if ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
+        and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+        and not luasnip.session.jump_active
+    then
+      luasnip.unlink_current()
+    end
+  end
+})
 
 -- ===
 -- === akinsho/bufferline.nvim
