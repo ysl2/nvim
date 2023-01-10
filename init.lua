@@ -128,6 +128,7 @@ packer.startup(
       use { 'ysl2/symbols-outline.nvim', config = function() require('symbols-outline').setup {} end }
       use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
       use 'voldikss/vim-floaterm'
+      use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -151,7 +152,6 @@ packer.startup(
       use { 'folke/neodev.nvim', config = function() require('neodev').setup {} end }
 
       if not (vim.fn.has('win32') == 1) then
-        use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
         use 'kevinhwang91/rnvimr'
         use 'kdheepak/lazygit.nvim'
         use 'wellle/tmux-complete.vim'
