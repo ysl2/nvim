@@ -39,11 +39,6 @@ vim.keymap.set('n', '<C-w>K', ':lua Command_wrapper_check_no_name_buffer(":bel s
 vim.keymap.set('n', '<C-w>L', ':lua Command_wrapper_check_no_name_buffer(":abo vs | silent! b# | winc p")<CR>',
   { silent = true })
 
--- Auto delete trailing whitespace.
-vim.api.nvim_create_autocmd('BufWritePre', {
-  command = [[%s/\s\+$//e]],
-})
-
 -- Auto delete [No Name] buffers.
 vim.api.nvim_create_autocmd('BufLeave', {
   callback = function()
@@ -130,6 +125,7 @@ packer.startup(
       use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
       use 'voldikss/vim-floaterm'
       use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+      use 'csexton/trailertrash.vim'
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
@@ -752,6 +748,14 @@ telescope.load_extension('projects')
 vim.keymap.set('n', [[<C-\>]], ':FloatermToggle<CR>', { silent = true })
 vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>:FloatermToggle<CR>]], { silent = true })
+
+-- ===
+-- === csexton/trailertrash.vim
+-- ===
+-- Auto delete trailing whitespace.
+vim.api.nvim_create_autocmd('BufWritePre', {
+  command = [[:TrailerTrim]]
+})
 
 
 -- ====================
