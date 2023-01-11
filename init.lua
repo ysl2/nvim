@@ -1,6 +1,3 @@
-vim.defer_fn(function()
-  pcall(require, 'impatient')
-end, 0)
 -- =============
 -- === Basic ===
 -- =============
@@ -133,7 +130,6 @@ packer.startup(
       use { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end }
       use 'voldikss/vim-floaterm'
       use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-      use 'lewis6991/impatient.nvim'
 
       use 'williamboman/mason.nvim'
       use 'williamboman/mason-lspconfig.nvim'
