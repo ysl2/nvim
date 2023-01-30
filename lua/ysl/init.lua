@@ -200,6 +200,7 @@ vim.list_extend(plugins, {
       vim.opt.foldlevelstart = 99
       vim.opt.foldenable = true
     end },
+  'ysl2/leetcode.vim'
 })
 
 load(plugins)
@@ -651,3 +652,15 @@ ufo.setup({
 
 vim.keymap.set('n', 'zR', ufo.openAllFolds)
 vim.keymap.set('n', 'zM', ufo.closeAllFolds)
+
+-- ===
+-- === ysl2/leetcode.vim
+-- ===
+vim.g.leetcode_china = 1
+vim.g.leetcode_browser = 'chrome'
+vim.g.leetcode_solution_filetype = 'python'
+
+vim.keymap.set('n', '<leader>ll', ':LeetCodeList<cr>', { silent = true })
+vim.keymap.set('n', '<leader>lt', ':LeetCodeTest<cr>', { silent = true })
+vim.keymap.set('n', '<leader>ls', ':LeetCodeSubmit<cr>', { silent = true })
+vim.keymap.set('n', '<leader>li', ':LeetCodeSignIn<cr>', { silent = true })
