@@ -1,0 +1,57 @@
+{
+  "Lua.telemetry.enable": false,
+  "languageserver": {
+    "sourcery": {
+      "command": "sourcery",
+      "args": ["lsp"],
+      "filetypes": ["python"],
+      "initializationOptions": {
+        "extension_version": "coc.vim",
+        "editor_version": "vim"
+      },
+      "settings": {
+        "sourcery": {
+          "metricsEnabled": true
+        }
+      }
+    }
+  },
+  "suggest.completionItemKindLabels": {
+    "text": " Text",
+    "method": " Method",
+    "function": " Function",
+    "constructor": " Constructor",
+    "field": "ﰠ Field",
+    "variable": " Variable",
+    "class": "ﴯ Class",
+    "interface": " Interface",
+    "module": " Module",
+    "property": "ﰠ Property",
+    "unit": "塞 Unit",
+    "value": " Value",
+    "enum": " Enum",
+    "keyword": " Keyword",
+    "snippet": " Snippet",
+    "color": " Color",
+    "file": " File",
+    "reference": " Reference",
+    "folder": " Folder",
+    "enumMember": " EnumMember",
+    "constant": " Constant",
+    "struct": "פּ Struct",
+    "event": " Event",
+    "operator": " Operator",
+    "typeParameter": "\uf278 TypeParameter",
+    "default": "\uf29c Default"
+  },
+  "Lua.diagnostics.globals": ["vim"],
+  "diagnostic.errorSign": "\uf467",
+  "diagnostic.warningSign": "\uf071",
+  "diagnostic.infoSign": "\uf129",
+  "diagnostic.hintSign": "\uf864",
+  "sumneko-lua.enableNvimLuaDev": true,
+  "rust-analyzer.cargo.buildScripts.enable": false,
+  "rust-analyzer.procMacro.enable": false,
+  "suggest.snippetIndicator": "...",
+  "tabnine.enablePreselect": false
+}
