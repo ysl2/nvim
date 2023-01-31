@@ -85,7 +85,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local function load(plugins)
-  require('lazy').setup(plugins)
+  require('lazy').setup(plugins, {
+    defaults = { lazy = true }
+  })
 end
 
 -- ===
@@ -95,15 +97,15 @@ local plugins = {}
 
 -- 0. For VSCode
 vim.list_extend(plugins, {
-  'tpope/vim-surround',
-  'gcmt/wildfire.vim',
-  { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end },
-  'itchyny/vim-cursorword',
-  'RRethy/vim-illuminate',
+  { 'tpope/vim-surround', event = 'CursorHold' },
+  { 'gcmt/wildfire.vim', event = 'CursorHold' },
+  { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end, event = 'CursorHold' },
+  { 'itchyny/vim-cursorword', event = 'CursorHold' },
+  { 'RRethy/vim-illuminate', event = 'CursorHold' },
 })
 if vim.g.vscode then
   vim.list_extend(plugins, {
-    'ysl2/vim-easymotion-for-vscode-neovim'
+    { 'ysl2/vim-easymotion-for-vscode-neovim', event = 'CursorHold' }
   })
   load(plugins)
   return
@@ -115,7 +117,7 @@ vim.list_extend(plugins, ysl_lsp.plugins)
 plugins[#plugins + 1] = ysl_set(ysl_safeget(ysl_secret, 'colorscheme'),
   { 'shaunsingh/nord.nvim', config = function()
     vim.cmd('colorscheme nord')
-  end })
+  end, lazy = false })
 
 -- 2. Extensions declared in the files above.
 vim.list_extend(plugins, {
@@ -129,9 +131,9 @@ vim.list_extend(plugins, {
 if vim.fn.has('win32') == 0 then
   -- For Linux/Mac.
   vim.list_extend(plugins, {
-    'kevinhwang91/rnvimr',
-    'kdheepak/lazygit.nvim',
-    'wellle/tmux-complete.vim',
+    { 'kevinhwang91/rnvimr', event = 'CursorHold' },
+    { 'kdheepak/lazygit.nvim', event = 'CursorHold' },
+    { 'wellle/tmux-complete.vim', event = 'CursorHold' }
   })
   -- else
   --   -- For Windows.
@@ -140,67 +142,68 @@ end
 -- 4. Public extentions.
 vim.list_extend(plugins, {
   { 'nvim-treesitter/nvim-treesitter',
-    build = function() local ts_update = require('nvim-treesitter.install').update({ with_sync = true }) ts_update() end, },
-  'windwp/nvim-ts-autotag',
-  'JoosepAlviste/nvim-ts-context-commentstring',
-  'mrjones2014/nvim-ts-rainbow',
-  'nvim-treesitter/playground',
-  'easymotion/vim-easymotion',
-  'Asheq/close-buffers.vim',
-  'nvim-tree/nvim-web-devicons',
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = 'nvim-lua/plenary.nvim' },
-  { 'nvim-telescope/telescope-fzf-native.nvim',
-    build = (vim.fn.has('win32') == 0) and 'make' or
-        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
-  'xiyaowong/telescope-emoji.nvim',
+    build = function() local ts_update = require('nvim-treesitter.install').update({ with_sync = true }) ts_update() end,
+    dependencies = {
+      'windwp/nvim-ts-autotag',
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      'mrjones2014/nvim-ts-rainbow',
+      'nvim-treesitter/playground',
+    }
+  },
+  { 'easymotion/vim-easymotion', event = 'CursorHold' },
+  { 'Asheq/close-buffers.vim', event = 'CursorHold' },
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      { 'nvim-telescope/telescope-fzf-native.nvim',
+        build = (vim.fn.has('win32') == 0) and 'make' or
+            'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+      'xiyaowong/telescope-emoji.nvim'
+    }
+  },
   'honza/vim-snippets',
-  'lukas-reineke/indent-blankline.nvim',
-  'romainl/vim-cool',
-  { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true } },
-  'mbbill/undotree',
-  'tpope/vim-sleuth',
-  { 'folke/which-key.nvim', config = function() require('which-key').setup {} end },
+  { 'lukas-reineke/indent-blankline.nvim', event = 'BufReadPost' },
+  { 'romainl/vim-cool', event = 'CursorHold' },
+  { 'nvim-lualine/lualine.nvim', dependencies = 'nvim-tree/nvim-web-devicons', },
+  { 'mbbill/undotree', event = 'BufReadPost' },
+  { 'tpope/vim-sleuth', event = 'BufReadPost' },
+  { 'folke/which-key.nvim', config = function() require('which-key').setup {} end, event = 'CursorHold' },
   { 'nvim-tree/nvim-tree.lua', dependencies = 'nvim-tree/nvim-web-devicons' },
-  'tpope/vim-fugitive',
-  { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end },
-  { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end },
-  { 's1n7ax/nvim-window-picker', version = '1.*', config = function() require('window-picker').setup() end },
+  { 'tpope/vim-fugitive', event = 'CursorHold' },
+  { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end, event = 'BufReadPre' },
+  { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end, event = 'BufReadPost' },
+  { 's1n7ax/nvim-window-picker', version = '1.*', config = function() require('window-picker').setup() end, },
   { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim',
-    config = function() require('todo-comments').setup {} end },
-  { 'folke/twilight.nvim', config = function() require('twilight').setup {} end },
-  { 'folke/zen-mode.nvim', config = function() require('zen-mode').setup {} end },
-  { 'ysl2/symbols-outline.nvim', config = function() require('symbols-outline').setup {} end },
-  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end },
-  { 'akinsho/toggleterm.nvim' },
-  'csexton/trailertrash.vim',
+    config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
+  { 'ysl2/symbols-outline.nvim', config = function() require('symbols-outline').setup {} end, event = 'BufReadPost' },
+  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, event = 'BufReadPost' },
+  'akinsho/toggleterm.nvim',
+  { 'csexton/trailertrash.vim', event = 'BufWritePre' },
   { 'ysl2/distant.nvim', branch = 'v0.2',
     config = function() require('distant').setup { ['*'] = require('distant.settings').chip_default() } end },
-  'ysl2/bufdelete.nvim',
-  { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = { 'markdown' } },
-  'dhruvasagar/vim-table-mode',
-  { 'mzlogin/vim-markdown-toc', ft = { 'markdown' } },
-  { 'dkarter/bullets.vim',
+  { 'ysl2/bufdelete.nvim', event = 'CursorHold' },
+  { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = 'markdown' },
+  { 'dhruvasagar/vim-table-mode', ft = 'markdown' },
+  { 'mzlogin/vim-markdown-toc', ft = 'markdown' },
+  { 'dkarter/bullets.vim', ft = 'markdown',
     init = function() vim.g.bullets_custom_mappings = { { 'inoremap <expr>', '<CR>',
         'coc#pum#visible() ? coc#pum#confirm() : "<Plug>(bullets-newline)"' }, }
     end },
-  { 'ysl2/img-paste.vim', ft = { 'markdown' }, },
-  { 'Shatur/neovim-session-manager', dependencies = 'nvim-lua/plenary.nvim' },
-  { 'stevearc/dressing.nvim', config = function() require('dressing').setup {} end },
+  { 'ysl2/img-paste.vim', ft = 'markdown' },
+  { 'Shatur/neovim-session-manager',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      { 'stevearc/dressing.nvim', config = function() require('dressing').setup {} end },
+    }
+  },
   { 'xiyaowong/nvim-transparent',
     config = function() require('transparent').setup({
         enable = ysl_set(ysl_safeget(ysl_secret, { 'transparent', 'enable' }), false),
         -- extra_groups = { 'NvimTreeNormal', 'NvimTreeEndOfBuffer', 'NvimTreeStatuslineNc', },
       })
     end },
-  'mg979/vim-visual-multi',
-  { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async',
-    init = function()
-      vim.opt.foldcolumn = '0' -- '0' is not bad
-      vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-      vim.opt.foldlevelstart = 99
-      vim.opt.foldenable = true
-    end },
-  'ysl2/leetcode.vim'
+  { 'mg979/vim-visual-multi', event = 'BufReadPost' },
+  { 'ysl2/leetcode.vim', event = 'CursorHold' }
 })
 
 load(plugins)
@@ -467,11 +470,6 @@ vim.keymap.set('n', '<leader>w', function()
 end, { desc = 'Pick a window' })
 
 -- ===
--- === folke/zen-mode.nvim
--- ===
-vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { silent = true })
-
--- ===
 -- === ysl2/symbols-outline.nvim
 -- ===
 vim.keymap.set('n', '<Leader>v', ':SymbolsOutline<CR>', { silent = true })
@@ -610,48 +608,6 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
 
 vim.keymap.set('n', '<Leader>o', ':SessionManager load_session<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>O', ':SessionManager delete_session<CR>', { silent = true })
-
--- ===
--- === kevinhwang91/nvim-ufo
--- ===
-local ufo = require('ufo')
-local handler = function(virtText, lnum, endLnum, width, truncate)
-  local newVirtText = {}
-  local suffix = ('  %d '):format(endLnum - lnum)
-  local sufWidth = vim.fn.strdisplaywidth(suffix)
-  local targetWidth = width - sufWidth
-  local curWidth = 0
-  for _, chunk in ipairs(virtText) do
-    local chunkText = chunk[1]
-    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-    if targetWidth > curWidth + chunkWidth then
-      table.insert(newVirtText, chunk)
-    else
-      chunkText = truncate(chunkText, targetWidth - curWidth)
-      local hlGroup = chunk[2]
-      table.insert(newVirtText, { chunkText, hlGroup })
-      chunkWidth = vim.fn.strdisplaywidth(chunkText)
-      -- str width returned from truncate() may less than 2nd argument, need padding
-      if curWidth + chunkWidth < targetWidth then
-        suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-      end
-      break
-    end
-    curWidth = curWidth + chunkWidth
-  end
-  table.insert(newVirtText, { suffix, 'MoreMsg' })
-  return newVirtText
-end
-
--- global handler
--- `handler` is the 2nd parameter of `setFoldVirtTextHandler`,
--- check out `./lua/ufo.lua` and search `setFoldVirtTextHandler` for detail.
-ufo.setup({
-  fold_virt_text_handler = handler
-})
-
-vim.keymap.set('n', 'zR', ufo.openAllFolds)
-vim.keymap.set('n', 'zM', ufo.closeAllFolds)
 
 -- ===
 -- === ysl2/leetcode.vim

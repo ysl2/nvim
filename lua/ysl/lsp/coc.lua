@@ -1,7 +1,7 @@
 local M = {}
 
 M.plugins = {
-  { 'neoclide/coc.nvim', branch = 'release' },
+  { 'neoclide/coc.nvim', branch = 'release', event = 'CursorHold', dependencies = 'honza/vim-snippets' },
   { 'ysl2/coc-rust-analyzer', build = 'yarn install --frozen-lockfile' },
   { 'ysl2/winbar.nvim', dependencies = { 'SmiteshP/nvim-navic', 'nvim-tree/nvim-web-devicons' }, }
 }
