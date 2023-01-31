@@ -135,12 +135,10 @@ local requires = ysl_set(ysl_safeget(ysl_secret, 'requires'), {
   require('ysl.lsp.coc')
 })
 
-local m = {}
 for _, v in ipairs(requires) do
-  vim.list_extend(m, v)
+  vim.list_extend(M, v)
 end
 
-vim.list_extend(M, m)
 vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'plugins'), {}))
 
 -- ===
