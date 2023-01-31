@@ -342,7 +342,6 @@ M[#M + 1] = {
   end
 }
 
-
 M[#M + 1] = {
   'mbbill/undotree',
   keys = { { '<Leader>u', ':UndotreeToggle<CR>', mode = 'n', silent = true } },
@@ -557,7 +556,6 @@ M[#M + 1] = {
         vim.keymap.set('n', '<Leader>P', cmd, { silent = true })
       end
     })
-
   end
 }
 
