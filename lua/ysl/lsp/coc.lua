@@ -251,7 +251,6 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'folke/trouble.nvim',
-  event = 'VeryLazy',
   keys = {
     { '<Leader>x', '<cmd>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><cmd>TroubleToggle loclist<CR>',
       mode = 'n', silent = true }
