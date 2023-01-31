@@ -75,9 +75,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 
---- ============================
---- === Plugin Configuration ===
---- ============================
+--- ===============
+--- === Plugins ===
+--- ===============
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -99,7 +99,9 @@ end
 
 local M = {}
 
--- For VSCode
+-- ===
+-- === Load VSCode
+-- ===
 vim.list_extend(M, {
   { 'tpope/vim-surround', event = 'VeryLazy' },
   { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end, event = 'VeryLazy' },
@@ -112,7 +114,9 @@ if vim.g.vscode then
   return
 end
 
--- Load from secret file.
+-- ===
+-- === Load Secret
+-- ===
 M[#M + 1] = ysl_set(ysl_safeget(ysl_secret, 'colorscheme'),
   { 'shaunsingh/nord.nvim', config = function()
     vim.cmd('colorscheme nord')
@@ -120,7 +124,9 @@ M[#M + 1] = ysl_set(ysl_safeget(ysl_secret, 'colorscheme'),
 
 vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'lsp'), require('ysl.lsp.coc')))
 
--- Load others.
+-- ===
+-- === Load Bulk
+-- ===
 vim.list_extend(M, {
   { 'Asheq/close-buffers.vim', event = 'VeryLazy' },
   { 'lukas-reineke/indent-blankline.nvim', event = 'BufReadPost' },
@@ -150,6 +156,9 @@ vim.list_extend(M, {
   { 'gcmt/wildfire.vim', event = 'VeryLazy' },
 })
 
+-- ===
+-- === Load Single
+-- ===
 if vim.fn.has('win32') == 0 then
   M[#M + 1] = {
     'wellle/tmux-complete.vim',
