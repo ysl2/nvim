@@ -252,11 +252,13 @@ M[#M + 1] = {
 M[#M + 1] = {
   'folke/trouble.nvim',
   event = 'VeryLazy',
+  keys = {
+    { '<Leader>x', '<cmd>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><cmd>TroubleToggle loclist<CR>',
+      mode = 'n', silent = true }
+  },
   dependencies = 'nvim-tree/nvim-web-devicons',
   config = function()
     require('trouble').setup({})
-    vim.keymap.set('n', '<leader>x',
-      '<cmd>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><cmd>TroubleToggle loclist<CR>', { silent = true })
   end
 }
 
