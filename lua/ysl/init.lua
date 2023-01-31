@@ -259,7 +259,8 @@ M[#M + 1] = {
 }
 
 M[#M + 1] = {
-  'easymotion/vim-easymotion', event = 'VeryLazy',
+  'easymotion/vim-easymotion',
+  event = 'VeryLazy',
   config = function()
     vim.g.EasyMotion_smartcase = 1
     vim.g.EasyMotion_keys = 'qwertyuiopasdfghjklzxcvbnm'
@@ -268,6 +269,7 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'nvim-telescope/telescope.nvim', branch = '0.1.x',
+  event = 'VeryLazy',
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim',
