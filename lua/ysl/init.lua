@@ -17,6 +17,16 @@ vim.opt.scrolloff = 1
 vim.opt.maxmempattern = 2000
 vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 300
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = vim.opt.tabstop._value
+vim.opt.expandtab = true
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'lua', 'json', 'markdown' },
+  callback = function()
+    vim.opt.tabstop = 2
+    vim.opt.shiftwidth = vim.opt.tabstop._value
+  end
+})
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
@@ -165,7 +175,6 @@ vim.list_extend(plugins, {
   { 'romainl/vim-cool', event = 'CursorHold' },
   { 'nvim-lualine/lualine.nvim', dependencies = 'nvim-tree/nvim-web-devicons', },
   { 'mbbill/undotree', event = 'BufReadPost' },
-  { 'tpope/vim-sleuth', event = 'BufReadPost' },
   { 'folke/which-key.nvim', config = function() require('which-key').setup {} end, event = 'CursorHold' },
   { 'nvim-tree/nvim-tree.lua', dependencies = 'nvim-tree/nvim-web-devicons' },
   { 'tpope/vim-fugitive', event = 'CursorHold' },
