@@ -98,7 +98,6 @@ local plugins = {}
 -- 0. For VSCode
 vim.list_extend(plugins, {
   { 'tpope/vim-surround', event = 'CursorHold' },
-  { 'gcmt/wildfire.vim', event = 'CursorHold' },
   { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end, event = 'CursorHold' },
   { 'itchyny/vim-cursorword', event = 'CursorHold' },
   { 'RRethy/vim-illuminate', event = 'CursorHold' },
@@ -203,7 +202,8 @@ vim.list_extend(plugins, {
       })
     end },
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
-  { 'ysl2/leetcode.vim', event = 'CursorHold' }
+  { 'ysl2/leetcode.vim', event = 'CursorHold' },
+  { 'gcmt/wildfire.vim', event = 'CursorHold' },
 })
 
 load(plugins)
