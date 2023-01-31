@@ -176,7 +176,7 @@ vim.list_extend(plugins, {
   { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim',
     config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
   { 'ysl2/symbols-outline.nvim', config = function() require('symbols-outline').setup {} end, event = 'BufReadPost' },
-  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, event = 'BufReadPost' },
+  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, event = 'CursorHold' },
   'akinsho/toggleterm.nvim',
   { 'csexton/trailertrash.vim', event = 'BufWritePre' },
   { 'ysl2/distant.nvim', branch = 'v0.2',
