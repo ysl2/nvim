@@ -1,4 +1,4 @@
-local _, ysl_secret = pcall(require, 'ysl.secret') -- Load machine specific secrets.next(
+local _, ysl_secret = pcall(require, 'ysl.secret') -- Load machine specific secrets.
 local ysl_utils = require('ysl.utils')
 local ysl_set = ysl_utils.set
 local ysl_safeget = ysl_utils.safeget
