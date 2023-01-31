@@ -345,7 +345,7 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'nvim-tree/nvim-tree.lua',
-  event = 'VeryLazy',
+  event = 'CursorHold',
   dependencies = 'nvim-tree/nvim-web-devicons',
   config = function()
     vim.g.loaded_netrw = 1
