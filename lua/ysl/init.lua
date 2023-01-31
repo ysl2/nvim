@@ -28,6 +28,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 vim.cmd('hi link NormalFloat NONE')
+vim.opt.shm = vim.opt.shm._value .. 'I'
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
@@ -121,15 +122,25 @@ end
 -- ===
 M[#M + 1] = ysl_set(ysl_safeget(ysl_secret, 'colorscheme'),
   {
-    'shaunsingh/nord.nvim',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd('colorscheme nord')
-    end,
+      vim.cmd('colorscheme catppuccin-frappe')
+    end
   })
 
-vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'lsp'), require('ysl.lsp.coc')))
+local requires = ysl_set(ysl_safeget(ysl_secret, 'requires'), {
+  require('ysl.lsp.coc')
+})
+
+local m = {}
+for _, v in ipairs(requires) do
+  vim.list_extend(m, v)
+end
+
+vim.list_extend(M, m)
 vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'plugins'), {}))
 
 -- ===
@@ -466,12 +477,20 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'ysl2/distant.nvim',
+  branch = 'v0.2',
   keys = {
-    { '<Leader>dc', ':lua DistantConnect()<Left>', mode = 'n', silent = true },
-    { '<Leader>do', ":lua DistantOpen('')<Left><Left>", mode = 'n', silent = true },
+    { '<Leader>dc', function()
+      local hosts = ysl_safeget(ysl_secret, { 'config', 'distant' })
+      if not hosts then print('Missing host lists.') return end
+      local idx = tonumber(vim.fn.input('Enter host idx: '))
+      require('distant.command').connect(hosts[idx])
+    end, mode = 'n', silent = true },
+    { '<Leader>do', function()
+      local path = vim.fn.input('Enter path: ')
+      require('distant.command').open({ args = { path }, opts = {} })
+    end, mode = 'n', silent = true },
     { '<Leader>ds', ':DistantShell<CR>', mode = 'n', silent = true }
   },
-  branch = 'v0.2',
   config = function()
     require('distant').setup { ['*'] = require('distant.settings').chip_default() }
     -- HACK: If path contains whitespace, you should link .ssh folder to another place.
@@ -482,38 +501,29 @@ M[#M + 1] = {
     -- ```
     --
     -- HACK: Read variables from secret file.
-    -- ysl_secret.distant is a list type (also can be defined as a table that can give a host alia. By yourself.)
+    -- ysl_secret.config.distant is a list type (also can be defined as a table that can give a host alia. By yourself.)
     -- e.g,
     --
     -- ```lua
-    -- ysl_secret.distant = {
-    --   {
-    --     args = { 'ssh://user1@111.222.333.444:22' },
-    --     opts = {
-    --       options = {
-    --         -- ['ssh.backend'] = 'libssh', -- No need to specify this. Just for example.
-    --         ['ssh.user_known_hosts_files'] = 'C:\\Users\\Public\\.ssh\\known_hosts',
-    --         ['ssh.identity_files'] = 'C:\\Users\\Public\\.ssh\\id_rsa'
+    -- ysl_secret.config = {
+    --   distant = {
+    --     {
+    --       args = { 'ssh://user1@111.222.333.444:22' },
+    --       opts = {
+    --         options = {
+    --           -- ['ssh.backend'] = 'libssh', -- No need to specify this. Just for example.
+    --           ['ssh.user_known_hosts_files'] = 'C:\\Users\\Public\\.ssh\\known_hosts',
+    --           ['ssh.identity_files'] = 'C:\\Users\\Public\\.ssh\\id_rsa'
+    --         }
     --       }
+    --     },
+    --     {
+    --       args = { 'ssh://user2@127.0.0.1:2233' },
+    --       opts = {} -- Or leave it empty on Linux.
     --     }
-    --   },
-    --   {
-    --     args = { 'ssh://user2@127.0.0.1:2233' },
-    --     opts = {} -- Or leave it empty on Linux.
     --   }
     -- }
     -- ```
-    if ysl_safeget(ysl_secret, 'distant') then
-      local distant_command = require('distant.command')
-
-      function DistantConnect(idx)
-        distant_command.connect(ysl_secret.distant[idx])
-      end
-
-      function DistantOpen(path)
-        distant_command.open({ args = { path }, opts = {} })
-      end
-    end
   end
 }
 
@@ -558,6 +568,7 @@ M[#M + 1] = {
     { '<Leader>o', ':SessionManager load_session<CR>', mode = 'n', silent = true },
     { '<Leader>O', ':SessionManager delete_session<CR>', mode = 'n', silent = true }
   },
+  event = 'VeryLazy',
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'stevearc/dressing.nvim', config = function() require('dressing').setup {} end },
