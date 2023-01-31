@@ -182,7 +182,6 @@ if vim.fn.has('win32') == 0 then
   M[#M + 1] = {
     'kevinhwang91/rnvimr',
     keys = { { '<Leader>r', ':RnvimrToggle<CR>', mode = 'n', silent = true } },
-    cmd = 'Rnvimr',
     config = function()
       vim.g.rnvimr_enable_picker = 1
       vim.g.rnvimr_enable_bw = 1
@@ -201,7 +200,6 @@ end
 if vim.fn.has('win32') == 0 then
   M[#M + 1] = {
     'kdheepak/lazygit.nvim',
-    cmd = 'LazyGit',
     keys = { { '<Leader>g', ':LazyGit<CR>', mode = 'n', silent = true } },
   }
 end
