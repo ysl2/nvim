@@ -134,17 +134,16 @@ vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'lsp'), require('ysl.lsp.coc'
 -- === Load Bulk
 -- ===
 vim.list_extend(M, {
-  { 'Asheq/close-buffers.vim', event = 'VeryLazy' },
+  { 'Asheq/close-buffers.vim', cmd = 'Bdelete' },
   { 'lukas-reineke/indent-blankline.nvim', event = 'BufReadPost' },
   { 'romainl/vim-cool', event = 'VeryLazy' },
-  { 'folke/which-key.nvim', config = function() require('which-key').setup {} end, event = 'VeryLazy' },
-  { 'tpope/vim-fugitive', event = 'VeryLazy' },
+  { 'tpope/vim-fugitive', cmd = 'Git' },
   { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end, event = 'BufReadPost' },
   { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end, event = 'BufReadPost' },
   { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim',
     config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
   { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, event = 'VeryLazy' },
-  { 'ysl2/bufdelete.nvim', event = 'VeryLazy' },
+  { 'ysl2/bufdelete.nvim', cmd = 'Bd' },
   { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = 'markdown' },
   { 'dhruvasagar/vim-table-mode', ft = 'markdown' },
   { 'mzlogin/vim-markdown-toc', ft = 'markdown' },
@@ -169,7 +168,7 @@ end
 if vim.fn.has('win32') == 0 then
   M[#M + 1] = {
     'kevinhwang91/rnvimr',
-    event = 'VeryLazy',
+    keys = { { '<Leader>r', ':RnvimrToggle<CR>', mode = 'n', silent = true } },
     config = function()
       vim.g.rnvimr_enable_picker = 1
       vim.g.rnvimr_enable_bw = 1
@@ -182,7 +181,6 @@ if vim.fn.has('win32') == 0 then
         ['<C-x>'] = 'NvimEdit split',
         ['<C-v>'] = 'NvimEdit vsplit',
       }
-      vim.keymap.set('n', '<Leader>r', ':RnvimrToggle<CR>', { silent = true })
     end
   }
 end
@@ -190,10 +188,7 @@ end
 if vim.fn.has('win32') == 0 then
   M[#M + 1] = {
     'kdheepak/lazygit.nvim',
-    event = 'VeryLazy',
-    config = function()
-      vim.keymap.set('n', '<Leader>g', ':LazyGit<CR>', { silent = true })
-    end
+    keys = { { '<Leader>g', ':LazyGit<CR>', mode = 'n', silent = true } },
   }
 end
 
@@ -278,7 +273,13 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'nvim-telescope/telescope.nvim', branch = '0.1.x',
-  event = 'VeryLazy',
+  cmd = 'Telescope',
+  keys = {
+    { '<Leader>f', ':Telescope find_files<CR>', mode = 'n', silent = true },
+    { '<Leader>b', ':Telescope buffers<CR>', mode = 'n', silent = true },
+    { '<Leader>s', ':Telescope live_grep<CR>', mode = 'n', silent = true },
+    { '<Leader>G', ':Telescope git_status<CR>', mode = 'n', silent = true }
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim',
@@ -324,11 +325,6 @@ M[#M + 1] = {
       --   -- Your extension configuration goes here:
       -- }
     }
-    vim.keymap.set('n', '<Leader>f', ':Telescope find_files<CR>', { silent = true })
-    vim.keymap.set('n', '<Leader>b', ':Telescope buffers<CR>', { silent = true })
-    vim.keymap.set('n', '<Leader>s', ':Telescope live_grep<CR>', { silent = true })
-    vim.keymap.set('n', '<Leader>G', ':Telescope git_status<CR>', { silent = true })
-
     telescope.load_extension('fzf')
     telescope.load_extension('emoji')
   end
@@ -337,7 +333,7 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'mbbill/undotree',
-  event = 'BufReadPost',
+  keys = { { '<Leader>u', ':UndotreeToggle<CR>', mode = 'n', silent = true } },
   config = function()
     vim.g.undotree_WindowLayout = 3
     if vim.fn.has('persistent_undo') == 1 then
@@ -348,13 +344,12 @@ M[#M + 1] = {
       vim.cmd("let &undodir='" .. target_path .. "'")
       vim.cmd('set undofile')
     end
-    vim.keymap.set('n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true })
   end
 }
 
 M[#M + 1] = {
   'nvim-tree/nvim-tree.lua',
-  event = 'VeryLazy',
+  keys = { { '<Leader>e', ':NvimTreeToggle<CR>', mode = 'n', silent = true } },
   dependencies = 'nvim-tree/nvim-web-devicons',
   config = function()
     vim.g.loaded_netrw = 1
@@ -408,35 +403,34 @@ M[#M + 1] = {
       },
       notify = { threshold = vim.log.levels.WARN }
     })
-    vim.keymap.set('n', '<Leader>e', ':NvimTreeToggle<CR>', { silent = true })
   end
 }
 
 M[#M + 1] = {
   's1n7ax/nvim-window-picker',
-  event = 'VeryLazy',
+  keys = {
+    { '<leader>w', function()
+      local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
+      vim.api.nvim_set_current_win(picked_window_id)
+    end, mode = 'n', silent = true, desc = 'Pick a window' }
+  },
   version = '1.*',
   config = function()
     require('window-picker').setup()
-    vim.keymap.set('n', '<leader>w', function()
-      local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
-      vim.api.nvim_set_current_win(picked_window_id)
-    end, { desc = 'Pick a window' })
   end
 }
 
 M[#M + 1] = {
   'ysl2/symbols-outline.nvim',
-  event = 'BufReadPost',
+  keys = { { '<Leader>v', ':SymbolsOutline<CR>', mode = 'n', silent = true } },
   config = function()
     require('symbols-outline').setup {}
-    vim.keymap.set('n', '<Leader>v', ':SymbolsOutline<CR>', { silent = true })
   end
 }
 
 M[#M + 1] = {
   'akinsho/toggleterm.nvim',
-  event = 'VeryLazy',
+  keys = { { [[<C-\>]] }, mode = 'n' },
   config = function()
     if vim.fn.has('win32') == 1 then
       local powershell_options = {
@@ -471,7 +465,11 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'ysl2/distant.nvim',
-  event = 'VeryLazy',
+  keys = {
+    { '<Leader>dc', ':lua DistantConnect()<Left>', mode = 'n', silent = true },
+    { '<Leader>do', ":lua DistantOpen('')<Left><Left>", mode = 'n', silent = true },
+    { '<Leader>ds', ':DistantShell<CR>', mode = 'n', silent = true }
+  },
   branch = 'v0.2',
   config = function()
     require('distant').setup { ['*'] = require('distant.settings').chip_default() }
@@ -514,10 +512,6 @@ M[#M + 1] = {
       function DistantOpen(path)
         distant_command.open({ args = { path }, opts = {} })
       end
-
-      vim.keymap.set('n', '<Leader>dc', ':lua DistantConnect()<Left>')
-      vim.keymap.set('n', '<Leader>do', ":lua DistantOpen('')<Left><Left>")
-      vim.keymap.set('n', '<Leader>ds', ':DistantShell<CR>')
     end
   end
 }
@@ -558,7 +552,11 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'Shatur/neovim-session-manager',
-  event = 'VeryLazy',
+  cmd = 'SessionManager',
+  keys = {
+    { '<Leader>o', ':SessionManager load_session<CR>', mode = 'n', silent = true },
+    { '<Leader>O', ':SessionManager delete_session<CR>', mode = 'n', silent = true }
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'stevearc/dressing.nvim', config = function() require('dressing').setup {} end },
@@ -583,25 +581,32 @@ M[#M + 1] = {
         end
       end
     })
-
-    vim.keymap.set('n', '<Leader>o', ':SessionManager load_session<CR>', { silent = true })
-    vim.keymap.set('n', '<Leader>O', ':SessionManager delete_session<CR>', { silent = true })
   end
 }
 
 M[#M + 1] = {
   'ysl2/leetcode.vim',
-  event = 'VeryLazy',
+  keys = {
+    { '<leader>ll', ':LeetCodeList<cr>', mode = 'n', silent = true },
+    { '<leader>lt', ':LeetCodeTest<cr>', mode = 'n', silent = true },
+    { '<leader>ls', ':LeetCodeSubmit<cr>', mode = 'n', silent = true },
+    { '<leader>li', ':LeetCodeSignIn<cr>', mode = 'n', silent = true }
+  },
   config = function()
     vim.g.leetcode_china = 1
     vim.g.leetcode_browser = 'chrome'
     vim.g.leetcode_solution_filetype = 'python'
-
-    vim.keymap.set('n', '<leader>ll', ':LeetCodeList<cr>', { silent = true })
-    vim.keymap.set('n', '<leader>lt', ':LeetCodeTest<cr>', { silent = true })
-    vim.keymap.set('n', '<leader>ls', ':LeetCodeSubmit<cr>', { silent = true })
-    vim.keymap.set('n', '<leader>li', ':LeetCodeSignIn<cr>', { silent = true })
   end
+}
+
+M[#M + 1] = {
+  'folke/which-key.nvim',
+  event = 'VeryLazy',
+  config = function()
+    vim.opt.timeout = true
+    vim.opt.timeoutlen = 300
+    require('which-key').setup {}
+  end,
 }
 
 myload(M)
