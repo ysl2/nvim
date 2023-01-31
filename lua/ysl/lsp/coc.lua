@@ -299,7 +299,7 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'nvim-lualine/lualine.nvim',
-  event = 'CursorHold',
+  event = 'VeryLazy',
   dependencies = 'nvim-tree/nvim-web-devicons',
   config = function()
     require('lualine').setup({

@@ -50,22 +50,23 @@ vim.keymap.set('n', '<C-w>L', ':lua command_wrapper_check_no_name_buffer(":abo v
   { silent = true })
 
 -- Auto delete [No Name] buffers.
-vim.api.nvim_create_autocmd('BufLeave', {
-  callback = function()
-    if vim.g.vscode then return end
-    local buffers = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr('$')),
-      'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
-    local next = next
-    if next(buffers) == nil then
-      return
+if not vim.g.vscode then
+  vim.api.nvim_create_autocmd('BufLeave', {
+    callback = function()
+      local buffers = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr('$')),
+        'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
+      local next = next
+      if next(buffers) == nil then
+        return
+      end
+      local cmdstr = ':silent! bw!'
+      for _, v in pairs(buffers) do
+        cmdstr = cmdstr .. ' ' .. v
+      end
+      vim.cmd(cmdstr)
     end
-    local cmdstr = ':silent! bw!'
-    for _, v in pairs(buffers) do
-      cmdstr = cmdstr .. ' ' .. v
-    end
-    vim.cmd(cmdstr)
-  end
-})
+  })
+end
 
 -- Auto highlight after yank.
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -118,9 +119,14 @@ end
 -- === Load Secret
 -- ===
 M[#M + 1] = ysl_set(ysl_safeget(ysl_secret, 'colorscheme'),
-  { 'shaunsingh/nord.nvim', config = function()
-    vim.cmd('colorscheme nord')
-  end, event = 'VeryLazy' })
+  {
+    'shaunsingh/nord.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd('colorscheme nord')
+    end,
+  })
 
 vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'lsp'), require('ysl.lsp.coc')))
 
@@ -145,12 +151,6 @@ vim.list_extend(M, {
   { 'dkarter/bullets.vim', ft = 'markdown',
     init = function() vim.g.bullets_custom_mappings = { { 'inoremap <expr>', '<CR>',
         'coc#pum#visible() ? coc#pum#confirm() : "<Plug>(bullets-newline)"' }, }
-    end },
-  { 'xiyaowong/nvim-transparent', event = 'VeryLazy', priority = 1000,
-    config = function() require('transparent').setup({
-        enable = ysl_set(ysl_safeget(ysl_secret, { 'transparent', 'enable' }), false),
-        -- extra_groups = { 'NvimTreeNormal', 'NvimTreeEndOfBuffer', 'NvimTreeStatuslineNc', },
-      })
     end },
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
   { 'gcmt/wildfire.vim', event = 'VeryLazy' },
@@ -354,7 +354,7 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'nvim-tree/nvim-tree.lua',
-  event = 'CursorHold',
+  event = 'VeryLazy',
   dependencies = 'nvim-tree/nvim-web-devicons',
   config = function()
     vim.g.loaded_netrw = 1
