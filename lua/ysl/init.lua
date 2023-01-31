@@ -27,6 +27,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt.shiftwidth = vim.opt.tabstop._value
   end
 })
+vim.cmd('hi link NormalFloat NONE')
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
@@ -129,6 +130,7 @@ M[#M + 1] = ysl_set(ysl_safeget(ysl_secret, 'colorscheme'),
   })
 
 vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'lsp'), require('ysl.lsp.coc')))
+vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'plugins'), {}))
 
 -- ===
 -- === Load Bulk
@@ -172,7 +174,6 @@ if vim.fn.has('win32') == 0 then
     config = function()
       vim.g.rnvimr_enable_picker = 1
       vim.g.rnvimr_enable_bw = 1
-      vim.cmd('hi link NormalFloat NONE')
       vim.defer_fn(function()
         vim.cmd('RnvimrStartBackground')
       end, 1000)
