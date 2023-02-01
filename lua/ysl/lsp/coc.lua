@@ -219,9 +219,9 @@ M[#M + 1] = {
     -- Resume latest coc list.
     -- vim.keymap.set('n', '<space>p', ':<C-u>CocListResume<cr>', opts)
 
-    vim.api.nvim_create_autocmd('VimLeavePre', {
-      command = [[call coc#rpc#kill()]]
-    })
+    -- vim.api.nvim_create_autocmd('VimLeavePre', {
+    --   command = [[call coc#rpc#kill()]]
+    -- })
 
     vim.api.nvim_create_autocmd('VimLeave', {
       callback = function()
