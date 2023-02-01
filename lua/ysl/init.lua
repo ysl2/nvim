@@ -18,12 +18,16 @@ vim.opt.maxmempattern = 2000
 vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 300
 vim.opt.tabstop = 4
-vim.opt.shiftwidth = vim.opt.tabstop._value
 vim.opt.expandtab = true
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'lua', 'json', 'markdown' },
   callback = function()
     vim.opt.tabstop = 2
+  end
+})
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '*',
+  callback = function()
     vim.opt.shiftwidth = vim.opt.tabstop._value
   end
 })

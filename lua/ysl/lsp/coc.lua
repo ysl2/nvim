@@ -26,7 +26,7 @@ M[#M + 1] = {
     if vim.fn.has('win32') == 1 then
       -- HACK: Coc config for specific Windows.
       vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
-        ['sumneko-lua.serverDir'] = vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'),
+        ['sumneko-lua.serverDir'] = vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*3.6.8*\\server'),
       })
     end
 
