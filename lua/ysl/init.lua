@@ -110,6 +110,7 @@ vim.list_extend(M, {
   { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end, event = 'VeryLazy' },
   { 'itchyny/vim-cursorword', event = 'VeryLazy' },
   { 'RRethy/vim-illuminate', event = 'VeryLazy' },
+  { 'justinmk/vim-sneak', event = 'VeryLazy' }
 })
 if vim.g.vscode then
   M[#M + 1] = { 'ysl2/vim-easymotion-for-vscode-neovim', event = 'VeryLazy' }
