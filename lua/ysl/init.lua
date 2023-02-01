@@ -1,7 +1,5 @@
-local _, ysl_secret = pcall(require, 'ysl.secret') -- Load machine specific secrets.
-local ysl_utils = require('ysl.utils')
-local ysl_set = ysl_utils.set
-local ysl_safeget = ysl_utils.safeget
+local _, S = pcall(require, 'ysl.secret') -- Load machine specific secrets.
+local U = require('ysl.utils')
 -- =============
 -- === Basic ===
 -- =============
@@ -125,7 +123,7 @@ end
 -- ===
 -- === Load Secret
 -- ===
-M[#M + 1] = ysl_set(ysl_safeget(ysl_secret, 'colorscheme'),
+M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
   {
     'catppuccin/nvim',
     name = 'catppuccin',
@@ -136,7 +134,7 @@ M[#M + 1] = ysl_set(ysl_safeget(ysl_secret, 'colorscheme'),
     end
   })
 
-local requires = ysl_set(ysl_safeget(ysl_secret, 'requires'), {
+local requires = U.set(U.safeget(S, 'requires'), {
   require('ysl.lsp.coc')
 })
 
@@ -144,7 +142,7 @@ for _, v in ipairs(requires) do
   vim.list_extend(M, v)
 end
 
-vim.list_extend(M, ysl_set(ysl_safeget(ysl_secret, 'plugins'), {}))
+vim.list_extend(M, U.set(U.safeget(S, 'plugins'), {}))
 
 -- ===
 -- === Load Bulk
@@ -482,7 +480,7 @@ M[#M + 1] = {
   branch = 'v0.2',
   keys = {
     { '<Leader>dc', function()
-      local hosts = ysl_safeget(ysl_secret, { 'config', 'distant' })
+      local hosts = U.safeget(S, { 'config', 'distant' })
       if not hosts then print('Missing host lists.') return end
       local idx = tonumber(vim.fn.input('Enter host idx: '))
       require('distant.command').connect(hosts[idx])

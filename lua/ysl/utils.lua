@@ -29,4 +29,19 @@ M.safeget = function(item, keys)
   return nil
 end
 
+-- Split string by character.
+-- @param inputstr: string
+-- @param sep: string(character)
+-- @return: the table contains the splited strings.
+M.mysplit = function(inputstr, sep)
+  if sep == nil then
+    sep = '%s'
+  end
+  local t = {}
+  for str in string.gmatch(inputstr, '([^' .. sep .. ']+)') do
+    table.insert(t, str)
+  end
+  return t
+end
+
 return M
