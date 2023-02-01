@@ -10,8 +10,23 @@ M[#M + 1] = {
       'ysl2/coc-rust-analyzer',
       build = 'yarn install --frozen-lockfile'
     },
+    'neoclide/jsonc.vim'
   },
   config = function()
+
+    vim.g.coc_global_extensions = {
+      'coc-pyright',
+      'coc-sh',
+      'coc-tabnine',
+      'coc-sumneko-lua',
+      'coc-marketplace',
+      'coc-json',
+      'coc-snippets',
+      'coc-prettier',
+      'coc-vimlsp',
+      'coc-tsserver'
+    }
+
     vim.g.coc_user_config = {}
 
     -- HACK: Coc config shared by Windows, Linux and Mac.
@@ -30,22 +45,26 @@ M[#M + 1] = {
       -- serverDir = serverDir[#serverDir]
       vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
         -- ['sumneko-lua.serverDir'] = serverDir
-        ['sumneko-lua.serverDir'] = 'C:\\USers\\fa fa\\.vscode\\extensions\\sumneko.lua-3.6.8-win32-x64\\server'
+        ['sumneko-lua.serverDir'] = 'C:\\Users\\fa fa\\.vscode\\extensions\\sumneko.lua-3.6.8-win32-x64\\server'
       })
     end
 
-    vim.g.coc_global_extensions = {
-      'coc-pyright',
-      'coc-sh',
-      'coc-tabnine',
-      'coc-sumneko-lua',
-      'coc-marketplace',
-      'coc-json',
-      'coc-snippets',
-      'coc-prettier',
-      'coc-vimlsp',
-      'coc-tsserver'
-    }
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'json',
+      command = [[syntax match Comment +\/\/.\+$+]]
+    })
+
+    local function saveAndFormatToggle()
+      local m = vim.g.coc_user_config['coc.preferences.formatOnSave']
+      m = (m == nil) and true or (not m)
+      vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
+        ['coc.preferences.formatOnSave'] = m
+      })
+      vim.cmd('silent CocRestart')
+      print('"coc.preferences.formatOnSave" = ' .. tostring(m))
+    end
+
+    vim.api.nvim_create_user_command('SaveAndFormatToggle', saveAndFormatToggle, {})
 
     -- Some servers have issues with backup files, see #649.
     vim.opt.backup = false
