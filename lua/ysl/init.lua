@@ -561,12 +561,12 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'Shatur/neovim-session-manager',
+  lazy = false,
   cmd = 'SessionManager',
   keys = {
     { '<Leader>o', ':SessionManager load_session<CR>', mode = 'n', silent = true },
     { '<Leader>O', ':SessionManager delete_session<CR>', mode = 'n', silent = true }
   },
-  event = 'VeryLazy',
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'stevearc/dressing.nvim', config = function() require('dressing').setup {} end },
