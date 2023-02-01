@@ -10,7 +10,15 @@ M[#M + 1] = {
       'ysl2/coc-rust-analyzer',
       build = 'yarn install --frozen-lockfile'
     },
-    'neoclide/jsonc.vim'
+    {
+      'neoclide/jsonc.vim',
+      config = function()
+        vim.api.nvim_create_autocmd('FileType', {
+          pattern = 'json',
+          command = [[syntax match Comment +\/\/.\+$+]]
+        })
+      end
+    }
   },
   config = function()
 
@@ -48,11 +56,6 @@ M[#M + 1] = {
         ['sumneko-lua.serverDir'] = 'C:\\Users\\fa fa\\.vscode\\extensions\\sumneko.lua-3.6.8-win32-x64\\server'
       })
     end
-
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'json',
-      command = [[syntax match Comment +\/\/.\+$+]]
-    })
 
     local function saveAndFormatToggle()
       local m = vim.g.coc_user_config['coc.preferences.formatOnSave']
