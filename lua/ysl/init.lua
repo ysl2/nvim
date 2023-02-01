@@ -127,8 +127,7 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    lazy = false,
-    priority = 1000,
+    event = 'VimEnter',
     config = function()
       vim.cmd('colorscheme catppuccin-frappe')
     end
@@ -156,7 +155,7 @@ vim.list_extend(M, {
   { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end, event = 'BufReadPost' },
   { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim',
     config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
-  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, event = 'VeryLazy' },
+  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, event = 'VimEnter' },
   { 'ysl2/bufdelete.nvim', cmd = 'Bd' },
   { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = 'markdown' },
   { 'dhruvasagar/vim-table-mode', ft = 'markdown' },
