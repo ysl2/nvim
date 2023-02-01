@@ -1,4 +1,3 @@
-local U = require('ysl.utils')
 local M = {}
 
 M[#M + 1] = {
@@ -24,11 +23,14 @@ M[#M + 1] = {
       }
     })
 
+    -- HACK: Coc config for specific Windows.
     if vim.fn.has('win32') == 1 then
-      -- HACK: Coc config for specific Windows.
-      local s = U.mysplit(vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'), '\n')
+      -- local U = require('ysl.utils')
+      -- local serverDir = U.mysplit(vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'), '\n')
+      -- serverDir = serverDir[#serverDir]
       vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
-        ['sumneko-lua.serverDir'] = s[#s]
+        -- ['sumneko-lua.serverDir'] = serverDir
+        ['sumneko-lua.serverDir'] = vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua-3.6.8-win32-x64\\server'
       })
     end
 
