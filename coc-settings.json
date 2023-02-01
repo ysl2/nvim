@@ -53,5 +53,6 @@
   "rust-analyzer.cargo.buildScripts.enable": false,
   "rust-analyzer.procMacro.enable": false,
   "suggest.snippetIndicator": "...",
-  "tabnine.enablePreselect": false
+  "tabnine.enablePreselect": false,
+  "coc.preferences.formatOnSaveFiletypes": ["markdown"]
 }
