@@ -43,13 +43,13 @@ function _G.command_wrapper_check_no_name_buffer(cmdstr)
   vim.cmd(cmdstr)
 end
 
-vim.keymap.set('n', '<C-w>H', ':lua command_wrapper_check_no_name_buffer(":bel vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>H', ':lua command_wrapper_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>J', ':lua command_wrapper_check_no_name_buffer(":abo sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>J', ':lua command_wrapper_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>K', ':lua command_wrapper_check_no_name_buffer(":bel sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>K', ':lua command_wrapper_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>L', ':lua command_wrapper_check_no_name_buffer(":abo vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>L', ':lua command_wrapper_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
   { silent = true })
 
 -- Auto delete [No Name] buffers.
