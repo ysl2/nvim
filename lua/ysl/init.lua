@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt.tabstop = 2
   end
 })
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
     vim.opt.shiftwidth = vim.opt.tabstop._value
   end
