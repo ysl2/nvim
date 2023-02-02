@@ -125,8 +125,9 @@ end
 M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
   {
     'catppuccin/nvim',
+    lazy = false,
+    priority = 1000,
     name = 'catppuccin',
-    event = 'VimEnter',
     config = function()
       vim.cmd('colorscheme catppuccin-frappe')
     end
@@ -154,7 +155,7 @@ vim.list_extend(M, {
   { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end, event = 'BufReadPost' },
   { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim',
     config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
-  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, event = 'VimEnter' },
+  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, lazy = false, },
   { 'ysl2/bufdelete.nvim', cmd = 'Bd' },
   { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = 'markdown' },
   { 'dhruvasagar/vim-table-mode', ft = 'markdown' },
@@ -575,7 +576,7 @@ M[#M + 1] = {
       autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir
     })
 
-    vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+    vim.api.nvim_create_autocmd('VimEnter', {
       callback = function()
         if vim.fn.has('win32') == 1 then
           vim.cmd('silent! cd %:p:h')
