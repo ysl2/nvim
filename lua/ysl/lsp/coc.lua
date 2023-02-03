@@ -53,7 +53,7 @@ M[#M + 1] = {
       -- serverDir = serverDir[#serverDir]
       vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
         -- ['sumneko-lua.serverDir'] = serverDir
-        ['sumneko-lua.serverDir'] = 'C:\\Users\\fa fa\\.vscode\\extensions\\sumneko.lua-3.6.8-win32-x64\\server'
+        ['sumneko-lua.serverDir'] = vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server')
       })
     end
 
