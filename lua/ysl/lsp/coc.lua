@@ -57,9 +57,25 @@ M[#M + 1] = {
       })
     end
 
-    local function saveAndFormatToggle()
-      local m = vim.g.coc_user_config['coc.preferences.formatOnSave']
-      m = (m == nil) and true or (not m)
+
+    local toboolean = { ['true'] = true, ['false'] = false }
+
+    local function saveAndFormatToggle(opts)
+      local m
+      if #opts.fargs > 1 then
+        print('Too many arguments.')
+        return
+      end
+      if #opts.fargs == 1 then
+        m = toboolean[opts.fargs[1]]
+        if m == nil then
+          print('Bad argument.')
+          return
+        end
+      else
+        m = vim.g.coc_user_config['coc.preferences.formatOnSave']
+        m = (m == nil) and true or (not m)
+      end
       vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
         ['coc.preferences.formatOnSave'] = m
       })
@@ -67,7 +83,17 @@ M[#M + 1] = {
       print('"coc.preferences.formatOnSave" = ' .. tostring(m))
     end
 
-    vim.api.nvim_create_user_command('SaveAndFormatToggle', saveAndFormatToggle, {})
+    vim.api.nvim_create_user_command('SaveAndFormatToggle', saveAndFormatToggle, {
+      nargs = '*',
+      complete = function(arglead, cmdline, cursorpos)
+        for k, _ in pairs(toboolean) do
+          if k:sub(1, #arglead) == arglead then
+            return { k }
+          end
+        end
+        return {}
+      end
+    })
 
     -- Some servers have issues with backup files, see #649.
     vim.opt.backup = false
