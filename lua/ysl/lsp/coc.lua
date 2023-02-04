@@ -86,12 +86,13 @@ M[#M + 1] = {
     vim.api.nvim_create_user_command('SaveAndFormatToggle', saveAndFormatToggle, {
       nargs = '*',
       complete = function(arglead, cmdline, cursorpos)
+        local cmp = {}
         for k, _ in pairs(toboolean) do
           if k:sub(1, #arglead) == arglead then
-            return { k }
+            cmp[#cmp + 1] = k
           end
         end
-        return {}
+        return cmp
       end
     })
 
