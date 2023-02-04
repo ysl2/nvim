@@ -30,6 +30,10 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 vim.cmd('hi link NormalFloat NONE')
 vim.opt.shm = vim.opt.shm._value .. 'I'
+vim.opt.timeout = true
+vim.opt.timeoutlen = 300
+vim.opt.backup = false
+vim.opt.writebackup = false
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
@@ -611,10 +615,9 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'folke/which-key.nvim',
+  lazy = false,
   event = 'VeryLazy',
   config = function()
-    vim.opt.timeout = true
-    vim.opt.timeoutlen = 300
     require('which-key').setup {}
   end,
 }
