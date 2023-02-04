@@ -510,11 +510,11 @@ M[#M + 1] = {
     -- ```
     --
     -- HACK: Read variables from secret file.
-    -- ysl_secret.config.distant is a list type (also can be defined as a table that can give a host alia. By yourself.)
+    -- S.config.distant is a list type (also can be defined as a table that can give a host alia. By yourself.)
     -- e.g,
     --
     -- ```lua
-    -- ysl_secret.config = {
+    -- S.config = {
     --   distant = {
     --     {
     --       args = { 'ssh://user1@111.222.333.444:22' },
