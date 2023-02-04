@@ -97,7 +97,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local function myload(plugins)
   require('lazy').setup(plugins, {
-    defaults = { lazy = true }
+    -- defaults = { lazy = true }
   })
 end
 
@@ -206,6 +206,7 @@ end
 
 M[#M + 1] = {
   'nvim-treesitter/nvim-treesitter',
+  event = 'VeryLazy',
   build = function() local ts_update = require('nvim-treesitter.install').update({ with_sync = true }) ts_update() end,
   dependencies = {
     'windwp/nvim-ts-autotag',
@@ -617,6 +618,15 @@ M[#M + 1] = {
     vim.opt.timeoutlen = 300
     require('which-key').setup {}
   end,
+}
+
+M[#M + 1] = {
+  'glacambre/firenvim',
+  build = function() vim.fn['firenvim#install'](0) end,
+
+  -- Lazy load firenvim
+  -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
+  cond = not not vim.g.started_by_firenvim
 }
 
 myload(M)
