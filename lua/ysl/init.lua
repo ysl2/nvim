@@ -113,8 +113,14 @@ vim.list_extend(M, {
   { 'RRethy/vim-illuminate', event = 'VeryLazy' },
   { 'justinmk/vim-sneak', event = 'VeryLazy' }
 })
+
+M[#M + 1] = {
+  'ysl2/vim-easymotion-for-vscode-neovim',
+  event = 'VeryLazy',
+  cond = not not vim.g.vscode
+}
+
 if vim.g.vscode then
-  M[#M + 1] = { 'ysl2/vim-easymotion-for-vscode-neovim', event = 'VeryLazy' }
   myload(M)
   return
 end
