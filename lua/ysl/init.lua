@@ -203,12 +203,10 @@ if vim.fn.has('win32') == 0 then
   }
 end
 
-if vim.fn.has('win32') == 0 then
-  M[#M + 1] = {
-    'kdheepak/lazygit.nvim',
-    keys = { { '<Leader>g', ':LazyGit<CR>', mode = 'n', silent = true } },
-  }
-end
+M[#M + 1] = {
+  'kdheepak/lazygit.nvim',
+  keys = { { '<Leader>g', ':LazyGit<CR>', mode = 'n', silent = true } },
+}
 
 M[#M + 1] = {
   'nvim-treesitter/nvim-treesitter',
