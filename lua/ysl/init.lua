@@ -34,6 +34,7 @@ vim.opt.shm = vim.opt.shm._value .. 'I'
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
 vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
+vim.keymap.set('n', '<C-a>', '')
 vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
 
 function _G.command_wrapper_check_no_name_buffer(cmdstr)
@@ -620,7 +621,12 @@ M[#M + 1] = {
   config = function()
     vim.opt.timeout = true
     vim.opt.timeoutlen = 300
-    require('which-key').setup {}
+    require('which-key').setup({
+      plugins = {
+        marks = false, -- shows a list of your marks on ' and `
+        registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+      }
+    })
   end,
 }
 
