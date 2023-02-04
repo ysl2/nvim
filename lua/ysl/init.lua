@@ -38,6 +38,7 @@ vim.opt.writebackup = false
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
 vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
+vim.keymap.set('n', '<C-a>', '')
 vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
 
 function _G.command_wrapper_check_no_name_buffer(cmdstr)
@@ -101,7 +102,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local function myload(plugins)
   require('lazy').setup(plugins, {
-    defaults = { lazy = true }
+    -- defaults = { lazy = true }
   })
 end
 
@@ -117,8 +118,14 @@ vim.list_extend(M, {
   { 'RRethy/vim-illuminate', event = 'VeryLazy' },
   { 'justinmk/vim-sneak', event = 'VeryLazy' }
 })
+
+M[#M + 1] = {
+  'ysl2/vim-easymotion-for-vscode-neovim',
+  event = 'VeryLazy',
+  cond = not not vim.g.vscode
+}
+
 if vim.g.vscode then
-  M[#M + 1] = { 'ysl2/vim-easymotion-for-vscode-neovim', event = 'VeryLazy' }
   myload(M)
   return
 end
@@ -201,15 +208,14 @@ if vim.fn.has('win32') == 0 then
   }
 end
 
-if vim.fn.has('win32') == 0 then
-  M[#M + 1] = {
-    'kdheepak/lazygit.nvim',
-    keys = { { '<Leader>g', ':LazyGit<CR>', mode = 'n', silent = true } },
-  }
-end
+M[#M + 1] = {
+  'kdheepak/lazygit.nvim',
+  keys = { { '<Leader>g', ':LazyGit<CR>', mode = 'n', silent = true } },
+}
 
 M[#M + 1] = {
   'nvim-treesitter/nvim-treesitter',
+  event = 'VeryLazy',
   build = function() local ts_update = require('nvim-treesitter.install').update({ with_sync = true }) ts_update() end,
   dependencies = {
     'windwp/nvim-ts-autotag',
@@ -618,8 +624,22 @@ M[#M + 1] = {
   lazy = false,
   event = 'VeryLazy',
   config = function()
-    require('which-key').setup {}
+    require('which-key').setup({
+      plugins = {
+        marks = false, -- shows a list of your marks on ' and `
+        registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+      }
+    })
   end,
+}
+
+M[#M + 1] = {
+  'glacambre/firenvim',
+  build = function() vim.fn['firenvim#install'](0) end,
+
+  -- Lazy load firenvim
+  -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
+  cond = not not vim.g.started_by_firenvim
 }
 
 myload(M)
