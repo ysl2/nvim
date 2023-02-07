@@ -621,7 +621,6 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'folke/which-key.nvim',
-  lazy = false,
   event = 'VeryLazy',
   config = function()
     require('which-key').setup({
@@ -640,6 +639,17 @@ M[#M + 1] = {
   -- Lazy load firenvim
   -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
   cond = not not vim.g.started_by_firenvim
+}
+
+M[#M + 1] = {
+  'ethanholz/nvim-lastplace',
+  config = function()
+    require 'nvim-lastplace'.setup {
+      lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
+      lastplace_ignore_filetype = { 'gitcommit', 'gitrebase', 'svn', 'hgcommit' },
+      lastplace_open_folds = true
+    }
+  end
 }
 
 myload(M)
