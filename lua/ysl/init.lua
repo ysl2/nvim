@@ -643,6 +643,7 @@ M[#M + 1] = {
 
 M[#M + 1] = {
   'ethanholz/nvim-lastplace',
+  event = 'BufReadPost',
   config = function()
     require 'nvim-lastplace'.setup {
       lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
