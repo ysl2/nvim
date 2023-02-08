@@ -302,12 +302,8 @@ M[#M + 1] = {
     { '<Leader>b', ':Telescope buffers<CR>', mode = 'n', silent = true },
     { '<Leader>s', ':Telescope live_grep<CR>', mode = 'n', silent = true },
     { '<Leader>G', ':Telescope git_status<CR>', mode = 'n', silent = true },
-    { '<Leader>m',
-      ':lua require("telescope").extensions.vim_bookmarks.current_file({ preview = { hide_on_startup = false } })<CR>',
-      mode = 'n', silent = true },
-    { '<Leader>M',
-      ':lua require("telescope").extensions.vim_bookmarks.all({ preview = { hide_on_startup = false } })<CR>', mode = 'n',
-      silent = true },
+    { '<Leader>m', ':Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
+    { '<Leader>M', ':Telescope vim_bookmarks all<CR>', mode = 'n', silent = true }
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
