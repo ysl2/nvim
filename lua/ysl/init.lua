@@ -177,7 +177,6 @@ vim.list_extend(M, {
     end },
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
   { 'gcmt/wildfire.vim', event = 'VeryLazy' },
-  { 'MattesGroeger/vim-bookmarks', event = 'VeryLazy', }
 })
 
 -- ===
@@ -662,6 +661,15 @@ M[#M + 1] = {
       lastplace_ignore_filetype = { 'gitcommit', 'gitrebase', 'svn', 'hgcommit' },
       lastplace_open_folds = true
     }
+  end
+}
+
+M[#M + 1] = {
+  'MattesGroeger/vim-bookmarks',
+  event = 'VeryLazy',
+  config = function()
+    vim.keymap.set('n', 'ma', 'ma', { silent = true })
+    vim.keymap.set('n', 'mA', '<Plug>BookmarkShowAll', { silent = true })
   end
 }
 
