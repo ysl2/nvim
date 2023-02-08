@@ -177,6 +177,7 @@ vim.list_extend(M, {
     end },
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
   { 'gcmt/wildfire.vim', event = 'VeryLazy' },
+  { 'MattesGroeger/vim-bookmarks', event = 'VeryLazy', }
 })
 
 -- ===
@@ -300,14 +301,17 @@ M[#M + 1] = {
     { '<Leader>f', ':Telescope find_files<CR>', mode = 'n', silent = true },
     { '<Leader>b', ':Telescope buffers<CR>', mode = 'n', silent = true },
     { '<Leader>s', ':Telescope live_grep<CR>', mode = 'n', silent = true },
-    { '<Leader>G', ':Telescope git_status<CR>', mode = 'n', silent = true }
+    { '<Leader>G', ':Telescope git_status<CR>', mode = 'n', silent = true },
+    { '<Leader>m', ':Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
+    { '<Leader>M', ':Telescope vim_bookmarks all<CR>', mode = 'n', silent = true }
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim',
       build = (vim.fn.has('win32') == 0) and 'make' or
           'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
-    'xiyaowong/telescope-emoji.nvim'
+    'xiyaowong/telescope-emoji.nvim',
+    'tom-anders/telescope-vim-bookmarks.nvim'
   },
   config = function()
     local telescope = require('telescope')
@@ -349,6 +353,7 @@ M[#M + 1] = {
     }
     telescope.load_extension('fzf')
     telescope.load_extension('emoji')
+    telescope.load_extension('vim_bookmarks')
   end
 }
 
