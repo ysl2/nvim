@@ -354,6 +354,13 @@ M[#M + 1] = {
     telescope.load_extension('fzf')
     telescope.load_extension('emoji')
     telescope.load_extension('vim_bookmarks')
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'TelescopePreviewerLoaded',
+      callback = function()
+        vim.cmd('setlocal number')
+      end
+    })
   end
 }
 
