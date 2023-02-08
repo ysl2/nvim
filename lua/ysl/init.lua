@@ -311,7 +311,7 @@ M[#M + 1] = {
       build = (vim.fn.has('win32') == 0) and 'make' or
           'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
     'xiyaowong/telescope-emoji.nvim',
-    'tom-anders/telescope-vim-bookmarks.nvim'
+    'ysl2/telescope-vim-bookmarks.nvim'
   },
   config = function()
     local telescope = require('telescope')
