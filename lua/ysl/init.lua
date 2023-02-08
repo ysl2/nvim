@@ -668,7 +668,8 @@ M[#M + 1] = {
   'MattesGroeger/vim-bookmarks',
   event = 'VeryLazy',
   config = function()
-    vim.keymap.set('n', 'ma', 'ma', { silent = true })
+    -- vim.keymap.set('n', 'ma', 'ma', { silent = true })
+    vim.keymap.del('n', 'ma')
     vim.keymap.set('n', 'mA', '<Plug>BookmarkShowAll', { silent = true })
   end
 }
