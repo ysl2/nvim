@@ -550,33 +550,37 @@ M[#M + 1] = {
 M[#M + 1] = {
   'ysl2/img-paste.vim',
   ft = 'markdown',
+  keys = {
+    { '<Leader>p', ':call mdip#MarkdownClipboardImage()<CR><ESC>', mode = 'n', silent = true },
+    { '<Leader>P', function()
+      local sep = '/'
+      local cjk = ''
+      if vim.fn.has('win32') == 1 then
+        sep = '\\'
+        cjk = ' -V CJKmainfont="Microsoft YaHei"'
+      end
+      local template = vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'
+      local cmd = ('!pandoc %% --pdf-engine=xelatex --template="%s"%s -o %%:r.pdf'):format(template, cjk)
+      vim.cmd(cmd)
+    end, mode = 'n', silent = true }
+  },
   config = function()
     vim.api.nvim_create_autocmd('BufEnter', {
       pattern = '*.md',
       callback = function()
         vim.g.mdip_imgdir = 'assets' .. '/' .. vim.fn.expand('%:t:r') .. '/' .. 'images'
         vim.g.mdip_imgdir_intext = vim.g.mdip_imgdir
-        vim.keymap.set('n', '<Leader>p', ':call mdip#MarkdownClipboardImage()<CR><ESC>', { silent = true })
-        -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
-        --
-        -- Download template: https://github.com/Wandmalfarbe/pandoc-latex-template
-        -- Linux default location: /Users/USERNAME/.pandoc/templates/
-        -- Windows default locathon: C:\Users\USERNAME\AppData\Roaming\pandoc\templates\
-        -- Also you can specify your own path:
-        -- ```
-        -- pandoc --pdf-engine=xelatex --template=[path of the template.latex] newfile.md -o newfile.pdf
-        -- ```
-        local sep = '/'
-        local cjk = ''
-        if vim.fn.has('win32') == 1 then
-          sep = '\\'
-          cjk = ' -V CJKmainfont="Microsoft YaHei"'
-        end
-        local template = vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'
-        local cmd = (':!pandoc %% --pdf-engine=xelatex --template="%s"%s -o %%:r.pdf<CR>'):format(template, cjk)
-        vim.keymap.set('n', '<Leader>P', cmd, { silent = true })
       end
     })
+    -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
+    --
+    -- Download template: https://github.com/Wandmalfarbe/pandoc-latex-template
+    -- Linux default location: /Users/USERNAME/.pandoc/templates/
+    -- Windows default locathon: C:\Users\USERNAME\AppData\Roaming\pandoc\templates\
+    -- Also you can specify your own path:
+    -- ```
+    -- pandoc --pdf-engine=xelatex --template=[path of the template.latex] newfile.md -o newfile.pdf
+    -- ```
   end
 }
 
