@@ -454,7 +454,7 @@ M[#M + 1] = {
 }
 
 M[#M + 1] = {
-  'simrat39/symbols-outline.nvim',
+  'ysl2/symbols-outline.nvim',
   keys = { { '<Leader>v', ':SymbolsOutline<CR>', mode = 'n', silent = true } },
   config = function()
     require('symbols-outline').setup {}
