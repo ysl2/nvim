@@ -673,7 +673,7 @@ M[#M + 1] = {
   event = 'VeryLazy',
   config = function()
     vim.keymap.del('n', 'ma')
-    vim.keymap.set('n', 'mA', '<Plug>BookmarkShowAll', { silent = true })
+    vim.keymap.set('n', 'mA', '<Plug>(BookmarkShowAll)', { silent = true })
   end
 }
 
