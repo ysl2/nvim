@@ -669,12 +669,18 @@ M[#M + 1] = {
 }
 
 M[#M + 1] = {
-  'MattesGroeger/vim-bookmarks',
+  'ysl2/vim-bookmarks',
   event = 'VeryLazy',
   config = function()
     vim.keymap.del('n', 'ma')
     vim.keymap.set('n', 'mA', '<Plug>BookmarkShowAll', { silent = true })
   end
+}
+
+M[#M + 1] = {
+  'kevinhwang91/nvim-bqf',
+  ft = 'qf',
+  dependencies = 'nvim-treesitter/nvim-treesitter',
 }
 
 myload(M)
