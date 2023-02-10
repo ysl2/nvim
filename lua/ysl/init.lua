@@ -394,10 +394,13 @@ M[#M + 1] = {
       vim.cmd.tabprev()
     end
 
-    local swap_then_open_tab = function()
-      local node = require 'nvim-tree.lib'.get_node_at_cursor()
-      -- vim.cmd('wincmd l')
+    local function open_tab_and_close_tree(node)
       vim.cmd('quit')
+      api.node.open.tab(node)
+    end
+
+    local function open_tab_and_swap_cursor(node)
+      vim.cmd('wincmd l')
       api.node.open.tab(node)
     end
 
@@ -407,11 +410,12 @@ M[#M + 1] = {
           list = {
             { key = 'l', action = 'edit' },
             { key = 'h', action = 'close_node' },
-            { key = 'H', action = nil },
-            { key = 'zh', action = 'toggle_dotfiles' },
+            { key = 'H', action = '' },
+            { key = 'g.', action = 'toggle_dotfiles' },
             { key = '<C-h>', action = 'collapse_all' },
             { key = 'T', action = 'open_tab_silent', action_cb = open_tab_silent },
-            { key = 't', action = 'swap_then_open_tab', action_cb = swap_then_open_tab },
+            { key = 't', action = 'open_tab_and_close_tree', action_cb = open_tab_and_close_tree },
+            { key = '<C-t>', action = 'open_tab_and_swap_cursor', action_cb = open_tab_and_swap_cursor },
             { key = '<C-s>', action = 'split' },
           }
         }
