@@ -655,8 +655,17 @@ M[#M + 1] = {
   -- Lazy load firenvim
   -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
   cond = not not vim.g.started_by_firenvim,
-  config = function ()
+  config = function()
     vim.cmd('set guifont=consolas:h20')
+    vim.cmd('set laststatus=0')
+    vim.api.nvim_create_autocmd('BufEnter', {
+      pattern = 'github.com_*.txt',
+      command = 'set filetype=markdown'
+    })
+    vim.api.nvim_create_autocmd('BufEnter', {
+      pattern = { 'leetcode.com_*.txt', 'leetcode.cn_*.txt' },
+      command = 'set filetype=python'
+    })
   end
 }
 
