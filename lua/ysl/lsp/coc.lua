@@ -51,12 +51,16 @@ M[#M + 1] = {
       -- local U = require('ysl.utils')
       -- local serverDir = U.mysplit(vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'), '\n')
       -- serverDir = serverDir[#serverDir]
-      vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
+      vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
         -- ['sumneko-lua.serverDir'] = serverDir
-        ['sumneko-lua.serverDir'] = vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server')
+        ['sumneko-lua.serverDir'] = vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'),
+        languageserver = {
+          sourcery = {
+            command = vim.fn.glob('C:\\Python3*\\Lib\\site-packages\\sourcery\\sourcery.exe')
+          }
+        }
       })
     end
-
 
     local toboolean = { ['true'] = true, ['false'] = false }
 
