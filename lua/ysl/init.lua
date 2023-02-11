@@ -670,6 +670,11 @@ M[#M + 1] = {
       pattern = { 'leetcode.com_*.txt', 'leetcode.cn_*.txt' },
       command = 'set filetype=python'
     })
+    vim.g.firenvim_config = {
+      localSettings = {
+        ['www.zhihu.com_*.txt'] = { takeover = 'never' },
+      }
+    }
   end
 }
 
