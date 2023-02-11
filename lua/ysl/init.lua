@@ -660,17 +660,8 @@ M[#M + 1] = {
   -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
   cond = not not vim.g.started_by_firenvim,
   config = function()
-    vim.api.nvim_create_autocmd('UIEnter', {
-      callback = function()
-        local function onUIEnter(event)
-          if 'Firenvim' == vim.fn.get(vim.fn.get(vim.api.nvim_get_chan_info(event.chan), 'client', {}), 'name', '') then
-            vim.cmd('set guifont=consolas:h20')
-            vim.cmd('set laststatus=0')
-          end
-        end
-        onUIEnter(vim.fn.deepcopy(vim.v.event))
-      end
-    })
+    vim.cmd('set guifont=consolas:h20')
+    vim.cmd('set laststatus=0')
     vim.api.nvim_create_autocmd('BufEnter', {
       pattern = 'github.com_*.txt',
       command = 'set filetype=markdown'
