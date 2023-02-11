@@ -357,6 +357,7 @@ vim.list_extend(M, {
   {
     'mbbill/undotree',
     keys = { { '<Leader>u', ':UndotreeToggle<CR>', mode = 'n', silent = true } },
+    event = 'VeryLazy',
     config = function()
       vim.g.undotree_WindowLayout = 3
       if vim.fn.has('persistent_undo') == 1 then
