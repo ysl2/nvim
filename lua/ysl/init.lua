@@ -177,6 +177,7 @@ vim.list_extend(M, {
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
   { 'gcmt/wildfire.vim', event = 'VeryLazy' },
   { 'ysl2/vim-bookmarks', event = 'VeryLazy', },
+  { 'itchyny/calendar.vim', cmd = 'Calendar' },
 
   -- ===
   -- === Load Single
