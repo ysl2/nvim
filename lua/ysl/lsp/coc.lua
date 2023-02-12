@@ -31,7 +31,9 @@ return {
         'coc-snippets',
         'coc-prettier',
         'coc-vimlsp',
-        'coc-tsserver'
+        'coc-tsserver',
+        'coc-dictionary',
+        'coc-word'
       }
 
       vim.g.coc_user_config = {}
