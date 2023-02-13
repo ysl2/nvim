@@ -653,7 +653,10 @@ vim.list_extend(M, {
       })
       vim.g.firenvim_config = {
         localSettings = {
-          ['www.zhihu.com_*.txt'] = { takeover = 'never' },
+          ['https?://[^/]+\\.zhihu\\.com/*'] = { priority = 1, takeover = 'never' },
+          ['https?://[^/]+\\.notion\\.so/*'] = { priority = 1, takeover = 'never' },
+          ['https?://leetcode\\.com.*playground.*shared'] = { priority = 1, takeover = 'never' },
+          ['.*'] = { priority = 0 },
         }
       }
     end
