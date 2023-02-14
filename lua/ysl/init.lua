@@ -652,7 +652,7 @@ vim.list_extend(M, {
       vim.cmd('set guifont=consolas:h20')
       vim.cmd('set laststatus=0')
       vim.api.nvim_create_autocmd('BufEnter', {
-        pattern = 'github.com_*.txt',
+        pattern = { 'github.com_*.txt', 'gitee.com_*.txt' },
         command = 'set filetype=markdown'
       })
       vim.api.nvim_create_autocmd('BufEnter', {
