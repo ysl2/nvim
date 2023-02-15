@@ -493,7 +493,7 @@ vim.list_extend(M, {
         lazygit:toggle()
       end
 
-      vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>g', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
 
       local ranger = Terminal:new({ cmd = 'ranger', hidden = true })
       function _G._ranger_toggle()
@@ -502,7 +502,7 @@ vim.list_extend(M, {
         end
       end
 
-      vim.api.nvim_set_keymap('n', '<leader>r', '<cmd>lua _ranger_toggle()<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>r', '<cmd>lua _ranger_toggle()<CR>', { noremap = true, silent = true })
     end
   },
   {
