@@ -361,6 +361,7 @@ vim.list_extend(M, {
   {
     'nvim-tree/nvim-tree.lua',
     keys = { { '<Leader>e', ':NvimTreeToggle<CR>', mode = 'n', silent = true } },
+    event = 'VeryLazy',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
       vim.g.loaded_netrw = 1
