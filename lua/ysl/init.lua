@@ -194,6 +194,7 @@ vim.list_extend(M, {
   {
     'kevinhwang91/rnvimr',
     cond = vim.fn.has('win32') == 0,
+    event = 'VeryLazy',
     keys = { { '<Leader>r', ':RnvimrToggle<CR>', mode = 'n', silent = true } },
     config = function()
       vim.g.rnvimr_enable_picker = 1
