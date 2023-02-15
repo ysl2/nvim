@@ -40,21 +40,24 @@ vim.g.mapleader = ' '
 vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
 vim.keymap.set('n', '<C-a>', '')
 vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
+vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
+vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
+vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
 
-function _G.command_wrapper_check_no_name_buffer(cmdstr)
+function _G._command_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
     return
   end
   vim.cmd(cmdstr)
 end
 
-vim.keymap.set('n', '<C-w>H', ':lua command_wrapper_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>H', ':lua _command_wrapper_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>J', ':lua command_wrapper_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>J', ':lua _command_wrapper_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>K', ':lua command_wrapper_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>K', ':lua _command_wrapper_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>L', ':lua command_wrapper_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>L', ':lua _command_wrapper_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
   { silent = true })
 
 -- Auto delete [No Name] buffers.
@@ -205,10 +208,6 @@ vim.list_extend(M, {
         ['<C-v>'] = 'NvimEdit vsplit',
       }
     end
-  },
-  {
-    'kdheepak/lazygit.nvim',
-    keys = { { '<Leader>g', ':LazyGit<CR>', mode = 'n', silent = true } },
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -462,6 +461,7 @@ vim.list_extend(M, {
     'akinsho/toggleterm.nvim',
     keys = {
       { [[<C-\>]] },
+      { '<Leader>g' },
       { '<Leader>R', function()
         local toggleterm = require('toggleterm')
         local ft = vim.opt.filetype._value
@@ -503,7 +503,21 @@ vim.list_extend(M, {
         open_mapping = [[<c-\>]],
         direction = 'float',
       })
-      vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
+
+      local Terminal = require('toggleterm.terminal').Terminal
+      local lazygit  = Terminal:new({ cmd = 'lazygit', hidden = true })
+
+      function _G._lazygit_toggle()
+        lazygit:toggle()
+      end
+
+      local ranger = Terminal:new({ cmd = 'ranger', hidden = true })
+      function _G._ranger_toggle()
+        ranger:toggle()
+      end
+
+      vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>r', '<cmd>lua _ranger_toggle()<CR>', { noremap = true, silent = true })
     end
   },
   {
