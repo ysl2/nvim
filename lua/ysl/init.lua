@@ -444,7 +444,7 @@ vim.list_extend(M, {
   {
     'akinsho/toggleterm.nvim',
     keys = {
-      { [[<C-\>]] }, { '<Leader>r' }, { '<Leader>g' },
+      { [[<C-\>]] }, { '<Leader>t' }, { '<Leader>r' }, { '<Leader>g' },
       { '<Leader>R', function()
         local toggleterm = require('toggleterm')
         local ft = vim.opt.filetype._value
@@ -496,23 +496,17 @@ vim.list_extend(M, {
         direction = 'float',
       })
 
-      local Terminal = require('toggleterm.terminal').Terminal
-
-      local lazygit  = Terminal:new({ cmd = 'lazygit', hidden = true })
-      function _G._lazygit_toggle()
-        lazygit:toggle()
+      function _G._command_wrapper_run_in_terminal(cmd)
+        cmd = cmd or vim.fn.input('Enter command: ')
+        require('toggleterm.terminal').Terminal:new({ cmd = cmd, hidden = true }):toggle()
       end
 
-      vim.keymap.set('n', '<leader>g', '<CMD>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
-
-      local ranger = Terminal:new({ cmd = 'ranger', hidden = true })
-      function _G._ranger_toggle()
-        if vim.fn.has('win32') == 0 then
-          ranger:toggle()
-        end
-      end
-
-      vim.keymap.set('n', '<leader>r', '<CMD>lua _ranger_toggle()<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>t', '<CMD>lua _command_wrapper_run_in_terminal()<CR>',
+        { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>r', "<CMD>lua _command_wrapper_run_in_terminal('ranger')<CR>",
+        { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>g', "<CMD>lua _command_wrapper_run_in_terminal('lazygit')<CR>",
+        { noremap = true, silent = true })
     end
   },
   {
