@@ -30,7 +30,6 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 vim.cmd('hi link NormalFloat NONE')
 vim.opt.shm = vim.opt.shm._value .. 'I'
-vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
