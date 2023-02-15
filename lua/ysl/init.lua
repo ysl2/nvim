@@ -460,7 +460,31 @@ vim.list_extend(M, {
   },
   {
     'akinsho/toggleterm.nvim',
-    keys = { { [[<C-\>]] }, mode = 'n' },
+    keys = {
+      { [[<C-\>]] },
+      { '<Leader>R', function()
+        local toggleterm = require('toggleterm')
+        local ft = vim.opt.filetype._value
+        local sep = (vim.fn.has('win32') == 1) and '\\' or '/'
+        if ft == 'c' then
+          local outfile = vim.fn.expand('%:t:r')
+          if vim.fn.has('win32') == 1 then
+            outfile = outfile .. '.exe'
+          end
+          toggleterm.exec(('cd %s && clang %s -o %s && .%s%s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t'),
+            outfile, sep, outfile):gsub('/', sep))
+        elseif ft == 'markdown' then
+          local cjk = ''
+          if vim.fn.has('win32') == 1 then
+            cjk = ' -V CJKmainfont="Microsoft YaHei"'
+          end
+          local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
+            sep)
+          toggleterm.exec(('pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(vim.fn.expand('%'),
+            template, cjk, vim.fn.expand('%:r')):gsub('/', sep))
+        end
+      end, mode = 'n', silent = true },
+    },
     config = function()
       if vim.fn.has('win32') == 1 then
         local powershell_options = {
@@ -550,17 +574,6 @@ vim.list_extend(M, {
     ft = 'markdown',
     keys = {
       { '<Leader>p', ':call mdip#MarkdownClipboardImage()<CR><ESC>', mode = 'n', silent = true },
-      { '<Leader>P', function()
-        local sep = '/'
-        local cjk = ''
-        if vim.fn.has('win32') == 1 then
-          sep = '\\'
-          cjk = ' -V CJKmainfont="Microsoft YaHei"'
-        end
-        local template = vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'
-        local cmd = ('!pandoc %% --pdf-engine=xelatex --template="%s"%s -o %%:r.pdf'):format(template, cjk)
-        vim.cmd(cmd)
-      end, mode = 'n', silent = true }
     },
     config = function()
       vim.api.nvim_create_autocmd('BufEnter', {
@@ -664,6 +677,7 @@ vim.list_extend(M, {
           ['https?://[^/]+\\.zhihu\\.com/*'] = { priority = 1, takeover = 'never' },
           ['https?://www.notion\\.so/*'] = { priority = 1, takeover = 'never' },
           ['https?://leetcode\\.com.*playground.*shared'] = { priority = 1, takeover = 'never' },
+          ['https?://github1s\\.com/*'] = { priority = 1, takeover = 'never' },
           ['.*'] = { priority = 0 },
         }
       }
@@ -687,30 +701,6 @@ vim.list_extend(M, {
       vim.g.csv_arrange_align = 'l*'
     end
   },
-  {
-    'ysl2/code_runner.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'akinsho/toggleterm.nvim' },
-    keys = {
-      { '<leader>R', ':RunCode<CR>', mode = 'n', silent = false },
-    },
-    config = function()
-      require('code_runner').setup({
-        mode = 'toggleterm',
-        filetype = {
-          c = (function()
-            local sep = '/'
-            local outfile = vim.fn.expand('%:t:r')
-            if vim.fn.has('win32') == 1 then
-              sep = '\\'
-              outfile = outfile .. '.exe'
-            end
-            return ('cd %s && clang %s -o %s && .%s%s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t'), outfile, sep,
-              outfile):gsub('/', sep)
-          end)()
-        }
-      })
-    end
-  }
 })
 
 myload(M)
