@@ -51,13 +51,13 @@ function _G._command_wrapper_check_no_name_buffer(cmdstr)
   vim.cmd(cmdstr)
 end
 
-vim.keymap.set('n', '<C-w>H', ':lua _command_wrapper_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>H', '<CMD>lua _command_wrapper_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>J', ':lua _command_wrapper_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>J', '<CMD>lua _command_wrapper_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>K', ':lua _command_wrapper_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>K', '<CMD>lua _command_wrapper_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>L', ':lua _command_wrapper_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>L', '<CMD>lua _command_wrapper_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
   { silent = true })
 
 -- Auto delete [No Name] buffers.
@@ -502,7 +502,7 @@ vim.list_extend(M, {
         lazygit:toggle()
       end
 
-      vim.keymap.set('n', '<leader>g', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>g', '<CMD>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
 
       local ranger = Terminal:new({ cmd = 'ranger', hidden = true })
       function _G._ranger_toggle()
@@ -511,7 +511,7 @@ vim.list_extend(M, {
         end
       end
 
-      vim.keymap.set('n', '<leader>r', '<cmd>lua _ranger_toggle()<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>r', '<CMD>lua _ranger_toggle()<CR>', { noremap = true, silent = true })
     end
   },
   {

@@ -305,7 +305,7 @@ return {
   {
     'folke/trouble.nvim',
     keys = {
-      { '<Leader>x', '<cmd>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><cmd>TroubleToggle loclist<CR>',
+      { '<Leader>x', '<CMD>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><cmd>TroubleToggle loclist<CR>',
         mode = 'n', silent = true }
     },
     dependencies = 'nvim-tree/nvim-web-devicons',
