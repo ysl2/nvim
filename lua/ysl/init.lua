@@ -193,23 +193,6 @@ vim.list_extend(M, {
     event = 'VeryLazy'
   },
   {
-    'kevinhwang91/rnvimr',
-    cond = vim.fn.has('win32') == 0,
-    keys = { { '<Leader>r', ':RnvimrToggle<CR>', mode = 'n', silent = true } },
-    config = function()
-      vim.g.rnvimr_enable_picker = 1
-      vim.g.rnvimr_enable_bw = 1
-      vim.defer_fn(function()
-        vim.cmd('RnvimrStartBackground')
-      end, 1000)
-      vim.g.rnvimr_action = {
-        ['<CR>'] = 'NvimEdit tabedit',
-        ['<C-x>'] = 'NvimEdit split',
-        ['<C-v>'] = 'NvimEdit vsplit',
-      }
-    end
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
     event = 'VeryLazy',
     build = function()
@@ -460,8 +443,7 @@ vim.list_extend(M, {
   {
     'akinsho/toggleterm.nvim',
     keys = {
-      { [[<C-\>]] },
-      { '<Leader>g' },
+      { [[<C-\>]] }, { '<Leader>r' }, { '<Leader>g' },
       { '<Leader>R', function()
         local toggleterm = require('toggleterm')
         local ft = vim.opt.filetype._value
@@ -505,18 +487,21 @@ vim.list_extend(M, {
       })
 
       local Terminal = require('toggleterm.terminal').Terminal
-      local lazygit  = Terminal:new({ cmd = 'lazygit', hidden = true })
 
+      local lazygit  = Terminal:new({ cmd = 'lazygit', hidden = true })
       function _G._lazygit_toggle()
         lazygit:toggle()
       end
 
+      vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
+
       local ranger = Terminal:new({ cmd = 'ranger', hidden = true })
       function _G._ranger_toggle()
-        ranger:toggle()
+        if vim.fn.has('win32') == 0 then
+          ranger:toggle()
+        end
       end
 
-      vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<leader>r', '<cmd>lua _ranger_toggle()<CR>', { noremap = true, silent = true })
     end
   },
