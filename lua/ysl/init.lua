@@ -503,7 +503,11 @@ vim.list_extend(M, {
 
       vim.keymap.set('n', '<leader>t', '<CMD>lua _command_wrapper_run_in_terminal()<CR>',
         { noremap = true, silent = true })
-      vim.keymap.set('n', '<leader>r', "<CMD>lua _command_wrapper_run_in_terminal('ranger')<CR>",
+      vim.keymap.set('n', '<leader>r',
+        function()
+          local r = (vim.fn.has('win32') == 1) and 'lf' or 'ranger'
+          _command_wrapper_run_in_terminal(r)
+        end,
         { noremap = true, silent = true })
       vim.keymap.set('n', '<leader>g', "<CMD>lua _command_wrapper_run_in_terminal('lazygit')<CR>",
         { noremap = true, silent = true })
