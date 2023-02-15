@@ -456,6 +456,15 @@ vim.list_extend(M, {
           toggleterm.exec(('cd %s && clang %s -o %s && .%s%s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t'),
             outfile, sep, outfile):gsub('/', sep))
         elseif ft == 'markdown' then
+          -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
+          --
+          -- Download template: https://github.com/Wandmalfarbe/pandoc-latex-template
+          -- Linux default location: /Users/USERNAME/.pandoc/templates/
+          -- Windows default locathon: C:\Users\USERNAME\AppData\Roaming\pandoc\templates\
+          -- Also you can specify your own path:
+          -- ```
+          -- pandoc --pdf-engine=xelatex --template=[path of the template.latex] newfile.md -o newfile.pdf
+          -- ```
           local cjk = ''
           if vim.fn.has('win32') == 1 then
             cjk = ' -V CJKmainfont="Microsoft YaHei"'
@@ -582,15 +591,6 @@ vim.list_extend(M, {
           vim.g.mdip_imgdir_intext = vim.g.mdip_imgdir
         end
       })
-      -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
-      --
-      -- Download template: https://github.com/Wandmalfarbe/pandoc-latex-template
-      -- Linux default location: /Users/USERNAME/.pandoc/templates/
-      -- Windows default locathon: C:\Users\USERNAME\AppData\Roaming\pandoc\templates\
-      -- Also you can specify your own path:
-      -- ```
-      -- pandoc --pdf-engine=xelatex --template=[path of the template.latex] newfile.md -o newfile.pdf
-      -- ```
     end
   },
   {
