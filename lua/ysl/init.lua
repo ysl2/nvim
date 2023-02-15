@@ -687,6 +687,30 @@ vim.list_extend(M, {
       vim.g.csv_arrange_align = 'l*'
     end
   },
+  {
+    'CRAG666/code_runner.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'akinsho/toggleterm.nvim' },
+    keys = {
+      { '<leader>R', ':RunCode<CR>', mode = 'n', silent = false },
+    },
+    config = function()
+      require('code_runner').setup({
+        mode = 'toggleterm',
+        filetype = {
+          c = (function()
+            local sep = '/'
+            local outfile = vim.fn.expand('%:t:r')
+            if vim.fn.has('win32') == 1 then
+              sep = '\\'
+              outfile = outfile .. '.exe'
+            end
+            return ('cd %s && clang %s -o %s && .%s%s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t'), outfile, sep,
+              outfile):gsub('/', sep)
+          end)()
+        }
+      })
+    end
+  }
 })
 
 myload(M)
