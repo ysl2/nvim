@@ -688,7 +688,7 @@ vim.list_extend(M, {
     end
   },
   {
-    'CRAG666/code_runner.nvim',
+    'ysl2/code_runner.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'akinsho/toggleterm.nvim' },
     keys = {
       { '<leader>R', ':RunCode<CR>', mode = 'n', silent = false },
