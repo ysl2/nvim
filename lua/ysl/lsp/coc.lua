@@ -33,7 +33,8 @@ return {
         'coc-vimlsp',
         'coc-tsserver',
         'coc-dictionary',
-        'coc-word'
+        'coc-word',
+        'coc-clangd'
       }
 
       vim.g.coc_user_config = {}
