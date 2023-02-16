@@ -104,6 +104,8 @@ return {
         end
       })
 
+      vim.keymap.set('n', '<Leader>x', '<CMD>CocDiagnostics<CR>', { silent = true })
+
       -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
       -- delays and poor user experience.
 
@@ -302,17 +304,6 @@ return {
           separator = '',
         }
       })
-    end
-  },
-  {
-    'folke/trouble.nvim',
-    keys = {
-      { '<Leader>x', '<CMD>call coc#rpc#request("fillDiagnostics", [bufnr("%")])<CR><CMD>TroubleToggle loclist<CR>',
-        mode = 'n', silent = true }
-    },
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      require('trouble').setup({})
     end
   },
   {

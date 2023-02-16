@@ -42,6 +42,10 @@ vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
 vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
+vim.keymap.set('n', '<TAB><TAB>', function()
+  vim.cmd('ccl')
+  vim.cmd('lcl')
+end, { silent = true })
 
 function _G._command_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
