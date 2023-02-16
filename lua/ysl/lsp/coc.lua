@@ -28,7 +28,7 @@ return {
         'coc-marketplace',
         'coc-json',
         'coc-snippets',
-        -- 'coc-prettier',
+        'coc-prettier',
         'coc-vimlsp',
         'coc-tsserver',
         'coc-dictionary',
