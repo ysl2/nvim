@@ -464,18 +464,20 @@ vim.list_extend(M, {
     'akinsho/toggleterm.nvim',
     event = 'VeryLazy',
     keys = {
-      { [[<C-\>]] }, { '<Leader>t' }, { '<Leader>g' },
+      { [[<C-\>]] },
+      { '<Leader>t', '<CMD>lua _G._command_wrapper_run_in_terminal({})<CR>',                  mode = 'n', silent = true },
+      { '<Leader>g', "<CMD>lua _G._command_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
       { '<Leader>R', function()
-        local toggleterm = require('toggleterm')
         local ft = vim.opt.filetype._value
         local sep = (vim.fn.has('win32') == 1) and '\\' or '/'
+        local cmd
         if ft == 'c' then
           local outfile = vim.fn.expand('%:t:r')
           if vim.fn.has('win32') == 1 then
             outfile = outfile .. '.exe'
           end
-          toggleterm.exec(('cd %s && clang %s -o %s && .%s%s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t'),
-            outfile, sep, outfile):gsub('/', sep))
+          cmd = ('cd %s && clang %s -o %s && .%s%s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t'), outfile, sep,
+                outfile):gsub('/', sep)
         elseif ft == 'markdown' then
           -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
           --
@@ -492,11 +494,13 @@ vim.list_extend(M, {
           end
           local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
             sep)
-          toggleterm.exec(('pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(vim.fn.expand('%'),
-            template, cjk, vim.fn.expand('%:r')):gsub('/', sep))
+          cmd = ('pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(vim.fn.expand('%'), template, cjk,
+                vim.fn.expand('%:r')):gsub('/', sep)
         elseif ft == 'python' then
-          toggleterm.exec(('cd %s && python %s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t')):gsub('/', sep))
+          cmd = ('cd %s && python %s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t')):gsub('/', sep)
         end
+        if cmd == nil then return end
+        _G._command_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
       end, mode = 'n', silent = true },
     },
     config = function()
@@ -518,15 +522,11 @@ vim.list_extend(M, {
         direction = 'float',
       })
 
-      function _G._command_wrapper_run_in_terminal(cmd)
-        cmd = cmd or vim.fn.input('Enter command: ')
-        require('toggleterm.terminal').Terminal:new({ cmd = cmd, hidden = true }):toggle()
+      function _G._command_wrapper_run_in_terminal(mytable)
+        mytable.cmd = mytable.cmd or vim.fn.input('Enter command: ')
+        mytable = vim.tbl_extend('force', { hidden = true }, mytable)
+        require('toggleterm.terminal').Terminal:new(mytable):toggle()
       end
-
-      vim.keymap.set('n', '<leader>t', '<CMD>lua _command_wrapper_run_in_terminal()<CR>',
-        { noremap = true, silent = true })
-      vim.keymap.set('n', '<leader>g', "<CMD>lua _command_wrapper_run_in_terminal('lazygit')<CR>",
-        { noremap = true, silent = true })
     end
   },
   {
