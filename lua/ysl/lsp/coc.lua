@@ -20,7 +20,6 @@ return {
       }
     },
     config = function()
-
       vim.g.coc_global_extensions = {
         'coc-pyright',
         'coc-sh',
@@ -29,7 +28,7 @@ return {
         'coc-marketplace',
         'coc-json',
         'coc-snippets',
-        'coc-prettier',
+        -- 'coc-prettier',
         'coc-vimlsp',
         'coc-tsserver',
         'coc-dictionary',
@@ -64,7 +63,10 @@ return {
         })
       end
 
-      local toboolean = { ['true'] = true, ['false'] = false }
+      local toboolean = {
+        ['true'] = true,
+        ['false'] = false
+      }
 
       local function saveAndFormatToggle(opts)
         local m

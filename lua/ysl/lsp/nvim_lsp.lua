@@ -9,14 +9,14 @@ M.plugins = {
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
   'hrsh7th/nvim-cmp',
-  { 'L3MON4D3/LuaSnip', config = function() require('luasnip.loaders.from_snipmate').load() end },
+  { 'L3MON4D3/LuaSnip',      config = function() require('luasnip.loaders.from_snipmate').load() end },
   'saadparwaiz1/cmp_luasnip',
   'onsails/lspkind.nvim',
   { 'tzachar/cmp-tabnine', build = (vim.fn.has('win32') == 1) and 'powershell ./install.ps1' or './install.sh',
     dependencies = 'hrsh7th/nvim-cmp' },
   'b0o/schemastore.nvim',
-  { 'glepnir/lspsaga.nvim', event = 'BufRead' },
-  { 'folke/neodev.nvim', config = function() require('neodev').setup {} end },
+  { 'glepnir/lspsaga.nvim',  event = 'BufRead' },
+  { 'folke/neodev.nvim',     config = function() require('neodev').setup {} end },
   { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 }
 
@@ -87,7 +87,6 @@ M.configurate = function()
         vim.diagnostic.open_float(nil, opts)
       end
     })
-
   end
 
   vim.diagnostic.config({
@@ -138,7 +137,7 @@ M.configurate = function()
       end,
     },
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-b>'] = cmp.mapping.scroll_docs( -4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       -- ['<CR>'] = cmp.mapping(cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace,
@@ -167,7 +166,7 @@ M.configurate = function()
         end
       end, { 'i', 's' }),
       ['<C-k>'] = cmp.mapping(function(fallback)
-        if require('luasnip').jumpable(-1) then
+        if require('luasnip').jumpable( -1) then
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), "")
         else
           fallback()

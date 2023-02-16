@@ -114,11 +114,11 @@ local M = {}
 -- === Load VSCode
 -- ===
 vim.list_extend(M, {
-  { 'tpope/vim-surround', event = 'VeryLazy' },
-  { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end, event = 'VeryLazy' },
+  { 'tpope/vim-surround',     event = 'VeryLazy' },
+  { 'numToStr/Comment.nvim',  config = function() require('Comment').setup() end, event = 'VeryLazy' },
   { 'itchyny/vim-cursorword', event = 'VeryLazy' },
-  { 'RRethy/vim-illuminate', event = 'VeryLazy' },
-  { 'justinmk/vim-sneak', event = 'VeryLazy' },
+  { 'RRethy/vim-illuminate',  event = 'VeryLazy' },
+  { 'justinmk/vim-sneak',     event = 'VeryLazy' },
   {
     'ysl2/vim-easymotion-for-vscode-neovim',
     event = 'VeryLazy',
@@ -159,29 +159,29 @@ vim.list_extend(M, {
   -- ===
   -- === Load Bulk
   -- ===
-  { 'Asheq/close-buffers.vim', cmd = 'Bdelete' },
+  { 'Asheq/close-buffers.vim',             cmd = 'Bdelete' },
   { 'lukas-reineke/indent-blankline.nvim', event = 'BufReadPost' },
-  { 'romainl/vim-cool', event = 'VeryLazy' },
-  { 'tpope/vim-fugitive', cmd = 'Git' },
-  { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end, event = 'BufReadPost' },
-  { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end, event = 'BufReadPost' },
+  { 'romainl/vim-cool',                    event = 'VeryLazy' },
+  { 'tpope/vim-fugitive',                  cmd = 'Git' },
+  { 'lewis6991/gitsigns.nvim',             config = function() require('gitsigns').setup() end,  event = 'BufReadPost' },
+  { 'norcalli/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'BufReadPost' },
   { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim',
     config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
-  { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup {} end, lazy = false, },
-  { 'ysl2/bufdelete.nvim', cmd = 'Bd' },
-  { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = 'markdown' },
-  { 'dhruvasagar/vim-table-mode', ft = 'markdown' },
-  { 'mzlogin/vim-markdown-toc', ft = 'markdown' },
+  { 'ahmedkhalf/project.nvim',      config = function() require('project_nvim').setup {} end, lazy = false, },
+  { 'ysl2/bufdelete.nvim',          cmd = 'Bd' },
+  { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install',                          ft = 'markdown' },
+  { 'dhruvasagar/vim-table-mode',   ft = 'markdown' },
+  { 'mzlogin/vim-markdown-toc',     ft = 'markdown' },
   { 'dkarter/bullets.vim', ft = 'markdown',
     init = function()
       vim.g.bullets_custom_mappings = { { 'inoremap <expr>', '<CR>',
         'coc#pum#visible() ? coc#pum#confirm() : "<Plug>(bullets-newline)"' }, }
     end },
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
-  { 'gcmt/wildfire.vim', event = 'VeryLazy' },
-  { 'ysl2/vim-bookmarks', event = 'VeryLazy', },
-  { 'itchyny/calendar.vim', cmd = 'Calendar' },
-  { 'kevinhwang91/nvim-bqf', ft = 'qf', dependencies = 'nvim-treesitter/nvim-treesitter' },
+  { 'gcmt/wildfire.vim',      event = 'VeryLazy' },
+  { 'ysl2/vim-bookmarks',     event = 'VeryLazy', },
+  { 'itchyny/calendar.vim',   cmd = 'Calendar' },
+  { 'kevinhwang91/nvim-bqf',  ft = 'qf',            dependencies = 'nvim-treesitter/nvim-treesitter' },
 
   -- ===
   -- === Load Single
@@ -293,18 +293,18 @@ vim.list_extend(M, {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
     cmd = 'Telescope',
     keys = {
-      { '<Leader>f', '<CMD>Telescope find_files<CR>', mode = 'n', silent = true },
-      { '<Leader>b', '<CMD>Telescope buffers<CR>', mode = 'n', silent = true },
-      { '<Leader>s', '<CMD>Telescope live_grep<CR>', mode = 'n', silent = true },
-      { '<Leader>G', '<CMD>Telescope git_status<CR>', mode = 'n', silent = true },
+      { '<Leader>f', '<CMD>Telescope find_files<CR>',                 mode = 'n', silent = true },
+      { '<Leader>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
+      { '<Leader>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
+      { '<Leader>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
       { '<Leader>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
-      { '<Leader>M', '<CMD>Telescope vim_bookmarks all<CR>', mode = 'n', silent = true }
+      { '<Leader>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true }
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim',
         build = (vim.fn.has('win32') == 0) and 'make' or
-            'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
       'xiyaowong/telescope-emoji.nvim',
       'ysl2/telescope-vim-bookmarks.nvim'
     },
@@ -401,13 +401,13 @@ vim.list_extend(M, {
         view = {
           mappings = {
             list = {
-              { key = 'l', action = 'edit' },
-              { key = 'h', action = 'close_node' },
-              { key = 'H', action = '' },
-              { key = 'g.', action = 'toggle_dotfiles' },
+              { key = 'l',     action = 'edit' },
+              { key = 'h',     action = 'close_node' },
+              { key = 'H',     action = '' },
+              { key = 'g.',    action = 'toggle_dotfiles' },
               { key = '<C-h>', action = 'collapse_all' },
-              { key = 'T', action = 'open_tab_silent', action_cb = open_tab_silent },
-              { key = 't', action = 'open_tab_and_close_tree', action_cb = open_tab_and_close_tree },
+              { key = 'T',     action = 'open_tab_silent',          action_cb = open_tab_silent },
+              { key = 't',     action = 'open_tab_and_close_tree',  action_cb = open_tab_and_close_tree },
               { key = '<C-t>', action = 'open_tab_and_swap_cursor', action_cb = open_tab_and_swap_cursor },
               { key = '<C-s>', action = 'split' },
             }
@@ -606,7 +606,7 @@ vim.list_extend(M, {
     lazy = false,
     cmd = 'SessionManager',
     keys = {
-      { '<Leader>o', '<CMD>SessionManager load_session<CR>', mode = 'n', silent = true },
+      { '<Leader>o', '<CMD>SessionManager load_session<CR>',   mode = 'n', silent = true },
       { '<Leader>O', '<CMD>SessionManager delete_session<CR>', mode = 'n', silent = true }
     },
     dependencies = {
@@ -638,8 +638,8 @@ vim.list_extend(M, {
   {
     'ysl2/leetcode.vim',
     keys = {
-      { '<leader>ll', '<CMD>LeetCodeList<CR>', mode = 'n', silent = true },
-      { '<leader>lt', '<CMD>LeetCodeTest<CR>', mode = 'n', silent = true },
+      { '<leader>ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true },
+      { '<leader>lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true },
       { '<leader>ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true },
       { '<leader>li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true }
     },
