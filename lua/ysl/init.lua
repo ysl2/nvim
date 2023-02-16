@@ -172,9 +172,8 @@ vim.list_extend(M, {
   { 'norcalli/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'BufReadPost' },
   { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim',
     config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
-  { 'ahmedkhalf/project.nvim',      config = function() require('project_nvim').setup {} end, lazy = false, },
   { 'ysl2/bufdelete.nvim',          cmd = 'Bd' },
-  { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install',                          ft = 'markdown' },
+  { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = 'markdown' },
   { 'dhruvasagar/vim-table-mode',   ft = 'markdown' },
   { 'mzlogin/vim-markdown-toc',     ft = 'markdown' },
   { 'dkarter/bullets.vim', ft = 'markdown',
@@ -714,6 +713,14 @@ vim.list_extend(M, {
     config = function()
       vim.g.csv_arrange_align = 'l*'
     end
+  },
+  { 'ahmedkhalf/project.nvim',
+    lazy = false,
+    config = function()
+      require('project_nvim').setup({
+        patterns = { '.git', 'package.json' },
+      })
+    end,
   },
 })
 
