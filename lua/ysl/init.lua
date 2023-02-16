@@ -494,6 +494,8 @@ vim.list_extend(M, {
             sep)
           toggleterm.exec(('pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(vim.fn.expand('%'),
             template, cjk, vim.fn.expand('%:r')):gsub('/', sep))
+        elseif ft == 'python' then
+          toggleterm.exec(('cd %s && python %s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t')):gsub('/', sep))
         end
       end, mode = 'n', silent = true },
     },
