@@ -33,6 +33,7 @@ vim.opt.shm = vim.opt.shm._value .. 'I'
 vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
+vim.opt.swapfile = false
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
