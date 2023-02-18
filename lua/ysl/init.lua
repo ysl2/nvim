@@ -125,14 +125,24 @@ vim.list_extend(M, {
   { 'itchyny/vim-cursorword', event = 'VeryLazy' },
   { 'RRethy/vim-illuminate',  event = 'VeryLazy' },
   {
+    'phaazon/hop.nvim',
+    event = 'VeryLazy',
+    keys = {
+      { '<Leader><Leader>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
+      { '<Leader><TAB>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
+    },
+    config = function()
+      require('hop').setup()
+    end
+  },
+  {
     'ggandor/leap.nvim',
     dependencies = 'tpope/vim-repeat',
     event = 'VeryLazy',
     config = function()
-      local leap = require('leap')
-      leap.add_default_mappings()
-      leap.opts.safe_labels = {}
-      leap.highlight_unlabeled_phase_one_targets = true
+      require('leap').add_default_mappings()
+      vim.keymap.del({ 'x', 'o' }, 'x')
+      vim.keymap.del({ 'x', 'o' }, 'X')
     end
   }
 })
@@ -661,6 +671,9 @@ vim.list_extend(M, {
         plugins = {
           marks = false, -- shows a list of your marks on ' and `
           registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          presets = {
+            operators = false
+          }
         }
       })
     end,
