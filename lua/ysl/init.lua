@@ -124,11 +124,16 @@ vim.list_extend(M, {
   { 'numToStr/Comment.nvim',  config = function() require('Comment').setup() end, event = 'VeryLazy' },
   { 'itchyny/vim-cursorword', event = 'VeryLazy' },
   { 'RRethy/vim-illuminate',  event = 'VeryLazy' },
-  { 'justinmk/vim-sneak',     event = 'VeryLazy' },
   {
-    'ysl2/vim-easymotion-for-vscode-neovim',
+    'ggandor/leap.nvim',
+    dependencies = 'tpope/vim-repeat',
     event = 'VeryLazy',
-    cond = not not vim.g.vscode
+    config = function()
+      local leap = require('leap')
+      leap.add_default_mappings()
+      leap.opts.safe_labels = {}
+      leap.highlight_unlabeled_phase_one_targets = true
+    end
   }
 })
 
@@ -284,14 +289,6 @@ vim.list_extend(M, {
         rainbow = { enable = true },
         playground = { enable = true }
       }
-    end
-  },
-  {
-    'easymotion/vim-easymotion',
-    event = 'VeryLazy',
-    config = function()
-      vim.g.EasyMotion_smartcase = 1
-      vim.g.EasyMotion_keys = 'qwertyuiopasdfghjklzxcvbnm'
     end
   },
   {
