@@ -354,9 +354,12 @@ vim.list_extend(M, {
           -- Now the picker_config_key will be applied every time you call this
           -- builtin picker
         },
-        -- extensions = {
-        --   -- Your extension configuration goes here:
-        -- }
+        extensions = {
+          -- Your extension configuration goes here:
+          coc = {
+              prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
+          }
+        }
       }
       telescope.load_extension('fzf')
       telescope.load_extension('emoji')
