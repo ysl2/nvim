@@ -359,5 +359,17 @@ return {
         }
       })
     end
+  },
+  {
+    'fannheyward/telescope-coc.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'neoclide/coc.nvim',
+    },
+    event = 'VeryLazy',
+    config = function()
+      local status_ok, telescope = pcall(require, 'telescope')
+      if status_ok then telescope.load_extension('coc') end
+    end
   }
 }
