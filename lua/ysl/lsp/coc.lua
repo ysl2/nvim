@@ -33,7 +33,8 @@ return {
         'coc-tsserver',
         'coc-dictionary',
         'coc-word',
-        'coc-clangd'
+        'coc-clangd',
+        'coc-java'
       }
 
       vim.g.coc_user_config = {}
