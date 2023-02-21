@@ -505,6 +505,9 @@ vim.list_extend(M, {
                 vim.fn.expand('%:r')):gsub('/', sep)
         elseif ft == 'python' then
           cmd = ('cd %s && python %s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t')):gsub('/', sep)
+        elseif ft == 'java' then
+          cmd = ('cd %s && javac %s.java && java %s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t:r'),
+            vim.fn.expand('%:t:r')):gsub('/', sep)
         end
         if cmd == nil then return end
         _G._command_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
