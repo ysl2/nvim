@@ -34,7 +34,6 @@ vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
-vim.opt.shellslash = true
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
 
