@@ -40,7 +40,7 @@ vim.g.mapleader = ' '
 vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
 vim.keymap.set('n', '<C-a>', '')
 vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
-vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
+vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
 vim.keymap.set('n', '<TAB>', function()
