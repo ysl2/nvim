@@ -34,6 +34,7 @@ vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
+vim.opt.shellslash = true
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
 
@@ -629,40 +630,40 @@ vim.list_extend(M, {
       })
     end
   },
-  {
-    'Shatur/neovim-session-manager',
-    lazy = false,
-    cmd = 'SessionManager',
-    keys = {
-      { '<Leader>o', '<CMD>SessionManager load_session<CR>',   mode = 'n', silent = true },
-      { '<Leader>O', '<CMD>SessionManager delete_session<CR>', mode = 'n', silent = true }
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      { 'stevearc/dressing.nvim', config = function() require('dressing').setup {} end },
-    },
-    config = function()
-      require('session_manager').setup({
-        autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir
-      })
-
-      vim.api.nvim_create_autocmd('VimEnter', {
-        callback = function()
-          if vim.fn.has('win32') == 1 then
-            vim.cmd('silent! cd %:p:h')
-            -- An empty file will be opened if you use right mouse click. So `bw!` to delete it.
-            -- Once you delete the empty buffer, netrw won't popup. So you needn't do `vim.cmd('silent! au! FileExplorer *')` to silent netrw.
-            vim.cmd('silent! bw!')
-          end
-          -- vim.fn.argc() is 1 (not 0) if you open from right mouse click on windows platform.
-          -- So it can't be an instance that can be treated as in a workspace.
-          if vim.fn.has('win32') == 1 or vim.fn.argc() == 0 then
-            vim.cmd('silent! SessionManager load_current_dir_session')
-          end
-        end
-      })
-    end
-  },
+  -- {
+  --   'Shatur/neovim-session-manager',
+  --   lazy = false,
+  --   cmd = 'SessionManager',
+  --   keys = {
+  --     { '<Leader>o', '<CMD>SessionManager load_session<CR>',   mode = 'n', silent = true },
+  --     { '<Leader>O', '<CMD>SessionManager delete_session<CR>', mode = 'n', silent = true }
+  --   },
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     { 'stevearc/dressing.nvim', config = function() require('dressing').setup {} end },
+  --   },
+  --   config = function()
+  --     require('session_manager').setup({
+  --       autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir
+  --     })
+  --
+  --     vim.api.nvim_create_autocmd('VimEnter', {
+  --       callback = function()
+  --         if vim.fn.has('win32') == 1 then
+  --           vim.cmd('silent! cd %:p:h')
+  --           -- An empty file will be opened if you use right mouse click. So `bw!` to delete it.
+  --           -- Once you delete the empty buffer, netrw won't popup. So you needn't do `vim.cmd('silent! au! FileExplorer *')` to silent netrw.
+  --           vim.cmd('silent! bw!')
+  --         end
+  --         -- vim.fn.argc() is 1 (not 0) if you open from right mouse click on windows platform.
+  --         -- So it can't be an instance that can be treated as in a workspace.
+  --         if vim.fn.has('win32') == 1 or vim.fn.argc() == 0 then
+  --           vim.cmd('silent! SessionManager load_current_dir_session')
+  --         end
+  --       end
+  --     })
+  --   end
+  -- },
   {
     'ysl2/leetcode.vim',
     keys = {
@@ -756,6 +757,60 @@ vim.list_extend(M, {
       require('orgmode').setup_ts_grammar()
       require('orgmode').setup({})
     end
+  },
+  -- {
+  --   'rmagatti/auto-session',
+  --   init = function()
+  --     vim.opt.sessionoptions = vim.opt.sessionoptions._value .. ',winpos,localoptions'
+  --   end,
+  --   config = function()
+  --     local dirslist = { 'C:\\Users\\aaba\\*' }
+  --     require("auto-session").setup {
+  --       log_level = "error",
+  --       auto_save_enabled = true,
+  --       auto_restore_enabled = true,
+  --       auto_session_suppress_dirs = dirslist,
+  --       auto_session_allowed_dirs = dirslist,
+  --       auto_session_use_git_branch = true
+  --     }
+  --   end
+  -- },
+  -- {
+  --   'rmagatti/session-lens',
+  --   dependencies = { 'rmagatti/auto-session', 'nvim-telescope/telescope.nvim' },
+  --   config = function()
+  --     require('session-lens').setup({ --[[your custom config--]] })
+  --     local status_ok, telescope = pcall(require, 'telescope')
+  --     if status_ok then telescope.load_extension("session-lens") end
+  --   end
+  -- }
+  -- Lua
+  {
+    "folke/persistence.nvim",
+    keys = {
+      -- restore the session for the current directory
+      { "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]],                mode = 'n', silent = true },
+
+      -- restore the last session
+      { "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]], mode = 'n', silent = true },
+
+      -- stop Persistence => session won't be saved on exit
+      { "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]],                mode = 'n', silent = true }
+    },
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    module = "persistence",
+    config = function()
+      require("persistence").setup()
+
+      -- restore the session for the current directory
+      vim.api.nvim_set_keymap("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], {})
+
+      -- restore the last session
+      vim.api.nvim_set_keymap("n", "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]], {})
+
+      -- stop Persistence => session won't be saved on exit
+      vim.api.nvim_set_keymap("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]], {})
+    end,
   }
 })
 
