@@ -34,6 +34,8 @@ vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = 'nc'
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
@@ -190,7 +192,7 @@ vim.list_extend(M, {
     config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
   { 'ysl2/bufdelete.nvim',          cmd = 'Bd' },
   { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = 'markdown' },
-  { 'dhruvasagar/vim-table-mode',   ft = 'markdown' },
+  { 'dhruvasagar/vim-table-mode',   ft = { 'markdown', 'org' } },
   { 'mzlogin/vim-markdown-toc',     ft = 'markdown' },
   { 'dkarter/bullets.vim', ft = 'markdown',
     init = function()
@@ -253,7 +255,7 @@ vim.list_extend(M, {
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
-        ensure_installed = { 'vim', 'query' },
+        ensure_installed = { 'vim', 'query', 'org' },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -292,7 +294,7 @@ vim.list_extend(M, {
           -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
           -- Using this option may slow down your editor, and you may see some duplicate highlights.
           -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = false,
+          additional_vim_regex_highlighting = { 'org' },
         },
         autotag = { enable = true },
         context_commentstring = { enable = true },
@@ -737,7 +739,8 @@ vim.list_extend(M, {
       vim.g.csv_arrange_align = 'l*'
     end
   },
-  { 'ahmedkhalf/project.nvim',
+  {
+    'ahmedkhalf/project.nvim',
     lazy = false,
     config = function()
       require('project_nvim').setup({
@@ -745,6 +748,15 @@ vim.list_extend(M, {
       })
     end,
   },
+  {
+    'nvim-orgmode/orgmode',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    ft = 'org',
+    config = function()
+      require('orgmode').setup_ts_grammar()
+      require('orgmode').setup({})
+    end
+  }
 })
 
 myload(M)
