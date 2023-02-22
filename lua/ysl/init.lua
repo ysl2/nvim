@@ -253,7 +253,7 @@ vim.list_extend(M, {
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
-        ensure_installed = { 'vim', 'query', 'lua', 'markdown' },
+        ensure_installed = { 'vim', 'query' },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -357,7 +357,7 @@ vim.list_extend(M, {
         extensions = {
           -- Your extension configuration goes here:
           coc = {
-              prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
+            prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
           }
         }
       }
@@ -479,15 +479,19 @@ vim.list_extend(M, {
       { '<Leader>g', "<CMD>lua _G._command_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
       { '<Leader>R', function()
         local ft = vim.opt.filetype._value
-        local sep = (vim.fn.has('win32') == 1) and '\\' or '/'
         local cmd
+
+        local sep = (vim.fn.has('win32') == 1) and '\\' or '/'
+        local dir = vim.fn.expand('%:p:h')
+        local fileName = vim.fn.expand('%:t')
+        local fileNameWithoutExt = vim.fn.expand('%:t:r')
+
         if ft == 'c' then
-          local outfile = vim.fn.expand('%:t:r')
+          local outfile = fileNameWithoutExt
           if vim.fn.has('win32') == 1 then
             outfile = outfile .. '.exe'
           end
-          cmd = ('cd %s && clang %s -o %s && .%s%s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t'), outfile, sep,
-                outfile):gsub('/', sep)
+          cmd = ('cd %s && clang %s -o %s && .%s%s'):format(dir, fileName, outfile, sep, outfile)
         elseif ft == 'markdown' then
           -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
           --
@@ -504,14 +508,16 @@ vim.list_extend(M, {
           end
           local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
             sep)
-          cmd = ('pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(vim.fn.expand('%'), template, cjk,
-                vim.fn.expand('%:r')):gsub('/', sep)
+          cmd = ('cd %s && pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(dir, fileName, template,
+            cjk, fileNameWithoutExt)
         elseif ft == 'python' then
-          cmd = ('cd %s && python %s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t')):gsub('/', sep)
+          cmd = ('cd %s && python %s'):format(dir, fileName)
         elseif ft == 'java' then
-          cmd = ('cd %s && javac %s.java && java %s'):format(vim.fn.expand('%:p:h'), vim.fn.expand('%:t:r'),
-            vim.fn.expand('%:t:r')):gsub('/', sep)
+          cmd = ('cd %s && javac %s && java %s'):format(dir, fileName, fileNameWithoutExt)
+        elseif ft == 'sh' then
+          cmd = ('cd %s && bash %s'):format(dir, fileName)
         end
+        cmd = cmd:gsub('/', sep)
         if cmd == nil then return end
         _G._command_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
       end, mode = 'n', silent = true },
