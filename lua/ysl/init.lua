@@ -18,7 +18,7 @@ vim.opt.updatetime = 300
 vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'lua', 'json', 'markdown', 'sshconfig', 'vim', 'yaml' },
+  pattern = { 'lua', 'json', 'markdown', 'sshconfig', 'vim', 'yaml', 'bash' },
   callback = function()
     vim.opt.tabstop = 2
   end
