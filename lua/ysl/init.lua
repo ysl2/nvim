@@ -741,7 +741,7 @@ vim.list_extend(M, {
     lazy = false,
     config = function()
       require('project_nvim').setup({
-        patterns = { '.git', '.gitignore', 'package.json' },
+        patterns = { '.git', '.root' },
       })
     end,
   },
