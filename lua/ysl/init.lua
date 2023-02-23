@@ -34,8 +34,6 @@ vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
-vim.opt.conceallevel = 2
-vim.opt.concealcursor = 'nc'
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
@@ -755,6 +753,13 @@ vim.list_extend(M, {
     config = function()
       require('orgmode').setup_ts_grammar()
       require('orgmode').setup({})
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'org',
+        callback = function()
+          vim.opt_local.conceallevel = 2
+          vim.opt_local.concealcursor = 'nc'
+        end
+      })
     end
   },
 })
