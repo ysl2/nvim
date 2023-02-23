@@ -34,6 +34,7 @@ vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
+vim.opt.shellslash = true
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
@@ -390,6 +391,7 @@ vim.list_extend(M, {
   },
   {
     'nvim-tree/nvim-tree.lua',
+    lazy = false,
     keys = { { '<Leader>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true } },
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
