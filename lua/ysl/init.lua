@@ -242,7 +242,9 @@ vim.list_extend(M, {
       'nvim-treesitter/playground',
     },
     config = function()
-      require('nvim-treesitter.install').prefer_git = true
+      local nvim_treesitter_install = require('nvim-treesitter.install')
+      nvim_treesitter_install.prefer_git = true
+      nvim_treesitter_install.compilers = { 'clang' }
       local parsers = require('nvim-treesitter.parsers').get_parser_configs()
       for _, p in pairs(parsers) do
         p.install_info.url = p.install_info.url:gsub(
@@ -253,7 +255,7 @@ vim.list_extend(M, {
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
-        ensure_installed = { 'vim', 'query', 'org' },
+        ensure_installed = { 'vim', 'query', 'org', 'lua' },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
