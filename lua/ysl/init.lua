@@ -390,6 +390,7 @@ vim.list_extend(M, {
   },
   {
     'nvim-tree/nvim-tree.lua',
+    name = 'nvim-tree',
     lazy = false,
     keys = { { '<Leader>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true } },
     dependencies = 'nvim-tree/nvim-web-devicons',
