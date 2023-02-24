@@ -389,7 +389,7 @@ vim.list_extend(M, {
     end
   },
   {
-    'nvim-tree/nvim-tree.lua',
+    'ysl2/nvim-tree.lua',
     name = 'nvim-tree',
     keys = { { '<Leader>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true } },
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -757,6 +757,7 @@ vim.list_extend(M, {
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'org',
         callback = function()
+          vim.opt.shellslash = true
           vim.opt_local.conceallevel = 2
           vim.opt_local.concealcursor = 'nc'
         end
