@@ -759,7 +759,9 @@ vim.list_extend(M, {
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'org',
         callback = function()
-          vim.opt.shellslash = true
+          if vim.fn.has('win32') then
+            vim.opt.shellslash = true
+          end
           vim.opt_local.conceallevel = 2
           vim.opt_local.concealcursor = 'nc'
         end
