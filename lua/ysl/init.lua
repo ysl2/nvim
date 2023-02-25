@@ -249,7 +249,7 @@ vim.list_extend(M, {
     config = function()
       local nvim_treesitter_install = require('nvim-treesitter.install')
       nvim_treesitter_install.prefer_git = true
-      nvim_treesitter_install.compilers = { 'clang' }
+      nvim_treesitter_install.compilers = { 'clang', 'gcc' }
       local parsers = require('nvim-treesitter.parsers').get_parser_configs()
       for _, p in pairs(parsers) do
         p.install_info.url = p.install_info.url:gsub(
