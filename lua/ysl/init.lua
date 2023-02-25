@@ -850,7 +850,16 @@ vim.list_extend(M, {
         -- ignore_linked_group = true, -- boolean: don't clear a group that links to another group
       })
     end
-  }
+  },
+  { 'xolox/vim-colorscheme-switcher',
+    dependencies = 'xolox/vim-misc',
+    keys = {
+      { '<Leader>c', '<CMD>NextColorScheme<CR>' },
+      { '<Leader>C', '<CMD>PrevColorScheme<CR>' },
+    },
+    config = function()
+      vim.g.colorscheme_switcher_define_mappings = 0
+    end },
 })
 
 myload(M)
