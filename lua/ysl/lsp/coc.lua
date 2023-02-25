@@ -294,6 +294,7 @@ return {
   {
     'ysl2/winbar.nvim',
     event = 'VeryLazy',
+    cond = not vim.g.started_by_firenvim,
     dependencies = {
       'SmiteshP/nvim-navic',
       'nvim-tree/nvim-web-devicons'
@@ -369,8 +370,7 @@ return {
     },
     event = 'VeryLazy',
     config = function()
-      local status_ok, telescope = pcall(require, 'telescope')
-      if status_ok then telescope.load_extension('coc') end
+      require('telescope').load_extension('coc')
     end
   }
 }
