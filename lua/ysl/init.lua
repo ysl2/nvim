@@ -34,7 +34,7 @@ vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
--- Use `winblend` to control the transparency.
+-- Use `winblend` to control the transparency, `0` for opaque.
 vim.opt.winblend = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'winblend' }), 30)
 vim.opt.pumblend = vim.opt.winblend._value
 vim.g.neovide_transparency = 1 - vim.opt.winblend._value / 100
