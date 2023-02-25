@@ -494,7 +494,7 @@ vim.list_extend(M, {
           if vim.fn.has('win32') == 1 then
             outfile = outfile .. '.exe'
           end
-          cmd = ('cd %s && clang %s -o %s && .%s%s'):format(dir, fileName, outfile, sep, outfile)
+          cmd = ('cd "%s" && clang %s -o %s && .%s%s'):format(dir, fileName, outfile, sep, outfile)
         elseif ft == 'markdown' then
           -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
           --
@@ -511,14 +511,14 @@ vim.list_extend(M, {
           end
           local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
             sep)
-          cmd = ('cd %s && pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(dir, fileName, template,
+          cmd = ('cd "%s" && pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(dir, fileName, template,
             cjk, fileNameWithoutExt)
         elseif ft == 'python' then
-          cmd = ('cd %s && python %s'):format(dir, fileName)
+          cmd = ('cd "%s" && python %s'):format(dir, fileName)
         elseif ft == 'java' then
-          cmd = ('cd %s && javac %s && java %s'):format(dir, fileName, fileNameWithoutExt)
+          cmd = ('cd "%s" && javac %s && java %s'):format(dir, fileName, fileNameWithoutExt)
         elseif ft == 'sh' then
-          cmd = ('cd %s && bash %s'):format(dir, fileName)
+          cmd = ('cd "%s" && bash %s'):format(dir, fileName)
         end
         if cmd == nil then return end
         cmd = cmd:gsub('/', sep)
