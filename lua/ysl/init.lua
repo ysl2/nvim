@@ -782,16 +782,21 @@ vim.list_extend(M, {
         enable = true, -- boolean: enable transparent
         extra_groups = { -- table/string: additional groups that should be cleared
           -- In particular, when you set it to 'all', that means all available groups
-          'lualine_b_inactive',
           'lualine_a_inactive',
-          'lualine_c_inactive',
-          'lualine_b_terminal',
           'lualine_b_visual',
-          'lualine_b_normal',
-          'lualine_c_normal',
           'lualine_b_replace',
           'lualine_b_insert',
           'lualine_b_command',
+          'lualine_b_terminal',
+          'lualine_b_inactive',
+          'lualine_b_normal',
+          'lualine_c_visual',
+          'lualine_c_replace',
+          'lualine_c_insert',
+          'lualine_c_command',
+          'lualine_c_terminal',
+          'lualine_c_inactive',
+          'lualine_c_normal',
           'lualine_b_diff_added_normal',
           'lualine_b_diff_added_insert',
           'lualine_b_diff_added_visual',
@@ -845,6 +850,8 @@ vim.list_extend(M, {
           'NvimTreeStatuslineNc',
           'NvimTreeWinSeparator',
           'NormalFloat',
+          'Pmenu',
+          'VertSplit',
         },
         exclude = {}, -- table: groups you don't want to clear
         -- ignore_linked_group = true, -- boolean: don't clear a group that links to another group
