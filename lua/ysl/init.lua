@@ -859,7 +859,8 @@ vim.list_extend(M, {
     },
     config = function()
       vim.g.colorscheme_switcher_define_mappings = 0
-    end },
+    end
+  },
 })
 
 myload(M)
