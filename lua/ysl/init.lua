@@ -764,7 +764,7 @@ vim.list_extend(M, {
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'org',
         callback = function()
-          if vim.fn.has('win32') then
+          if vim.fn.has('win32') == 1 then
             vim.opt.shellslash = true
           end
           vim.opt_local.conceallevel = 2
