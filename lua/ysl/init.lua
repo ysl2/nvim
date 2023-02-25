@@ -34,6 +34,11 @@ vim.opt.timeoutlen = 300
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
+-- Use `winblend` to control the transparency.
+vim.opt.winblend = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'winblend' }), 30)
+vim.opt.pumblend = vim.opt.winblend._value
+vim.g.neovide_transparency = 1 - vim.opt.winblend._value / 100
+vim.g.neovide_cursor_animation_length = 0
 
 vim.keymap.set('n', '<Space>', '')
 vim.g.mapleader = ' '
@@ -768,6 +773,83 @@ vim.list_extend(M, {
       })
     end
   },
+  {
+    'xiyaowong/nvim-transparent',
+    lazy = false,
+    cond = not (vim.opt.winblend._value == 0),
+    config = function()
+      require('transparent').setup({
+        enable = true, -- boolean: enable transparent
+        extra_groups = { -- table/string: additional groups that should be cleared
+          -- In particular, when you set it to 'all', that means all available groups
+          'lualine_b_visual',
+          'lualine_c_normal',
+          'lualine_b_normal',
+          'lualine_b_replace',
+          'lualine_b_command',
+          'lualine_c_inactive',
+          'lualine_b_inactive',
+          'lualine_b_insert',
+          'lualine_b_terminal',
+          'lualine_b_diff_added_normal',
+          'lualine_b_diff_added_insert',
+          'lualine_b_diff_added_visual',
+          'lualine_b_diff_added_replace',
+          'lualine_b_diff_added_command',
+          'lualine_b_diff_added_terminal',
+          'lualine_b_diff_added_inactive',
+          'lualine_b_diff_modified_normal',
+          'lualine_b_diff_modified_insert',
+          'lualine_b_diff_modified_visual',
+          'lualine_b_diff_modified_replace',
+          'lualine_b_diff_modified_command',
+          'lualine_b_diff_modified_terminal',
+          'lualine_b_diff_modified_inactive',
+          'lualine_b_diff_removed_normal',
+          'lualine_b_diff_removed_insert',
+          'lualine_b_diff_removed_visual',
+          'lualine_b_diff_removed_replace',
+          'lualine_b_diff_removed_command',
+          'lualine_b_diff_removed_terminal',
+          'lualine_b_diff_removed_inactive',
+          'lualine_b_diagnostics_error_normal',
+          'lualine_b_diagnostics_error_insert',
+          'lualine_b_diagnostics_error_visual',
+          'lualine_b_diagnostics_error_replace',
+          'lualine_b_diagnostics_error_command',
+          'lualine_b_diagnostics_error_terminal',
+          'lualine_b_diagnostics_error_inactive',
+          'lualine_b_diagnostics_warn_normal',
+          'lualine_b_diagnostics_warn_insert',
+          'lualine_b_diagnostics_warn_visual',
+          'lualine_b_diagnostics_warn_replace',
+          'lualine_b_diagnostics_warn_command',
+          'lualine_b_diagnostics_warn_terminal',
+          'lualine_b_diagnostics_warn_inactive',
+          'lualine_b_diagnostics_info_normal',
+          'lualine_b_diagnostics_info_insert',
+          'lualine_b_diagnostics_info_visual',
+          'lualine_b_diagnostics_info_replace',
+          'lualine_b_diagnostics_info_command',
+          'lualine_b_diagnostics_info_terminal',
+          'lualine_b_diagnostics_info_inactive',
+          'lualine_b_diagnostics_hint_normal',
+          'lualine_b_diagnostics_hint_insert',
+          'lualine_b_diagnostics_hint_visual',
+          'lualine_b_diagnostics_hint_replace',
+          'lualine_b_diagnostics_hint_command',
+          'lualine_b_diagnostics_hint_terminal',
+          'lualine_b_diagnostics_hint_inactive',
+          'NvimTreeNormal',
+          'NvimTreeStatuslineNc',
+          'NvimTreeWinSeparator',
+          'NormalFloat',
+        },
+        exclude = {}, -- table: groups you don't want to clear
+        -- ignore_linked_group = true, -- boolean: don't clear a group that links to another group
+      })
+    end
+  }
 })
 
 myload(M)
