@@ -520,8 +520,8 @@ vim.list_extend(M, {
         elseif ft == 'sh' then
           cmd = ('cd %s && bash %s'):format(dir, fileName)
         end
-        cmd = cmd:gsub('/', sep)
         if cmd == nil then return end
+        cmd = cmd:gsub('/', sep)
         _G._command_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
       end, mode = 'n', silent = true },
     },
