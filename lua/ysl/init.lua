@@ -858,7 +858,7 @@ vim.list_extend(M, {
       })
     end
   },
-  { 'xolox/vim-colorscheme-switcher',
+  { 'ysl2/vim-colorscheme-switcher',
     dependencies = 'xolox/vim-misc',
     keys = {
       { '<LEADER>c', '<CMD>NextColorScheme<CR>' },
