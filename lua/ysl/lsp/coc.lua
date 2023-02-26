@@ -105,7 +105,7 @@ return {
         end
       })
 
-      vim.keymap.set('n', '<Leader>x', '<CMD>CocDiagnostics<CR>', { silent = true })
+      vim.keymap.set('n', '<LEADER>x', '<CMD>CocDiagnostics<CR>', { silent = true })
 
       -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
       -- delays and poor user experience.

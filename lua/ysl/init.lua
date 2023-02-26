@@ -133,8 +133,8 @@ vim.list_extend(M, {
     'phaazon/hop.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<C-SPACE>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
-      { '<C-CR>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
+      { '<LEADER><LEADER>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
+      { '<LEADER><TAB>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
     },
     config = function()
       require('hop').setup()
@@ -219,7 +219,7 @@ vim.list_extend(M, {
   {
     'kevinhwang91/rnvimr',
     cond = vim.fn.has('win32') == 0,
-    keys = { { '<Leader>r', '<CMD>RnvimrToggle<CR>', mode = 'n', silent = true } },
+    keys = { { '<LEADER>r', '<CMD>RnvimrToggle<CR>', mode = 'n', silent = true } },
     config = function()
       vim.g.rnvimr_enable_picker = 1
       vim.g.rnvimr_enable_bw = 1
@@ -312,12 +312,12 @@ vim.list_extend(M, {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
     cmd = 'Telescope',
     keys = {
-      { '<Leader>f', '<CMD>Telescope find_files<CR>',                 mode = 'n', silent = true },
-      { '<Leader>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
-      { '<Leader>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
-      { '<Leader>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
-      { '<Leader>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
-      { '<Leader>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true }
+      { '<LEADER>f', '<CMD>Telescope find_files<CR>',                 mode = 'n', silent = true },
+      { '<LEADER>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
+      { '<LEADER>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
+      { '<LEADER>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
+      { '<LEADER>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
+      { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true }
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -382,7 +382,7 @@ vim.list_extend(M, {
   },
   {
     'mbbill/undotree',
-    keys = { { '<Leader>u', '<CMD>UndotreeToggle<CR>', mode = 'n', silent = true } },
+    keys = { { '<LEADER>u', '<CMD>UndotreeToggle<CR>', mode = 'n', silent = true } },
     config = function()
       vim.g.undotree_WindowLayout = 3
       if vim.fn.has('persistent_undo') == 1 then
@@ -398,7 +398,7 @@ vim.list_extend(M, {
   {
     'ysl2/nvim-tree.lua',
     name = 'nvim-tree',
-    keys = { { '<Leader>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true } },
+    keys = { { '<LEADER>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true } },
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
       vim.g.loaded_netrw = 1
@@ -473,7 +473,7 @@ vim.list_extend(M, {
   },
   {
     'ysl2/symbols-outline.nvim',
-    keys = { { '<Leader>v', '<CMD>SymbolsOutline<CR>', mode = 'n', silent = true } },
+    keys = { { '<LEADER>v', '<CMD>SymbolsOutline<CR>', mode = 'n', silent = true } },
     config = function()
       require('symbols-outline').setup {}
     end
@@ -483,9 +483,9 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     keys = {
       { [[<C-\>]] },
-      { '<Leader>t', '<CMD>lua _G._command_wrapper_run_in_terminal({})<CR>',                  mode = 'n', silent = true },
-      { '<Leader>g', "<CMD>lua _G._command_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
-      { '<Leader>R', function()
+      { '<LEADER>t', '<CMD>lua _G._command_wrapper_run_in_terminal({})<CR>',                  mode = 'n', silent = true },
+      { '<LEADER>g', "<CMD>lua _G._command_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
+      { '<LEADER>R', function()
         local ft = vim.opt.filetype._value
         local cmd
 
@@ -569,7 +569,7 @@ vim.list_extend(M, {
     'ysl2/distant.nvim',
     branch = 'v0.2',
     keys = {
-      { '<Leader>dc', function()
+      { '<LEADER>dc', function()
         local hosts = U.safeget(S, { 'config', 'distant' })
         if not hosts then
           print('Missing host lists.')
@@ -578,11 +578,11 @@ vim.list_extend(M, {
         local idx = tonumber(vim.fn.input('Enter host idx: '))
         require('distant.command').connect(hosts[idx])
       end, mode = 'n', silent = true },
-      { '<Leader>do', function()
+      { '<LEADER>do', function()
         local path = vim.fn.input('Enter path: ')
         require('distant.command').open({ args = { path }, opts = {} })
       end, mode = 'n', silent = true },
-      { '<Leader>ds', '<CMD>DistantShell<CR>', mode = 'n', silent = true }
+      { '<LEADER>ds', '<CMD>DistantShell<CR>', mode = 'n', silent = true }
     },
     config = function()
       require('distant').setup { ['*'] = require('distant.settings').chip_default() }
@@ -623,7 +623,7 @@ vim.list_extend(M, {
     'ysl2/img-paste.vim',
     ft = 'markdown',
     keys = {
-      { '<Leader>p', '<CMD>call mdip#MarkdownClipboardImage()<CR><ESC>', mode = 'n', silent = true },
+      { '<LEADER>p', '<CMD>call mdip#MarkdownClipboardImage()<CR><ESC>', mode = 'n', silent = true },
     },
     config = function()
       vim.api.nvim_create_autocmd('BufEnter', {
@@ -640,8 +640,8 @@ vim.list_extend(M, {
     lazy = false,
     cmd = 'SessionManager',
     keys = {
-      { '<Leader>o', '<CMD>SessionManager load_session<CR>',   mode = 'n', silent = true },
-      { '<Leader>O', '<CMD>SessionManager delete_session<CR>', mode = 'n', silent = true }
+      { '<LEADER>o', '<CMD>SessionManager load_session<CR>',   mode = 'n', silent = true },
+      { '<LEADER>O', '<CMD>SessionManager delete_session<CR>', mode = 'n', silent = true }
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -861,8 +861,8 @@ vim.list_extend(M, {
   { 'xolox/vim-colorscheme-switcher',
     dependencies = 'xolox/vim-misc',
     keys = {
-      { '<Leader>c', '<CMD>NextColorScheme<CR>' },
-      { '<Leader>C', '<CMD>PrevColorScheme<CR>' },
+      { '<LEADER>c', '<CMD>NextColorScheme<CR>' },
+      { '<LEADER>C', '<CMD>PrevColorScheme<CR>' },
     },
     config = function()
       vim.g.colorscheme_switcher_define_mappings = 0
