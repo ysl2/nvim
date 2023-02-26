@@ -40,9 +40,9 @@ vim.opt.pumblend = vim.opt.winblend._value
 vim.g.neovide_transparency = 1 - vim.opt.winblend._value / 100
 vim.g.neovide_cursor_animation_length = 0
 
-vim.keymap.set('n', '<Space>', '')
+vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
-vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
+vim.keymap.set('i', '<C-c>', '<ESC>', { silent = true })
 vim.keymap.set('n', '<C-a>', '')
 vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
 vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
@@ -133,8 +133,8 @@ vim.list_extend(M, {
     'phaazon/hop.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<Leader><Leader>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
-      { '<Leader><TAB>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
+      { '<C-SPACE>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
+      { '<C-CR>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
     },
     config = function()
       require('hop').setup()
