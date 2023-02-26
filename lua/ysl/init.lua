@@ -775,7 +775,7 @@ vim.list_extend(M, {
   },
   {
     'xiyaowong/nvim-transparent',
-    cond = not (vim.opt.winblend._value == 0),
+    cond = (not (vim.opt.winblend._value == 0)) and (not vim.g.started_by_firenvim),
     lazy = false,
     config = function()
       require('transparent').setup({
