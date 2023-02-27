@@ -454,7 +454,8 @@ vim.list_extend(M, {
           enable = true,
           update_root = true
         },
-        notify = { threshold = vim.log.levels.WARN }
+        notify = { threshold = vim.log.levels.WARN },
+        filters = { custom = { "^.git$" } }
       })
     end
   },
