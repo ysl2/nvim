@@ -39,6 +39,7 @@ vim.opt.winblend = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'winblend' }), 3
 vim.opt.pumblend = vim.opt.winblend._value
 vim.g.neovide_transparency = 1 - vim.opt.winblend._value / 100
 vim.g.neovide_cursor_animation_length = 0
+vim.opt.fileformat = 'unix'
 
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
