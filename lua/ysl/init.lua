@@ -39,7 +39,7 @@ vim.opt.winblend = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'winblend' }), 3
 vim.opt.pumblend = vim.opt.winblend._value
 vim.g.neovide_transparency = 1 - vim.opt.winblend._value / 100
 vim.g.neovide_cursor_animation_length = 0
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePre' }, {
+vim.api.nvim_create_autocmd('BufWritePre', {
   command = 'set ff=unix'
 })
 
