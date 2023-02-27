@@ -40,9 +40,7 @@ vim.opt.pumblend = vim.opt.winblend._value
 vim.g.neovide_transparency = 1 - vim.opt.winblend._value / 100
 vim.g.neovide_cursor_animation_length = 0
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePre' }, {
-  callback = function()
-    vim.cmd('set ff=unix')
-  end
+  command = 'set ff=unix'
 })
 
 vim.keymap.set('n', '<SPACE>', '')
