@@ -428,6 +428,7 @@ vim.list_extend(M, {
           mappings = {
             list = {
               { key = 'l',     action = 'edit' },
+              { key = '<C-l>', action = 'expand_all' },
               { key = 'h',     action = 'close_node' },
               { key = 'H',     action = '' },
               { key = 'g.',    action = 'toggle_dotfiles' },
