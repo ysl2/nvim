@@ -194,17 +194,23 @@ vim.list_extend(M, {
   { 'tpope/vim-fugitive',                  cmd = 'Git' },
   { 'lewis6991/gitsigns.nvim',             config = function() require('gitsigns').setup() end,  event = 'BufReadPost' },
   { 'norcalli/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'BufReadPost' },
-  { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim',
-    config = function() require('todo-comments').setup {} end, event = 'BufReadPost' },
-  { 'ysl2/bufdelete.nvim',          cmd = 'Bd' },
-  { 'iamcco/markdown-preview.nvim', build = 'cd app && npm install', ft = 'markdown' },
-  { 'dhruvasagar/vim-table-mode',   ft = { 'markdown', 'org' } },
-  { 'mzlogin/vim-markdown-toc',     ft = 'markdown' },
-  { 'dkarter/bullets.vim', ft = 'markdown',
+  {
+    'folke/todo-comments.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = function() require('todo-comments').setup {} end,
+    event = 'BufReadPost'
+  },
+  { 'ysl2/bufdelete.nvim',        cmd = 'Bd' },
+  { 'dhruvasagar/vim-table-mode', ft = { 'markdown', 'org' } },
+  { 'mzlogin/vim-markdown-toc',   ft = 'markdown' },
+  {
+    'dkarter/bullets.vim',
+    ft = 'markdown',
     init = function()
       vim.g.bullets_custom_mappings = { { 'inoremap <expr>', '<CR>',
         'coc#pum#visible() ? coc#pum#confirm() : "<Plug>(bullets-newline)"' }, }
-    end },
+    end
+  },
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
   { 'gcmt/wildfire.vim',      event = 'VeryLazy' },
   { 'ysl2/vim-bookmarks',     event = 'VeryLazy', },
@@ -282,7 +288,6 @@ vim.list_extend(M, {
         highlight = {
           -- `false` will disable the whole extension
           enable = true,
-
           -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
           -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
           -- the name of the parser)
@@ -312,7 +317,8 @@ vim.list_extend(M, {
     end
   },
   {
-    'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
     cmd = 'Telescope',
     keys = {
       { '<LEADER>f', '<CMD>Telescope find_files<CR>',                 mode = 'n', silent = true },
@@ -324,9 +330,11 @@ vim.list_extend(M, {
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
         build = (vim.fn.has('win32') == 0) and 'make' or
-        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+            'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+      },
       'xiyaowong/telescope-emoji.nvim',
       'ysl2/telescope-vim-bookmarks.nvim'
     },
@@ -466,10 +474,16 @@ vim.list_extend(M, {
   {
     's1n7ax/nvim-window-picker',
     keys = {
-      { '<leader>w', function()
-        local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
-        vim.api.nvim_set_current_win(picked_window_id)
-      end, mode = 'n', silent = true, desc = 'Pick a window' }
+      {
+        '<leader>w',
+        function()
+          local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
+          vim.api.nvim_set_current_win(picked_window_id)
+        end,
+        mode = 'n',
+        silent = true,
+        desc = 'Pick a window'
+      }
     },
     version = '1.*',
     config = function()
@@ -490,50 +504,56 @@ vim.list_extend(M, {
       { [[<C-\>]] },
       { '<LEADER>t', '<CMD>lua _G._command_wrapper_run_in_terminal({})<CR>',                  mode = 'n', silent = true },
       { '<LEADER>g', "<CMD>lua _G._command_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
-      { '<LEADER>R', function()
-        local ft = vim.opt.filetype._value
-        local cmd
+      {
+        '<LEADER>R',
+        function()
+          local ft = vim.opt.filetype._value
+          local cmd
 
-        local sep = (vim.fn.has('win32') == 1) and '\\' or '/'
-        local dir = vim.fn.expand('%:p:h')
-        local fileName = vim.fn.expand('%:t')
-        local fileNameWithoutExt = vim.fn.expand('%:t:r')
+          local sep = (vim.fn.has('win32') == 1) and '\\' or '/'
+          local dir = vim.fn.expand('%:p:h')
+          local fileName = vim.fn.expand('%:t')
+          local fileNameWithoutExt = vim.fn.expand('%:t:r')
 
-        if ft == 'c' then
-          local outfile = fileNameWithoutExt
-          if vim.fn.has('win32') == 1 then
-            outfile = outfile .. '.exe'
+          if ft == 'c' then
+            local outfile = fileNameWithoutExt
+            if vim.fn.has('win32') == 1 then
+              outfile = outfile .. '.exe'
+            end
+            cmd = ('cd "%s" && clang %s -o %s && .%s%s'):format(dir, fileName, outfile, sep, outfile)
+          elseif ft == 'markdown' then
+            -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
+            --
+            -- Download template: https://github.com/Wandmalfarbe/pandoc-latex-template
+            -- Linux default location: /Users/USERNAME/.pandoc/templates/
+            -- Windows default locathon: C:\Users\USERNAME\AppData\Roaming\pandoc\templates\
+            -- Also you can specify your own path:
+            -- ```
+            -- pandoc --pdf-engine=xelatex --template=[path of the template.latex] newfile.md -o newfile.pdf
+            -- ```
+            local cjk = ''
+            if vim.fn.has('win32') == 1 then
+              cjk = ' -V CJKmainfont="Microsoft YaHei"'
+            end
+            local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
+              sep)
+            cmd = ('cd "%s" && pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(dir, fileName,
+              template,
+              cjk, fileNameWithoutExt)
+          elseif ft == 'python' then
+            cmd = ('cd "%s" && python %s'):format(dir, fileName)
+          elseif ft == 'java' then
+            cmd = ('cd "%s" && javac %s && java %s'):format(dir, fileName, fileNameWithoutExt)
+          elseif ft == 'sh' then
+            cmd = ('cd "%s" && bash %s'):format(dir, fileName)
           end
-          cmd = ('cd "%s" && clang %s -o %s && .%s%s'):format(dir, fileName, outfile, sep, outfile)
-        elseif ft == 'markdown' then
-          -- HACK: Download latex template for pandoc and put it into the correct path defined by each platform.
-          --
-          -- Download template: https://github.com/Wandmalfarbe/pandoc-latex-template
-          -- Linux default location: /Users/USERNAME/.pandoc/templates/
-          -- Windows default locathon: C:\Users\USERNAME\AppData\Roaming\pandoc\templates\
-          -- Also you can specify your own path:
-          -- ```
-          -- pandoc --pdf-engine=xelatex --template=[path of the template.latex] newfile.md -o newfile.pdf
-          -- ```
-          local cjk = ''
-          if vim.fn.has('win32') == 1 then
-            cjk = ' -V CJKmainfont="Microsoft YaHei"'
-          end
-          local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
-            sep)
-          cmd = ('cd "%s" && pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(dir, fileName, template,
-            cjk, fileNameWithoutExt)
-        elseif ft == 'python' then
-          cmd = ('cd "%s" && python %s'):format(dir, fileName)
-        elseif ft == 'java' then
-          cmd = ('cd "%s" && javac %s && java %s'):format(dir, fileName, fileNameWithoutExt)
-        elseif ft == 'sh' then
-          cmd = ('cd "%s" && bash %s'):format(dir, fileName)
-        end
-        if cmd == nil then return end
-        cmd = cmd:gsub('/', sep)
-        _G._command_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
-      end, mode = 'n', silent = true },
+          if cmd == nil then return end
+          cmd = cmd:gsub('/', sep)
+          _G._command_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
+        end,
+        mode = 'n',
+        silent = true
+      },
     },
     config = function()
       if vim.fn.has('win32') == 1 then
@@ -574,19 +594,29 @@ vim.list_extend(M, {
     'ysl2/distant.nvim',
     branch = 'v0.2',
     keys = {
-      { '<LEADER>dc', function()
-        local hosts = U.safeget(S, { 'config', 'distant' })
-        if not hosts then
-          print('Missing host lists.')
-          return
-        end
-        local idx = tonumber(vim.fn.input('Enter host idx: '))
-        require('distant.command').connect(hosts[idx])
-      end, mode = 'n', silent = true },
-      { '<LEADER>do', function()
-        local path = vim.fn.input('Enter path: ')
-        require('distant.command').open({ args = { path }, opts = {} })
-      end, mode = 'n', silent = true },
+      {
+        '<LEADER>dc',
+        function()
+          local hosts = U.safeget(S, { 'config', 'distant' })
+          if not hosts then
+            print('Missing host lists.')
+            return
+          end
+          local idx = tonumber(vim.fn.input('Enter host idx: '))
+          require('distant.command').connect(hosts[idx])
+        end,
+        mode = 'n',
+        silent = true
+      },
+      {
+        '<LEADER>do',
+        function()
+          local path = vim.fn.input('Enter path: ')
+          require('distant.command').open({ args = { path }, opts = {} })
+        end,
+        mode = 'n',
+        silent = true
+      },
       { '<LEADER>ds', '<CMD>DistantShell<CR>', mode = 'n', silent = true }
     },
     config = function()
@@ -694,7 +724,7 @@ vim.list_extend(M, {
     config = function()
       require('which-key').setup({
         plugins = {
-          marks = false, -- shows a list of your marks on ' and `
+          marks = false,     -- shows a list of your marks on ' and `
           registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
           presets = {
             operators = false
@@ -706,7 +736,6 @@ vim.list_extend(M, {
   {
     'glacambre/firenvim',
     build = function() vim.fn['firenvim#install'](0) end,
-
     -- Lazy load firenvim
     -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
     cond = not not vim.g.started_by_firenvim,
@@ -786,7 +815,7 @@ vim.list_extend(M, {
     lazy = false,
     config = function()
       require('transparent').setup({
-        enable = true, -- boolean: enable transparent
+        enable = true,   -- boolean: enable transparent
         extra_groups = { -- table/string: additional groups that should be cleared
           -- In particular, when you set it to 'all', that means all available groups
           'lualine_a_inactive',
@@ -865,7 +894,8 @@ vim.list_extend(M, {
       })
     end
   },
-  { 'ysl2/vim-colorscheme-switcher',
+  {
+    'ysl2/vim-colorscheme-switcher',
     dependencies = 'xolox/vim-misc',
     keys = {
       { '<LEADER>c', '<CMD>NextColorScheme<CR>' },
@@ -873,6 +903,16 @@ vim.list_extend(M, {
     },
     config = function()
       vim.g.colorscheme_switcher_define_mappings = 0
+    end
+  },
+  {
+    'iamcco/markdown-preview.nvim',
+    build = 'cd app && npm install',
+    ft = 'markdown',
+    config = function ()
+      vim.g.mkdp_port = '8080'
+      vim.g.mkdp_open_to_the_world = 1
+      vim.g.mkdp_echo_preview_url = 1
     end
   },
 })
