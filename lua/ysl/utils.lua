@@ -44,4 +44,9 @@ M.mysplit = function(inputstr, sep)
   return t
 end
 
+M.toboolean = {
+  ['true'] = true,
+  ['false'] = false
+}
+
 return M

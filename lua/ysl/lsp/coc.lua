@@ -1,3 +1,4 @@
+local U = require('ysl.utils')
 return {
   {
     'neoclide/coc.nvim',
@@ -64,19 +65,14 @@ return {
         })
       end
 
-      local toboolean = {
-        ['true'] = true,
-        ['false'] = false
-      }
-
-      local function saveAndFormatToggle(opts)
+      local function _my_toggle_save_and_format(opts)
         local m
         if #opts.fargs > 1 then
           print('Too many arguments.')
           return
         end
         if #opts.fargs == 1 then
-          m = toboolean[opts.fargs[1]]
+          m = U.toboolean[opts.fargs[1]]
           if m == nil then
             print('Bad argument.')
             return
@@ -92,11 +88,11 @@ return {
         print('"coc.preferences.formatOnSave" = ' .. tostring(m))
       end
 
-      vim.api.nvim_create_user_command('SaveAndFormatToggle', saveAndFormatToggle, {
+      vim.api.nvim_create_user_command('MySaveAndFormatToggle', _my_toggle_save_and_format, {
         nargs = '*',
         complete = function(arglead, cmdline, cursorpos)
           local cmp = {}
-          for k, _ in pairs(toboolean) do
+          for k, _ in pairs(U.toboolean) do
             if k:sub(1, #arglead) == arglead then
               cmp[#cmp + 1] = k
             end

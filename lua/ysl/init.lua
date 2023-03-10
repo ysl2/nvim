@@ -5,7 +5,6 @@ local U = require('ysl.utils')
 -- =============
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.wrap = false
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.termguicolors = true
@@ -45,7 +44,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
-vim.keymap.set('i', '<C-c>', '<ESC>', { silent = true })
+vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
 vim.keymap.set('n', '<C-a>', '')
 vim.keymap.set('n', '<C-z>', '<C-a>', { silent = true })
 vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
@@ -57,20 +56,20 @@ vim.keymap.set('n', '<TAB>', function()
   vim.cmd('set cmdheight=1')
 end, { silent = true })
 
-function _G._command_wrapper_check_no_name_buffer(cmdstr)
+function _G._my_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
     return
   end
   vim.cmd(cmdstr)
 end
 
-vim.keymap.set('n', '<C-w>H', '<CMD>lua _command_wrapper_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>H', '<CMD>lua _my_wrapper_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>J', '<CMD>lua _command_wrapper_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>J', '<CMD>lua _my_wrapper_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>K', '<CMD>lua _command_wrapper_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>K', '<CMD>lua _my_wrapper_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w>L', '<CMD>lua _command_wrapper_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w>L', '<CMD>lua _my_wrapper_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
   { silent = true })
 
 -- Auto delete [No Name] buffers.
@@ -99,6 +98,46 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end
 })
 
+-- Switch wrap mode.
+vim.opt.wrap = false
+local function _my_toggle_wrap(opts)
+  if #opts.fargs > 1 then
+    print('Too many arguments.')
+    return
+  end
+  if #opts.fargs == 1 then
+    local m = U.toboolean[opts.fargs[1]]
+    if m == nil then
+      print('Bad argument.')
+      return
+    else
+      vim.opt.wrap = m
+    end
+  else
+    vim.opt.wrap = not vim.opt.wrap._value
+  end
+  if vim.opt.wrap._value then
+    vim.keymap.set('n', 'j', 'gj', { silent = true })
+    vim.keymap.set('n', 'k', 'gk', { silent = true })
+  else
+    vim.keymap.del('n', 'j')
+    vim.keymap.del('n', 'k')
+  end
+  print('vim.opt.wrap = ' .. tostring(vim.opt.wrap._value))
+end
+vim.api.nvim_create_user_command('MyWrapToggle', _my_toggle_wrap, {
+  nargs = '*',
+  complete = function(arglead, cmdline, cursorpos)
+    local cmp = {}
+    for k, _ in pairs(U.toboolean) do
+      if k:sub(1, #arglead) == arglead then
+        cmp[#cmp + 1] = k
+      end
+    end
+    return cmp
+  end
+})
+
 
 --- ===============
 --- === Plugins ===
@@ -116,7 +155,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local function myload(plugins)
+local function my_load(plugins)
   require('lazy').setup(plugins, {
     -- defaults = { lazy = true }
   })
@@ -156,7 +195,7 @@ vim.list_extend(M, {
 })
 
 if vim.g.vscode then
-  myload(M)
+  my_load(M)
   return
 end
 
@@ -502,8 +541,8 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     keys = {
       { [[<C-\>]] },
-      { '<LEADER>t', '<CMD>lua _G._command_wrapper_run_in_terminal({})<CR>',                  mode = 'n', silent = true },
-      { '<LEADER>g', "<CMD>lua _G._command_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
+      { '<LEADER>t', '<CMD>lua _G._my_wrapper_run_in_terminal({})<CR>',                  mode = 'n', silent = true },
+      { '<LEADER>g', "<CMD>lua _G._my_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
       {
         '<LEADER>R',
         function()
@@ -549,7 +588,7 @@ vim.list_extend(M, {
           end
           if cmd == nil then return end
           cmd = cmd:gsub('/', sep)
-          _G._command_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
+          _G._my_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
         end,
         mode = 'n',
         silent = true
@@ -574,7 +613,7 @@ vim.list_extend(M, {
         direction = 'float',
       })
 
-      function _G._command_wrapper_run_in_terminal(mytable)
+      function _G._my_wrapper_run_in_terminal(mytable)
         mytable.cmd = mytable.cmd or vim.fn.input('Enter command: ')
         mytable = vim.tbl_extend('force', { hidden = true }, mytable)
         require('toggleterm.terminal').Terminal:new(mytable):toggle()
@@ -919,4 +958,4 @@ vim.list_extend(M, {
   },
 })
 
-myload(M)
+my_load(M)
