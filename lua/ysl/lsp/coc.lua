@@ -18,7 +18,11 @@ return {
             command = [[syntax match Comment +\/\/.\+$+]]
           })
         end
-      }
+      },
+      {
+        'ysl2/coc-marksman',
+        build = 'yarn install --frozen-lockfile'
+      },
     },
     config = function()
       vim.g.coc_global_extensions = {
@@ -35,7 +39,8 @@ return {
         'coc-dictionary',
         'coc-word',
         'coc-clangd',
-        'coc-java'
+        'coc-java',
+        'coc-markdownlint'
       }
 
       vim.g.coc_user_config = {}
