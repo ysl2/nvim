@@ -65,5 +65,9 @@
     "--max-line-length=120",
     "--ignore=ANN101,ANN102,E402,E741,E203"
   ],
-  "clangd.arguments": ["-fallback-style=microsoft"]
+  "clangd.arguments": ["-fallback-style=microsoft"],
+  "markdownlint.config": {
+    "default": true,
+    "line_length": false
+  }
 }
