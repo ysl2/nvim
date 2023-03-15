@@ -349,6 +349,9 @@ return {
     event = 'VeryLazy',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
+      local function _my_ft()
+        return vim.opt.filetype._value
+      end
       require('lualine').setup({
         options = {
           section_separators = { left = '', right = '' },
@@ -356,6 +359,7 @@ return {
         },
         sections = {
           lualine_c = { 'g:coc_status' },
+          lualine_x = { 'encoding', 'fileformat', _my_ft },
         },
         inactive_sections = {
           lualine_c = {},
