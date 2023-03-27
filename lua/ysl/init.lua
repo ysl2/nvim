@@ -574,6 +574,8 @@ vim.list_extend(M, {
             local cjk = ''
             if vim.fn.has('win32') == 1 then
               cjk = ' -V CJKmainfont="Microsoft YaHei"'
+            else
+              cjk = ' -V CJKmainfont="WenQuanYi Micro Hei"'
             end
             local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
               sep)
