@@ -575,7 +575,7 @@ vim.list_extend(M, {
             if vim.fn.has('win32') == 1 then
               cjk = ' -V CJKmainfont="Microsoft YaHei"'
             else
-              -- sudo apt install fonts-wqy-microhei
+              -- sudo apt install texlive-full texlive-lang-chinese fonts-wqy-microhei
               cjk = ' -V CJKmainfont="WenQuanYi Micro Hei"'
             end
             local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
