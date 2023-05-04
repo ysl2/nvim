@@ -117,11 +117,11 @@ local function _my_toggle_wrap(opts)
     vim.opt.wrap = not vim.opt.wrap._value
   end
   if vim.opt.wrap._value then
-    vim.keymap.set('n', 'j', 'gj', { silent = true })
-    vim.keymap.set('n', 'k', 'gk', { silent = true })
+    vim.keymap.set({'n', 'v'}, 'j', 'gj', { silent = true })
+    vim.keymap.set({'n', 'v'}, 'k', 'gk', { silent = true })
   else
-    vim.keymap.del('n', 'j')
-    vim.keymap.del('n', 'k')
+    vim.keymap.del({'n', 'v'}, 'j')
+    vim.keymap.del({'n', 'v'}, 'k')
   end
   print('vim.opt.wrap = ' .. tostring(vim.opt.wrap._value))
 end
