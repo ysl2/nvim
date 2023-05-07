@@ -714,7 +714,7 @@ vim.list_extend(M, {
     end
   },
   {
-    'Shatur/neovim-session-manager',
+    'ysl2/neovim-session-manager',
     lazy = false,
     cmd = 'SessionManager',
     keys = {
