@@ -3,3 +3,4 @@ Session.vim
 .luarc.json
 lazy-lock.json
 secret.lua
+.vim
