@@ -240,7 +240,7 @@ vim.list_extend(M, {
     event = 'BufReadPost'
   },
   { 'ysl2/bufdelete.nvim',        cmd = 'Bd' },
-  { 'dhruvasagar/vim-table-mode', ft = { 'markdown', 'org' } },
+  { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
   { 'mzlogin/vim-markdown-toc',   ft = 'markdown' },
   {
     'dkarter/bullets.vim',
@@ -309,7 +309,7 @@ vim.list_extend(M, {
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
-        ensure_installed = { 'vim', 'query', 'org', 'lua' },
+        ensure_installed = { 'vim', 'query', 'lua' },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -347,7 +347,7 @@ vim.list_extend(M, {
           -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
           -- Using this option may slow down your editor, and you may see some duplicate highlights.
           -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = { 'org' },
+          additional_vim_regex_highlighting = false,
         },
         autotag = { enable = true },
         context_commentstring = { enable = true },
@@ -832,25 +832,6 @@ vim.list_extend(M, {
         patterns = { '.git', '.root' },
       })
     end,
-  },
-  {
-    'nvim-orgmode/orgmode',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    ft = 'org',
-    config = function()
-      require('orgmode').setup_ts_grammar()
-      require('orgmode').setup({})
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = 'org',
-        callback = function()
-          if vim.fn.has('win32') == 1 then
-            vim.opt.shellslash = true
-          end
-          vim.opt_local.conceallevel = 2
-          vim.opt_local.concealcursor = 'nc'
-        end
-      })
-    end
   },
   {
     'xiyaowong/nvim-transparent',
