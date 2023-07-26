@@ -41,6 +41,7 @@ vim.g.neovide_cursor_animation_length = 0
 vim.api.nvim_create_autocmd('BufWritePre', {
   command = 'set ff=unix'
 })
+vim.opt.guicursor = ''
 
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
