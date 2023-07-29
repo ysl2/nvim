@@ -30,9 +30,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.cmd('hi link NormalFloat NONE')
 vim.opt.shm = vim.opt.shm._value .. 'I'
 vim.opt.timeoutlen = 300
-vim.opt.backup = false
 vim.opt.writebackup = false
-vim.opt.swapfile = false
 -- Use `winblend` to control the transparency, `0` for opaque.
 vim.opt.winblend = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'winblend' }), 0)
 vim.opt.pumblend = vim.opt.winblend._value
