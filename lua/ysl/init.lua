@@ -432,6 +432,7 @@ vim.list_extend(M, {
   },
   {
     'mbbill/undotree',
+    lazy = false,
     keys = { { '<LEADER>u', '<CMD>UndotreeToggle<CR>', mode = 'n', silent = true } },
     config = function()
       vim.g.undotree_WindowLayout = 3
