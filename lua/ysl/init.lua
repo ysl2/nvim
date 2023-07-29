@@ -40,6 +40,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   command = 'set ff=unix'
 })
 vim.opt.guicursor = ''
+vim.opt.smartindent = true
 
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
