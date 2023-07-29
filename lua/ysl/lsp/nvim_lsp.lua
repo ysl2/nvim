@@ -261,7 +261,7 @@ M.configurate = function()
     end,
     -- Next, you can provide targeted overrides for specific servers.
     ['sumneko_lua'] = function()
-      lspconfig.sumneko_lua.setup(vim.tbl_extend('force', lsp_config, {
+      lspconfig.sumneko_lua.setup(vim.tbl_deep_extend('force', lsp_config, {
         settings = {
           Lua = {
             diagnostics = {
@@ -272,7 +272,7 @@ M.configurate = function()
       }))
     end,
     ['jsonls'] = function()
-      lspconfig.jsonls.setup(vim.tbl_extend('force', lsp_config, {
+      lspconfig.jsonls.setup(vim.tbl_deep_extend('force', lsp_config, {
         settings = {
           json = {
             schemas = require('schemastore').json.schemas(),

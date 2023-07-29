@@ -47,7 +47,7 @@ return {
 
       -- HACK: Coc config shared by Windows, Linux and Mac.
       local sep = vim.fn.has('win32') == 1 and '\\' or '/'
-      vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
+      vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
         ['snippets.ultisnips.directories'] = {
           vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'vim-snippets' .. sep .. 'UltiSnips',
           vim.fn.stdpath('config') .. sep .. 'ultisnips',
@@ -86,7 +86,7 @@ return {
           m = vim.g.coc_user_config['coc.preferences.formatOnSave']
           m = (m == nil) and true or (not m)
         end
-        vim.g.coc_user_config = vim.tbl_extend('force', vim.g.coc_user_config, {
+        vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
           ['coc.preferences.formatOnSave'] = m
         })
         vim.cmd('silent CocRestart')

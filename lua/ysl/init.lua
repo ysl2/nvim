@@ -621,7 +621,7 @@ vim.list_extend(M, {
 
       function _G._my_wrapper_run_in_terminal(mytable)
         mytable.cmd = mytable.cmd or vim.fn.input('Enter command: ')
-        mytable = vim.tbl_extend('force', { hidden = true }, mytable)
+        mytable = vim.tbl_deep_extend('force', { hidden = true }, mytable)
         require('toggleterm.terminal').Terminal:new(mytable):toggle()
       end
     end
