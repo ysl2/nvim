@@ -167,11 +167,15 @@ return {
             severity_sort = false,
           })
 
-          local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-          for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-          end
+        end
+      },
+      {
+        'folke/neodev.nvim',
+        config = function()
+          -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+          require("neodev").setup({
+            -- add any options here, or leave empty to use the default settings
+          })
         end
       },
       'b0o/schemastore.nvim'
@@ -183,7 +187,7 @@ return {
       local lspconfig = require("lspconfig")
 
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'shellcheck' },
+        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', },
         handlers = {
           -- The first entry (without a key) will be the default handler
           -- and will be called for each installed server that doesn't have
@@ -197,25 +201,28 @@ return {
           -- Next, you can provide a dedicated handler for specific servers.
           -- For example, a handler override for the `rust_analyzer`:
           ['lua_ls'] = function ()
-            lspconfig.lua_ls.setup({
+            lspconfig.lua_ls.setup(vim.tbl_deep_extend('force', lspconfig, {
               settings = {
                 Lua = {
-                  diagnostics = {
-                    globals = { "vim" }
+                  workspace = {
+                    checkThirdParty = false,
+                  },
+                  completion = {
+                    callSnippet = 'Replace'
                   }
                 }
               }
-            })
+            }))
           end,
           ['jsonls'] = function ()
-            lspconfig.jsonls.setup({
+            lspconfig.jsonls.setup(vim.tbl_deep_extend('force', lspconfig, {
               settings = {
                 json = {
                   schemas = require('schemastore').json.schemas(),
                   validate = { enable = true },
                 },
               }
-            })
+            }))
           end,
         },
       }
