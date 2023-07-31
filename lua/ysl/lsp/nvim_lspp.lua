@@ -53,123 +53,144 @@ return {
     opts = {} -- this is equalent to setup({}) function
   },
   {
-    'neovim/nvim-lspconfig',
-    event = { "BufReadPre", "BufNewFile" },
+    'williamboman/mason-lspconfig.nvim',
     dependencies = {
-      'hrsh7th/nvim-cmp', -- Autocompletion plugin
-      'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
-      'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
-      'L3MON4D3/LuaSnip', -- Snippets plugin
+      {
+        'williamboman/mason.nvim',
+        config = function()
+          require('mason').setup({
+            github = { download_url_template = 'https://ghproxy.com/https://github.com/%s/releases/download/%s/%s', }
+          })
+        end
+      },
+      {
+        'neovim/nvim-lspconfig',
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+          'hrsh7th/nvim-cmp', -- Autocompletion plugin
+          'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
+          'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
+          'L3MON4D3/LuaSnip', -- Snippets plugin
+        },
+        config = function()
+          -- Global mappings.
+          -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+          -- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+          vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+          vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+          vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+          -- Use LspAttach autocommand to only map the following keys
+          -- after the language server attaches to the current buffer
+          vim.api.nvim_create_autocmd('LspAttach', {
+            group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+            callback = function(ev)
+              -- Enable completion triggered by <c-x><c-o>
+              vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+              -- Buffer local mappings.
+              -- See `:help vim.lsp.*` for documentation on any of the below functions
+              local opts = { buffer = ev.buf }
+              vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+              vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+              vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+              vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+              vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+              vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+              vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+              vim.keymap.set('n', '<space>wl', function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+              end, opts)
+              vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+              vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+              vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+              vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+              vim.keymap.set('n', '<space>f', function()
+                vim.lsp.buf.format { async = true }
+              end, opts)
+            end,
+          })
+
+          -- luasnip setup
+          local luasnip = require 'luasnip'
+
+          -- nvim-cmp setup
+          local cmp = require 'cmp'
+          cmp.setup {
+            snippet = {
+              expand = function(args)
+                luasnip.lsp_expand(args.body)
+              end,
+            },
+            mapping = cmp.mapping.preset.insert({
+              ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+              ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+              -- C-b (back) C-f (forward) for snippet placeholder navigation.
+              ['<C-Space>'] = cmp.mapping.complete(),
+              ['<CR>'] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+              },
+              ['<Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                  cmp.select_next_item()
+                elseif luasnip.expand_or_jumpable() then
+                  luasnip.expand_or_jump()
+                else
+                  fallback()
+                end
+              end, { 'i', 's' }),
+              ['<S-Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                  cmp.select_prev_item()
+                elseif luasnip.jumpable(-1) then
+                  luasnip.jump(-1)
+                else
+                  fallback()
+                end
+              end, { 'i', 's' }),
+            }),
+            sources = {
+              { name = 'nvim_lsp' },
+              { name = 'luasnip' },
+            },
+          }
+        end
+      },
     },
     config = function()
-      -- Setup language servers.
-      local lspconfig = require('lspconfig')
-      lspconfig.pyright.setup {}
-      lspconfig.tsserver.setup {}
-      lspconfig.rust_analyzer.setup {
-        -- Server-specific settings. See `:help lspconfig-setup`
-        settings = {
-          ['rust-analyzer'] = {},
-        },
-      }
-
-
-      -- Global mappings.
-      -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
-      -- Use LspAttach autocommand to only map the following keys
-      -- after the language server attaches to the current buffer
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-        callback = function(ev)
-          -- Enable completion triggered by <c-x><c-o>
-          vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-          -- Buffer local mappings.
-          -- See `:help vim.lsp.*` for documentation on any of the below functions
-          local opts = { buffer = ev.buf }
-          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-          vim.keymap.set('n', '<space>wl', function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, opts)
-          vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-          vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-          vim.keymap.set('n', '<space>f', function()
-            vim.lsp.buf.format { async = true }
-          end, opts)
-        end,
-      })
-
       -- Add additional capabilities supported by nvim-cmp
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      local lspconfig = require('lspconfig')
+      local lspconfig = require("lspconfig")
 
-      -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-      local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-      for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {
-          -- on_attach = my_custom_on_attach,
-          capabilities = capabilities,
-        }
-      end
-
-      -- luasnip setup
-      local luasnip = require 'luasnip'
-
-      -- nvim-cmp setup
-      local cmp = require 'cmp'
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
+      require('mason-lspconfig').setup {
+        ensure_installed = { 'lua_ls', 'jedi_language_server' },
+        handlers = {
+          -- The first entry (without a key) will be the default handler
+          -- and will be called for each installed server that doesn't have
+          -- a dedicated handler.
+          function (server_name) -- default handler (optional)
+              lspconfig[server_name].setup({
+                -- on_attach = my_custom_on_attach,
+                capabilities = capabilities,
+              })
           end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-          ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
-          -- C-b (back) C-f (forward) for snippet placeholder navigation.
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          },
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-        }),
-        sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-        },
+          -- Next, you can provide a dedicated handler for specific servers.
+          -- For example, a handler override for the `rust_analyzer`:
+          ['lua_ls'] = function ()
+            lspconfig.lua_ls.setup({
+              settings = {
+                Lua = {
+                  diagnostics = {
+                    globals = { "vim" }
+                  }
+                }
+              }
+            })
+          end,
+        }
       }
     end
-  }
+  },
 }
