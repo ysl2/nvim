@@ -377,5 +377,12 @@ return {
     config = function()
       require('telescope').load_extension('coc')
     end
-  }
+  },
+  {
+    'ysl2/symbols-outline.nvim',
+    keys = { { '<LEADER>v', '<CMD>SymbolsOutline<CR>', mode = 'n', silent = true } },
+    config = function()
+      require('symbols-outline').setup {}
+    end
+  },
 }
