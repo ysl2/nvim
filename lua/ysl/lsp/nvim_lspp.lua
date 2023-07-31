@@ -57,9 +57,6 @@ return {
     dependencies = {
       {
         'williamboman/mason.nvim',
-        build = function ()
-          vim.cmd('MasonInstall')
-        end,
         config = function()
           require('mason').setup({
             github = { download_url_template = 'https://ghproxy.com/https://github.com/%s/releases/download/%s/%s', }
@@ -68,7 +65,7 @@ return {
       },
       {
         'neovim/nvim-lspconfig',
-        event = { "BufReadPre", "BufNewFile" },
+        event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
           'hrsh7th/nvim-cmp', -- Autocompletion plugin
           'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
@@ -160,11 +157,7 @@ return {
           }
 
           vim.diagnostic.config({
-            virtual_text = true,
-            signs = true,
-            underline = true,
             update_in_insert = true,
-            severity_sort = false,
           })
 
         end
@@ -188,6 +181,7 @@ return {
 
       require('mason-lspconfig').setup {
         ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', },
+        automatic_installation = true,
         handlers = {
           -- The first entry (without a key) will be the default handler
           -- and will be called for each installed server that doesn't have
