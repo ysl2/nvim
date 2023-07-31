@@ -57,6 +57,9 @@ return {
     dependencies = {
       {
         'williamboman/mason.nvim',
+        build = function ()
+          vim.cmd('MasonInstall')
+        end,
         config = function()
           require('mason').setup({
             github = { download_url_template = 'https://ghproxy.com/https://github.com/%s/releases/download/%s/%s', }
@@ -157,6 +160,7 @@ return {
           }
         end
       },
+      'b0o/schemastore.nvim'
     },
     config = function()
       -- Add additional capabilities supported by nvim-cmp
@@ -165,7 +169,7 @@ return {
       local lspconfig = require("lspconfig")
 
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jedi_language_server' },
+        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'shellcheck' },
         handlers = {
           -- The first entry (without a key) will be the default handler
           -- and will be called for each installed server that doesn't have
@@ -189,8 +193,47 @@ return {
               }
             })
           end,
-        }
+          ['jsonls'] = function ()
+            lspconfig.jsonls.setup({
+              settings = {
+                json = {
+                  schemas = require('schemastore').json.schemas(),
+                  validate = { enable = true },
+                },
+              }
+            })
+          end,
+        },
       }
     end
   },
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+        local null_ls = require('null-ls')
+        null_ls.setup({
+          sources = {
+            null_ls.builtins.code_actions.gitsigns,
+            null_ls.builtins.code_actions.shellcheck,
+            null_ls.builtins.completion.luasnip,
+            null_ls.builtins.completion.spell,
+            null_ls.builtins.completion.tags,
+            -- null_ls.builtins.diagnostics.codespell,
+            null_ls.builtins.diagnostics.commitlint,
+            null_ls.builtins.diagnostics.flake8,
+            -- null_ls.builtins.diagnostics.luacheck,
+            null_ls.builtins.diagnostics.markdownlint,
+            null_ls.builtins.diagnostics.pydocstyle,
+            null_ls.builtins.diagnostics.shellcheck,
+            null_ls.builtins.formatting.black,
+            null_ls.builtins.formatting.codespell,
+            null_ls.builtins.formatting.latexindent,
+            null_ls.builtins.formatting.lua_format,
+            null_ls.builtins.formatting.prettier,
+            null_ls.builtins.formatting.shfmt
+          }
+        })
+    end,
+  }
 }
