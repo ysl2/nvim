@@ -374,5 +374,13 @@ return {
           }
         })
     end,
+  },
+  {
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+    event = 'LspAttach',
+    opts = {
+      -- options
+    },
   }
 }
