@@ -354,7 +354,7 @@ return {
         null_ls.setup({
           sources = {
             null_ls.builtins.code_actions.gitsigns,
-            null_ls.builtins.code_actions.shellcheck,
+            -- null_ls.builtins.code_actions.shellcheck,
             null_ls.builtins.completion.luasnip,
             null_ls.builtins.completion.spell,
             null_ls.builtins.completion.tags,
@@ -364,7 +364,7 @@ return {
             -- null_ls.builtins.diagnostics.luacheck,
             null_ls.builtins.diagnostics.markdownlint,
             -- null_ls.builtins.diagnostics.pydocstyle,
-            null_ls.builtins.diagnostics.shellcheck,
+            -- null_ls.builtins.diagnostics.shellcheck,
             null_ls.builtins.formatting.black,
             null_ls.builtins.formatting.codespell,
             null_ls.builtins.formatting.latexindent,
