@@ -39,10 +39,21 @@ return {
     end
   },
   {
+    'williamboman/mason.nvim',
+    cmd = 'Mason',
+    config = function()
+      require('mason').setup({
+        github = { download_url_template = 'https://ghproxy.com/https://github.com/%s/releases/download/%s/%s', }
+      })
+    end
+  },
+  {
     'williamboman/mason-lspconfig.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       {
         'hrsh7th/nvim-cmp', -- Autocompletion plugin
+        event = 'InsertEnter',
         dependencies = {
           {
             'neovim/nvim-lspconfig',
@@ -267,14 +278,7 @@ return {
           )
         end
       },
-      {
-        'williamboman/mason.nvim',
-        config = function()
-          require('mason').setup({
-            github = { download_url_template = 'https://ghproxy.com/https://github.com/%s/releases/download/%s/%s', }
-          })
-        end
-      },
+      'williamboman/mason.nvim',
       {
         'folke/neodev.nvim',
         config = function()
@@ -340,7 +344,11 @@ return {
   },
   {
     'jose-elias-alvarez/null-ls.nvim',
-    dependencies = { "nvim-lua/plenary.nvim" },
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'williamboman/mason.nvim',
+    },
     config = function()
         local null_ls = require('null-ls')
         null_ls.setup({
