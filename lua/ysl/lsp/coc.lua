@@ -23,6 +23,7 @@ return {
         'ysl2/coc-marksman',
         build = 'yarn install --frozen-lockfile'
       },
+      'rafamadriz/friendly-snippets'
     },
     config = function()
       vim.g.coc_global_extensions = {
@@ -52,6 +53,10 @@ return {
           vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'vim-snippets' .. sep .. 'UltiSnips',
           vim.fn.stdpath('config') .. sep .. 'ultisnips',
         }
+      })
+      local friendly = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'friendly-snippets' .. sep .. 'snippets' .. sep
+      vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
+        ['snippets.textmateSnippetsRoots'] = vim.list_extend({ friendly, }, U.mysplit(vim.fn.glob(friendly .. '*/'), '\n'))
       })
 
       -- HACK: Coc config for specific Windows.
