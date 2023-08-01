@@ -246,8 +246,11 @@ vim.list_extend(M, {
   { 'ysl2/vim-bookmarks',
     event = 'VeryLazy',
     keys = {
-      { 'gM', '<CMD>BookmarkPrev<CR>',   mode = 'n', silent = true },
-      { 'gm', '<CMD>BookmarkNext<CR>',   mode = 'n', silent = true },
+      { 'mm', '<CMD>BookmarkToggle<CR>', mode = 'n', silent = true },
+      { 'mi', '<CMD>BookmarkAnnotate<CR>', mode = 'n', silent = true },
+      { 'mA', '<CMD>BookmarkShowAll<CR>', mode = 'n', silent = true },
+      { 'gM', '<CMD>BookmarkPrev<CR>', mode = 'n', silent = true },
+      { 'gm', '<CMD>BookmarkNext<CR>', mode = 'n', silent = true },
     }
   },
   { 'itchyny/calendar.vim',   cmd = 'Calendar' },
