@@ -42,6 +42,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 vim.opt.guicursor = ''
 vim.opt.smartindent = true
 vim.opt.cursorline = true
+vim.opt.exrc = true
 
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
