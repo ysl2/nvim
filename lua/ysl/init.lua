@@ -214,7 +214,7 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
   })
 
 local requires = U.set(U.safeget(S, 'requires'), {
-  require('ysl.lsp.coc')
+  require('ysl.lsp.nvim_lsp')
 })
 
 for _, v in ipairs(requires) do
