@@ -292,7 +292,6 @@ vim.list_extend(M, {
     dependencies = {
       'windwp/nvim-ts-autotag',
       'JoosepAlviste/nvim-ts-context-commentstring',
-      'mrjones2014/nvim-ts-rainbow',
       'nvim-treesitter/playground',
     },
     config = function()
@@ -351,7 +350,6 @@ vim.list_extend(M, {
         },
         autotag = { enable = true },
         context_commentstring = { enable = true },
-        rainbow = { enable = true },
         playground = { enable = true }
       }
     end
