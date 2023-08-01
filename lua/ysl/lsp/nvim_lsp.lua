@@ -135,7 +135,9 @@ return {
           'hrsh7th/cmp-cmdline',
           {
             'L3MON4D3/LuaSnip', -- Snippets plugin
+            dependencies = { 'rafamadriz/friendly-snippets' },
             config = function ()
+              require('luasnip.loaders.from_vscode').lazy_load()
               local luasnip = require('luasnip')
               -- Stop snippets when you leave to normal mode
               vim.api.nvim_create_autocmd('ModeChanged', {
