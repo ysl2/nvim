@@ -243,7 +243,13 @@ vim.list_extend(M, {
   },
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
   { 'gcmt/wildfire.vim',      event = 'VeryLazy' },
-  { 'ysl2/vim-bookmarks',     event = 'VeryLazy', },
+  { 'ysl2/vim-bookmarks',
+    event = 'VeryLazy',
+    keys = {
+      { '[m', '<CMD>BookmarkPrev<CR>',   mode = 'n', silent = true },
+      { ']m', '<CMD>BookmarkNext<CR>',   mode = 'n', silent = true },
+    }
+  },
   { 'itchyny/calendar.vim',   cmd = 'Calendar' },
   { 'kevinhwang91/nvim-bqf',  ft = 'qf',                             dependencies = 'nvim-treesitter/nvim-treesitter' },
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
