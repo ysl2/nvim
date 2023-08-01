@@ -205,12 +205,11 @@ end
 -- ===
 M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
   {
-    'catppuccin/nvim',
+    'ysl2/nvim-deus',
     lazy = false,
     priority = 1000,
-    name = 'catppuccin',
     config = function()
-      vim.cmd('colorscheme catppuccin-frappe')
+      vim.cmd('colorscheme deus')
     end
   })
 
