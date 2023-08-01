@@ -176,23 +176,13 @@ vim.list_extend(M, {
     'phaazon/hop.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<LEADER><LEADER>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
-      { '<LEADER><TAB>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
+      { '<A-s>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
+      { '<A-w>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
     },
     config = function()
       require('hop').setup()
     end
   },
-  {
-    'ggandor/leap.nvim',
-    dependencies = 'tpope/vim-repeat',
-    event = 'VeryLazy',
-    config = function()
-      require('leap').add_default_mappings()
-      vim.keymap.del({ 'x', 'o' }, 'x')
-      vim.keymap.del({ 'x', 'o' }, 'X')
-    end
-  }
 })
 
 if vim.g.vscode then
