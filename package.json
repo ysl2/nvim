@@ -6,10 +6,6 @@
     "contributes": {
         "snippets": [
             {
-                "language": ["license"],
-                "path": "./snippets/license.json"
-            },
-            {
                 "language": "python",
                 "path": "./snippets/python.json"
             },
