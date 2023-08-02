@@ -1,4 +1,3 @@
-
 local U = require('ysl.utils')
 local augroup = vim.api.nvim_create_augroup('UserLspConfig', {})
 return {
@@ -343,7 +342,8 @@ return {
                   },
                   completion = {
                     callSnippet = 'Replace'
-                  }
+                  },
+                  telemetry = { enable = false },
                 }
               }
             }))
@@ -411,10 +411,10 @@ return {
       config = function()
         require('mason-null-ls').setup({
             ensure_installed = {
-              -- linter
-              'luacheck',
+              -- Linters:
+              -- 'luacheck',
 
-              -- formatter
+              -- Formatters:
               'stylua',
             },
             automatic_installation = true,
