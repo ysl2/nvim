@@ -58,6 +58,7 @@ return {
         dependencies = {
           {
             'SmiteshP/nvim-navic',
+            lazy = true,
             dependencies = {
               {
                 'neovim/nvim-lspconfig',

@@ -172,7 +172,7 @@ vim.list_extend(M, {
   { 'tpope/vim-surround',     event = 'VeryLazy' },
   { 'numToStr/Comment.nvim',  config = function() require('Comment').setup() end, event = 'VeryLazy' },
   { 'itchyny/vim-cursorword', event = 'VeryLazy' },
-  { 'RRethy/vim-illuminate',  event = 'VeryLazy' },
+  { 'RRethy/vim-illuminate',  event = { 'BufReadPost', 'BufNewFile' }, },
   {
     'phaazon/hop.nvim',
     event = 'VeryLazy',
@@ -219,16 +219,16 @@ vim.list_extend(M, {
   -- === Load Bulk
   -- ===
   { 'Asheq/close-buffers.vim',             cmd = 'Bdelete' },
-  { 'lukas-reineke/indent-blankline.nvim', event = 'BufReadPost' },
+  { 'lukas-reineke/indent-blankline.nvim', event = { 'BufReadPost', 'BufNewFile' }, },
   { 'romainl/vim-cool',                    event = 'VeryLazy' },
   { 'tpope/vim-fugitive',                  cmd = 'Git' },
-  { 'lewis6991/gitsigns.nvim',             config = function() require('gitsigns').setup() end,  event = 'BufReadPost' },
+  { 'lewis6991/gitsigns.nvim',             config = function() require('gitsigns').setup() end,  event = { 'BufReadPre', 'BufNewFile' }, },
   { 'norcalli/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'BufReadPost' },
   {
     'folke/todo-comments.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = { 'nvim-lua/plenary.nvim', lazy = true },
     config = function() require('todo-comments').setup {} end,
-    event = 'BufReadPost'
   },
   { 'ysl2/bufdelete.nvim',        cmd = 'Bd' },
   { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
@@ -285,7 +285,7 @@ vim.list_extend(M, {
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    event = 'VeryLazy',
+    event = { 'BufReadPost', 'BufNewFile' },
     build = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
       ts_update()
@@ -493,7 +493,7 @@ vim.list_extend(M, {
     'ysl2/nvim-tree.lua',
     name = 'nvim-tree',
     keys = { { '<LEADER>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true } },
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     config = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
@@ -765,7 +765,7 @@ vim.list_extend(M, {
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { 'stevearc/dressing.nvim', config = function() require('dressing').setup {} end },
+      { 'stevearc/dressing.nvim', lazy = true, config = function() require('dressing').setup {} end },
     },
     config = function()
       require('session_manager').setup({
