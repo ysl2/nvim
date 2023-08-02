@@ -257,6 +257,9 @@ return {
                 vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
                 return vim_item
               end,
+            },
+            experimental = {
+                ghost_text = true,
             }
           })
 
