@@ -1,7 +1,6 @@
 local M = {}
 
-local sep = vim.fn.has('win32') == 1 and '\\' or '/'
-M.sep = sep
+M.sep = vim.fn.has('win32') == 1 and '\\' or '/'
 
 -- Set a value if given secret is not nil, else default to public.
 -- @param secret: the given value.
@@ -54,11 +53,5 @@ M.toboolean = {
 }
 
 M.signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-
-local friendly = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'friendly-snippets' .. sep .. 'snippets'
-M.snipaths = vim.list_extend(
-  { vim.fn.stdpath('config') .. sep .. 'snippets' },
-  vim.list_extend({ friendly }, mysplit(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
-)
 
 return M

@@ -1,5 +1,6 @@
 local U = require('ysl.utils')
 return {
+  { 'SmiteshP/nvim-navic', lazy = true },
   {
     'neoclide/coc.nvim',
     branch = 'release',
@@ -46,14 +47,18 @@ return {
 
       -- HACK: Coc config shared by Windows, Linux and Mac.
       -- NOTE: dependencies: 'honza/vim-snippets',
-      -- local sep = U.sep
+      local sep = U.sep
       -- vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
       --   ['snippets.ultisnips.directories'] = {
       --     vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'vim-snippets' .. sep .. 'UltiSnips',
       --   }
       -- })
+      local friendly = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'friendly-snippets' .. sep .. 'snippets'
       vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
-        ['snippets.textmateSnippetsRoots'] = U.snipaths
+        ['snippets.textmateSnippetsRoots'] = vim.list_extend(
+          { vim.fn.stdpath('config') .. sep .. 'snippets' },
+          vim.list_extend({ friendly }, U.mysplit(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
+        )
       })
 
       -- HACK: Coc config for specific Windows.

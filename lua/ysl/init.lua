@@ -592,7 +592,7 @@ vim.list_extend(M, {
           local ft = vim.opt.filetype._value
           local cmd
 
-          local sep = (vim.fn.has('win32') == 1) and '\\' or '/'
+          local sep = U.sep
           local dir = vim.fn.expand('%:p:h')
           local fileName = vim.fn.expand('%:t')
           local fileNameWithoutExt = vim.fn.expand('%:t:r')
