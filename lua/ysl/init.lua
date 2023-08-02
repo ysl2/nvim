@@ -1002,6 +1002,7 @@ vim.list_extend(M, {
   {
     'nvim-pack/nvim-spectre',
     cmd = 'Spectre',
+    opts = { open_cmd = 'noswapfile vnew' },
     dependencies = 'nvim-lua/plenary.nvim',
   },
   {
