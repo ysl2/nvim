@@ -323,6 +323,10 @@ return {
       }
 
       local lspconfig = require('lspconfig')
+      local default = {
+        -- on_attach = my_custom_on_attach,
+        capabilities = capabilities,
+      }
       require('mason-lspconfig').setup {
         ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', },
         automatic_installation = true,
@@ -331,15 +335,12 @@ return {
           -- and will be called for each installed server that doesn't have
           -- a dedicated handler.
           function (server_name) -- default handler (optional)
-              lspconfig[server_name].setup({
-                -- on_attach = my_custom_on_attach,
-                capabilities = capabilities,
-              })
+              lspconfig[server_name].setup(default)
           end,
           -- Next, you can provide a dedicated handler for specific servers.
           -- For example, a handler override for the `rust_analyzer`:
           ['lua_ls'] = function ()
-            lspconfig.lua_ls.setup(vim.tbl_deep_extend('force', lspconfig, {
+            lspconfig.lua_ls.setup(vim.tbl_deep_extend('force', default, {
               settings = {
                 Lua = {
                   workspace = {
@@ -354,7 +355,7 @@ return {
             }))
           end,
           ['jsonls'] = function ()
-            lspconfig.jsonls.setup(vim.tbl_deep_extend('force', lspconfig, {
+            lspconfig.jsonls.setup(vim.tbl_deep_extend('force', default, {
               settings = {
                 json = {
                   schemas = require('schemastore').json.schemas(),
