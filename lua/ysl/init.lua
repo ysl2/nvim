@@ -953,6 +953,9 @@ vim.list_extend(M, {
     'nvim-pack/nvim-spectre',
     cmd = 'Spectre',
     dependencies = 'nvim-lua/plenary.nvim',
+    config = {
+      require('spectre').setup()
+    }
   }
 })
 
