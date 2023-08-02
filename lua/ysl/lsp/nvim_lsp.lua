@@ -363,44 +363,63 @@ return {
     end
   },
   {
-    'jose-elias-alvarez/null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'williamboman/mason.nvim',
-    },
-    config = function()
-        local null_ls = require('null-ls')
-        null_ls.setup({
-          sources = {
-            null_ls.builtins.code_actions.gitsigns,
-            -- null_ls.builtins.code_actions.shellcheck,
-            null_ls.builtins.completion.luasnip,
-            null_ls.builtins.completion.spell,
-            null_ls.builtins.completion.tags,
-            -- null_ls.builtins.diagnostics.codespell,
-            null_ls.builtins.diagnostics.commitlint,
-            null_ls.builtins.diagnostics.flake8,
-            -- null_ls.builtins.diagnostics.luacheck,
-            -- null_ls.builtins.diagnostics.markdownlint,
-            -- null_ls.builtins.diagnostics.pydocstyle,
-            -- null_ls.builtins.diagnostics.shellcheck,
-            null_ls.builtins.formatting.black,
-            null_ls.builtins.formatting.codespell,
-            null_ls.builtins.formatting.latexindent,
-            null_ls.builtins.formatting.lua_format,
-            null_ls.builtins.formatting.prettier,
-            null_ls.builtins.formatting.shfmt
-          }
-        })
-    end,
-  },
-  {
     'j-hui/fidget.nvim',
     tag = 'legacy',
     event = 'LspAttach',
     opts = {
       -- options
     },
+  },
+  {
+      'jay-babu/mason-null-ls.nvim',
+      event = { 'BufReadPre', 'BufNewFile' },
+      dependencies = {
+        {
+          'jose-elias-alvarez/null-ls.nvim',
+          event = { 'BufReadPre', 'BufNewFile' },
+          dependencies = {
+            'nvim-lua/plenary.nvim',
+            'williamboman/mason.nvim',
+          },
+          config = function()
+              local null_ls = require('null-ls')
+              null_ls.setup({
+                sources = {
+                  -- null_ls.builtins.code_actions.gitsigns,
+                  -- null_ls.builtins.code_actions.shellcheck,
+                  -- null_ls.builtins.completion.luasnip,
+                  -- null_ls.builtins.completion.spell,
+                  -- null_ls.builtins.completion.tags,
+                  -- null_ls.builtins.diagnostics.codespell,
+                  -- null_ls.builtins.diagnostics.commitlint,
+                  -- null_ls.builtins.diagnostics.flake8,
+                  -- null_ls.builtins.diagnostics.luacheck,
+                  -- null_ls.builtins.diagnostics.markdownlint,
+                  -- null_ls.builtins.diagnostics.pydocstyle,
+                  -- null_ls.builtins.diagnostics.shellcheck,
+                  -- null_ls.builtins.formatting.black,
+                  -- null_ls.builtins.formatting.codespell,
+                  -- null_ls.builtins.formatting.latexindent,
+                  -- null_ls.builtins.formatting.lua_format,
+                  -- null_ls.builtins.formatting.prettier,
+                  -- null_ls.builtins.formatting.shfmt
+                }
+              })
+          end,
+        }
+      },
+      config = function()
+        require('mason-null-ls').setup({
+            ensure_installed = {
+              -- linter
+              'luacheck',
+
+              -- formatter
+              'stylua',
+            },
+            automatic_installation = true,
+            handlers = {},
+        })
+      end,
   }
 }
