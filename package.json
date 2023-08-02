@@ -1,0 +1,22 @@
+{
+    "name": "./snippets",
+    "engines": {
+        "vscode": "^1.11.0"
+    },
+    "contributes": {
+        "snippets": [
+            {
+                "language": ["license"],
+                "path": "./snippets/license.json"
+            },
+            {
+                "language": "python",
+                "path": "./snippets/python.json"
+            },
+            {
+                "language": "lua",
+                "path": "./snippets/lua.json"
+            }
+        ]
+    }
+}

@@ -153,7 +153,9 @@ return {
             'L3MON4D3/LuaSnip', -- Snippets plugin
             build = 'make install_jsregexp',
             config = function ()
-              require('luasnip.loaders.from_vscode').lazy_load({ paths = U.snipaths })
+              vim.opt.rtp = vim.opt.rtp + './snippets'
+              vim.opt.rtp = vim.opt.rtp + '~/.local/share/nvim/lazy/friendly-snippets'
+              require('luasnip.loaders.from_vscode').lazy_load()
               local luasnip = require('luasnip')
               -- Stop snippets when you leave to normal mode
               vim.api.nvim_create_autocmd('ModeChanged', {
