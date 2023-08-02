@@ -298,23 +298,6 @@ return {
     end
   },
   {
-    'ysl2/winbar.nvim',
-    event = 'VeryLazy',
-    cond = not vim.g.started_by_firenvim,
-    dependencies = {
-      'SmiteshP/nvim-navic',
-      'nvim-tree/nvim-web-devicons'
-    },
-    config = function()
-      require('winbar').setup({
-        enabled = true,
-        icons = {
-          separator = '',
-        }
-      })
-    end
-  },
-  {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = function()

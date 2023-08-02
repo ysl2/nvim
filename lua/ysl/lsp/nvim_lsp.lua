@@ -1,4 +1,6 @@
+
 local U = require('ysl.utils')
+local augroup = vim.api.nvim_create_augroup('UserLspConfig', {})
 return {
   {
     'akinsho/bufferline.nvim',
@@ -56,77 +58,93 @@ return {
         event = 'InsertEnter',
         dependencies = {
           {
-            'neovim/nvim-lspconfig',
-            event = { 'BufReadPre', 'BufNewFile' },
-            config = function()
-              -- Global mappings.
-              -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-              vim.keymap.set('n', '\\e', vim.diagnostic.open_float)
-              vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-              vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-              vim.keymap.set('n', '\\q', vim.diagnostic.setloclist)
+            'SmiteshP/nvim-navic',
+            dependencies = {
+              {
+                'neovim/nvim-lspconfig',
+                event = { 'BufReadPre', 'BufNewFile' },
+                config = function()
+                  -- Global mappings.
+                  -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+                  vim.keymap.set('n', '\\e', vim.diagnostic.open_float)
+                  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+                  vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+                  vim.keymap.set('n', '\\q', vim.diagnostic.setloclist)
 
-              -- Use LspAttach autocommand to only map the following keys
-              -- after the language server attaches to the current buffer
-              vim.api.nvim_create_autocmd('LspAttach', {
-                group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-                callback = function(ev)
-                  -- Enable completion triggered by <c-x><c-o>
-                  vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+                  -- Use LspAttach autocommand to only map the following keys
+                  -- after the language server attaches to the current buffer
+                  vim.api.nvim_create_autocmd('LspAttach', {
+                    group = augroup,
+                    callback = function(ev)
+                      -- Enable completion triggered by <c-x><c-o>
+                      vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-                  -- Buffer local mappings.
-                  -- See `:help vim.lsp.*` for documentation on any of the below functions
-                  local opts = { buffer = ev.buf }
-                  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-                  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-                  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-                  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-                  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-                  vim.keymap.set('n', '\\wa', vim.lsp.buf.add_workspace_folder, opts)
-                  vim.keymap.set('n', '\\wr', vim.lsp.buf.remove_workspace_folder, opts)
-                  vim.keymap.set('n', '\\wl', function()
-                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                  end, opts)
-                  vim.keymap.set('n', '\\D', vim.lsp.buf.type_definition, opts)
-                  vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, opts)
-                  vim.keymap.set({ 'n', 'v' }, '\\ca', vim.lsp.buf.code_action, opts)
-                  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-                  vim.keymap.set('n', '\\f', function()
-                    vim.lsp.buf.format { async = true }
-                  end, opts)
+                      -- Buffer local mappings.
+                      -- See `:help vim.lsp.*` for documentation on any of the below functions
+                      local opts = { buffer = ev.buf }
+                      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+                      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+                      vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+                      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+                      vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+                      vim.keymap.set('n', '\\wa', vim.lsp.buf.add_workspace_folder, opts)
+                      vim.keymap.set('n', '\\wr', vim.lsp.buf.remove_workspace_folder, opts)
+                      vim.keymap.set('n', '\\wl', function()
+                        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                      end, opts)
+                      vim.keymap.set('n', '\\D', vim.lsp.buf.type_definition, opts)
+                      vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, opts)
+                      vim.keymap.set({ 'n', 'v' }, '\\ca', vim.lsp.buf.code_action, opts)
+                      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+                      vim.keymap.set('n', '\\f', function()
+                        vim.lsp.buf.format { async = true }
+                      end, opts)
 
-                  vim.api.nvim_create_autocmd('CursorHold', {
-                    buffer = ev.buf,
-                    callback = function()
-                      vim.diagnostic.open_float(nil, {
-                        focusable = false,
-                        close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
-                        source = 'always',
-                        prefix = ' ',
-                        scope = 'cursor',
+                      vim.api.nvim_create_autocmd('CursorHold', {
+                        buffer = ev.buf,
+                        callback = function()
+                          vim.diagnostic.open_float(nil, {
+                            focusable = false,
+                            close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+                            source = 'always',
+                            prefix = ' ',
+                            scope = 'cursor',
+                          })
+                        end
                       })
-                    end
+                    end,
                   })
-                end,
-              })
 
-              vim.diagnostic.config({
-                virtual_text = {
-                  source = 'always',
-                  severity = { min = vim.diagnostic.severity.ERROR },
-                },
-                float = {
-                  source = 'always',
-                },
-                update_in_insert = true,
-                severity_sort = true,
-              })
+                  vim.diagnostic.config({
+                    virtual_text = {
+                      source = 'always',
+                      severity = { min = vim.diagnostic.severity.ERROR },
+                    },
+                    float = {
+                      source = 'always',
+                    },
+                    update_in_insert = true,
+                    severity_sort = true,
+                  })
 
-              local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-              for type, icon in pairs(signs) do
-                local hl = 'DiagnosticSign' .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-              end
+                  local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+                  for type, icon in pairs(signs) do
+                    local hl = 'DiagnosticSign' .. type
+                    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+                  end
+                end
+              },
+            },
+            config = function()
+               vim.api.nvim_create_autocmd('LspAttach', {
+               group = augroup,
+               callback = function(ev)
+                 local client = vim.lsp.get_client_by_id(ev.data.client_id)
+                 if client.server_capabilities['documentSymbolProvider'] then
+                   require('nvim-navic').attach(client, ev.buf)
+                 end
+               end,
+             })
             end
           },
           'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
