@@ -1016,7 +1016,7 @@ vim.list_extend(M, {
       require('barbecue').setup({
         create_autocmd = false, -- prevent barbecue from updating itself automatically
         attach_navic = false,
-        show_modified = true
+        show_modified = false
       })
 
       vim.api.nvim_create_autocmd({
@@ -1026,7 +1026,7 @@ vim.list_extend(M, {
         'InsertLeave',
 
         -- include this if you have set `show_modified` to `true`
-        'BufModifiedSet',
+        -- 'BufModifiedSet',
       }, {
         group = vim.api.nvim_create_augroup('barbecue.updater', {}),
         callback = function()
