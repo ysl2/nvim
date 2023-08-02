@@ -49,4 +49,6 @@ M.toboolean = {
   ['false'] = false
 }
 
+M.signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+
 return M

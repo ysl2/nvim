@@ -495,6 +495,12 @@ vim.list_extend(M, {
         diagnostics = {
           enable = true,
           show_on_dirs = true,
+          icons = {
+            hint = U.signs.Hint,
+            info = U.signs.Info,
+            warning = U.signs.Warn,
+            error = U.signs.Error,
+          },
         },
         modified = {
           enable = true,
