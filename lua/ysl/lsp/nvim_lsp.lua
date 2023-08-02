@@ -151,9 +151,9 @@ return {
           'hrsh7th/cmp-cmdline',
           {
             'L3MON4D3/LuaSnip', -- Snippets plugin
-            dependencies = { 'rafamadriz/friendly-snippets' },
+            build = 'make install_jsregexp',
             config = function ()
-              require('luasnip.loaders.from_vscode').lazy_load()
+              require('luasnip.loaders.from_vscode').lazy_load({ paths = U.snipaths })
               local luasnip = require('luasnip')
               -- Stop snippets when you leave to normal mode
               vim.api.nvim_create_autocmd('ModeChanged', {
@@ -214,14 +214,14 @@ return {
                 end
               end, { 'i', 's' }),
               ['<C-j>'] = cmp.mapping(function(fallback)
-                if require('luasnip').expand_or_jumpable() then
+                if luasnip.expand_or_jumpable() then
                   vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), "")
                 else
                   fallback()
                 end
               end, { 'i', 's' }),
               ['<C-k>'] = cmp.mapping(function(fallback)
-                if require('luasnip').jumpable( -1) then
+                if luasnip.jumpable(-1) then
                   vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), "")
                 else
                   fallback()

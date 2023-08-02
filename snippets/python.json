@@ -1,0 +1,37 @@
+{
+	"dd": {
+		"prefix": "dd",
+		"body": [
+			"# HACK: <<<<<<< Songli.Yu: \"$1\"",
+
+			"",
+			"# HACK: =======",
+
+			"",
+			"# HACK: >>>>>>> Songli.Yu"
+
+		],
+		"description": "Songli.Yu: Debug block."
+	},
+	"db": {
+		"prefix": "db",
+		"body": [
+			"import pdb; pdb.set_trace()  # HACK: Songli.Yu: \"$1\""
+		],
+		"description": "Songli.Yu: Debug pdb."
+	},
+	"dbi": {
+		"prefix": "dbi",
+		"body": [
+			"import ipdb; ipdb.set_trace()  # HACK: Songli.Yu: \"$1\""
+		],
+		"description": "Songli.Yu: Debug ipdb."
+	},
+	"di": {
+		"prefix": "di",
+		"body": [
+			"# HACK: Songli.Yu: \"$1\""
+		],
+		"description": "Songli.Yu: Debug inline."
+	}
+}

@@ -3,9 +3,8 @@ return {
   {
     'neoclide/coc.nvim',
     branch = 'release',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      'honza/vim-snippets',
       {
         'ysl2/coc-rust-analyzer',
         build = 'yarn install --frozen-lockfile'
@@ -23,7 +22,6 @@ return {
         'ysl2/coc-marksman',
         build = 'yarn install --frozen-lockfile'
       },
-      'rafamadriz/friendly-snippets'
     },
     config = function()
       vim.g.coc_global_extensions = {
@@ -47,16 +45,15 @@ return {
       vim.g.coc_user_config = {}
 
       -- HACK: Coc config shared by Windows, Linux and Mac.
-      local sep = vim.fn.has('win32') == 1 and '\\' or '/'
+      -- NOTE: dependencies: 'honza/vim-snippets',
+      -- local sep = U.sep
+      -- vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
+      --   ['snippets.ultisnips.directories'] = {
+      --     vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'vim-snippets' .. sep .. 'UltiSnips',
+      --   }
+      -- })
       vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
-        ['snippets.ultisnips.directories'] = {
-          vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'vim-snippets' .. sep .. 'UltiSnips',
-          vim.fn.stdpath('config') .. sep .. 'ultisnips',
-        }
-      })
-      local friendly = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'friendly-snippets' .. sep .. 'snippets' .. sep
-      vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
-        ['snippets.textmateSnippetsRoots'] = vim.list_extend({ friendly, }, U.mysplit(vim.fn.glob(friendly .. '*/'), '\n'))
+        ['snippets.textmateSnippetsRoots'] = U.snipaths
       })
 
       -- HACK: Coc config for specific Windows.
@@ -357,11 +354,11 @@ return {
   },
   {
     'fannheyward/telescope-coc.nvim',
+    event = 'VeryLazy',
     dependencies = {
       'nvim-telescope/telescope.nvim',
       'neoclide/coc.nvim',
     },
-    event = 'VeryLazy',
     config = function()
       require('telescope').load_extension('coc')
     end

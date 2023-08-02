@@ -1,0 +1,31 @@
+{
+	"dd": {
+		"prefix": "dd",
+		"body": [
+			"-- HACK: <<<<<<< Songli.Yu: \"$1\"",
+
+			"",
+			"-- HACK: =======",
+
+			"",
+			"-- HACK: >>>>>>> Songli.Yu"
+		],
+		"description": "Songli.Yu: Debug block."
+	},
+	"di": {
+		"prefix": "di",
+		"body": [
+			"-- HACK: Songli.Yu: \"$1\""
+		],
+		"description": "Songli.Yu: Debug inline."
+	},
+	"vi": {
+		"prefix": "vi",
+		"body": [
+			"-- ===",
+			"-- === $1",
+			"-- ==="
+		],
+		"description": "init.lua"
+	}
+}

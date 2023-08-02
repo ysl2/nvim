@@ -256,6 +256,7 @@ vim.list_extend(M, {
   { 'itchyny/calendar.vim',   cmd = 'Calendar' },
   { 'kevinhwang91/nvim-bqf',  ft = 'qf',                             dependencies = 'nvim-treesitter/nvim-treesitter' },
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
+  { 'rafamadriz/friendly-snippets', event = 'VeryLazy' },
 
   -- ===
   -- === Load Single

@@ -1,5 +1,8 @@
 local M = {}
 
+local sep = vim.fn.has('win32') == 1 and '\\' or '/'
+M.sep = sep
+
 -- Set a value if given secret is not nil, else default to public.
 -- @param secret: the given value.
 -- @param public: the default value.
@@ -33,7 +36,7 @@ end
 -- @param inputstr: string
 -- @param sep: string(character)
 -- @return: the table contains the splited strings.
-M.mysplit = function(inputstr, sep)
+local mysplit = function(inputstr, sep)
   if sep == nil then
     sep = '%s'
   end
@@ -43,6 +46,7 @@ M.mysplit = function(inputstr, sep)
   end
   return t
 end
+M.mysplit = mysplit
 
 M.toboolean = {
   ['true'] = true,
@@ -50,5 +54,11 @@ M.toboolean = {
 }
 
 M.signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+
+local friendly = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'friendly-snippets' .. sep .. 'snippets'
+M.snipaths = vim.list_extend(
+  { vim.fn.stdpath('config') .. sep .. 'snippets' },
+  vim.list_extend({ friendly }, mysplit(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
+)
 
 return M
