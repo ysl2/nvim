@@ -1145,6 +1145,21 @@ vim.list_extend(M, {
     config = function()
       require('noice').setup({
         lsp = {
+          progress = {
+            enabled = true,
+            format = {
+              { '{spinner} ', hl_group = 'NoiceLspProgressSpinner' },
+              { '{data.progress.client} ', hl_group = 'CursorLineNr' },
+              '({data.progress.percentage}%) ',
+              { '{data.progress.title} ', hl_group = 'LineNr' },
+            },
+            format_done = {
+              { '✔ ', hl_group = 'NoiceLspProgressSpinner' },
+              '({data.progress.percentage}%) ',
+              { '{data.progress.client} ', hl_group = 'CursorLineNr' },
+              { '{data.progress.title} ', hl_group = 'LineNr' },
+            },
+          },
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
             ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
@@ -1173,7 +1188,7 @@ vim.list_extend(M, {
               skip = true
             }
           }
-        }
+        },
       })
 
       vim.api.nvim_create_autocmd('LspProgress', {
