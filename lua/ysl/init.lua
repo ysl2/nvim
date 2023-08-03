@@ -1144,22 +1144,21 @@ vim.list_extend(M, {
       'rcarriga/nvim-notify',
     },
     config = function()
+      local format = {
+        { '{data.progress.client} ', hl_group = 'CursorLineNr' },
+        '({data.progress.percentage}%) ',
+        { '{data.progress.title} ', hl_group = 'LineNr' },
+      }
       require('noice').setup({
         lsp = {
           progress = {
             enabled = true,
-            format = {
+            format = vim.list_extend({
               { '{spinner} ', hl_group = 'NoiceLspProgressSpinner' },
-              { '{data.progress.client} ', hl_group = 'CursorLineNr' },
-              '({data.progress.percentage}%) ',
-              { '{data.progress.title} ', hl_group = 'LineNr' },
-            },
-            format_done = {
+            }, format),
+            format_done = vim.list_extend({
               { '✔ ', hl_group = 'NoiceLspProgressSpinner' },
-              '({data.progress.percentage}%) ',
-              { '{data.progress.client} ', hl_group = 'CursorLineNr' },
-              { '{data.progress.title} ', hl_group = 'LineNr' },
-            },
+            }, format),
           },
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
