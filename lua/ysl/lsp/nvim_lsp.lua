@@ -2,44 +2,6 @@ local U = require('ysl.utils')
 local augroup = vim.api.nvim_create_augroup('UserLspConfig', {})
 return {
   {
-    'akinsho/bufferline.nvim',
-    event = 'VeryLazy',
-    version = '3.*',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      require('bufferline').setup({
-        options = {
-          mode = 'tabs',
-          diagnostics_update_in_insert = true,
-          show_buffer_close_icons = false,
-          show_close_icon = false,
-          always_show_bufferline = false,
-          diagnostics = 'nvim_lsp'
-        }
-      })
-    end
-  },
-  {
-    'nvim-lualine/lualine.nvim',
-    event = 'VeryLazy',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      require('lualine').setup({
-        options = {
-          section_separators = { left = '', right = '' },
-          component_separators = { left = '', right = '' }
-        },
-      })
-    end
-  },
-  {
-    'simrat39/symbols-outline.nvim',
-    keys = { { '<LEADER>v', '<CMD>SymbolsOutline<CR>', mode = 'n', silent = true } },
-    config = function()
-      require('symbols-outline').setup {}
-    end
-  },
-  {
     'williamboman/mason.nvim',
     cmd = 'Mason',
     config = function()
@@ -238,11 +200,7 @@ return {
         build = (vim.fn.has('win32') == 1) and 'powershell ./install.ps1' or './install.sh',
       },
       'onsails/lspkind.nvim',
-      {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        opts = {}
-      },
+      'windwp/nvim-autopairs',
     },
     config = function ()
       -- Set up nvim-cmp.

@@ -299,64 +299,6 @@ return {
     end
   },
   {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    config = function()
-      local nvim_autopairs = require('nvim-autopairs')
-      nvim_autopairs.setup({ map_cr = false })
-      _G.MUtils = {}
-      MUtils.completion_confirm = function()
-        if vim.fn['coc#pum#visible']() ~= 0 then
-          return vim.fn['coc#pum#confirm']()
-        else
-          return nvim_autopairs.autopairs_cr()
-        end
-      end
-      vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { silent = true, expr = true })
-    end
-  },
-  {
-    'akinsho/bufferline.nvim',
-    event = 'VeryLazy',
-    version = '3.*',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      require('bufferline').setup({
-        options = {
-          mode = 'tabs',
-          diagnostics_update_in_insert = true,
-          show_buffer_close_icons = false,
-          show_close_icon = false,
-          always_show_bufferline = false,
-          diagnostics = 'coc'
-        }
-      })
-    end
-  },
-  {
-    'nvim-lualine/lualine.nvim',
-    event = 'VeryLazy',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      local function _my_ft()
-        return vim.opt.filetype._value
-      end
-      require('lualine').setup({
-        options = {
-          section_separators = { left = '', right = '' },
-          component_separators = { left = '', right = '' }
-        },
-        sections = {
-          lualine_c = { 'g:coc_status' },
-          lualine_x = { 'encoding', 'fileformat', _my_ft },
-        },
-        inactive_sections = {
-          lualine_c = {},
-        }
-      })
-    end
-  },
-  {
     'fannheyward/telescope-coc.nvim',
     event = 'VeryLazy',
     dependencies = {
@@ -365,13 +307,6 @@ return {
     },
     config = function()
       require('telescope').load_extension('coc')
-    end
-  },
-  {
-    'ysl2/symbols-outline.nvim',
-    keys = { { '<LEADER>v', '<CMD>SymbolsOutline<CR>', mode = 'n', silent = true } },
-    config = function()
-      require('symbols-outline').setup {}
     end
   },
 }

@@ -216,11 +216,12 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
   })
 
 local requires = U.set(U.safeget(S, 'requires'), {
-  require('ysl.lsp.nvim_lsp')
+  'ysl.lsp.nvim_lsp'
 })
+local lsp = U.greplist(requires, 'ysl%.lsp.*')
 
 for _, v in ipairs(requires) do
-  vim.list_extend(M, v)
+  vim.list_extend(M, require(v))
 end
 
 vim.list_extend(M, U.set(U.safeget(S, 'plugins'), {}))
@@ -1044,6 +1045,78 @@ vim.list_extend(M, {
           enable = false,
         },
       })
+    end
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+
+      local function lualine_c()
+        local result = { 'filename' }
+        if lsp == 'ysl.lsp.coc' then
+          result[#result+1] = 'g:coc_status'
+        end
+        return result
+      end
+
+      require('lualine').setup({
+        options = {
+          section_separators = { left = '', right = '' },
+          component_separators = { left = '', right = '' }
+        },
+        sections = {
+          lualine_c = lualine_c(),
+          lualine_x = { 'filesize', 'encoding', 'fileformat', 'filetype' },
+        },
+      })
+    end
+  },
+  {
+    'akinsho/bufferline.nvim',
+    event = 'VeryLazy',
+    version = '3.*',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      require('bufferline').setup({
+        options = {
+          mode = 'tabs',
+          diagnostics_update_in_insert = true,
+          show_buffer_close_icons = false,
+          show_close_icon = false,
+          always_show_bufferline = false,
+          diagnostics = (function () local _lsp = U.mysplit(lsp, '.') return _lsp[#_lsp] end)()
+        }
+      })
+    end
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = function()
+      local nvim_autopairs = require('nvim-autopairs')
+      if lsp == 'ysl.lsp.nvim_lsp' then
+        nvim_autopairs.setup()
+        return
+      end
+      nvim_autopairs.setup({ map_cr = false })
+      _G.MUtils = {}
+      MUtils.completion_confirm = function()
+        if vim.fn['coc#pum#visible']() ~= 0 then
+          return vim.fn['coc#pum#confirm']()
+        else
+          return nvim_autopairs.autopairs_cr()
+        end
+      end
+      vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { silent = true, expr = true })
+    end
+  },
+  {
+    (function() if lsp == 'ysl.lsp.coc' then return 'ysl2' else return 'simrat39' end end)() .. '/symbols-outline.nvim',
+    keys = { { '<LEADER>v', '<CMD>SymbolsOutline<CR>', mode = 'n', silent = true } },
+    config = function()
+      require('symbols-outline').setup {}
     end
   },
 })

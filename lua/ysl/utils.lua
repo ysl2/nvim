@@ -35,7 +35,7 @@ end
 -- @param inputstr: string
 -- @param sep: string(character)
 -- @return: the table contains the splited strings.
-local mysplit = function(inputstr, sep)
+M.mysplit = function(inputstr, sep)
   if sep == nil then
     sep = '%s'
   end
@@ -45,7 +45,6 @@ local mysplit = function(inputstr, sep)
   end
   return t
 end
-M.mysplit = mysplit
 
 M.toboolean = {
   ['true'] = true,
@@ -53,5 +52,17 @@ M.toboolean = {
 }
 
 M.signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+
+-- Find a string in a string list with regex
+-- @param input: list[string]
+-- @param str: string
+M.greplist = function (inputlist, str)
+  for _, v in ipairs(inputlist) do
+    if v:match(str) then
+      return v
+    end
+  end
+  return nil
+end
 
 return M
