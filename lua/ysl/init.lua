@@ -219,7 +219,6 @@ vim.list_extend(M, {
   -- === Load Bulk
   -- ===
   { 'Asheq/close-buffers.vim',             cmd = 'Bdelete' },
-  { 'lukas-reineke/indent-blankline.nvim', event = { 'BufReadPost', 'BufNewFile' }, },
   { 'romainl/vim-cool',                    event = 'VeryLazy' },
   { 'tpope/vim-fugitive',                  cmd = 'Git' },
   { 'lewis6991/gitsigns.nvim',             config = function() require('gitsigns').setup() end,  event = { 'BufReadPre', 'BufNewFile' }, },
@@ -1011,7 +1010,36 @@ vim.list_extend(M, {
     config = function()
       require('dropbar').setup()
     end
-  }
+  },
+  {
+    'shellRaining/hlchunk.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function ()
+      require('hlchunk').setup({
+        chunk = {
+          chars = {
+              horizontal_line = "─",
+              vertical_line = "│",
+              left_top = "┌",
+              left_bottom = "└",
+              right_arrow = "─",
+          },
+          style = {
+              { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('LineNr')), 'fg', 'gui') }
+          },
+        },
+        line_num = {
+          use_treesitter = true,
+          style = {
+              { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui') }
+          },
+        },
+        blank = {
+          enable = false,
+        },
+      })
+    end
+  },
 })
 
 my_load(M)
