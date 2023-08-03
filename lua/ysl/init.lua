@@ -970,8 +970,8 @@ vim.list_extend(M, {
     'ysl2/vim-colorscheme-switcher',
     dependencies = 'xolox/vim-misc',
     keys = {
-      { '<LEADER>c', '<CMD>NextColorScheme<CR>' },
-      { '<LEADER>C', '<CMD>PrevColorScheme<CR>' },
+      { '<A-Left>', '<CMD>PrevColorScheme<CR>' },
+      { '<A-Right>', '<CMD>NextColorScheme<CR>' },
     },
     config = function()
       vim.g.colorscheme_switcher_define_mappings = 0
