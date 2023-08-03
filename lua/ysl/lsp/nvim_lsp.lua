@@ -1,5 +1,4 @@
 local U = require('ysl.utils')
-local augroup = vim.api.nvim_create_augroup('UserLspConfig', {})
 return {
   {
     'williamboman/mason.nvim',
@@ -24,7 +23,7 @@ return {
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = augroup,
+        group = U.augroup,
         callback = function(ev)
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -154,14 +153,6 @@ return {
         },
       }
     end
-  },
-  {
-    'j-hui/fidget.nvim',
-    tag = 'legacy',
-    event = 'LspAttach',
-    opts = {
-      -- options
-    },
   },
   {
     'L3MON4D3/LuaSnip', -- Snippets plugin

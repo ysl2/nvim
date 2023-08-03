@@ -1,6 +1,24 @@
 local M = {}
 
+
+-- =================
+-- === Constants ===
+-- =================
 M.sep = vim.fn.has('win32') == 1 and '\\' or '/'
+
+M.toboolean = {
+  ['true'] = true,
+  ['false'] = false
+}
+
+M.signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+
+M.augroup = vim.api.nvim_create_augroup('UserLspConfig', {})
+
+
+-- =================
+-- === Functions ===
+-- =================
 
 -- Set a value if given secret is not nil, else default to public.
 -- @param secret: the given value.
@@ -45,13 +63,6 @@ M.mysplit = function(inputstr, sep)
   end
   return t
 end
-
-M.toboolean = {
-  ['true'] = true,
-  ['false'] = false
-}
-
-M.signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 
 -- Find a string in a string list with regex
 -- @param input: list[string]
