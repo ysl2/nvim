@@ -1050,13 +1050,25 @@ vim.list_extend(M, {
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+      'folke/noice.nvim',
+    },
     config = function()
 
       local function lualine_c()
         local result = { 'filename' }
         if lsp == 'ysl.lsp.coc' then
           result[#result+1] = 'g:coc_status'
+        elseif lsp == 'ysl.lsp.nvim_lsp' then
+          result[#result+1] =   {
+            function()
+              return require('noice').api.status.lsp_progress.get_hl()
+            end,
+            cond = function()
+              return package.loaded['noice'] and require("noice").api.status.lsp_progress.has()
+            end,
+          }
         end
         return result
       end
@@ -1120,27 +1132,24 @@ vim.list_extend(M, {
     end
   },
   {
-    "folke/noice.nvim",
-    event = "VeryLazy",
+    'folke/noice.nvim',
+    event = 'VeryLazy',
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
+      'MunifTanjim/nui.nvim',
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
+      'rcarriga/nvim-notify',
     },
     config = function()
-      require("noice").setup({
+      require('noice').setup({
         lsp = {
-          -- progress = {
-          --   enabled = false
-          -- },
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
+            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+            ['vim.lsp.util.stylize_markdown'] = true,
+            ['cmp.entry.get_documentation'] = true,
           },
         },
         -- you can enable a preset for easier configuration
@@ -1149,22 +1158,41 @@ vim.list_extend(M, {
           command_palette = true, -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
           inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true, -- add a border to hover docs and signature help
+          lsp_doc_border = false, -- add a border to hover docs and signature help
         },
+        status = {
+          lsp_progress = { event = 'lsp', kind = 'progress' }
+        },
+        routes = {
+          {
+            filter = {
+              event = 'lsp',
+              kind = 'progress'
+            },
+            opts = {
+              skip = true
+            }
+          }
+        }
+      })
+
+      vim.api.nvim_create_autocmd('LspProgress', {
+        pattern = '*',
+        command = 'redrawstatus'
       })
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = U.augroup,
         callback = function(ev)
-          vim.keymap.set({"n", "i", "s"}, "<c-f>", function()
-            if not require("noice.lsp").scroll(4) then
-              return "<c-f>"
+          vim.keymap.set({'n', 'i', 's'}, '<c-f>', function()
+            if not require('noice.lsp').scroll(4) then
+              return '<c-f>'
             end
           end, { silent = true, expr = true })
 
-          vim.keymap.set({"n", "i", "s"}, "<c-b>", function()
-            if not require("noice.lsp").scroll(-4) then
-              return "<c-b>"
+          vim.keymap.set({'n', 'i', 's'}, '<c-b>', function()
+            if not require('noice.lsp').scroll(-4) then
+              return '<c-b>'
             end
           end, { silent = true, expr = true })
         end
