@@ -1,6 +1,5 @@
 local U = require('ysl.utils')
 return {
-  { 'SmiteshP/nvim-navic', lazy = true },
   {
     'neoclide/coc.nvim',
     branch = 'release',
