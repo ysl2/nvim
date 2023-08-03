@@ -243,14 +243,6 @@ vim.list_extend(M, {
   { 'ysl2/bufdelete.nvim',        cmd = 'Bd' },
   { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
   { 'mzlogin/vim-markdown-toc',   ft = 'markdown' },
-  {
-    'dkarter/bullets.vim',
-    ft = 'markdown',
-    init = function()
-      vim.g.bullets_custom_mappings = { { 'inoremap <expr>', '<CR>',
-        'coc#pum#visible() ? coc#pum#confirm() : "<Plug>(bullets-newline)"' }, }
-    end
-  },
   { 'mg979/vim-visual-multi', event = 'BufReadPost' },
   { 'gcmt/wildfire.vim',      event = 'VeryLazy' },
   { 'ysl2/vim-bookmarks',
