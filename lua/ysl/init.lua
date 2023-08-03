@@ -170,7 +170,18 @@ local M = {}
 -- ===
 vim.list_extend(M, {
   { 'tpope/vim-surround',     event = 'VeryLazy' },
-  { 'numToStr/Comment.nvim',  config = function() require('Comment').setup() end, event = 'VeryLazy' },
+  {
+    'numToStr/Comment.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
+    config = function()
+      require('Comment').setup({
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      })
+    end,
+  },
   { 'itchyny/vim-cursorword', event = 'VeryLazy' },
   { 'RRethy/vim-illuminate',  event = { 'BufReadPost', 'BufNewFile' }, },
   {
@@ -350,7 +361,10 @@ vim.list_extend(M, {
           additional_vim_regex_highlighting = false,
         },
         autotag = { enable = true },
-        context_commentstring = { enable = true },
+        context_commentstring = {
+          enable = true,
+          enable_autocmd = false,
+        },
         playground = { enable = true },
         textobjects = {
           select = {
