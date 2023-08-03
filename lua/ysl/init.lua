@@ -1034,6 +1034,7 @@ vim.list_extend(M, {
           style = {
               { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('LineNr')), 'fg', 'gui') }
           },
+          notify = false
         },
         line_num = {
           use_treesitter = true,
