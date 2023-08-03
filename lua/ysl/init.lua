@@ -1005,33 +1005,122 @@ vim.list_extend(M, {
     opts = { open_cmd = 'noswapfile vnew' },
     dependencies = 'nvim-lua/plenary.nvim',
   },
-  {
-    'utilyre/barbecue.nvim',
+  -- {
+  --   'SmiteshP/nvim-navic',
+  --   event = 'LspAttach',
+  --   config = function()
+  --      vim.api.nvim_create_autocmd('LspAttach', {
+  --      group = augroup,
+  --      callback = function(ev)
+  --        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+  --        if client.server_capabilities['documentSymbolProvider'] then
+  --          require('nvim-navic').attach(client, ev.buf)
+  --        end
+  --      end,
+  --    })
+  --   end
+  -- },
+  -- {
+  --   'utilyre/barbecue.nvim',
+  --   event = 'VeryLazy',
+  --   version = '*',
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons', -- optional dependency
+  --   },
+  --   config = function()
+  --     require('barbecue').setup({
+  --       create_autocmd = false, -- prevent barbecue from updating itself automatically
+  --       attach_navic = false,
+  --       show_modified = false
+  --     })
+  --
+  --     vim.api.nvim_create_autocmd({
+  --       'WinScrolled', -- or WinResized on NVIM-v0.9 and higher
+  --       'BufWinEnter',
+  --       'CursorHold',
+  --       'InsertLeave',
+  --
+  --       -- include this if you have set `show_modified` to `true`
+  --       -- 'BufModifiedSet',
+  --     }, {
+  --       group = vim.api.nvim_create_augroup('barbecue.updater', {}),
+  --       callback = function()
+  --         require('barbecue.ui').update()
+  --       end,
+  --     })
+  --   end
+  -- },
+   {
+     -- https://github.com/Bekaboo/dropbar.nvim/issues/3
+    'Bekaboo/dropbar.nvim',
     event = 'VeryLazy',
-    version = '*',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons', -- optional dependency
-    },
     config = function()
-      require('barbecue').setup({
-        create_autocmd = false, -- prevent barbecue from updating itself automatically
-        attach_navic = false,
-        show_modified = false
-      })
+      local api = require('dropbar.api')
+      vim.keymap.set('n', '<Leader>;', api.pick)
 
-      vim.api.nvim_create_autocmd({
-        'WinScrolled', -- or WinResized on NVIM-v0.9 and higher
-        'BufWinEnter',
-        'CursorHold',
-        'InsertLeave',
+      local function confirm()
+        local menu = api.get_current_dropbar_menu()
+        if not menu then
+          return
+        end
+        local cursor = vim.api.nvim_win_get_cursor(menu.win)
+        local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
+        if component then
+          menu:click_on(component)
+        end
+      end
 
-        -- include this if you have set `show_modified` to `true`
-        -- 'BufModifiedSet',
-      }, {
-        group = vim.api.nvim_create_augroup('barbecue.updater', {}),
-        callback = function()
-          require('barbecue.ui').update()
-        end,
+      local function quit_curr()
+        local menu = api.get_current_dropbar_menu()
+        if menu then
+          menu:close()
+        end
+      end
+
+      require('dropbar').setup({
+        menu = {
+          -- When on, automatically set the cursor to the closest previous/next
+          -- clickable component in the direction of cursor movement on CursorMoved
+          quick_navigation = true,
+          ---@type table<string, string|function|table<string, string|function>>
+          keymaps = {
+            ['<LeftMouse>'] = function()
+              local menu = api.get_current_dropbar_menu()
+              if not menu then
+                return
+              end
+              local mouse = vim.fn.getmousepos()
+              if mouse.winid ~= menu.win then
+                local parent_menu = api.get_dropbar_menu(mouse.winid)
+                if parent_menu and parent_menu.sub_menu then
+                  parent_menu.sub_menu:close()
+                end
+                if vim.api.nvim_win_is_valid(mouse.winid) then
+                  vim.api.nvim_set_current_win(mouse.winid)
+                end
+                return
+              end
+              menu:click_at({ mouse.line, mouse.column }, nil, 1, 'l')
+            end,
+            ['<CR>'] = confirm,
+            -- ['l'] = get_prev,
+            ['<esc>'] = quit_curr,
+            -- ['q'] = quit_curr,
+            -- ['h'] = quit_curr,
+            ['<C-c>'] = quit_curr,
+            ['<MouseMove>'] = function()
+              local menu = api.get_current_dropbar_menu()
+              if not menu then
+                return
+              end
+              local mouse = vim.fn.getmousepos()
+              if mouse.winid ~= menu.win then
+                return
+              end
+              menu:update_hover_hl({ mouse.line, mouse.column - 1 })
+            end,
+          },
+        },
       })
     end
   }
