@@ -1053,7 +1053,6 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
-      'folke/noice.nvim',
     },
     config = function()
 
@@ -1062,12 +1061,12 @@ vim.list_extend(M, {
         if lsp == 'ysl.lsp.coc' then
           result[#result+1] = 'g:coc_status'
         elseif lsp == 'ysl.lsp.nvim_lsp' then
-          result[#result+1] =   {
+          result[#result+1] = {
             function()
               return require('noice').api.status.lsp_progress.get_hl()
             end,
             cond = function()
-              return package.loaded['noice'] and require("noice").api.status.lsp_progress.has()
+              return package.loaded['noice'] and require('noice').api.status.lsp_progress.has()
             end,
           }
         end
