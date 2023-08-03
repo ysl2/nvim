@@ -1006,6 +1006,21 @@ vim.list_extend(M, {
     dependencies = 'nvim-lua/plenary.nvim',
   },
   {
+    'SmiteshP/nvim-navic',
+    event = 'LspAttach',
+    config = function()
+       vim.api.nvim_create_autocmd('LspAttach', {
+       group = augroup,
+       callback = function(ev)
+         local client = vim.lsp.get_client_by_id(ev.data.client_id)
+         if client.server_capabilities['documentSymbolProvider'] then
+           require('nvim-navic').attach(client, ev.buf)
+         end
+       end,
+     })
+    end
+  },
+  {
     'utilyre/barbecue.nvim',
     event = 'VeryLazy',
     version = '*',
