@@ -1053,6 +1053,7 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
+      'folke/noice.nvim',
     },
     config = function()
 
@@ -1066,7 +1067,7 @@ vim.list_extend(M, {
               return require('noice').api.status.lsp_progress.get_hl()
             end,
             cond = function()
-              return package.loaded['noice'] and require('noice').api.status.lsp_progress.has()
+              return require('noice').api.status.lsp_progress.has()
             end,
           }
         end
