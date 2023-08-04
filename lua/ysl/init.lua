@@ -242,7 +242,17 @@ vim.list_extend(M, {
   { 'Asheq/close-buffers.vim',             cmd = 'Bdelete' },
   { 'romainl/vim-cool',                    event = 'VeryLazy' },
   { 'tpope/vim-fugitive',                  cmd = 'Git' },
-  { 'lewis6991/gitsigns.nvim',             config = function() require('gitsigns').setup() end,  event = { 'BufReadPre', 'BufNewFile' }, },
+  {
+    'lewis6991/gitsigns.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'petertriho/nvim-scrollbar',
+    },
+    config = function()
+      require('gitsigns').setup()
+      require('scrollbar.handlers.gitsigns').setup()
+    end,
+  },
   { 'norcalli/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'BufReadPost' },
   {
     'folke/todo-comments.nvim',
@@ -683,7 +693,7 @@ vim.list_extend(M, {
   },
   {
     'csexton/trailertrash.vim',
-    event = 'BufWritePre',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       vim.api.nvim_create_autocmd('BufWritePre', {
         command = 'TrailerTrim'
@@ -1000,6 +1010,9 @@ vim.list_extend(M, {
   },
   {
     'kevinhwang91/nvim-hlslens',
+    dependencies = {
+      'petertriho/nvim-scrollbar',
+    },
     keys = {
       { '/' },
       { '?' },
@@ -1011,7 +1024,10 @@ vim.list_extend(M, {
       { 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
     },
     config = function()
-      require('hlslens').setup()
+      -- require('hlslens').setup()
+      require('scrollbar.handlers.search').setup({
+          -- hlslens config overrides
+      })
     end
   },
   {
@@ -1217,6 +1233,40 @@ vim.list_extend(M, {
             end
           end, { silent = true, expr = true })
         end
+      })
+    end
+  },
+  {
+    'petertriho/nvim-scrollbar',
+    event = 'VeryLazy',
+    config = function()
+      local group = vim.api.nvim_create_augroup('scrollbar_set_git_colors', {})
+      vim.api.nvim_create_autocmd('BufEnter', {
+        pattern = '*',
+        callback = function()
+          vim.cmd([[
+            hi! ScrollbarGitAdd guifg=#8CC85F
+            hi! ScrollbarGitAddHandle guifg=#A0CF5D
+            hi! ScrollbarGitChange guifg=#E6B450
+            hi! ScrollbarGitChangeHandle guifg=#F0C454
+            hi! ScrollbarGitDelete guifg=#F87070
+            hi! ScrollbarGitDeleteHandle guifg=#FF7B7B
+          ]])
+        end,
+        group = group,
+      })
+
+      require('scrollbar').setup({
+        handle = {
+          color = '#928374',
+        },
+        marks = {
+          Search = { color = 'yellow' },
+          Misc = { color = 'purple' },
+        },
+        handlers = {
+          cursor = false,
+        },
       })
     end
   }
