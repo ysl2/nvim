@@ -357,9 +357,11 @@ return {
             ensure_installed = {
               -- Linters:
               -- 'luacheck',
+              'flake8',
 
               -- Formatters:
               'stylua',
+              'black',
             },
             automatic_installation = true,
             handlers = {},
