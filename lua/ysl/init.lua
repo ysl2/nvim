@@ -43,6 +43,10 @@ vim.opt.guicursor = ''
 vim.opt.smartindent = true
 vim.opt.cursorline = true
 vim.opt.exrc = true
+vim.o.foldmethod = 'indent'
+vim.o.foldlevel = 99
+vim.o.foldenable = true
+vim.o.foldlevelstart = 99
 
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
@@ -255,7 +259,7 @@ vim.list_extend(M, {
       require('scrollbar.handlers.gitsigns').setup()
     end,
   },
-  { 'norcalli/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'BufReadPost' },
+  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'BufReadPost' },
   {
     'folke/todo-comments.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
