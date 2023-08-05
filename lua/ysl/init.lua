@@ -157,6 +157,13 @@ vim.opt.rtp:prepend(lazypath)
 local function my_load(plugins)
   require('lazy').setup(plugins, {
     -- defaults = { lazy = true }
+    performance = {
+      rtp = {
+        disabled_plugins = {
+          'matchparen'
+        }
+      }
+    }
   })
 end
 
