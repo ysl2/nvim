@@ -195,8 +195,18 @@ vim.list_extend(M, {
       })
     end,
   },
-  { 'itchyny/vim-cursorword', event = 'VeryLazy' },
-  { 'RRethy/vim-illuminate',  event = { 'BufReadPost', 'BufNewFile' }, },
+  {
+    'RRethy/vim-illuminate',
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require('illuminate').configure({
+        providers = {
+          'regex',
+        },
+      })
+      vim.cmd('hi IlluminatedWordText guibg=#393E4D gui=none')
+    end
+  },
   {
     'phaazon/hop.nvim',
     event = 'VeryLazy',
@@ -297,7 +307,7 @@ vim.list_extend(M, {
   {
     'kevinhwang91/rnvimr',
     cond = vim.fn.has('win32') == 0,
-    keys = { { '<LEADER>r', '<CMD>RnvimrToggle<CR>', mode = 'n', silent = true } },
+    keys = { { '<LEADER>R', '<CMD>RnvimrToggle<CR>', mode = 'n', silent = true } },
     config = function()
       vim.g.rnvimr_enable_picker = 1
       vim.g.rnvimr_enable_bw = 1
@@ -618,7 +628,7 @@ vim.list_extend(M, {
       { '<LEADER>t', '<CMD>lua _G._my_wrapper_run_in_terminal({})<CR>',                  mode = 'n', silent = true },
       { '<LEADER>g', "<CMD>lua _G._my_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
       {
-        '<LEADER>R',
+        '<LEADER>r',
         function()
           local ft = vim.opt.filetype._value
           local cmd
