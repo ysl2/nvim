@@ -1320,6 +1320,7 @@ vim.list_extend(M, {
               use_default_mappings = false,
               mappings = {
                 i = {
+                  ['<CR>'] = mapping.put('p'),
                   ['<A-p>'] = mapping.put('p'),
                   ['<A-k>'] = mapping.put('P'),
                   ['<C-x>'] = mapping.delete(),
@@ -1332,6 +1333,7 @@ vim.list_extend(M, {
             sync_with_ring = false,
           },
           highlight = {
+            on_put = false,
             timer = vim.highlight.priorities.user,
           },
           preserve_cursor_position = {
