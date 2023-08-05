@@ -97,13 +97,6 @@ if not vim.g.vscode then
   })
 end
 
--- Auto highlight after yank.
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end
-})
-
 -- Switch wrap mode.
 vim.opt.wrap = false
 local function _my_toggle_wrap(opts)
@@ -474,7 +467,7 @@ vim.list_extend(M, {
               ['<C-j>'] = telescope_actions.move_selection_next,
               ['<C-k>'] = telescope_actions.move_selection_previous,
               ['<C-r>'] = require('telescope.actions.layout').toggle_preview,
-              ['<C-b>'] = telescope_actions.delete_buffer
+              ['<C-x>'] = telescope_actions.delete_buffer
             }
           },
           layout_config = {
@@ -486,7 +479,8 @@ vim.list_extend(M, {
           },
           preview = {
             hide_on_startup = true -- hide previewer when picker starts
-          }
+          },
+          dynamic_preview_title = true
         },
         pickers = {
           -- Default configuration for builtin pickers goes here:
@@ -1042,10 +1036,10 @@ vim.list_extend(M, {
         print(temp)
         require('hlslens').start()
       end, mode = { 'n', 'v' }, silent = true },
-      { '*', [[*<Cmd>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
-      { '#', [[#<Cmd>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
-      { 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
-      { 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
+      { '*', [[*<CMD>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
+      { '#', [[#<CMD>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
+      { 'g*', [[g*<CMD>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
+      { 'g#', [[g#<CMD>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
     },
     config = function()
       -- require('hlslens').setup()
@@ -1293,6 +1287,59 @@ vim.list_extend(M, {
         },
       })
     end
+  },
+  {
+    {
+      'gbprod/yanky.nvim',
+      event = { 'BufReadPre', 'BufNewFile' },
+      keys = {
+        { '<LEADER>y', '<CMD>Telescope yank_history<CR>', mode = 'n', silent = true },
+        { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, silent = true },
+        { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, silent = true },
+        { 'gp', '<Plug>(YankyGPutAfter)', mode = { 'n', 'x' }, silent = true },
+        { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, silent = true },
+        { '<A-n>', '<Plug>(YankyCycleForward)', mode = 'n', silent = true },
+        { '<A-p>', '<Plug>(YankyCycleBackward)', mode = 'n', silent = true },
+      },
+      dependencies = {
+        'kkharji/sqlite.lua',
+        'nvim-telescope/telescope.nvim',
+      },
+      config = function()
+        require('telescope').load_extension('yank_history')
+
+        local mapping = require('yanky.telescope.mapping')
+
+        require('yanky').setup({
+          ring = {
+            history_length = vim.opt.maxmempattern._value,
+            storage = 'sqlite',
+          },
+          picker = {
+            telescope = {
+              use_default_mappings = false,
+              mappings = {
+                i = {
+                  ['<A-p>'] = mapping.put('p'),
+                  ['<A-k>'] = mapping.put('P'),
+                  ['<C-x>'] = mapping.delete(),
+                  ['<A-r>'] = mapping.set_register(require('yanky.utils').get_default_register()),
+                },
+              },        -- nil to use default mappings or no mappings (see `use_default_mappings`)
+            },
+          },
+          system_clipboard = {
+            sync_with_ring = false,
+          },
+          highlight = {
+            timer = vim.highlight.priorities.user,
+          },
+          preserve_cursor_position = {
+            enabled = false,
+          },
+        })
+      end
+    },
   }
 })
 
