@@ -705,6 +705,7 @@ vim.list_extend(M, {
     'csexton/trailertrash.vim',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
+      vim.cmd('hi link UnwantedTrailerTrash NONE')
       vim.api.nvim_create_autocmd('BufWritePre', {
         command = 'TrailerTrim'
       })
