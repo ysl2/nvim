@@ -322,25 +322,21 @@ return {
     config = function()
         local null_ls = require('null-ls')
         null_ls.setup({
+          -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
           sources = {
-            -- null_ls.builtins.code_actions.gitsigns,
-            -- null_ls.builtins.code_actions.shellcheck,
-            -- null_ls.builtins.completion.luasnip,
-            -- null_ls.builtins.completion.spell,
-            -- null_ls.builtins.completion.tags,
-            -- null_ls.builtins.diagnostics.codespell,
-            -- null_ls.builtins.diagnostics.commitlint,
-            -- null_ls.builtins.diagnostics.flake8,
-            -- null_ls.builtins.diagnostics.luacheck,
-            -- null_ls.builtins.diagnostics.markdownlint,
-            -- null_ls.builtins.diagnostics.pydocstyle,
-            -- null_ls.builtins.diagnostics.shellcheck,
-            -- null_ls.builtins.formatting.black,
-            -- null_ls.builtins.formatting.codespell,
-            -- null_ls.builtins.formatting.latexindent,
-            -- null_ls.builtins.formatting.lua_format,
-            -- null_ls.builtins.formatting.prettier,
-            -- null_ls.builtins.formatting.shfmt
+            null_ls.builtins.code_actions.gitsigns,
+            null_ls.builtins.completion.luasnip,
+            null_ls.builtins.completion.spell,
+            null_ls.builtins.completion.tags,
+            null_ls.builtins.diagnostics.flake8.with({ extra_args = {
+              '--max-line-length=120',
+              '--ignore=ANN101,ANN102,E402,E741,E203'
+            }}),
+            null_ls.builtins.formatting.black.with({ extra_args = {
+              '--line-length=120',
+              '--skip-string-normalization'
+            }}),
+            null_ls.builtins.formatting.stylua
           }
         })
     end,
@@ -354,17 +350,8 @@ return {
       },
       config = function()
         require('mason-null-ls').setup({
-            ensure_installed = {
-              -- Linters:
-              -- 'luacheck',
-              'flake8',
-
-              -- Formatters:
-              'stylua',
-              'black',
-            },
+            ensure_installed = nil,
             automatic_installation = true,
-            handlers = {},
         })
       end,
   }
