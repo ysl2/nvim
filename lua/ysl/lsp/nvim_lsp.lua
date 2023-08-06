@@ -115,7 +115,7 @@ return {
         capabilities = capabilities,
       }
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', },
+        ensure_installed = { 'lua_ls', 'pyright', 'jsonls', },
         automatic_installation = true,
         handlers = {
           -- The first entry (without a key) will be the default handler
