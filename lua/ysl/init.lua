@@ -1271,7 +1271,7 @@ vim.list_extend(M, {
           color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui'),
         },
         marks = {
-          Search = { color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'fg', 'gui') },
+          Search = { color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui') },
         },
         handlers = {
           cursor = false,
