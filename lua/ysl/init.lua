@@ -618,7 +618,9 @@ vim.list_extend(M, {
     },
     version = '1.*',
     config = function()
-      require('window-picker').setup()
+      require('window-picker').setup({
+        show_prompt = false
+      })
     end
   },
   {
