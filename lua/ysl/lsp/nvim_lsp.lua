@@ -246,9 +246,9 @@ return {
           { name = 'cmp_tabnine' },
           { name = 'luasnip' },
           { name = 'nvim_lsp' },
+          { name = 'path' },
         }, {
           { name = 'buffer' },
-          { name = 'path' },
         }),
         formatting = {
           format = function(entry, vim_item)
