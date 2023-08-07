@@ -204,7 +204,6 @@ vim.list_extend(M, {
           'regex',
         },
       })
-      -- vim.cmd('hi IlluminatedWordText guibg=#393E4D gui=none')
     end
   },
   {
@@ -237,6 +236,7 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
     priority = 1000,
     config = function()
       vim.cmd('colorscheme deus')
+      vim.cmd('hi IlluminatedWordText guibg=#393E4D gui=none')
     end
   })
 
