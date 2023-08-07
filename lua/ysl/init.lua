@@ -521,6 +521,7 @@ vim.list_extend(M, {
     keys = { { '<LEADER>u', '<CMD>UndotreeToggle<CR>', mode = 'n', silent = true } },
     config = function()
       vim.g.undotree_WindowLayout = 3
+      vim.g.undotree_SetFocusWhenToggle = 1
       if vim.fn.has('persistent_undo') == 1 then
         local target_path = vim.fn.expand(vim.fn.stdpath('data') .. '/.undodir')
         if vim.fn.isdirectory(target_path) == 0 then
