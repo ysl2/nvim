@@ -66,8 +66,30 @@ vim.keymap.set('n', '<TAB>', function()
   vim.cmd('lcl')
   vim.cmd('set cmdheight=1')
 end, { silent = true })
+-- For rename
 vim.keymap.set('i', '<A-h>', '<Left>', { silent = true })
 vim.keymap.set('i', '<A-l>', '<Right>', { silent = true })
+-- :h emacs-keys
+vim.cmd([[
+	" start of line
+	:cnoremap <C-A>		<Home>
+	" back one character
+	:cnoremap <C-B>		<Left>
+	" delete character under cursor
+	:cnoremap <C-D>		<Del>
+	" end of line
+	:cnoremap <C-E>		<End>
+	" forward one character
+	:cnoremap <C-F>		<Right>
+	" recall newer command-line
+	:cnoremap <C-N>		<Down>
+	" recall previous (older) command-line
+	:cnoremap <C-P>		<Up>
+	" back one word
+	:cnoremap <Esc><C-B>	<S-Left>
+	" forward one word
+	:cnoremap <Esc><C-F>	<S-Right>
+]])
 
 function _G._my_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
