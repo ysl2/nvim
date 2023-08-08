@@ -66,7 +66,7 @@ vim.keymap.set('n', '<TAB>', function()
   vim.cmd('lcl')
   vim.cmd('set cmdheight=1')
 end, { silent = true })
--- For rename
+-- For rename variables.
 vim.keymap.set('i', '<A-h>', '<Left>', { silent = true })
 vim.keymap.set('i', '<A-l>', '<Right>', { silent = true })
 -- :h cmdline-editing
