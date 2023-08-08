@@ -69,6 +69,7 @@ end, { silent = true })
 -- For rename
 vim.keymap.set('i', '<A-h>', '<Left>', { silent = true })
 vim.keymap.set('i', '<A-l>', '<Right>', { silent = true })
+-- :h cmdline-editing
 -- :h emacs-keys
 vim.cmd([[
 	" start of line
