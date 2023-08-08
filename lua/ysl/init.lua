@@ -1344,6 +1344,9 @@ vim.list_extend(M, {
   },
   {
     'm-demare/hlargs.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter'
+    },
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('hlargs').setup()
