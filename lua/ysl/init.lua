@@ -27,7 +27,6 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt.shiftwidth = vim.opt.tabstop._value
   end
 })
-vim.cmd('hi link NormalFloat NONE')
 vim.opt.shm = vim.opt.shm._value .. 'I'
 vim.opt.timeoutlen = 300
 vim.opt.writebackup = false
@@ -48,7 +47,10 @@ vim.o.foldlevel = 99
 vim.o.foldenable = true
 vim.o.foldlevelstart = 99
 vim.api.nvim_create_autocmd('ColorScheme', {
-  command = 'hi Visual gui=reverse'
+  command = [[
+    hi link NormalFloat NONE
+    hi Visual gui=reverse
+  ]]
 })
 
 vim.keymap.set('n', '<SPACE>', '')
