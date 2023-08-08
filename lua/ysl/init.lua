@@ -67,8 +67,8 @@ vim.keymap.set('n', '<TAB>', function()
   vim.cmd('set cmdheight=1')
 end, { silent = true })
 -- For rename variables.
-vim.keymap.set('i', '<A-h>', '<Left>', { silent = true })
-vim.keymap.set('i', '<A-l>', '<Right>', { silent = true })
+vim.keymap.set('i', '<A-b>', '<Left>', { silent = true })
+vim.keymap.set('i', '<A-f>', '<Right>', { silent = true })
 -- :h cmdline-editing
 -- :h emacs-keys
 vim.keymap.set('c', '<C-a>', '<Home>', { silent = true })
