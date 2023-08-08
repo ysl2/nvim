@@ -71,26 +71,15 @@ vim.keymap.set('i', '<A-h>', '<Left>', { silent = true })
 vim.keymap.set('i', '<A-l>', '<Right>', { silent = true })
 -- :h cmdline-editing
 -- :h emacs-keys
-vim.cmd([[
-	" start of line
-	:cnoremap <C-A>		<Home>
-	" back one character
-	:cnoremap <C-B>		<Left>
-	" delete character under cursor
-	:cnoremap <C-D>		<Del>
-	" end of line
-	:cnoremap <C-E>		<End>
-	" forward one character
-	:cnoremap <C-F>		<Right>
-	" recall newer command-line
-	:cnoremap <C-N>		<Down>
-	" recall previous (older) command-line
-	:cnoremap <C-P>		<Up>
-	" back one word
-	:cnoremap <Esc><C-B>	<S-Left>
-	" forward one word
-	:cnoremap <Esc><C-F>	<S-Right>
-]])
+vim.keymap.set('c', '<C-a>', '<Home>', { silent = true })
+vim.keymap.set('c', '<C-b>', '<Left>', { silent = true })
+vim.keymap.set('c', '<C-d>', '<Del>', { silent = true })
+vim.keymap.set('c', '<C-e>', '<End>', { silent = true })
+vim.keymap.set('c', '<C-f>', '<Right>', { silent = true })
+vim.keymap.set('c', '<C-n>', '<Down>', { silent = true })
+vim.keymap.set('c', '<C-p>', '<Up>', { silent = true })
+vim.keymap.set('c', '<ESC><C-b>', '<S-Left>', { silent = true })
+vim.keymap.set('c', '<ESC><C-f>', '<S-Right>', { silent = true })
 
 function _G._my_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
