@@ -66,6 +66,8 @@ vim.keymap.set('n', '<TAB>', function()
   vim.cmd('lcl')
   vim.cmd('set cmdheight=1')
 end, { silent = true })
+vim.keymap.set('i', '<A-h>', '<Left>', { silent = true })
+vim.keymap.set('i', '<A-l>', '<Right>', { silent = true })
 
 function _G._my_wrapper_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
