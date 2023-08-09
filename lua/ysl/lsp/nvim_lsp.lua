@@ -253,7 +253,7 @@ return {
         formatting = {
           format = function(entry, vim_item)
             vim_item.kind = require('lspkind').symbolic(vim_item.kind, { mode = 'symbol_text' })
-            local splits = U.mysplit(entry.source.name, '_')
+            local splits = U.splitstr(entry.source.name, '_')
             vim_item.menu = '[' .. string.upper(splits[#splits]) .. ']'
             if entry.source.name == 'cmp_tabnine' then
               local detail = (entry.completion_item.data or {}).detail

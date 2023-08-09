@@ -53,7 +53,7 @@ end
 -- @param inputstr: string
 -- @param sep: string(character)
 -- @return: the table contains the splited strings.
-M.mysplit = function(inputstr, sep)
+M.splitstr = function(inputstr, sep)
   if sep == nil then
     sep = '%s'
   end

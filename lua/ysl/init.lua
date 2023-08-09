@@ -1183,7 +1183,7 @@ vim.list_extend(M, {
           show_buffer_close_icons = false,
           show_close_icon = false,
           always_show_bufferline = false,
-          diagnostics = (function () local _lsp = U.mysplit(lsp, '.') return _lsp[#_lsp] end)()
+          diagnostics = (function () local _lsp = U.splitstr(lsp, '.') return _lsp[#_lsp] end)()
         }
       })
     end

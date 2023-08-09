@@ -56,14 +56,14 @@ return {
       vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
         ['snippets.textmateSnippetsRoots'] = vim.list_extend(
           { vim.fn.stdpath('config') .. sep .. 'snippets' },
-          vim.list_extend({ friendly }, U.mysplit(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
+          vim.list_extend({ friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
         )
       })
 
       -- HACK: Coc config for specific Windows.
       if vim.fn.has('win32') == 1 then
         -- local U = require('ysl.utils')
-        -- local serverDir = U.mysplit(vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'), '\n')
+        -- local serverDir = U.splitstr(vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'), '\n')
         -- serverDir = serverDir[#serverDir]
         vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
           -- ['sumneko-lua.serverDir'] = serverDir
