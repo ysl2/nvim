@@ -47,10 +47,11 @@ vim.opt.foldlevel = 99
 vim.opt.foldenable = true
 vim.opt.foldlevelstart = 99
 vim.api.nvim_create_autocmd('ColorScheme', {
-  command = [[
-    hi link NormalFloat NONE
-    hi Visual gui=reverse
-  ]]
+  callback = function()
+    -- https://neovim.io/doc/user/api.html#nvim_set_hl()
+    vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'none' })
+    vim.api.nvim_set_hl(0, 'Visual', { reverse = true })
+  end
 })
 
 vim.keymap.set('n', '<SPACE>', '')
