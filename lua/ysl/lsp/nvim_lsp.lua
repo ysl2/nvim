@@ -43,7 +43,7 @@ return {
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts)
           vim.keymap.set('n', '\\D', vim.lsp.buf.type_definition, opts)
-          vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, opts)
+          -- vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'v' }, '\\ca', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
           vim.keymap.set('n', '\\f', function()
@@ -354,5 +354,20 @@ return {
             automatic_installation = true,
         })
       end,
+  },
+  {
+    'smjonas/inc-rename.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('inc_rename').setup()
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = U.augroup,
+        callback = function(ev)
+          vim.keymap.set('n', '\\rn', function()
+            return ':IncRename ' .. vim.fn.expand('<cword>')
+          end, { expr = true })
+        end
+      })
+    end,
   }
 }
