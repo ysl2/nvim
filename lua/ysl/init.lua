@@ -135,7 +135,7 @@ local function _my_toggle_wrap(opts)
     return
   end
   if #opts.fargs == 1 then
-    local m = U.toboolean[opts.fargs[1]]
+    local m = U.TOBOOLEAN[opts.fargs[1]]
     if m == nil then
       print('Bad argument.')
       return
@@ -158,7 +158,7 @@ vim.api.nvim_create_user_command('MyWrapToggle', _my_toggle_wrap, {
   nargs = '*',
   complete = function(arglead, cmdline, cursorpos)
     local cmp = {}
-    for k, _ in pairs(U.toboolean) do
+    for k, _ in pairs(U.TOBOOLEAN) do
       if k:sub(1, #arglead) == arglead then
         cmp[#cmp + 1] = k
       end
@@ -613,10 +613,10 @@ vim.list_extend(M, {
           enable = true,
           show_on_dirs = true,
           icons = {
-            hint = U.signs.Hint,
-            info = U.signs.Info,
-            warning = U.signs.Warn,
-            error = U.signs.Error,
+            hint = U.SIGNS.Hint,
+            info = U.SIGNS.Info,
+            warning = U.SIGNS.Warn,
+            error = U.SIGNS.Error,
           },
         },
         modified = {
@@ -667,7 +667,7 @@ vim.list_extend(M, {
           local ft = vim.opt.filetype._value
           local cmd
 
-          local sep = U.sep
+          local sep = U.SEP
           local dir = vim.fn.expand('%:p:h')
           local fileName = vim.fn.expand('%:t')
           local fileNameWithoutExt = vim.fn.expand('%:t:r')
@@ -1279,7 +1279,7 @@ vim.list_extend(M, {
       })
 
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = U.augroup,
+        group = U.GROUP_NVIM_LSP,
         callback = function(ev)
           local noice_lsp = require('noice.lsp')
           vim.keymap.set({'n', 'i', 's'}, '<c-f>', function()

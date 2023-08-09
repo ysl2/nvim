@@ -24,7 +24,7 @@ return {
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = U.augroup,
+        group = U.GROUP_NVIM_LSP,
         callback = function(ev)
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -77,7 +77,7 @@ return {
         severity_sort = true,
       })
 
-      for type, icon in pairs(U.signs) do
+      for type, icon in pairs(U.SIGNS) do
         local hl = 'DiagnosticSign' .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
@@ -361,7 +361,7 @@ return {
     config = function()
       require('inc_rename').setup()
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = U.augroup,
+        group = U.GROUP_NVIM_LSP,
         callback = function(ev)
           vim.keymap.set('n', '\\rn', function()
             return ':IncRename ' .. vim.fn.expand('<cword>')

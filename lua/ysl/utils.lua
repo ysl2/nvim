@@ -4,16 +4,16 @@ local M = {}
 -- =================
 -- === Constants ===
 -- =================
-M.sep = vim.fn.has('win32') == 1 and '\\' or '/'
+M.SEP = vim.fn.has('win32') == 1 and '\\' or '/'
 
-M.toboolean = {
+M.TOBOOLEAN = {
   ['true'] = true,
   ['false'] = false
 }
 
-M.signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+M.SIGNS = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 
-M.augroup = vim.api.nvim_create_augroup('UserLspConfig', {})
+M.GROUP_NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
 
 
 -- =================

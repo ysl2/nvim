@@ -46,7 +46,7 @@ return {
 
       -- HACK: Coc config shared by Windows, Linux and Mac.
       -- NOTE: dependencies: 'honza/vim-snippets',
-      local sep = U.sep
+      local sep = U.SEP
       -- vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
       --   ['snippets.ultisnips.directories'] = {
       --     vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'vim-snippets' .. sep .. 'UltiSnips',
@@ -83,7 +83,7 @@ return {
           return
         end
         if #opts.fargs == 1 then
-          m = U.toboolean[opts.fargs[1]]
+          m = U.TOBOOLEAN[opts.fargs[1]]
           if m == nil then
             print('Bad argument.')
             return
@@ -103,7 +103,7 @@ return {
         nargs = '*',
         complete = function(arglead, cmdline, cursorpos)
           local cmp = {}
-          for k, _ in pairs(U.toboolean) do
+          for k, _ in pairs(U.TOBOOLEAN) do
             if k:sub(1, #arglead) == arglead then
               cmp[#cmp + 1] = k
             end
