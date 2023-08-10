@@ -566,7 +566,10 @@ vim.list_extend(M, {
   {
     'ysl2/nvim-tree.lua',
     name = 'nvim-tree',
-    keys = { { '<LEADER>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true } },
+    keys = {
+      { '<LEADER>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true },
+      { '<LEADER>E', '<CMD>NvimTreeFocus<CR>', mode = 'n', silent = true }
+    },
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     config = function()
       vim.g.loaded_netrw = 1
