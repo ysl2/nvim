@@ -1110,6 +1110,7 @@ vim.list_extend(M, {
     'shellRaining/hlchunk.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
     config = function ()
+      local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
       require('hlchunk').setup({
         chunk = {
           chars = {
@@ -1120,14 +1121,14 @@ vim.list_extend(M, {
               right_arrow = "─",
           },
           style = {
-              { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('LineNr')), 'fg', 'gui') }
+              { fg = fg }
           },
           notify = false
         },
         line_num = {
           use_treesitter = true,
           style = {
-              { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui') }
+              { fg = fg }
           },
         },
         blank = {
