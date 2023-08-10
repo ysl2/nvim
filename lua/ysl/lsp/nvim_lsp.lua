@@ -115,7 +115,7 @@ return {
         capabilities = capabilities,
       }
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls' },
+        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls' },
         automatic_installation = true,
         handlers = {
           -- The first entry (without a key) will be the default handler
@@ -336,7 +336,9 @@ return {
               '--line-length=120',
               '--skip-string-normalization'
             }}),
-            null_ls.builtins.formatting.stylua
+            null_ls.builtins.formatting.stylua,
+            null_ls.builtins.code_actions.shellcheck,
+            null_ls.builtins.formatting.shfmt
           }
         })
     end,
