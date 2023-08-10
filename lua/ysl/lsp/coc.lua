@@ -46,7 +46,7 @@ return {
 
       -- HACK: Coc config shared by Windows, Linux and Mac.
       -- NOTE: dependencies: 'honza/vim-snippets',
-      local sep = U.sep
+      local sep = U.SEP
       -- vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
       --   ['snippets.ultisnips.directories'] = {
       --     vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'vim-snippets' .. sep .. 'UltiSnips',
@@ -56,14 +56,14 @@ return {
       vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
         ['snippets.textmateSnippetsRoots'] = vim.list_extend(
           { vim.fn.stdpath('config') .. sep .. 'snippets' },
-          vim.list_extend({ friendly }, U.mysplit(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
+          vim.list_extend({ friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
         )
       })
 
       -- HACK: Coc config for specific Windows.
       if vim.fn.has('win32') == 1 then
         -- local U = require('ysl.utils')
-        -- local serverDir = U.mysplit(vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'), '\n')
+        -- local serverDir = U.splitstr(vim.fn.glob(vim.env.HOME .. '\\.vscode\\extensions\\sumneko.lua*\\server'), '\n')
         -- serverDir = serverDir[#serverDir]
         vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
           -- ['sumneko-lua.serverDir'] = serverDir
@@ -83,7 +83,7 @@ return {
           return
         end
         if #opts.fargs == 1 then
-          m = U.toboolean[opts.fargs[1]]
+          m = U.TOBOOLEAN[opts.fargs[1]]
           if m == nil then
             print('Bad argument.')
             return
@@ -103,7 +103,7 @@ return {
         nargs = '*',
         complete = function(arglead, cmdline, cursorpos)
           local cmp = {}
-          for k, _ in pairs(U.toboolean) do
+          for k, _ in pairs(U.TOBOOLEAN) do
             if k:sub(1, #arglead) == arglead then
               cmp[#cmp + 1] = k
             end
