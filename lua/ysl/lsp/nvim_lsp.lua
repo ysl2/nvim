@@ -190,6 +190,7 @@ return {
         'tzachar/cmp-tabnine',
         build = (vim.fn.has('win32') == 1) and 'powershell ./install.ps1' or './install.sh',
       },
+      'hrsh7th/cmp-nvim-lua',
       'onsails/lspkind.nvim',
       'windwp/nvim-autopairs',
     },
@@ -243,6 +244,7 @@ return {
         }),
         sources = cmp.config.sources({
           { name = 'cmp_tabnine' },
+          { name = 'nvim_lua' },
           { name = 'luasnip' },
           { name = 'nvim_lsp' },
           { name = 'async_path' },
