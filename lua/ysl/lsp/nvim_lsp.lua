@@ -112,7 +112,10 @@ return {
       local lspconfig = require('lspconfig')
       local default = {
         -- on_attach = my_custom_on_attach,
-        capabilities = capabilities,
+        capabilities = vim.tbl_deep_extend('force',
+          lspconfig.util.default_config.capabilities,
+          capabilities
+        )
       }
       require('mason-lspconfig').setup {
         ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls' },
