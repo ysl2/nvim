@@ -1419,6 +1419,16 @@ vim.list_extend(M, {
     config = function()
       require('hlargs').setup()
     end
+  },
+  {
+    'folke/zen-mode.nvim',
+    keys = {
+      { '<C-w>z', '<CMD>ZenMode<CR>', mode = 'n', silent = true },
+    },
+    cmd = 'ZenMode',
+    config = function()
+      require('zen-mode').setup()
+    end
   }
 })
 
