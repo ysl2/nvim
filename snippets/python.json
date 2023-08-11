@@ -33,5 +33,12 @@
 			"# HACK: Songli.Yu: \"$1\""
 		],
 		"description": "Songli.Yu: Debug inline."
+	},
+	"dbu": {
+		"prefix": "dbu",
+		"body": [
+			"import pudb; pudb.set_trace()  # HACK: Songli.Yu: \"$1\""
+		],
+		"description": "Songli.Yu: Debug pudb."
 	}
 }
