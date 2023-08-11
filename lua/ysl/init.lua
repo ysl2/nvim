@@ -1072,13 +1072,11 @@ vim.list_extend(M, {
       { '/' },
       { '?' },
       { 'n', function ()
-        local _, temp = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. 'n')
-        print(temp)
+        vim.cmd('normal! ' .. vim.v.count1 .. 'n')
         require('hlslens').start()
       end, mode = { 'n', 'v' }, silent = true },
       { 'N', function ()
-        local _, temp = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. 'N')
-        print(temp)
+        vim.cmd('normal! ' .. vim.v.count1 .. 'N')
         require('hlslens').start()
       end, mode = { 'n', 'v' }, silent = true },
       { '*', [[*<CMD>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
