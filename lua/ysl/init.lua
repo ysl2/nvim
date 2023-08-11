@@ -1144,6 +1144,7 @@ vim.list_extend(M, {
     },
     config = function()
 
+      local noice = require('noice')
       local function lualine_c()
         local result = { 'filename' }
         if lsp == 'ysl.lsp.coc' then
@@ -1151,25 +1152,59 @@ vim.list_extend(M, {
         elseif lsp == 'ysl.lsp.nvim_lsp' then
           result[#result+1] = {
             function()
-              return require('noice').api.status.lsp_progress.get_hl()
+              return noice.api.status.lsp_progress.get_hl()
             end,
             cond = function()
-              return require('noice').api.status.lsp_progress.has()
+              return noice.api.status.lsp_progress.has()
             end,
           }
         end
         return result
       end
 
-      require('lualine').setup({
+      local lualine = require('lualine')
+
+      lualine.setup({
         options = {
           section_separators = { left = '', right = '' },
           component_separators = { left = '', right = '' }
         },
         sections = {
           lualine_c = lualine_c(),
-          lualine_x = { 'filesize', 'encoding', 'fileformat', 'filetype' },
+          lualine_x = {
+            {
+              'macro-recording',
+              fmt = function()
+                local temp = vim.fn.reg_recording()
+                return temp == '' and '' or 'recording @' .. temp
+              end,
+            },
+            'filesize', 'encoding', 'fileformat', 'filetype'
+          },
         },
+      })
+
+      vim.api.nvim_create_autocmd('RecordingEnter', {
+        callback = function()
+          lualine.refresh({ place = { 'statusline' }, })
+        end,
+      })
+
+      vim.api.nvim_create_autocmd('RecordingLeave', {
+        callback = function()
+          -- This is going to seem really weird!
+          -- Instead of just calling refresh we need to wait a moment because of the nature of
+          -- `vim.fn.reg_recording`. If we tell lualine to refresh right now it actually will
+          -- still show a recording occuring because `vim.fn.reg_recording` hasn't emptied yet.
+          -- So what we need to do is wait a tiny amount of time (in this instance 50 ms) to
+          -- ensure `vim.fn.reg_recording` is purged before asking lualine to refresh.
+          local timer = vim.loop.new_timer()
+          timer:start(50, 0,
+            vim.schedule_wrap(function()
+              lualine.refresh({ place = { 'statusline' }, })
+            end)
+          )
+        end,
       })
     end
   },
