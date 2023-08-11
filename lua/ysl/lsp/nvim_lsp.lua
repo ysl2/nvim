@@ -183,7 +183,7 @@ return {
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
       'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
+      'FelipeLema/cmp-async-path',
       'hrsh7th/cmp-cmdline',
       'L3MON4D3/LuaSnip', -- Snippets plugin
       'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
@@ -246,7 +246,7 @@ return {
           { name = 'cmp_tabnine' },
           { name = 'luasnip' },
           { name = 'nvim_lsp' },
-          { name = 'path' },
+          { name = 'async_path' },
         }, {
           { name = 'buffer' },
         }),
@@ -300,7 +300,7 @@ return {
         enabled = false,
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-          { name = 'path' }
+          { name = 'async_path' }
         }, {
           { name = 'cmdline' }
         })
