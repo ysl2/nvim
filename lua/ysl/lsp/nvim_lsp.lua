@@ -3,7 +3,7 @@ return {
   {
     'williamboman/mason.nvim',
     build = ':MasonUpdate',
-    cmd = 'Mason',
+    cmd = { 'Mason', 'MasonInstall', 'MasonUpdate' },
     config = function()
       require('mason').setup({
         github = { download_url_template = 'https://ghproxy.com/https://github.com/%s/releases/download/%s/%s', }
@@ -85,6 +85,7 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
+    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'williamboman/mason.nvim',
@@ -213,8 +214,6 @@ return {
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.abort(),
-          -- ['<CR>'] = cmp.mapping(cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace,
-          --   select = true, }, { 'i', 'c' }),
           ['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true, },
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -251,43 +250,19 @@ return {
           { name = 'luasnip' },
           { name = 'nvim_lsp' },
           { name = 'async_path' },
-        }, {
           { name = 'buffer' },
         }),
         formatting = {
-          format = function(entry, vim_item)
-            vim_item.kind = require('lspkind').symbolic(vim_item.kind, { mode = 'symbol_text' })
-            local splits = U.splitstr(entry.source.name, '_')
-            vim_item.menu = '[' .. string.upper(splits[#splits]) .. ']'
-            if entry.source.name == 'cmp_tabnine' then
-              local detail = (entry.completion_item.data or {}).detail
-              vim_item.kind = ''
-              if detail and detail:find('.*%%.*') then
-                vim_item.kind = vim_item.kind .. ' ' .. detail
-              end
-              vim_item.kind = vim_item.kind .. ' Tabnine'
-
-              if (entry.completion_item.data or {}).multiline then
-                vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
-              end
-            end
-            local maxwidth = 80
-            vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-            return vim_item
-          end,
+          fields = {'abbr', 'kind', 'menu'},
+          format = require('lspkind').cmp_format({
+            mode = 'symbol_text', -- show only symbol annotations
+            maxwidth = 50, -- prevent the popup from showing more than provided characters
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+          })
         },
         experimental = {
-            ghost_text = true,
+          ghost_text = true,
         }
-      })
-
-      -- Set configuration for specific filetype.
-      cmp.setup.filetype('gitcommit', {
-        sources = cmp.config.sources({
-          { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
-        }, {
-          { name = 'buffer' },
-        })
       })
 
       -- If you want insert `(` after select function or method item
