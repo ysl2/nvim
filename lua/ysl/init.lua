@@ -228,7 +228,7 @@ vim.list_extend(M, {
   },
   {
     'RRethy/vim-illuminate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('illuminate').configure({
         providers = {
@@ -300,17 +300,17 @@ vim.list_extend(M, {
       require('scrollbar.handlers.gitsigns').setup()
     end,
   },
-  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = { 'BufReadPost', 'BufNewFile' } },
+  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = { 'BufReadPre', 'BufNewFile' } },
   {
     'folke/todo-comments.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim', lazy = true },
     config = function() require('todo-comments').setup {} end,
   },
   { 'ysl2/bufdelete.nvim',        cmd = 'Bd' },
   { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
   { 'mzlogin/vim-markdown-toc',   ft = 'markdown' },
-  { 'mg979/vim-visual-multi', event = 'BufReadPost' },
+  { 'mg979/vim-visual-multi', event = { 'BufReadPre', 'BufNewFile' } },
   { 'gcmt/wildfire.vim',      event = 'VeryLazy' },
   { 'ysl2/vim-bookmarks',
     event = 'VeryLazy',
@@ -354,7 +354,7 @@ vim.list_extend(M, {
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     build = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
       ts_update()
@@ -930,7 +930,7 @@ vim.list_extend(M, {
   },
   {
     'ethanholz/nvim-lastplace',
-    event = 'BufReadPost',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require 'nvim-lastplace'.setup {
         lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
@@ -1106,7 +1106,7 @@ vim.list_extend(M, {
   },
   {
     'shellRaining/hlchunk.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function ()
       local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
       require('hlchunk').setup({
@@ -1415,7 +1415,7 @@ vim.list_extend(M, {
     dependencies = {
       'nvim-treesitter/nvim-treesitter'
     },
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('hlargs').setup()
     end
