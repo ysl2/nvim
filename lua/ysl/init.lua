@@ -300,7 +300,7 @@ vim.list_extend(M, {
       require('scrollbar.handlers.gitsigns').setup()
     end,
   },
-  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'BufReadPost' },
+  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = { 'BufReadPost', 'BufNewFile' } },
   {
     'folke/todo-comments.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
