@@ -1437,7 +1437,7 @@ vim.list_extend(M, {
   },
   {
     'chrisbra/BufTimer',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = 'VeryLazy',
     keys = {
       { '<Leader>B', '<CMD>BufTimerReport<CR>', mode = 'n', silent = true },
     },
