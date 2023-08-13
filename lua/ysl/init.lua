@@ -1440,11 +1440,23 @@ vim.list_extend(M, {
     event = { 'BufReadPre', 'BufNewFile' },
   },
   {
-    'ysl2/Colorizer',
+    'ysl2/vim-plugin-AnsiEsc',
+    event = { 'BufReadPost', 'BufNewFile' },
     keys = {
-      { '<Leader>C', '<CMD>ColorToggle<CR>', mode = 'n', silent = true, desc = 'Interpret ANSI strings.' },
+      { '<Leader>A', '<CMD>lua _G._my_wrapper_ansiesc()<CR>', mode = 'n', silent = true }
     },
-  },
+    config = function()
+      function _G._my_wrapper_ansiesc()
+        local pos = vim.fn.getpos('.')
+        vim.cmd('silent! AnsiEsc')
+        vim.fn.setpos('.', pos)
+      end
+
+      vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
+        callback = _G._my_wrapper_ansiesc,
+      })
+    end
+  }
 })
 
 my_load(M)
