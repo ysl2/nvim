@@ -573,40 +573,48 @@ vim.list_extend(M, {
     config = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
-      local api = require('nvim-tree.api')
 
-      local function open_tab_silent(node)
-        api.node.open.tab(node)
-        vim.cmd.tabprev()
-      end
+      local function on_attach(bufnr)
+        local api = require('nvim-tree.api')
 
-      local function open_tab_and_close_tree(node)
-        vim.cmd('quit')
-        api.node.open.tab(node)
-      end
+        local function opts(desc)
+          return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
 
-      local function open_tab_and_swap_cursor(node)
-        vim.cmd('wincmd l')
-        api.node.open.tab(node)
+        api.config.mappings.default_on_attach(bufnr)
+
+        vim.keymap.set('n', 'H', '', { buffer = bufnr })
+        vim.keymap.del('n', 'H', { buffer = bufnr })
+
+        vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
+        vim.keymap.set('n', '<C-l>', api.tree.expand_all, opts('Expand All'))
+        vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
+        vim.keymap.set('n', 'g.', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
+        vim.keymap.set('n', '<C-h>', api.tree.collapse_all, opts('Collapse'))
+        vim.keymap.set('n', 'T', function()
+          local node = api.tree.get_node_under_cursor()
+          api.node.open.tab(node)
+          vim.cmd.tabprev()
+        end, opts('open_tab_silent'))
+
+        vim.keymap.set('n', 't', function()
+          local node = api.tree.get_node_under_cursor()
+          vim.cmd('quit')
+          api.node.open.tab(node)
+        end, opts('open_tab_and_close_tree'))
+
+        vim.keymap.set('n', '<C-t>', function()
+          local node = api.tree.get_node_under_cursor()
+          vim.cmd('wincmd l')
+          api.node.open.tab(node)
+        end, opts('open_tab_and_swap_cursor'))
+
+        vim.keymap.set('n', '<C-s>', api.node.open.horizontal, opts('Open: Horizontal Split'))
+
       end
 
       require('nvim-tree').setup({
-        view = {
-          mappings = {
-            list = {
-              { key = 'l',     action = 'edit' },
-              { key = '<C-l>', action = 'expand_all' },
-              { key = 'h',     action = 'close_node' },
-              { key = 'H',     action = '' },
-              { key = 'g.',    action = 'toggle_dotfiles' },
-              { key = '<C-h>', action = 'collapse_all' },
-              { key = 'T',     action = 'open_tab_silent',          action_cb = open_tab_silent },
-              { key = 't',     action = 'open_tab_and_close_tree',  action_cb = open_tab_and_close_tree },
-              { key = '<C-t>', action = 'open_tab_and_swap_cursor', action_cb = open_tab_and_swap_cursor },
-              { key = '<C-s>', action = 'split' },
-            }
-          }
-        },
+        on_attach = on_attach,
         renderer = {
           indent_markers = {
             enable = true,
