@@ -82,7 +82,7 @@ return {
         })
       end
 
-      local function _my_toggle_save_and_format(opts)
+      local function _my_custom_toggle_save_and_format(opts)
         local m
         if #opts.fargs > 1 then
           print('Too many arguments.')
@@ -105,7 +105,7 @@ return {
         print('"coc.preferences.formatOnSave" = ' .. tostring(m))
       end
 
-      vim.api.nvim_create_user_command('MySaveAndFormatToggle', _my_toggle_save_and_format, {
+      vim.api.nvim_create_user_command('MySaveAndFormatToggle', _my_custom_toggle_save_and_format, {
         nargs = '*',
         complete = function(arglead, cmdline, cursorpos)
           local cmp = {}

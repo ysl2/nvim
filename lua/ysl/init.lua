@@ -83,25 +83,25 @@ vim.cmd([[
 	" recall previous (older) command-line
 	:cnoremap <C-P>		<Up>
 	" back one word
-	:cnoremap <Esc><C-B>	<S-Left>
+	:cnoremap <C-h>	<S-Left>
 	" forward one word
-	:cnoremap <Esc><C-F>	<S-Right>
+	:cnoremap <C-l>	<S-Right>
 ]])
 
-function _G._my_wrapper_check_no_name_buffer(cmdstr)
+function _G.my_custom_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
     return
   end
   vim.cmd(cmdstr)
 end
 
-vim.keymap.set('n', '<C-w><C-h>', '<CMD>lua _my_wrapper_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w><C-h>', '<CMD>lua my_custom_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w><C-j>', '<CMD>lua _my_wrapper_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w><C-j>', '<CMD>lua my_custom_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w><C-k>', '<CMD>lua _my_wrapper_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w><C-k>', '<CMD>lua my_custom_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w><C-l>', '<CMD>lua _my_wrapper_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w><C-l>', '<CMD>lua my_custom_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
   { silent = true })
 
 -- Auto delete [No Name] buffers.
@@ -125,7 +125,7 @@ end
 
 -- Switch wrap mode.
 vim.opt.wrap = false
-local function _my_toggle_wrap(opts)
+local function _my_custom_toggle_wrap(opts)
   if #opts.fargs > 1 then
     print('Too many arguments.')
     return
@@ -150,7 +150,7 @@ local function _my_toggle_wrap(opts)
   end
   print('vim.opt.wrap = ' .. tostring(vim.opt.wrap._value))
 end
-vim.api.nvim_create_user_command('MyWrapToggle', _my_toggle_wrap, {
+vim.api.nvim_create_user_command('MyWrapToggle', _my_custom_toggle_wrap, {
   nargs = '*',
   complete = function(arglead, cmdline, cursorpos)
     local cmp = {}
@@ -180,7 +180,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local function my_load(plugins)
+local function _my_custom_load(plugins)
   require('lazy').setup(plugins, {
     -- defaults = { lazy = true }
     performance = {
@@ -248,7 +248,7 @@ vim.list_extend(M, {
 })
 
 if vim.g.vscode then
-  my_load(M)
+  _my_custom_load(M)
   return
 end
 
@@ -665,8 +665,8 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     keys = {
       { [[<C-\>]] },
-      { '<LEADER>t', '<CMD>lua _G._my_wrapper_run_in_terminal({})<CR>',                  mode = 'n', silent = true },
-      { '<LEADER>g', "<CMD>lua _G._my_wrapper_run_in_terminal({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
+      { '<LEADER>t', '<CMD>lua _G.my_plugin_toggleterm({})<CR>',                  mode = 'n', silent = true },
+      { '<LEADER>g', "<CMD>lua _G.my_plugin_toggleterm({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
       {
         '<LEADER>r',
         function()
@@ -715,7 +715,7 @@ vim.list_extend(M, {
           end
           if cmd == nil then return end
           cmd = cmd:gsub('/', sep)
-          _G._my_wrapper_run_in_terminal({ cmd = cmd, close_on_exit = false })
+          _G.my_plugin_toggleterm({ cmd = cmd, close_on_exit = false })
         end,
         mode = 'n',
         silent = true
@@ -740,7 +740,7 @@ vim.list_extend(M, {
         direction = 'float',
       })
 
-      function _G._my_wrapper_run_in_terminal(mytable)
+      function _G.my_plugin_toggleterm(mytable)
         mytable.cmd = mytable.cmd or vim.fn.input('Enter command: ')
         mytable = vim.tbl_deep_extend('force', { hidden = true }, mytable)
         require('toggleterm.terminal').Terminal:new(mytable):toggle()
@@ -1298,7 +1298,6 @@ vim.list_extend(M, {
         presets = {
           command_palette = true, -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = true
         },
         status = {
           lsp_progress = { event = 'lsp', kind = 'progress' }
@@ -1443,20 +1442,20 @@ vim.list_extend(M, {
     'ysl2/vim-plugin-AnsiEsc',
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
-      { '<Leader>A', '<CMD>lua _G._my_wrapper_ansiesc()<CR>', mode = 'n', silent = true }
+      { '<Leader>A', '<CMD>lua _G.my_plugin_ansiesc()<CR>', mode = 'n', silent = true }
     },
     config = function()
-      function _G._my_wrapper_ansiesc()
+      function _G.my_plugin_ansiesc()
         local pos = vim.fn.getpos('.')
         vim.cmd('silent! AnsiEsc')
         vim.fn.setpos('.', pos)
       end
 
       vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
-        callback = _G._my_wrapper_ansiesc,
+        callback = _G.my_plugin_ansiesc,
       })
     end
   }
 })
 
-my_load(M)
+_my_custom_load(M)
