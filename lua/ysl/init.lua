@@ -1436,6 +1436,13 @@ vim.list_extend(M, {
     config = function()
       require('zen-mode').setup()
     end
+  },
+  {
+    'chrisbra/BufTimer',
+    keys = {
+      { '<Leader>B', '<CMD>BufTimerReport<CR>', mode = 'n', silent = true },
+    },
+    event = { 'BufReadPre', 'BufNewFile' },
   }
 })
 
