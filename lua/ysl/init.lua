@@ -875,10 +875,10 @@ vim.list_extend(M, {
   {
     'ysl2/leetcode.vim',
     keys = {
-      { '<leader>ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true },
-      { '<leader>lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true },
-      { '<leader>ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true },
-      { '<leader>li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true }
+      { '<leader>Ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true },
+      { '<leader>Lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true },
+      { '<leader>Ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true },
+      { '<leader>Li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true }
     },
     config = function()
       vim.g.leetcode_china = 0
@@ -1141,6 +1141,9 @@ vim.list_extend(M, {
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
+    keys = {
+      { '<Leader>l', '<CMD>lua _G.my_plugin_lualine()<CR>', mode = 'n', silent = true },
+    },
     dependencies = {
       'nvim-tree/nvim-web-devicons',
       'folke/noice.nvim',
@@ -1187,12 +1190,12 @@ vim.list_extend(M, {
         },
       })
 
-      local function lualine_refresh()
+      function _G.my_plugin_lualine()
         lualine.refresh({ place = { 'statusline' }, })
       end
 
       vim.api.nvim_create_autocmd('RecordingEnter', {
-        callback = lualine_refresh,
+        callback = _G.my_plugin_lualine,
       })
 
       vim.api.nvim_create_autocmd('RecordingLeave', {
@@ -1205,7 +1208,7 @@ vim.list_extend(M, {
           -- ensure `vim.fn.reg_recording` is purged before asking lualine to refresh.
           local timer = vim.loop.new_timer()
           timer:start(50, 0,
-            vim.schedule_wrap(lualine_refresh)
+            vim.schedule_wrap(_G.my_plugin_lualine)
           )
         end,
       })
