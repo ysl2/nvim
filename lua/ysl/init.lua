@@ -471,7 +471,7 @@ vim.list_extend(M, {
     cmd = 'Telescope',
     keys = {
       { '<LEADER>f', '<CMD>Telescope find_files<CR>',                 mode = 'n', silent = true },
-      { '<LEADER>F', '<CMD>Telescope find_files hidden=true<CR>',     mode = 'n', silent = true },
+      { '<LEADER>F', "<CMD>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '--no-ignore', '-g', '!.git' }})<CR>",     mode = 'n', silent = true },
       { '<LEADER>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
       { '<LEADER>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
       { '<LEADER>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
