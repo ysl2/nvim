@@ -14,13 +14,6 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      -- Global mappings.
-      -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-      vim.keymap.set('n', '\\e', vim.diagnostic.open_float)
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-      vim.keymap.set('n', '\\q', vim.diagnostic.setloclist)
-
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -29,9 +22,17 @@ return {
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
+          local opts = { buffer = ev.buf }
+
+          -- Global mappings.
+          -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+          vim.keymap.set('n', '\\e', vim.diagnostic.open_float, opts)
+          vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+          vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+          vim.keymap.set('n', '\\q', vim.diagnostic.setloclist, opts)
+
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
-          local opts = { buffer = ev.buf }
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
@@ -67,14 +68,8 @@ return {
 
       vim.diagnostic.config({
         underline = false,
-        virtual_text = {
-          source = 'always',
-          severity = { min = vim.diagnostic.severity.ERROR },
-        },
-        float = {
-          source = 'always',
-        },
-        severity_sort = true,
+        virtual_text = false,
+        float = false,
       })
 
       for type, icon in pairs(U.SIGNS) do
@@ -164,8 +159,6 @@ return {
     build = 'make install_jsregexp',
     lazy = true,
     config = function ()
-      vim.opt.rtp = vim.opt.rtp + './snippets'
-      vim.opt.rtp = vim.opt.rtp + '~/.local/share/nvim/lazy/friendly-snippets'
       require('luasnip.loaders.from_vscode').lazy_load()
       local luasnip = require('luasnip')
       -- Stop snippets when you leave to normal mode
