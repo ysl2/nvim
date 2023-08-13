@@ -1440,7 +1440,7 @@ vim.list_extend(M, {
   },
   {
     'ysl2/vim-plugin-AnsiEsc',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPost' },
     keys = {
       { '<Leader>A', '<CMD>lua _G.my_plugin_ansiesc()<CR>', mode = 'n', silent = true }
     },
@@ -1451,7 +1451,7 @@ vim.list_extend(M, {
         vim.fn.setpos('.', pos)
       end
 
-      vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
+      vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
         callback = _G.my_plugin_ansiesc,
       })
     end
