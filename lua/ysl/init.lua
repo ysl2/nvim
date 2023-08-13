@@ -1438,7 +1438,13 @@ vim.list_extend(M, {
       { '<Leader>B', '<CMD>BufTimerReport<CR>', mode = 'n', silent = true },
     },
     event = { 'BufReadPre', 'BufNewFile' },
-  }
+  },
+  {
+    'ysl2/Colorizer',
+    keys = {
+      { '<Leader>C', '<CMD>ColorToggle<CR>', mode = 'n', silent = true, desc = 'Interpret ANSI strings.' },
+    },
+  },
 })
 
 my_load(M)
