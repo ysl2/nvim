@@ -66,6 +66,7 @@ return {
       })
 
       vim.diagnostic.config({
+        underline = false,
         virtual_text = {
           source = 'always',
           severity = { min = vim.diagnostic.severity.ERROR },
