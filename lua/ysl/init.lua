@@ -83,9 +83,9 @@ vim.cmd([[
 	" recall previous (older) command-line
 	:cnoremap <C-P>		<Up>
 	" back one word
-	:cnoremap <C-h>	<S-Left>
+	:cnoremap <M-b>	<S-Left>
 	" forward one word
-	:cnoremap <C-l>	<S-Right>
+	:cnoremap <M-f>	<S-Right>
 ]])
 
 function _G.my_custom_check_no_name_buffer(cmdstr)
