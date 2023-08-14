@@ -277,6 +277,9 @@ end
 
 vim.list_extend(M, U.set(U.safeget(S, 'plugins'), {}))
 
+-- ===
+-- === Load Others
+-- ===
 vim.list_extend(M, {
   { 'Asheq/close-buffers.vim',             cmd = 'Bdelete' },
   { 'romainl/vim-cool',                    event = 'VeryLazy' },
