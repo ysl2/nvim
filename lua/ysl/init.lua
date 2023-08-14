@@ -1371,59 +1371,57 @@ vim.list_extend(M, {
     end
   },
   {
-    {
-      'gbprod/yanky.nvim',
-      event = 'VeryLazy',
-      keys = {
-        { '<LEADER>y', '<CMD>Telescope yank_history<CR>', mode = 'n', silent = true },
-        { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, silent = true },
-        { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, silent = true },
-        { 'gp', '<Plug>(YankyGPutAfter)', mode = { 'n', 'x' }, silent = true },
-        { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, silent = true },
-        { '<A-n>', '<Plug>(YankyCycleForward)', mode = 'n', silent = true },
-        { '<A-p>', '<Plug>(YankyCycleBackward)', mode = 'n', silent = true },
-      },
-      dependencies = {
-        'kkharji/sqlite.lua',
-        'nvim-telescope/telescope.nvim',
-      },
-      config = function()
-        require('telescope').load_extension('yank_history')
-
-        local mapping = require('yanky.telescope.mapping')
-
-        require('yanky').setup({
-          ring = {
-            history_length = vim.opt.maxmempattern._value,
-            storage = 'sqlite',
-          },
-          picker = {
-            telescope = {
-              use_default_mappings = false,
-              mappings = {
-                i = {
-                  ['<CR>'] = mapping.put('p'),
-                  ['<A-p>'] = mapping.put('p'),
-                  ['<A-k>'] = mapping.put('P'),
-                  ['<C-x>'] = mapping.delete(),
-                  ['<A-r>'] = mapping.set_register(require('yanky.utils').get_default_register()),
-                },
-              },        -- nil to use default mappings or no mappings (see `use_default_mappings`)
-            },
-          },
-          system_clipboard = {
-            sync_with_ring = false,
-          },
-          highlight = {
-            on_put = false,
-            timer = vim.highlight.priorities.user,
-          },
-          preserve_cursor_position = {
-            enabled = false,
-          },
-        })
-      end
+    'gbprod/yanky.nvim',
+    event = 'VeryLazy',
+    keys = {
+      { '<LEADER>y', '<CMD>Telescope yank_history<CR>', mode = 'n', silent = true },
+      { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, silent = true },
+      { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, silent = true },
+      { 'gp', '<Plug>(YankyGPutAfter)', mode = { 'n', 'x' }, silent = true },
+      { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, silent = true },
+      { '<A-n>', '<Plug>(YankyCycleForward)', mode = 'n', silent = true },
+      { '<A-p>', '<Plug>(YankyCycleBackward)', mode = 'n', silent = true },
     },
+    dependencies = {
+      'kkharji/sqlite.lua',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('telescope').load_extension('yank_history')
+
+      local mapping = require('yanky.telescope.mapping')
+
+      require('yanky').setup({
+        ring = {
+          history_length = vim.opt.maxmempattern._value,
+          storage = 'sqlite',
+        },
+        picker = {
+          telescope = {
+            use_default_mappings = false,
+            mappings = {
+              i = {
+                ['<CR>'] = mapping.put('p'),
+                ['<A-p>'] = mapping.put('p'),
+                ['<A-k>'] = mapping.put('P'),
+                ['<C-x>'] = mapping.delete(),
+                ['<A-r>'] = mapping.set_register(require('yanky.utils').get_default_register()),
+              },
+            },        -- nil to use default mappings or no mappings (see `use_default_mappings`)
+          },
+        },
+        system_clipboard = {
+          sync_with_ring = false,
+        },
+        highlight = {
+          on_put = false,
+          timer = vim.highlight.priorities.user,
+        },
+        preserve_cursor_position = {
+          enabled = false,
+        },
+      })
+    end
   },
   {
     'm-demare/hlargs.nvim',
