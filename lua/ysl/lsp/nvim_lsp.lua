@@ -86,18 +86,15 @@ return {
       'williamboman/mason.nvim',
       'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
-      {
-        'folke/neodev.nvim',
-        config = function()
-          -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-          require('neodev').setup({
-            -- add any options here, or leave empty to use the default settings
-          })
-        end
-      },
+      'folke/neodev.nvim',
       'b0o/schemastore.nvim',
     },
     config = function()
+      -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+      require('neodev').setup({
+        -- add any options here, or leave empty to use the default settings
+      })
+
       -- Add additional capabilities supported by nvim-cmp
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       capabilities.textDocument.foldingRange = {
@@ -239,10 +236,11 @@ return {
         }),
         sources = cmp.config.sources({
           { name = 'cmp_tabnine' },
-          { name = 'nvim_lua' },
           { name = 'luasnip' },
+          { name = 'nvim_lua' },
           { name = 'nvim_lsp' },
           { name = 'async_path' },
+        }, {
           { name = 'buffer' },
         }),
         formatting = {
