@@ -484,7 +484,12 @@ vim.list_extend(M, {
       { '<LEADER>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
       { '<LEADER>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
       { '<LEADER>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
-      { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true }
+      { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true },
+      {
+        '<Leader>/', function()
+          require('telescope.builtin').current_buffer_fuzzy_find()
+        end, mode = 'n', silent = true
+      }
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
