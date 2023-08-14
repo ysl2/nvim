@@ -331,8 +331,6 @@ vim.list_extend(M, {
       require('fm-nvim').setup{
         -- UI Options
         ui = {
-          -- Default UI (can be "split" or "float")
-          default = 'float',
           float = {
             -- Floating window border (see ':h nvim_open_win')
             border    = 'single',
