@@ -306,7 +306,6 @@ vim.list_extend(M, {
   { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
   { 'mzlogin/vim-markdown-toc',   ft = 'markdown' },
   { 'mg979/vim-visual-multi', event = { 'BufReadPre', 'BufNewFile' } },
-  { 'gcmt/wildfire.vim',      event = 'VeryLazy' },
   { 'ysl2/vim-bookmarks',
     event = 'VeryLazy',
     keys = {
@@ -461,7 +460,16 @@ vim.list_extend(M, {
             -- and should return true of false
             include_surrounding_whitespace = false,
           }
-        }
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = '<CR>', -- set to `false` to disable one of the mappings
+            node_incremental = '<CR>',
+            scope_incremental = '<C-CR>',
+            node_decremental = '<A-CR>',
+          },
+        },
       }
     end
   },
