@@ -322,19 +322,32 @@ vim.list_extend(M, {
     event = 'VeryLazy'
   },
   {
-    'kevinhwang91/rnvimr',
-    cond = vim.fn.has('win32') == 0,
-    keys = { { '<LEADER>R', '<CMD>RnvimrToggle<CR>', mode = 'n', silent = true } },
+    'is0n/fm-nvim',
+    keys = {
+       { '<Leader>l', '<CMD>Lf<CR>', mode = 'n', silent = true },
+       { '<Leader>g', '<CMD>Lazygit<CR>', mode = 'n', silent = true }
+    },
     config = function()
-      vim.g.rnvimr_enable_picker = 1
-      vim.g.rnvimr_enable_bw = 1
-      vim.defer_fn(function()
-        vim.cmd('RnvimrStartBackground')
-      end, 1000)
-      vim.g.rnvimr_action = {
-        ['<CR>'] = 'NvimEdit tabedit',
-        ['<C-x>'] = 'NvimEdit split',
-        ['<C-v>'] = 'NvimEdit vsplit',
+      require('fm-nvim').setup{
+        -- UI Options
+        ui = {
+          -- Default UI (can be "split" or "float")
+          default = 'float',
+          float = {
+            -- Floating window border (see ':h nvim_open_win')
+            border    = 'single',
+            -- Highlight group for floating window/border (see ':h winhl')
+            float_hl  = 'NormalFloat',
+            -- Floating Window Transparency (see ':h winblend')
+            blend     = vim.opt.winblend._value,
+          },
+        },
+        -- Mappings used with the plugin
+        mappings = {
+          horz_split = '<C-s>',
+        },
+        -- Path to broot config
+        broot_conf = vim.fn.stdpath('data') .. '/lazy/fm-nvim/assets/broot_conf.hjson'
       }
     end
   },
@@ -672,7 +685,7 @@ vim.list_extend(M, {
     keys = {
       { [[<C-\>]] },
       { '<LEADER>t', '<CMD>lua _G.my_plugin_toggleterm({})<CR>',                  mode = 'n', silent = true },
-      { '<LEADER>g', "<CMD>lua _G.my_plugin_toggleterm({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
+      -- { '<LEADER>g', "<CMD>lua _G.my_plugin_toggleterm({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
       {
         '<LEADER>r',
         function()
@@ -1146,9 +1159,6 @@ vim.list_extend(M, {
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
-    keys = {
-      { '<Leader>l', '<CMD>lua _G.my_plugin_lualine()<CR>', mode = 'n', silent = true },
-    },
     dependencies = {
       'nvim-tree/nvim-web-devicons',
       'folke/noice.nvim',
@@ -1195,12 +1205,12 @@ vim.list_extend(M, {
         },
       })
 
-      function _G.my_plugin_lualine()
+      local function _my_plugin_lualine()
         lualine.refresh({ place = { 'statusline' }, })
       end
 
       vim.api.nvim_create_autocmd('RecordingEnter', {
-        callback = _G.my_plugin_lualine,
+        callback = _my_plugin_lualine,
       })
 
       vim.api.nvim_create_autocmd('RecordingLeave', {
@@ -1213,7 +1223,7 @@ vim.list_extend(M, {
           -- ensure `vim.fn.reg_recording` is purged before asking lualine to refresh.
           local timer = vim.loop.new_timer()
           timer:start(50, 0,
-            vim.schedule_wrap(_G.my_plugin_lualine)
+            vim.schedule_wrap(_my_plugin_lualine)
           )
         end,
       })
