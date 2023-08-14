@@ -278,9 +278,6 @@ end
 vim.list_extend(M, U.set(U.safeget(S, 'plugins'), {}))
 
 vim.list_extend(M, {
-  -- ===
-  -- === Load Bulk
-  -- ===
   { 'Asheq/close-buffers.vim',             cmd = 'Bdelete' },
   { 'romainl/vim-cool',                    event = 'VeryLazy' },
   { 'tpope/vim-fugitive',                  cmd = 'Git' },
@@ -316,10 +313,6 @@ vim.list_extend(M, {
   { 'kevinhwang91/nvim-bqf',  ft = 'qf',                             dependencies = 'nvim-treesitter/nvim-treesitter' },
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
   { 'rafamadriz/friendly-snippets', event = 'VeryLazy' },
-
-  -- ===
-  -- === Load Single
-  -- ===
   {
     'wellle/tmux-complete.vim',
     cond = vim.fn.has('win32') == 0,
