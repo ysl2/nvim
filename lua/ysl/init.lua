@@ -223,7 +223,7 @@ vim.list_extend(M, {
   },
   {
     'RRethy/vim-illuminate',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('illuminate').configure({
         providers = {
@@ -286,26 +286,22 @@ vim.list_extend(M, {
   { 'tpope/vim-fugitive',                  cmd = 'Git' },
   {
     'lewis6991/gitsigns.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      'petertriho/nvim-scrollbar',
-    },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('gitsigns').setup()
-      require('scrollbar.handlers.gitsigns').setup()
     end,
   },
-  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = { 'BufReadPre', 'BufNewFile' } },
+  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = { 'BufReadPost', 'BufNewFile' } },
   {
     'folke/todo-comments.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim', lazy = true },
     config = function() require('todo-comments').setup {} end,
   },
   { 'ysl2/bufdelete.nvim',        cmd = 'Bd' },
   { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
   { 'mzlogin/vim-markdown-toc',   ft = 'markdown' },
-  { 'mg979/vim-visual-multi', event = { 'BufReadPre', 'BufNewFile' } },
+  { 'mg979/vim-visual-multi', event = 'VeryLazy' },
   { 'ysl2/vim-bookmarks',
     event = 'VeryLazy',
     keys = {
@@ -348,7 +344,7 @@ vim.list_extend(M, {
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     build = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
       ts_update()
@@ -763,7 +759,7 @@ vim.list_extend(M, {
   },
   {
     'csexton/trailertrash.vim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       vim.cmd('hi link UnwantedTrailerTrash NONE')
       vim.api.nvim_create_autocmd('BufWritePre', {
@@ -1122,7 +1118,7 @@ vim.list_extend(M, {
   },
   {
     'shellRaining/hlchunk.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = function ()
       local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
       require('hlchunk').setup({
@@ -1359,6 +1355,9 @@ vim.list_extend(M, {
   {
     'petertriho/nvim-scrollbar',
     event = 'VeryLazy',
+    dependencies = {
+      'lewis6991/gitsigns.nvim'
+    },
     config = function()
       require('scrollbar').setup({
         handle = {
@@ -1371,12 +1370,14 @@ vim.list_extend(M, {
           cursor = false,
         },
       })
+
+      require('scrollbar.handlers.gitsigns').setup()
     end
   },
   {
     {
       'gbprod/yanky.nvim',
-      event = { 'BufReadPre', 'BufNewFile' },
+      event = { 'BufReadPost', 'BufNewFile' },
       keys = {
         { '<LEADER>y', '<CMD>Telescope yank_history<CR>', mode = 'n', silent = true },
         { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, silent = true },
@@ -1433,7 +1434,7 @@ vim.list_extend(M, {
     dependencies = {
       'nvim-treesitter/nvim-treesitter'
     },
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('hlargs').setup()
     end

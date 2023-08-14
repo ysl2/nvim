@@ -311,7 +311,7 @@ return {
   },
   {
     'smjonas/inc-rename.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('inc_rename').setup()
       vim.api.nvim_create_autocmd('LspAttach', {
