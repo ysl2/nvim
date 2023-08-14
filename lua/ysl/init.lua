@@ -223,7 +223,7 @@ vim.list_extend(M, {
   },
   {
     'RRethy/vim-illuminate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VeryLazy',
     config = function()
       require('illuminate').configure({
         providers = {
@@ -286,15 +286,15 @@ vim.list_extend(M, {
   { 'tpope/vim-fugitive',                  cmd = 'Git' },
   {
     'lewis6991/gitsigns.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VeryLazy',
     config = function()
       require('gitsigns').setup()
     end,
   },
-  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = { 'BufReadPost', 'BufNewFile' } },
+  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'VeryLazy' },
   {
     'folke/todo-comments.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim', lazy = true },
     config = function() require('todo-comments').setup {} end,
   },
@@ -344,7 +344,7 @@ vim.list_extend(M, {
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VeryLazy',
     build = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
       ts_update()
@@ -759,7 +759,7 @@ vim.list_extend(M, {
   },
   {
     'csexton/trailertrash.vim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VeryLazy',
     config = function()
       vim.cmd('hi link UnwantedTrailerTrash NONE')
       vim.api.nvim_create_autocmd('BufWritePre', {
@@ -942,7 +942,7 @@ vim.list_extend(M, {
   },
   {
     'ethanholz/nvim-lastplace',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = 'VeryLazy',
     config = function()
       require 'nvim-lastplace'.setup {
         lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
@@ -1118,7 +1118,7 @@ vim.list_extend(M, {
   },
   {
     'shellRaining/hlchunk.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VeryLazy',
     config = function ()
       local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
       require('hlchunk').setup({
@@ -1377,7 +1377,7 @@ vim.list_extend(M, {
   {
     {
       'gbprod/yanky.nvim',
-      event = { 'BufReadPost', 'BufNewFile' },
+      event = 'VeryLazy',
       keys = {
         { '<LEADER>y', '<CMD>Telescope yank_history<CR>', mode = 'n', silent = true },
         { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, silent = true },
@@ -1431,10 +1431,10 @@ vim.list_extend(M, {
   },
   {
     'm-demare/hlargs.nvim',
+    event = 'VeryLazy',
     dependencies = {
       'nvim-treesitter/nvim-treesitter'
     },
-    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('hlargs').setup()
     end

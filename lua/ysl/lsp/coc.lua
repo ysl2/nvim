@@ -3,7 +3,7 @@ return {
   {
     'neoclide/coc.nvim',
     branch = 'release',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
       {
         'ysl2/coc-rust-analyzer',

@@ -12,7 +12,7 @@ return {
   },
   {
     'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
@@ -81,7 +81,7 @@ return {
   {
     'williamboman/mason-lspconfig.nvim',
     cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
       'williamboman/mason.nvim',
       'neovim/nvim-lspconfig',
@@ -267,7 +267,7 @@ return {
   },
   {
     'jose-elias-alvarez/null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
@@ -297,7 +297,7 @@ return {
   },
   {
       'jay-babu/mason-null-ls.nvim',
-      event = { 'BufReadPre', 'BufNewFile' },
+      event = { 'BufReadPost', 'BufNewFile' },
       dependencies = {
         'williamboman/mason.nvim',
         'jose-elias-alvarez/null-ls.nvim',
