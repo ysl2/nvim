@@ -175,7 +175,7 @@ return {
     end
   },
   {
-    'hrsh7th/nvim-cmp', -- Autocompletion plugin
+    'yioneko/nvim-cmp', -- Autocompletion plugin
     event = 'InsertEnter',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
