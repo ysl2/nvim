@@ -186,7 +186,20 @@ local function _my_custom_load(plugins)
     performance = {
       rtp = {
         disabled_plugins = {
-          'matchparen'
+          'editorconfig',
+          'gzip',
+          'man',
+          'matchit',
+          'matchparen',
+          'netrwPlugin',
+          'nvim',
+          'rplugin',
+          'shada',
+          'spellfile',
+          'tarPlugin',
+          'tohtml',
+          'tutor',
+          'zipPlugin',
         }
       }
     }
