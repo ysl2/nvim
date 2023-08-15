@@ -54,17 +54,8 @@
   "rust-analyzer.procMacro.enable": false,
   "suggest.snippetIndicator": "...",
   "tabnine.enablePreselect": false,
-  // "python.formatting.provider": "black",
-  // "python.formatting.blackArgs": [
-  //   "--line-length=120",
-  //   "--skip-string-normalization"
-  // ],
-  // "python.linting.flake8Enabled": true,
-  // // pip install flake8-annotations. See: https://pypi.org/project/flake8-annotations/
-  // "python.linting.flake8Args": [
-  //   "--max-line-length=120",
-  //   "--ignore=ANN101,ANN102,E402,E741,E203"
-  // ],
+  "python.formatting.provider": "none",
+  "python.linting.enabled": false,
   "clangd.arguments": ["-fallback-style=microsoft"],
   "markdownlint.config": {
     "default": true,
