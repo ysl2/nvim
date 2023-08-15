@@ -31,7 +31,7 @@ return {
       end, { silent = true })
 
       vim.g.coc_global_extensions = {
-        'coc-pyright',
+        'coc-jedi',
         'coc-sh',
         'coc-tabnine',
         'coc-sumneko-lua',
@@ -44,8 +44,8 @@ return {
         'coc-dictionary',
         'coc-word',
         'coc-clangd',
-        'coc-java',
-        'coc-markdownlint'
+        'coc-markdownlint',
+        'coc-diagnostic'
       }
 
       vim.g.coc_user_config = {}

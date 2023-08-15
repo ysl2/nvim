@@ -54,20 +54,56 @@
   "rust-analyzer.procMacro.enable": false,
   "suggest.snippetIndicator": "...",
   "tabnine.enablePreselect": false,
-  "python.formatting.provider": "black",
-  "python.formatting.blackArgs": [
-    "--line-length=120",
-    "--skip-string-normalization"
-  ],
-  "python.linting.flake8Enabled": true,
-  // pip install flake8-annotations. See: https://pypi.org/project/flake8-annotations/
-  "python.linting.flake8Args": [
-    "--max-line-length=120",
-    "--ignore=ANN101,ANN102,E402,E741,E203"
-  ],
+  // "python.formatting.provider": "black",
+  // "python.formatting.blackArgs": [
+  //   "--line-length=120",
+  //   "--skip-string-normalization"
+  // ],
+  // "python.linting.flake8Enabled": true,
+  // // pip install flake8-annotations. See: https://pypi.org/project/flake8-annotations/
+  // "python.linting.flake8Args": [
+  //   "--max-line-length=120",
+  //   "--ignore=ANN101,ANN102,E402,E741,E203"
+  // ],
   "clangd.arguments": ["-fallback-style=microsoft"],
   "markdownlint.config": {
     "default": true,
     "line_length": false
+  },
+  "diagnostic-languageserver.mergeConfig": true,
+  "diagnostic-languageserver.filetypes": {
+    "python": "flake8",
+  },
+  "diagnostic-languageserver.linters": {
+     "flake8": {
+       "debounce": 200,
+       "rootPatterns": [".git", "pyproject.toml", "setup.py", "requirements.txt", ".root"],
+       "args": [
+         "--max-line-length=120",
+         "--ignore=ANN101,ANN102,E402,E741,E203",
+         "--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s",
+         "-"
+       ],
+       "securities": {
+         "W": "info",
+         "E": "warning",
+         "F": "info",
+         "C": "info",
+         "N": "hint"
+       }
+     }
+   },
+  "diagnostic-languageserver.formatFiletypes": {
+    "python": "black"
+  },
+  "diagnostic-languageserver.formatters": {
+    "black": {
+      "command": "black",
+      "args": [
+        "--line-length=120",
+        "--skip-string-normalization",
+        "-q", "-"
+      ]
+    },
   }
 }
