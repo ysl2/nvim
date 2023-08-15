@@ -1249,7 +1249,7 @@ vim.list_extend(M, {
     event = 'InsertEnter',
     config = function()
       local nvim_autopairs = require('nvim-autopairs')
-      if lsp == 'ysl.lsp.nvim_lsp' then
+      if lsp ~= 'ysl.lsp.coc' then
         nvim_autopairs.setup()
         return
       end
