@@ -1451,13 +1451,6 @@ vim.list_extend(M, {
     end
   },
   {
-    'chrisbra/BufTimer',
-    event = { 'BufReadPre', 'BufNewFile' },
-    keys = {
-      { '<Leader>B', '<CMD>BufTimerReport<CR>', mode = 'n', silent = true },
-    },
-  },
-  {
     'ysl2/vim-plugin-AnsiEsc',
     keys = {
       {
