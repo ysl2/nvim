@@ -77,7 +77,7 @@
   "diagnostic-languageserver.linters": {
      "flake8": {
        "debounce": 200,
-       "rootPatterns": [".git", "pyproject.toml", "setup.py", "requirements.txt", ".root"],
+       "rootPatterns": [".git", "pyproject.toml", "setup.py", "requirements.txt", ".root", ".flake8"],
        "args": [
          "--max-line-length=120",
          "--ignore=ANN101,ANN102,E402,E741,E203",
