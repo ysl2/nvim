@@ -164,9 +164,9 @@ vim.api.nvim_create_user_command('MyWrapToggle', _my_custom_toggle_wrap, {
 })
 
 
---- ===============
---- === Plugins ===
---- ===============
+-- ===============
+-- === Plugins ===
+-- ===============
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -325,7 +325,6 @@ vim.list_extend(M, {
     'is0n/fm-nvim',
     keys = {
        { '<Leader>l', '<CMD>Lf<CR>', mode = 'n', silent = true },
-       { '<Leader>g', '<CMD>Lazygit<CR>', mode = 'n', silent = true }
     },
     config = function()
       require('fm-nvim').setup{
@@ -683,7 +682,7 @@ vim.list_extend(M, {
     keys = {
       { [[<C-\>]] },
       { '<LEADER>t', '<CMD>lua _G.my_plugin_toggleterm({})<CR>',                  mode = 'n', silent = true },
-      -- { '<LEADER>g', "<CMD>lua _G.my_plugin_toggleterm({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
+      { '<LEADER>g', "<CMD>lua _G.my_plugin_toggleterm({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
       {
         '<LEADER>r',
         function()
