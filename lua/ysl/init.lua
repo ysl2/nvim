@@ -1448,12 +1448,15 @@ vim.list_extend(M, {
   },
   {
     'ysl2/vim-plugin-AnsiEsc',
+    cmd = 'AnsiEsc',
     keys = {
       {
         '<Leader>A', function()
           local pos = vim.fn.getpos('.')
+          local colors_name = vim.g.colors_name
           vim.cmd('silent! AnsiEsc')
           vim.fn.setpos('.', pos)
+          vim.g.colors_name = colors_name
         end, mode = 'n', silent = true
       }
     },
