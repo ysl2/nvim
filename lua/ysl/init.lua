@@ -350,7 +350,7 @@ vim.list_extend(M, {
           horz_split = '<C-s>',
         },
         -- Path to broot config
-        broot_conf = vim.fn.stdpath('data') .. '/lazy/fm-nvim/assets/broot_conf.hjson'
+        broot_conf = vim.fn.stdpath('data') .. '/lazy/fm-nvim/assets/broot_conf.json'
       }
     end
   },
