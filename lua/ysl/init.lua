@@ -1437,16 +1437,6 @@ vim.list_extend(M, {
     end
   },
   {
-    'm-demare/hlargs.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter'
-    },
-    config = function()
-      require('hlargs').setup()
-    end
-  },
-  {
     'folke/zen-mode.nvim',
     keys = {
       { '<C-w>z', '<CMD>ZenMode<CR>', mode = 'n', silent = true },
