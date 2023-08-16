@@ -1443,7 +1443,12 @@ vim.list_extend(M, {
     },
     cmd = 'ZenMode',
     config = function()
-      require('zen-mode').setup()
+      require('zen-mode').setup({
+        window = {
+          backdrop = 1,
+          width = 1,
+        }
+      })
     end
   },
   {
