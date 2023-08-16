@@ -1068,8 +1068,8 @@ vim.list_extend(M, {
     'ysl2/vim-colorscheme-switcher',
     dependencies = 'xolox/vim-misc',
     keys = {
-      { '<A-Left>', '<CMD>PrevColorScheme<CR>' },
-      { '<A-Right>', '<CMD>NextColorScheme<CR>' },
+      { '<A-_>', '<CMD>PrevColorScheme<CR>' },
+      { '<A-+>', '<CMD>NextColorScheme<CR>' },
     },
     config = function()
       vim.g.colorscheme_switcher_define_mappings = 0
@@ -1245,7 +1245,7 @@ vim.list_extend(M, {
           show_buffer_close_icons = false,
           show_close_icon = false,
           always_show_bufferline = false,
-          diagnostics = (function () local _lsp = U.splitstr(lsp, '.') return _lsp[#_lsp] end)()
+          diagnostics = (function () return lsp == 'ysl.lsp.coc' and 'coc' or 'nvim_lsp' end)()
         }
       })
     end
