@@ -249,8 +249,6 @@ vim.list_extend(M, {
     'phaazon/hop.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<C-s>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
-      { '<A-s>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true },
       { '<Leader><Leader>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
       { '<Leader><TAB>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
     },

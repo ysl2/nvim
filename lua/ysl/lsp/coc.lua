@@ -158,6 +158,7 @@ return {
       -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
       vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
       vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next)', { silent = true })
+      vim.keymap.set('n', '\\e', '<CMD>CocDiagnostics<CR>', { silent = true })
 
       -- GoTo code navigation.
       vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
@@ -227,14 +228,14 @@ return {
 
       -- Map function and class text objects
       -- NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-      vim.keymap.set('x', 'if', '<Plug>(coc-funcobj-i)', opts)
-      vim.keymap.set('o', 'if', '<Plug>(coc-funcobj-i)', opts)
-      vim.keymap.set('x', 'af', '<Plug>(coc-funcobj-a)', opts)
-      vim.keymap.set('o', 'af', '<Plug>(coc-funcobj-a)', opts)
-      vim.keymap.set('x', 'ic', '<Plug>(coc-classobj-i)', opts)
-      vim.keymap.set('o', 'ic', '<Plug>(coc-classobj-i)', opts)
-      vim.keymap.set('x', 'ac', '<Plug>(coc-classobj-a)', opts)
-      vim.keymap.set('o', 'ac', '<Plug>(coc-classobj-a)', opts)
+      -- vim.keymap.set('x', 'if', '<Plug>(coc-funcobj-i)', opts)
+      -- vim.keymap.set('o', 'if', '<Plug>(coc-funcobj-i)', opts)
+      -- vim.keymap.set('x', 'af', '<Plug>(coc-funcobj-a)', opts)
+      -- vim.keymap.set('o', 'af', '<Plug>(coc-funcobj-a)', opts)
+      -- vim.keymap.set('x', 'ic', '<Plug>(coc-classobj-i)', opts)
+      -- vim.keymap.set('o', 'ic', '<Plug>(coc-classobj-i)', opts)
+      -- vim.keymap.set('x', 'ac', '<Plug>(coc-classobj-a)', opts)
+      -- vim.keymap.set('o', 'ac', '<Plug>(coc-classobj-a)', opts)
 
       -- Remap <C-f> and <C-b> for scroll float windows/popups.
       ---@diagnostic disable-next-line: redefined-local
