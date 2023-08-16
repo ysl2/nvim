@@ -24,7 +24,7 @@ return {
       },
     },
     config = function()
-      vim.keymap.set('n', '<TAB>', function()
+      vim.keymap.set('n', '\\<TAB>', function()
         vim.cmd('ccl')
         vim.cmd('lcl')
         vim.cmd('set cmdheight=1')
