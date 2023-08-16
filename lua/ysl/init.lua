@@ -328,11 +328,6 @@ vim.list_extend(M, {
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
   { 'rafamadriz/friendly-snippets', event = 'VeryLazy' },
   {
-    'wellle/tmux-complete.vim',
-    cond = vim.fn.has('win32') == 0,
-    event = 'VeryLazy'
-  },
-  {
     'is0n/fm-nvim',
     keys = {
        { '<Leader>l', '<CMD>Lf<CR>', mode = 'n', silent = true },

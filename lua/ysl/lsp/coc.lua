@@ -316,4 +316,9 @@ return {
       require('telescope').load_extension('coc')
     end
   },
+  {
+    'wellle/tmux-complete.vim',
+    cond = vim.fn.has('win32') == 0,
+    event = 'VeryLazy'
+  },
 }
