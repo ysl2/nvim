@@ -678,7 +678,12 @@ vim.list_extend(M, {
     version = '1.*',
     config = function()
       require('window-picker').setup({
-        show_prompt = false
+        show_prompt = false,
+        filter_rules = {
+          bo = {
+            filetype = { 'notify' }
+          }
+        }
       })
     end
   },
