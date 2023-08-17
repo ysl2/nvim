@@ -249,8 +249,8 @@ vim.list_extend(M, {
     'phaazon/hop.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<Leader><Leader>', '<CMD>HopChar1MW<CR>',   mode = '', silent = true },
-      { '<Leader><TAB>',    '<CMD>HopPatternMW<CR>', mode = '', silent = true }
+      { '<Leader><Leader>', '<CMD>silent! HopChar1MW<CR>',   mode = '', silent = true },
+      { '<Leader><TAB>',    '<CMD>silent! HopPatternMW<CR>', mode = '', silent = true }
     },
     config = function()
       require('hop').setup()
