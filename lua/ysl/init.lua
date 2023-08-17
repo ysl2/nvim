@@ -1447,10 +1447,22 @@ vim.list_extend(M, {
         window = {
           backdrop = 1,
           width = 1,
-        }
+        },
       })
     end
   },
+  -- {
+  --   'Manas140/Zazen.nvim',
+  --   keys = {
+  --     { '<C-w>z', '<CMD>Zazen<CR>', mode = 'n', silent = true },
+  --   },
+  --   config = function ()
+  --     require('zazen').setup({
+  --       gap = 0,
+  --       border = 'none'
+  --     })
+  --   end
+  -- },
   {
     'ysl2/vim-plugin-AnsiEsc',
     cmd = 'AnsiEsc',
