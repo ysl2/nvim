@@ -665,7 +665,7 @@ vim.list_extend(M, {
     's1n7ax/nvim-window-picker',
     keys = {
       {
-        '<leader>w',
+        '<C-w><C-w>',
         function()
           local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
           vim.api.nvim_set_current_win(picked_window_id)
