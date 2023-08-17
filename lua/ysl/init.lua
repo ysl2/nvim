@@ -272,7 +272,11 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd('colorscheme tokyonight-night')
+      require('tokyonight').setup({
+        style = 'night',
+        lualine_bold = true
+      })
+      vim.cmd.colorscheme('tokyonight')
     end
   })
 
