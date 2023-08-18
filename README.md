@@ -7,7 +7,7 @@
 > TLDR:
 >
 > 1. Single main file: There is only one main file `./lua/ysl/init.lua` which contains common configuration and lots of common plugins.
-> 2. All things you need: language server & auto completion & diagnostics, file tree, motion, bookmark, register, edit history, buffer & window control, terminal, git, session save & auto restore like vscode, colors & highlight & outlooks, motions, fuzzy find & global replace, remote ssh, markdown image paste & markdown preview
+> 2. All things you need: language server & auto completion & diagnostics, file tree, motion, bookmark, register, edit history, buffer & window control, terminal, git, session save & auto restore like vscode, colors & highlight & outlooks, fuzzy find & global replace, remote ssh, markdown image paste & markdown preview
 > 3. Original keymap: I don't like to define many custom keymaps so I try my best to keep native keymaps and only map some functions or applications.
 > 4. Very fast: All plugins are lazyloaded so you can gain best performance of this configuration.
 > 5. Clean: The files are clean and well structured so that you can easily understand and modify them to fit your needs.
