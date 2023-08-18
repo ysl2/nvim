@@ -1,6 +1,8 @@
 # ysl2/nvim: An ultimate modern neovim pure lua configuration that focuses on KISS principle.
 
-![image](https://github.com/ysl2/nvim/assets/39717545/067e96da-bdd9-4067-8959-164f4bfc13aa)
+![image](https://github.com/ysl2/nvim/assets/39717545/71741871-8792-4ac8-be7b-fe82504c315f)
+
+
 
 > TLDR:
 >
