@@ -12,7 +12,6 @@
 > 4. Very fast: All plugins are lazyloaded so you can gain best performance of this configuration.
 > 5. Clean: The files are clean and well structured so that you can easily understand and modify them to fit your needs.
 > 6. Choose your own: I provide a local config file `./lua/ysl/secret.lua` so that you can cover some default settings like: which colorscheme, which lsp, which file to require, add your own plugin list. For example, You can select your lsp flavor from `./lua/ysl/lsp/nvim_lsp.lua` or `./lua/ysl/lsp/coc.lua`, default is `nvim_lsp`, choose the one you like from these two files, write it into `./lua/ysl/secret.lua`.
-> 7. Run any command: Directly into nvim. For example, you can run `htop` in nvim with a floating window.
 > 8. Intregration with others: VSCode's neovim extension support, Chrome input frame edit support.
 
 ## Introduction
