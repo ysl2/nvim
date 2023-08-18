@@ -695,7 +695,7 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     keys = {
       { [[<C-\>]] },
-      { '<LEADER>t', '<CMD>lua _G.my_plugin_toggleterm({})<CR>',                  mode = 'n', silent = true },
+      { '<LEADER>T', '<CMD>lua _G.my_plugin_toggleterm({})<CR>',                  mode = 'n', silent = true },
       { '<LEADER>g', "<CMD>lua _G.my_plugin_toggleterm({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
       {
         '<LEADER>r',
