@@ -22,17 +22,18 @@ Insights from:
 2. Distributions: [`LunarVim`](https://github.com/LunarVim/LunarVim) & [`LazyVim`](https://github.com/LazyVim/LazyVim) & [`NvChad`](https://github.com/NvChad/NvChad) provide the most popular plugins list.
 3. Collections: [`awesome-neovim`](https://github.com/rockerBOO/awesome-neovim) provides more special-interest plugins.
 4. Personal configs: [`FledgeXu/NeovimZero2Hero`](https://github.com/FledgeXu/NeovimZero2Hero) for minimal lsp & cmp configuration, [`theniceboy/nvim`](https://github.com/theniceboy/nvim) for some useful plugins.
-5. Other websites: [`chatGPT`](https://chat.openai.com), [`Google`](https://www.google.com), [`Github`](https://github.com), [`Reddit`](https://www.reddit.com), [`Stackoverflow`](https://stackoverflow.com), etc.
+<!-- 5. Other websites: [`chatGPT`](https://chat.openai.com), [`Google`](https://www.google.com), [`Github`](https://github.com), [`Reddit`](https://www.reddit.com), [`Stackoverflow`](https://stackoverflow.com), etc. -->
+5. Other websites: `chatGPT`, `Google`, `Github`, `Reddit`, `Stackoverflow`, etc.
 
 ## Prerequisites, install, update, and write down your local configuration
 
 ### Prerequisites
 
-- make (for MacOS and Linux) or  cmake (for Windows): Essential, for enhance telescope performance.
-- ripgrep: Essential, for fuzzy find and replace.
-- nerd-font: Optional, but recommended.
-- lazygit: Optional, for git support.
-- npm & yarn: Optional, for markdown preview and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
+- `make` (for MacOS and Linux) or  `cmake` (for Windows): Essential, for enhance telescope performance.
+- `ripgrep`: Essential, for fuzzy find and replace.
+- `nerd-font`: Optional, but recommended.
+- `lazygit`: Optional, for git support.
+- `npm` & `yarn`: Optional, for markdown preview and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
 
 ### Install & update
 
