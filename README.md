@@ -47,6 +47,10 @@ git pull origin master
 git fetch origin && git merge origin/master --no-edit
 ```
 
+### Write down your local configuration
+
+## My forked plugins list
+
 ## Keymaps
 
 |key| command | note |
