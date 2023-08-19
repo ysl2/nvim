@@ -5,6 +5,7 @@
       "tldr",
       "keymap",
       "stackoverflow",
-      "keymaps"
+      "keymaps",
+      "lazyloaded"
     ]
 }
