@@ -1470,6 +1470,38 @@ vim.list_extend(M, {
         end, mode = 'n', silent = true
       }
     },
+  },
+  {
+    'folke/trouble.nvim',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    keys = {
+      {
+        '<Leader>x', function()
+          local cmd = 'TroubleToggle'
+          if lsp == 'ysl.lsp.coc' then
+            cmd = [[
+              call coc#rpc#request('fillDiagnostics', [bufnr('%')])
+              TroubleToggle loclist
+            ]]
+          end
+          vim.cmd(cmd)
+        end, mode = 'n', silent = true
+      }
+    },
+    config = function()
+      if lsp == 'ysl.lsp.coc' then
+        require("trouble").setup {
+          position = "bottom", -- position of the list can be: bottom, top, left, right
+          height = 8, -- height of the trouble list when position is top or bottom
+          icons = true, -- use devicons for filenames
+          auto_open = true, -- automatically open the list when you have diagnostics
+          auto_close = true, -- automatically close the list when you have no diagnostics
+          mode = "loclist"
+        }
+        return
+      end
+      require('trouble').setup()
+    end
   }
 })
 

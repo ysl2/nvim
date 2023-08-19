@@ -9,6 +9,7 @@
       "lazyloaded",
       "theniceboy",
       "ripgrep",
-      "lazygit"
+      "lazygit",
+      "cmake"
     ]
 }
