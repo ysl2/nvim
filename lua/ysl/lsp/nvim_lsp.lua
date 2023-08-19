@@ -270,7 +270,6 @@ return {
     },
     config = function()
         local null_ls = require('null-ls')
-        local sep = U.SEP
         local cspell = {
           filetypes = { 'markdown', 'plaintext' },
           extra_args = {
