@@ -20,7 +20,7 @@ Insights from:
 
 1. Boilerplate: [`kickstart.nvim`](https://github.com/nvim-lua/kickstart.nvim) shows the single file structure, I think it has more benefits than lots of files especially when you're debugging with lots of plugins.
 2. Distributions: [`LunarVim`](https://github.com/LunarVim/LunarVim) & [`LazyVim`](https://github.com/LazyVim/LazyVim) & [`NvChad`](https://github.com/NvChad/NvChad) provide the most popular plugins list.
-3. [`awesome-neovim`](https://github.com/rockerBOO/awesome-neovim): More special-interest plugins.
+3. Collections: [`awesome-neovim`](https://github.com/rockerBOO/awesome-neovim): More special-interest plugins.
 4. Personal configs: [`FledgeXu/NeovimZero2Hero`](https://github.com/FledgeXu/NeovimZero2Hero) for minimal lsp & cmp configuration, [`theniceboy/nvim`](https://github.com/theniceboy/nvim) for some useful plugins.
 5. Other websites: Google, Github, Reddit, Stackoverflow, chatGPT, etc.
 
