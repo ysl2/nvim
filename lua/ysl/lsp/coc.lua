@@ -45,7 +45,8 @@ return {
         'coc-word',
         'coc-clangd',
         'coc-markdownlint',
-        'coc-diagnostic'
+        'coc-diagnostic',
+        'coc-spell-checker'
       }
 
       vim.g.coc_user_config = {}
@@ -63,7 +64,8 @@ return {
         ['snippets.textmateSnippetsRoots'] = vim.list_extend(
           { vim.fn.stdpath('config') .. sep .. 'snippets' },
           vim.list_extend({ friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
-        )
+        ),
+        ['cSpell.import'] = { U.CSPELL_JSON_PATH }
       })
 
       -- HACK: Coc config for specific Windows.

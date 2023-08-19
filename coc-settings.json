@@ -96,5 +96,9 @@
         "-q", "-"
       ]
     },
-  }
+  },
+  "cSpell.enabledLanguageIds": [
+    "markdown",
+    "plaintext",
+  ],
 }

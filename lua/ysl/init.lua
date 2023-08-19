@@ -730,10 +730,10 @@ vim.list_extend(M, {
               -- sudo apt install texlive-full texlive-lang-chinese fonts-wqy-microhei
               cjk = ' -V CJKmainfont="WenQuanYi Micro Hei"'
             end
-            local template = (vim.fn.stdpath('config') .. sep .. 'pandoc-templates' .. sep .. 'eisvogel.latex'):gsub('/',
+            local latex_template = (vim.fn.stdpath('config') .. sep .. 'templates' .. sep .. 'eisvogel.latex'):gsub('/',
               sep)
             cmd = ('cd "%s" && pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(dir, fileName,
-              template,
+              latex_template,
               cjk, fileNameWithoutExt)
           elseif ft == 'python' then
             cmd = ('cd "%s" && python %s'):format(dir, fileName)

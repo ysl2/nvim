@@ -67,7 +67,6 @@ return {
       })
 
       vim.diagnostic.config({
-        underline = false,
         virtual_text = false,
         float = false,
       })
@@ -271,14 +270,21 @@ return {
     },
     config = function()
         local null_ls = require('null-ls')
+        local sep = U.SEP
+        local cspell = {
+          filetypes = { 'markdown', 'plaintext' },
+          extra_args = {
+            '--config=' .. U.CSPELL_JSON_PATH
+          },
+        }
         null_ls.setup({
           -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
           sources = {
             null_ls.builtins.code_actions.gitsigns,
             null_ls.builtins.completion.luasnip,
             null_ls.builtins.completion.spell,
-            null_ls.builtins.diagnostics.codespell,
-            null_ls.builtins.formatting.codespell,
+            null_ls.builtins.diagnostics.cspell.with(cspell),
+            null_ls.builtins.code_actions.cspell.with(cspell),
             null_ls.builtins.completion.tags,
             null_ls.builtins.diagnostics.flake8.with({ extra_args = {
               '--max-line-length=120',
@@ -290,7 +296,7 @@ return {
             }}),
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.code_actions.shellcheck,
-            null_ls.builtins.formatting.shfmt
+            null_ls.builtins.formatting.shfmt,
           }
         })
     end,
