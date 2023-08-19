@@ -277,6 +277,8 @@ return {
             null_ls.builtins.code_actions.gitsigns,
             null_ls.builtins.completion.luasnip,
             null_ls.builtins.completion.spell,
+            null_ls.builtins.diagnostics.codespell,
+            null_ls.builtins.formatting.codespell,
             null_ls.builtins.completion.tags,
             null_ls.builtins.diagnostics.flake8.with({ extra_args = {
               '--max-line-length=120',
