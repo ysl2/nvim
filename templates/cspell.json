@@ -6,6 +6,9 @@
       "keymap",
       "stackoverflow",
       "keymaps",
-      "lazyloaded"
+      "lazyloaded",
+      "theniceboy",
+      "ripgrep",
+      "lazygit"
     ]
 }
