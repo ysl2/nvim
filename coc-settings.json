@@ -57,10 +57,6 @@
   "python.formatting.provider": "none",
   "python.linting.enabled": false,
   "clangd.arguments": ["-fallback-style=microsoft"],
-  "markdownlint.config": {
-    "default": true,
-    "line_length": false
-  },
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
     "python": "flake8",
