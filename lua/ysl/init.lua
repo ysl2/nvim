@@ -586,7 +586,6 @@ vim.list_extend(M, {
     (function() return vim.fn.has('win32') == 1 and 'ysl2' or 'nvim-tree' end)() .. '/nvim-tree.lua',
     keys = {
       { '<LEADER>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true },
-      { '<LEADER>E', '<CMD>NvimTreeFocus<CR>', mode = 'n', silent = true }
     },
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     config = function()
