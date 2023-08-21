@@ -285,14 +285,8 @@ return {
             null_ls.builtins.diagnostics.cspell.with(cspell),
             null_ls.builtins.code_actions.cspell.with(cspell),
             null_ls.builtins.completion.tags,
-            null_ls.builtins.diagnostics.flake8.with({ extra_args = {
-              '--max-line-length=120',
-              '--ignore=ANN101,ANN102,E402,E741,E203'
-            }}),
-            null_ls.builtins.formatting.black.with({ extra_args = {
-              '--line-length=120',
-              '--skip-string-normalization'
-            }}),
+            null_ls.builtins.diagnostics.flake8.with({ extra_args = U.LSP.FLAKE8.ARGS }),
+            null_ls.builtins.formatting.black.with({ extra_args = U.LSP.BLACK.ARGS }),
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.code_actions.shellcheck,
             null_ls.builtins.formatting.shfmt,

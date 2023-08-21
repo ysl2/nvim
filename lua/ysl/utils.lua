@@ -25,6 +25,18 @@ M.LSP = {
       'plaintext'
     },
     JSON_PATH = vim.fn.stdpath('config') .. sep .. 'templates' .. sep .. 'cspell.json'
+  },
+  FLAKE8 = {
+    ARGS = {
+      '--max-line-length=120',
+      '--ignore=ANN101,ANN102,E402,E741,E203',
+    }
+  },
+  BLACK = {
+    ARGS = {
+      '--line-length=120',
+      '--skip-string-normalization',
+    }
   }
 }
 

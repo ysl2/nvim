@@ -49,7 +49,7 @@ return {
         'coc-spell-checker'
       }
 
-      vim.g.coc_user_config = {}
+      vim.g.coc_user_config = vim.empty_dict()
 
       -- HACK: Coc config shared by Windows, Linux and Mac.
       -- NOTE: dependencies: 'honza/vim-snippets',
@@ -67,6 +67,21 @@ return {
         ),
         ['cSpell.import'] = { U.LSP.CSPELL.JSON_PATH },
         ['cSpell.enabledLanguageIds'] = U.LSP.CSPELL.FILETYPES,
+        ['diagnostic-languageserver.linters'] = {
+          flake8 = {
+            args = vim.list_extend(U.LSP.FLAKE8.ARGS, {
+              '--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s',
+              '-'
+            })
+          }
+        },
+        ['diagnostic-languageserver.formatters'] = {
+          black = {
+            args = vim.list_extend(U.LSP.BLACK.ARGS, {
+              '-q', '-'
+            })
+          }
+        }
       })
 
       -- HACK: Coc config for specific Windows.
