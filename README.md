@@ -49,9 +49,9 @@ git pull origin master
 git fetch origin && git merge origin/master --no-edit
 ```
 
-### Project structure tree, and how to cover the default settings with your local configuration
+## Project structure tree, and how to cover the default settings with your local configuration
 
-#### Project structure tree
+### Project structure tree
 
 #### Cover the default settings with your local configuration
 
