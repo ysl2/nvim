@@ -11,6 +11,7 @@
       "ripgrep",
       "lazygit",
       "cmake",
-      "eisvogel"
+      "eisvogel",
+      "dirsfirst"
     ]
 }

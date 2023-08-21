@@ -54,28 +54,28 @@ git fetch origin && git merge origin/master --no-edit
 ### Project structure tree
 
 ```text
-❯ tree
+❯ tree --dirsfirst
 .
+├── lua
+│   └── ysl
+│       ├── lsp
+│       │   ├── coc.lua
+│       │   └── nvim_lsp.lua
+│       ├── init.lua
+│       ├── secret.lua
+│       └── utils.lua
+├── snippets
+│   ├── lua.json
+│   └── python.json
+├── templates
+│   ├── cspell.json
+│   └── eisvogel.latex
 ├── coc-settings.json
 ├── init.lua
 ├── lazy-lock.json
 ├── LICENSE
-├── lua
-│   └── ysl
-│       ├── init.lua
-│       ├── lsp
-│       │   ├── coc.lua
-│       │   └── nvim_lsp.lua
-│       ├── secret.lua
-│       └── utils.lua
 ├── package.json
-├── README.md
-├── snippets
-│   ├── lua.json
-│   └── python.json
-└── templates
-    ├── cspell.json
-    └── eisvogel.latex
+└── README.md
 
 5 directories, 15 files
 ```
