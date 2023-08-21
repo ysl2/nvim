@@ -273,7 +273,7 @@ return {
         local cspell = {
           filetypes = U.LSP.CSPELL.FILETYPES,
           extra_args = {
-            '--config=' .. U.LSP.CSPELL.JSON_PATH
+            '--config=' .. U.LSP.CSPELL.CONFIG
           },
         }
         null_ls.setup({
@@ -285,8 +285,8 @@ return {
             null_ls.builtins.diagnostics.cspell.with(cspell),
             null_ls.builtins.code_actions.cspell.with(cspell),
             null_ls.builtins.completion.tags,
-            null_ls.builtins.diagnostics.flake8.with({ extra_args = U.LSP.FLAKE8.ARGS }),
-            null_ls.builtins.formatting.black.with({ extra_args = U.LSP.BLACK.ARGS }),
+            null_ls.builtins.diagnostics.flake8.with({ extra_args = U.LSP.FLAKE8.EXTRA_ARGS }),
+            null_ls.builtins.formatting.black.with({ extra_args = U.LSP.BLACK.EXTRA_ARGS }),
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.code_actions.shellcheck,
             null_ls.builtins.formatting.shfmt,

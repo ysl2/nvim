@@ -65,11 +65,11 @@ return {
           { vim.fn.stdpath('config') .. sep .. 'snippets' },
           vim.list_extend({ friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
         ),
-        ['cSpell.import'] = { U.LSP.CSPELL.JSON_PATH },
+        ['cSpell.import'] = { U.LSP.CSPELL.CONFIG },
         ['cSpell.enabledLanguageIds'] = U.LSP.CSPELL.FILETYPES,
         ['diagnostic-languageserver.linters'] = {
           flake8 = {
-            args = vim.list_extend(U.LSP.FLAKE8.ARGS, {
+            args = vim.list_extend(U.LSP.FLAKE8.EXTRA_ARGS, {
               '--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s',
               '-'
             })
@@ -77,7 +77,7 @@ return {
         },
         ['diagnostic-languageserver.formatters'] = {
           black = {
-            args = vim.list_extend(U.LSP.BLACK.ARGS, {
+            args = vim.list_extend(U.LSP.BLACK.EXTRA_ARGS, {
               '-q', '-'
             })
           }
