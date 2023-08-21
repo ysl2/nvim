@@ -59,7 +59,7 @@
   "clangd.arguments": ["-fallback-style=microsoft"],
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
-    "python": "flake8",
+    "python": "flake8"
   },
   "diagnostic-languageserver.linters": {
      "flake8": {
@@ -91,10 +91,6 @@
         "--skip-string-normalization",
         "-q", "-"
       ]
-    },
-  },
-  "cSpell.enabledLanguageIds": [
-    "markdown",
-    "plaintext",
-  ],
+    }
+  }
 }

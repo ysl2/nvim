@@ -65,7 +65,8 @@ return {
           { vim.fn.stdpath('config') .. sep .. 'snippets' },
           vim.list_extend({ friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
         ),
-        ['cSpell.import'] = { U.CSPELL_JSON_PATH }
+        ['cSpell.import'] = { U.CSPELL_JSON_PATH },
+        ['cSpell.enabledLanguageIds'] = U.CSPELL_FILETYPES,
       })
 
       -- HACK: Coc config for specific Windows.

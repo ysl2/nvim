@@ -271,7 +271,7 @@ return {
     config = function()
         local null_ls = require('null-ls')
         local cspell = {
-          filetypes = { 'markdown', 'plaintext' },
+          filetypes = U.CSPELL_FILETYPES,
           extra_args = {
             '--config=' .. U.CSPELL_JSON_PATH
           },
