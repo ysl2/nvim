@@ -524,7 +524,9 @@ vim.list_extend(M, {
               ['<C-j>'] = telescope_actions.move_selection_next,
               ['<C-k>'] = telescope_actions.move_selection_previous,
               ['<C-r>'] = require('telescope.actions.layout').toggle_preview,
-              ['<C-x>'] = telescope_actions.delete_buffer
+              ['<C-x>'] = telescope_actions.delete_buffer,
+              ['<C-s>'] = telescope_actions.select_horizontal,
+              ['<C-e>'] = telescope_actions.select_default
             }
           },
           layout_config = {
