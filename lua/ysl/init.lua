@@ -1351,7 +1351,7 @@ vim.list_extend(M, {
       })
 
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = U.GROUP_NVIM_LSP,
+        group = U.GROUP.NVIM_LSP,
         callback = function(ev)
           local noice_lsp = require('noice.lsp')
           vim.keymap.set({'n', 'i', 's'}, '<c-f>', function()

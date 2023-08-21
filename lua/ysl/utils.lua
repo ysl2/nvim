@@ -14,12 +14,18 @@ M.TOBOOLEAN = {
 
 M.SIGNS = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 
-M.GROUP_NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
+M.GROUP = {
+  NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
+}
 
-M.CSPELL_JSON_PATH = vim.fn.stdpath('config') .. sep .. 'templates' .. sep .. 'cspell.json'
-M.CSPELL_FILETYPES = {
-  'markdown',
-  'plaintext'
+M.LSP = {
+  CSPELL = {
+    FILETYPES = {
+      'markdown',
+      'plaintext'
+    },
+    JSON_PATH = vim.fn.stdpath('config') .. sep .. 'templates' .. sep .. 'cspell.json'
+  }
 }
 
 -- =================
