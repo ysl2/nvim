@@ -24,7 +24,7 @@ Insights from:
 4. Personal configs: [`FledgeXu/NeovimZero2Hero`](https://github.com/FledgeXu/NeovimZero2Hero) for minimal lsp & cmp configuration, [`theniceboy/nvim`](https://github.com/theniceboy/nvim) for some useful plugins.
 5. Other websites: `chatGPT`, `Google`, `Github`, `Reddit`, `Stackoverflow`, etc.
 
-## Prerequisites, install, update, and write down your local configuration
+## Prerequisites, install, update
 
 ### Prerequisites
 
@@ -49,7 +49,11 @@ git pull origin master
 git fetch origin && git merge origin/master --no-edit
 ```
 
-### Write down your local configuration
+### Project structure tree, and how to cover the default settings with your local configuration
+
+#### Project structure tree
+
+#### Cover the default settings with your local configuration
 
 ## Keymaps
 
