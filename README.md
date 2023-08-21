@@ -29,7 +29,9 @@ Insights from:
 
 ### Prerequisites
 
-- `make` (for MacOS and Linux) or  `cmake` (for Windows): Essential, for enhance telescope performance.
+- A build tool: Essential, for enhance telescope performance, choose one below depends on your system.
+  - `make` (for MacOS and Linux only)
+  - `cmake` (for Windows only)
 - `ripgrep`: Essential, for fuzzy find and replace.
 - `nerd-font`: Optional, but recommended.
 - `lazygit`: Optional, for git support.
@@ -49,8 +51,6 @@ git fetch origin && git merge origin/master --no-edit
 ```
 
 ### Write down your local configuration
-
-## My forked plugins list
 
 ## Keymaps
 
@@ -87,3 +87,5 @@ git fetch origin && git merge origin/master --no-edit
 #### With Chrome
 
 #### Applications
+
+## My forked plugins list
