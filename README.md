@@ -53,7 +53,7 @@ git fetch origin && git merge origin/master --no-edit
 
 ### Project structure tree
 
-#### Cover the default settings with your local configuration
+### Cover the default settings with your local configuration
 
 ## Keymaps
 
