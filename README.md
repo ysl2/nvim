@@ -31,7 +31,7 @@ Insights from:
 - A build tool: Essential, for enhance telescope performance, choose one below depends on your system.
   - `make` (for MacOS and Linux only)
   - `cmake` (for Windows only)
-- `ripgrep`: Essential, for fuzzy find and replace.
+- `ripgrep`: Essential, for fuzzy search and replace.
 - `nerd-font`: Optional, but recommended.
 - `lazygit`: Optional, for git support.
 - `npm` & `yarn`: Optional, for markdown preview and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
