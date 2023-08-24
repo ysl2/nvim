@@ -31,6 +31,7 @@ Insights from:
 - A build tool: Essential, for enhance telescope performance, choose one below depends on your system.
   - `make` (for MacOS and Linux only)
   - `cmake` (for Windows only)
+- A C compiler `clang` or `gcc` (choose one between them): Essential, for nvim-treesitter support.
 - `ripgrep`: Essential, for fuzzy search and replace.
 - `nerd-font`: Optional, but recommended.
 - `lazygit`: Optional, for git support.
