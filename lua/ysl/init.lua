@@ -495,6 +495,7 @@ vim.list_extend(M, {
       { '<LEADER>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
       { '<LEADER>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
       { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true },
+      { '<LEADER>U', '<CMD>Telescope resume<CR>',                     mode = 'n', silent = true },
       {
         '<Leader>/', function()
           require('telescope.builtin').current_buffer_fuzzy_find()
