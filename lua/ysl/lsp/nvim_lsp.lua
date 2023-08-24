@@ -273,7 +273,7 @@ return {
         local cspell = {
           filetypes = U.LSP.CSPELL.FILETYPES,
           extra_args = {
-            '--config=' .. U.LSP.CSPELL.CONFIG
+            '--config=' .. U.LSP.CSPELL.EXTRA_ARGS.CONFIG
           },
         }
         null_ls.setup({

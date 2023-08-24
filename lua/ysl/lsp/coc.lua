@@ -65,7 +65,7 @@ return {
           { vim.fn.stdpath('config') .. sep .. 'snippets' },
           vim.list_extend({ friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
         ),
-        ['cSpell.import'] = { U.LSP.CSPELL.CONFIG },
+        ['cSpell.import'] = { U.LSP.CSPELL.EXTRA_ARGS.CONFIG },
         ['cSpell.enabledLanguageIds'] = U.LSP.CSPELL.FILETYPES,
         ['diagnostic-languageserver.linters'] = {
           flake8 = {

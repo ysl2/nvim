@@ -24,7 +24,9 @@ M.LSP = {
       'markdown',
       'plaintext'
     },
-    CONFIG = vim.fn.stdpath('config') .. sep .. 'templates' .. sep .. 'cspell.json'
+    EXTRA_ARGS = {
+      CONFIG = vim.fn.stdpath('config') .. sep .. 'templates' .. sep .. 'cspell.json'
+    }
   },
   FLAKE8 = {
     EXTRA_ARGS = {
