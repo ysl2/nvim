@@ -480,6 +480,10 @@ vim.list_extend(M, {
             node_decremental = '<A-CR>',
           },
         },
+        indent = {
+            enable = true,
+            -- disable = {}
+        },
       }
     end
   },
