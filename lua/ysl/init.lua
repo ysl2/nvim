@@ -480,7 +480,7 @@ vim.list_extend(M, {
             node_decremental = '<A-CR>',
           },
         },
-        indent = {
+        indent = {  -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136
             enable = true,
             -- disable = {}
         },
