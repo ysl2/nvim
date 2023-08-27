@@ -348,9 +348,7 @@ vim.list_extend(M, {
         -- Mappings used with the plugin
         mappings = {
           horz_split = '<C-s>',
-        },
-        -- Path to broot config
-        broot_conf = vim.fn.stdpath('data') .. '/lazy/fm-nvim/assets/broot_conf.json'
+        }
       }
     end
   },
@@ -583,7 +581,7 @@ vim.list_extend(M, {
       vim.g.undotree_WindowLayout = 3
       vim.g.undotree_SetFocusWhenToggle = 1
       if vim.fn.has('persistent_undo') == 1 then
-        local target_path = vim.fn.expand(vim.fn.stdpath('data') .. '/.undodir')
+        local target_path = vim.fn.expand(vim.fn.stdpath('data') .. sep .. '.undodir')
         if vim.fn.isdirectory(target_path) == 0 then
           vim.fn.mkdir(target_path, 'p')
         end
@@ -711,7 +709,6 @@ vim.list_extend(M, {
           local ft = vim.opt.filetype._value
           local cmd
 
-          local sep = U.SEP
           local dir = vim.fn.expand('%:p:h')
           local fileName = vim.fn.expand('%:t')
           local fileNameWithoutExt = vim.fn.expand('%:t:r')
