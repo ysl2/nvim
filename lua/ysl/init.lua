@@ -39,7 +39,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   command = 'set ff=unix'
 })
 vim.opt.guicursor = ''
-vim.opt.smartindent = true
 vim.opt.cursorline = true
 vim.opt.exrc = true
 vim.opt.foldmethod = 'indent'
