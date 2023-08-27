@@ -164,7 +164,8 @@ vim.api.nvim_create_user_command('MyWrapToggle', _my_custom_toggle_wrap, {
 -- ===============
 -- === Plugins ===
 -- ===============
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local sep = U.SEP
+local lazypath = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
