@@ -41,9 +41,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 vim.opt.guicursor = ''
 vim.opt.cursorline = true
 vim.opt.exrc = true
-vim.opt.foldmethod = 'indent'
 vim.opt.foldlevel = 99
-vim.opt.foldenable = true
 vim.opt.foldlevelstart = 99
 vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
@@ -484,6 +482,11 @@ vim.list_extend(M, {
             -- disable = {}
         },
       }
+      vim.cmd([[
+        set foldmethod=expr
+        set foldexpr=nvim_treesitter#foldexpr()
+        set nofoldenable                     " Disable folding at startup.
+      ]])
     end
   },
   {
