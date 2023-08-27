@@ -56,7 +56,6 @@
   "tabnine.enablePreselect": false,
   "python.formatting.provider": "none",
   "python.linting.enabled": false,
-  "clangd.arguments": ["-fallback-style=microsoft"],
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
     "python": "flake8"

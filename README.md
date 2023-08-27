@@ -102,6 +102,14 @@ git fetch origin && git merge origin/master --no-edit
 
 ### LSP system
 
+#### C
+
+`./clang-format` on project.
+
+#### Markdown
+
+`~/.markdownlint`
+
 ### Fuzzy search & global replace system
 
 ### Mark system
