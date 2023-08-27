@@ -380,7 +380,7 @@ vim.list_extend(M, {
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
-        ensure_installed = { 'vim', 'query', 'lua', 'python', 'bash' },
+        ensure_installed = { 'vim', 'query', 'lua', 'python', 'bash', 'c' },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
