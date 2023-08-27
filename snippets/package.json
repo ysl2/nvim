@@ -3,11 +3,11 @@
     "snippets": [
       {
         "language": "python",
-        "path": "./snippets/python.json"
+        "path": "./python.json"
       },
       {
         "language": "lua",
-        "path": "./snippets/lua.json"
+        "path": "./lua.json"
       }
     ]
   }

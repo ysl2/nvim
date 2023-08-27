@@ -155,7 +155,11 @@ return {
     build = 'make install_jsregexp',
     lazy = true,
     config = function ()
-      require('luasnip.loaders.from_vscode').lazy_load()
+      local sep = U.SEP
+      require('luasnip.loaders.from_vscode').lazy_load({ paths = {
+        vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'friendly-snippets',
+        vim.fn.stdpath('config') .. sep .. 'snippets',
+      } })
       local luasnip = require('luasnip')
       -- Stop snippets when you leave to normal mode
       vim.api.nvim_create_autocmd('ModeChanged', {
