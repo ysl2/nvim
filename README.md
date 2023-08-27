@@ -131,3 +131,13 @@ git fetch origin && git merge origin/master --no-edit
 #### Applications
 
 ## My forked plugins list
+
+## Tricks
+
+```lua
+vim.keymap.set('n', ':w<CR>', '<CMD>silent w<CR>', { silent = true })
+
+-- For changing hlslens `n` and `N` keys to keep the searched words in the middle line of screen.
+n -> nzzzv
+N -> Nzzzv
+```
