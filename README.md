@@ -104,7 +104,7 @@ git fetch origin && git merge origin/master --no-edit
 
 #### C
 
-`./clang-format` on project.
+`./clang-format` on project. See: https://github.com/clangd/coc-clangd/issues/39
 
 #### Markdown
 
