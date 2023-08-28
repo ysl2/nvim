@@ -1509,6 +1509,10 @@ vim.list_extend(M, {
       end
       require('trouble').setup()
     end
+  },
+  {
+    'cybardev/cython.vim',
+    ft = 'cython'
   }
 })
 
