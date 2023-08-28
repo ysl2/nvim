@@ -102,6 +102,12 @@ git fetch origin && git merge origin/master --no-edit
 
 ### LSP system
 
+#### Python
+
+```bash
+pip install flake8 black
+```
+
 #### C
 
 `./clang-format` on project. See: https://github.com/clangd/coc-clangd/issues/39
