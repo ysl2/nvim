@@ -327,7 +327,7 @@ vim.list_extend(M, {
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
   { 'rafamadriz/friendly-snippets', event = 'VeryLazy', build = function ()
       if lsp == 'ysl.lsp.coc' then
-        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' friendly2')
+        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' friendly')
       end
     end
   },

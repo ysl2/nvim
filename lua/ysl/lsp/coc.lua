@@ -59,12 +59,11 @@ return {
       --     U.path(vim.fn.stdpath('data'), 'lazy', 'vim-snippets', 'UltiSnips'),
       --   }
       -- })
-
-      local friendly = U.path(vim.fn.stdpath('data'), 'lazy', 'friendly-snippets', 'snippets')
+      local friendly = U.path(vim.fn.stdpath('data'), 'lazy', 'friendly-snippets', 'templates', 'snippets')
       local cython = U.path(vim.fn.stdpath('data'), 'lazy', 'cython-snips')
       vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
         ['snippets.textmateSnippetsRoots'] = U.mergelists(
-          { U.path(vim.fn.stdpath('config'), 'snippets') },
+          { U.CUSTOM_SNIPPETS_PATH },
           { friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '**' .. sep), '\n'),
           { cython }, U.splitstr(vim.fn.glob(cython .. sep .. '**' .. sep), '\n')
         ),

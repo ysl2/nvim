@@ -42,6 +42,13 @@ M.LSP = {
   }
 }
 
+local path = function(...)
+  local result, _ = table.concat({ ... }, sep):gsub('/', sep)
+  return result
+end
+
+M.CUSTOM_SNIPPETS_PATH = path(vim.fn.stdpath('config'), 'templates', 'snippets')
+
 -- =================
 -- === Functions ===
 -- =================
@@ -112,9 +119,6 @@ M.mergelists = function(...)
     return mergedList
 end
 
-M.path = function(...)
-  local result, _ = table.concat({ ... }, sep):gsub('/', sep)
-  return result
-end
+M.path = path
 
 return M

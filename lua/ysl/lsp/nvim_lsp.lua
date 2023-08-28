@@ -156,7 +156,7 @@ return {
     lazy = true,
     config = function ()
       require('luasnip.loaders.from_vscode').lazy_load({ paths = {
-        U.path(vim.fn.stdpath('config'), 'snippets'),
+        U.CUSTOM_SNIPPETS_PATH,
         U.path(vim.fn.stdpath('data'), 'lazy', 'friendly-snippets'),
         U.path(vim.fn.stdpath('data'), 'lazy', 'cython-snips'),
       } })
