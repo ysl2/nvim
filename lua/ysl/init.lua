@@ -1516,7 +1516,7 @@ vim.list_extend(M, {
   },
   { 'cybardev/cython.vim', ft = 'cython' },
   {
-    'NullptrExceptions/cython-snips', ft = 'cython',
+    'ysl2/cython-snips', ft = 'cython',
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
       if lsp == 'ysl.lsp.coc' then
