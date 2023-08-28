@@ -3,26 +3,20 @@ import os
 assert os.sep == '/', 'Not implemented yet for Windows system.'
 import argparse
 import json
-from rich.pretty import pprint as print
+import contextlib
 
 
 FRIENDLY = pathlib.Path.home() / '.local/share/nvim/lazy/friendly-snippets'
-FRIENDLY_PACKAGE = FRIENDLY / 'package.json'
-snippets = FRIENDLY / 'snippets'
+CYTHON = pathlib.Path.home() / '.local/share/nvim/lazy/cython-snips'
 
 
 def _symlink(link, file, create=True):
-    try:
+    with contextlib.suppress(Exception):
         if create:
             link.parent.mkdir(parents=True, exist_ok=True)
             link.symlink_to(file)
         else:
             link.unlink()
-    except Exception as e:
-        # print(e)
-        # import pdb
-        # pdb.set_trace()  # HACK: Songli.Yu: ""
-        pass
 
 
 def _package(package):
@@ -31,16 +25,8 @@ def _package(package):
     return package['contributes']['snippets']
 
 
-def cython2(create=True):
-    cython = pathlib.Path.home() / '.local/share/nvim/lazy/cython-snips'
-    python = snippets / 'python'
-    for file in python.glob('*.json'):
-        link = pathlib.Path(f"{cython / file.relative_to(snippets).as_posix().split('.')[0]}/cython.json")
-        _symlink(link, file, create)
-
-
 def _generator():
-    for item in _package(FRIENDLY_PACKAGE):
+    for item in _package(FRIENDLY / 'package.json'):
         file = FRIENDLY / item['path']
         language = item['language']
         yield file, language
@@ -63,9 +49,27 @@ def friendly(create=True):
 def cython(create=True):
     for file, language in _generator():
         if language == 'python':
-            print(file.relative_to(FRIENDLY))
-            # TODO:
-            # link =
+            link = CYTHON / file.relative_to(FRIENDLY)
+            _symlink(link, file, create)
+
+    package_json = CYTHON / 'package.json'
+    package = {
+        'contributes': {
+            'snippets': []
+        }
+    }
+    for item in CYTHON.glob('**/*.json'):
+        if item.as_posix() == package_json.as_posix():
+            continue
+        pack = {
+            'language': 'cython',
+            'path': item.relative_to(CYTHON).as_posix()
+        }
+        package['contributes']['snippets'].append(pack)
+
+    package_json.mkdir(parents=True, exist_ok=True)
+    with open(package_json, 'w') as j:
+        json.dump(package, j)
 
 
 if __name__ == '__main__':
