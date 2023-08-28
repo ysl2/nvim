@@ -164,8 +164,7 @@ vim.api.nvim_create_user_command('MyWrapToggle', _my_custom_toggle_wrap, {
 -- ===============
 -- === Plugins ===
 -- ===============
-local sep = U.SEP
-local lazypath = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'lazy.nvim'
+local lazypath = U.path(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
@@ -328,7 +327,7 @@ vim.list_extend(M, {
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
   { 'rafamadriz/friendly-snippets', event = 'VeryLazy', build = function ()
       if lsp == 'ysl.lsp.coc' then
-        os.execute('/usr/bin/env python3 ' .. vim.fn.stdpath('config') .. sep .. 'scripts' .. sep .. 'coc_snippets.py friendly')
+        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' friendly')
       end
     end
   },
@@ -586,7 +585,7 @@ vim.list_extend(M, {
       vim.g.undotree_WindowLayout = 3
       vim.g.undotree_SetFocusWhenToggle = 1
       if vim.fn.has('persistent_undo') == 1 then
-        local target_path = vim.fn.expand(vim.fn.stdpath('data') .. sep .. '.undodir')
+        local target_path = vim.fn.expand(U.path(vim.fn.stdpath('data'), '.undodir'))
         if vim.fn.isdirectory(target_path) == 0 then
           vim.fn.mkdir(target_path, 'p')
         end
@@ -718,6 +717,7 @@ vim.list_extend(M, {
           local fileName = vim.fn.expand('%:t')
           local fileNameWithoutExt = vim.fn.expand('%:t:r')
 
+          local sep = U.SEP
           if ft == 'c' then
             local outfile = fileNameWithoutExt
             if vim.fn.has('win32') == 1 then
@@ -741,8 +741,7 @@ vim.list_extend(M, {
               -- sudo apt install texlive-full texlive-lang-chinese fonts-wqy-microhei
               cjk = ' -V CJKmainfont="WenQuanYi Micro Hei"'
             end
-            local latex_template = (vim.fn.stdpath('config') .. sep .. 'templates' .. sep .. 'eisvogel.latex'):gsub('/',
-              sep)
+            local latex_template = U.path(vim.fn.stdpath('config'), 'templates', 'eisvogel.latex')
             cmd = ('cd "%s" && pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(dir, fileName,
               latex_template,
               cjk, fileNameWithoutExt)
@@ -1521,7 +1520,7 @@ vim.list_extend(M, {
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
       if lsp == 'ysl.lsp.coc' then
-        os.execute('/usr/bin/env python3 ' .. vim.fn.stdpath('config') .. sep .. 'scripts' .. sep .. 'coc_snippets.py cython')
+        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' cython')
       end
     end
   }

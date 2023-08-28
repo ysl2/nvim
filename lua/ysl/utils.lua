@@ -112,4 +112,9 @@ M.mergelists = function(...)
     return mergedList
 end
 
+M.path = function(...)
+  local result, _ = table.concat({ ... }, sep):gsub('/', sep)
+  return result
+end
+
 return M
