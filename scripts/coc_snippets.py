@@ -61,15 +61,22 @@ def cython(create=True):
     for item in CYTHON.glob('**/*.json'):
         if item.as_posix() == package_json.as_posix():
             continue
+        relative = item.relative_to(CYTHON)
+        # TODO:
+        # 1. Create symlink of `cython.json` from python snippets.
+        # 2. Write package.json
+        path = relative.parent / item.stem / 'cython.json'
         pack = {
             'language': 'cython',
-            'path': item.relative_to(CYTHON).as_posix()
+            'path': path.as_posix()
         }
         package['contributes']['snippets'].append(pack)
 
-    package_json.mkdir(parents=True, exist_ok=True)
-    with open(package_json, 'w') as j:
-        json.dump(package, j)
+    print(package)
+
+    # package_json.parent.mkdir(parents=True, exist_ok=True)
+    # with open(package_json, 'w') as j:
+    #     json.dump(package, j)
 
 
 if __name__ == '__main__':
