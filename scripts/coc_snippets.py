@@ -6,8 +6,8 @@ import json
 from rich.pretty import pprint as print
 
 
-friendlyy = pathlib.Path.home() / '.local/share/nvim/lazy/friendly-snippets'
-snippets = friendlyy / 'snippets'
+FRIENDLY = pathlib.Path.home() / '.local/share/nvim/lazy/friendly-snippets'
+snippets = FRIENDLY / 'snippets'
 
 
 def symlink(link, file, create=True):
@@ -24,7 +24,7 @@ def symlink(link, file, create=True):
         pass
 
 
-def friendly(create=True):
+def friendly2(create=True):
     for file in snippets.rglob('*.json'):
         link = file.relative_to(snippets)
         ft_index = 0
@@ -37,7 +37,7 @@ def friendly(create=True):
             symlink(link, file, create)
 
 
-def cython(create=True):
+def cython2(create=True):
     cython = pathlib.Path.home() / '.local/share/nvim/lazy/cython-snips'
     python = snippets / 'python'
     for file in python.glob('*.json'):
@@ -45,21 +45,22 @@ def cython(create=True):
         symlink(link, file, create)
 
 
-def friendly2(create=True):
-    fp = friendlyy / 'package.json'
-    with open(fp, 'r') as j:
-        fp = json.load(j)
-    fp = fp['contributes']['snippets']
-    for item in fp:
-        file = friendlyy / item['path']
+def friendly(create=True):
+    package = FRIENDLY / 'package.json'
+    with open(package, 'r') as j:
+        package = json.load(j)
+    package = package['contributes']['snippets']
+    for item in package:
+        file = FRIENDLY / item['path']
         language = item['language']
         if not isinstance(language, (list, tuple)):
             language = [language]
         links = []
         for l in language:
-            filename = file.name.split('.')[0]
-            link = file.parent / filename / f'{l}.json' if filename != l else file
-            links.append(link)
+            filename = file.stem
+            if filename != l:
+                link = file.parent / filename / f'{l}.json'
+                links.append(link)
         for link in links:
             symlink(link, file, create)
 
