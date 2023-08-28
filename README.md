@@ -46,6 +46,9 @@ git clone git@github.com:ysl2/nvim.git ~/.config/nvim
 # Option 2. On Windows
 git clone git@github.com:ysl2/nvim.git %LOCALAPPDATA%\nvim
 
+# Dependencies
+pip install pynvim
+
 # Update: Choose an option below.
 # Option 1. If you don't add some modification, you can simply pull from the origin url.
 git pull origin master

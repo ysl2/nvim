@@ -59,11 +59,14 @@ return {
       --     vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'vim-snippets' .. sep .. 'UltiSnips',
       --   }
       -- })
+
       local friendly = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'friendly-snippets' .. sep .. 'snippets'
+      local cython = vim.fn.stdpath('data') .. sep .. 'lazy' .. sep .. 'cython-snips'
       vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
-        ['snippets.textmateSnippetsRoots'] = vim.list_extend(
+        ['snippets.textmateSnippetsRoots'] = U.mergelists(
           { vim.fn.stdpath('config') .. sep .. 'snippets' },
-          vim.list_extend({ friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '*' .. sep), '\n'))
+          { friendly }, U.splitstr(vim.fn.glob(friendly .. sep .. '**' .. sep), '\n'),
+          { cython }, U.splitstr(vim.fn.glob(cython .. sep .. '**' .. sep), '\n')
         ),
         ['cSpell.import'] = { U.LSP.CSPELL.EXTRA_ARGS.CONFIG },
         ['cSpell.enabledLanguageIds'] = U.LSP.CSPELL.FILETYPES,

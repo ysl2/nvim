@@ -12,6 +12,7 @@
       "lazygit",
       "cmake",
       "eisvogel",
-      "dirsfirst"
+      "dirsfirst",
+      "pynvim"
     ]
 }
