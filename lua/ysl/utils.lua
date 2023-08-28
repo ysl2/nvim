@@ -102,4 +102,14 @@ M.greplist = function (inputlist, str)
   return nil
 end
 
+M.mergelists = function(...)
+    local mergedList = {}
+    for _, list in ipairs({...}) do
+        for _, value in ipairs(list) do
+            table.insert(mergedList, value)
+        end
+    end
+    return mergedList
+end
+
 return M
