@@ -7,10 +7,11 @@ from rich.pretty import pprint as print
 
 
 FRIENDLY = pathlib.Path.home() / '.local/share/nvim/lazy/friendly-snippets'
+FRIENDLY_PACKAGE = FRIENDLY / 'package.json'
 snippets = FRIENDLY / 'snippets'
 
 
-def symlink(link, file, create=True):
+def _symlink(link, file, create=True):
     try:
         if create:
             link.parent.mkdir(parents=True, exist_ok=True)
@@ -24,17 +25,10 @@ def symlink(link, file, create=True):
         pass
 
 
-def friendly2(create=True):
-    for file in snippets.rglob('*.json'):
-        link = file.relative_to(snippets)
-        ft_index = 0
-        if 'frameworks' in link.as_posix():
-            ft_index = 1
-        ft = link.as_posix().split('/')[ft_index].split('.')[0]
-        link = snippets / link
-        if link.name.split('.')[0] != ft:
-            link = link.parent / link.name.split('.')[0] / f'{ft}.json'
-            symlink(link, file, create)
+def _package(package):
+    with open(package, 'r') as j:
+        package = json.load(j)
+    return package['contributes']['snippets']
 
 
 def cython2(create=True):
@@ -42,17 +36,18 @@ def cython2(create=True):
     python = snippets / 'python'
     for file in python.glob('*.json'):
         link = pathlib.Path(f"{cython / file.relative_to(snippets).as_posix().split('.')[0]}/cython.json")
-        symlink(link, file, create)
+        _symlink(link, file, create)
+
+
+def _generator():
+    for item in _package(FRIENDLY_PACKAGE):
+        file = FRIENDLY / item['path']
+        language = item['language']
+        yield file, language
 
 
 def friendly(create=True):
-    package = FRIENDLY / 'package.json'
-    with open(package, 'r') as j:
-        package = json.load(j)
-    package = package['contributes']['snippets']
-    for item in package:
-        file = FRIENDLY / item['path']
-        language = item['language']
+    for file, language in _generator():
         if not isinstance(language, (list, tuple)):
             language = [language]
         links = []
@@ -62,7 +57,15 @@ def friendly(create=True):
                 link = file.parent / filename / f'{l}.json'
                 links.append(link)
         for link in links:
-            symlink(link, file, create)
+            _symlink(link, file, create)
+
+
+def cython(create=True):
+    for file, language in _generator():
+        if language == 'python':
+            print(file.relative_to(FRIENDLY))
+            # TODO:
+            # link =
 
 
 if __name__ == '__main__':
