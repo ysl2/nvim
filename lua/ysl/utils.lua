@@ -84,14 +84,14 @@ end
 
 -- Split string by character.
 -- @param inputstr: string
--- @param sep: string(character)
+-- @param sepstr: string(character)
 -- @return: the table contains the splited strings.
-M.splitstr = function(inputstr, sep)
-  if sep == nil then
-    sep = '%s'
+M.splitstr = function(inputstr, sepstr)
+  if sepstr == nil then
+    sepstr = '%s'
   end
   local t = {}
-  for str in string.gmatch(inputstr, '([^' .. sep .. ']+)') do
+  for str in string.gmatch(inputstr, '([^' .. sepstr .. ']+)') do
     table.insert(t, str)
   end
   return t
