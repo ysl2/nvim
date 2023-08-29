@@ -47,25 +47,26 @@ def friendly(create=True):
 
 
 def cython(create=True):
-    for file, language in _generator():
-        if language == 'python':
-            link = CYTHON / file.relative_to(FRIENDLY).parent / file.stem / 'cython.json'
-            _symlink(link, file, create)
-
     package_json = CYTHON / 'package.json'
     package = {
         'contributes': {
-            'snippets': []
+            'snippets': [
+                {
+                    'language': 'cython',
+                    'path': 'cython.json'
+                }
+            ]
         }
     }
-    for item in CYTHON.glob('**/*.json'):
-        if item.as_posix() == package_json.as_posix():
-            continue
-        pack = {
-            'language': 'cython',
-            'path': item.relative_to(CYTHON).as_posix()
-        }
-        package['contributes']['snippets'].append(pack)
+
+    for file, language in _generator():
+        if language == 'python':
+            link = CYTHON / file.relative_to(FRIENDLY).parent / file.stem / 'cython.json'
+            package['contributes']['snippets'].append({
+                'language': 'cython',
+                'path': link.relative_to(CYTHON).as_posix()
+            })
+            _symlink(link, file, create)
 
     package_json.parent.mkdir(parents=True, exist_ok=True)
     with open(package_json, 'w') as j:

@@ -1514,7 +1514,7 @@ vim.list_extend(M, {
   },
   { 'cybardev/cython.vim', ft = 'cython' },
   {
-    'ysl2/cython-snips', ft = 'cython',
+    'NullptrExceptions/cython-snips', ft = 'cython',
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
       os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' cython')
