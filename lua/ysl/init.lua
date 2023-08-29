@@ -326,7 +326,9 @@ vim.list_extend(M, {
   { 'kevinhwang91/nvim-bqf',  ft = 'qf',                             dependencies = 'nvim-treesitter/nvim-treesitter' },
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
   { 'rafamadriz/friendly-snippets', event = 'VeryLazy', build = function ()
-      os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'build_snippets.py') .. ' friendly')
+      if vim.fn.has('win32') == 0 then
+        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'build_snippets.py') .. ' friendly')
+      end
     end
   },
   {
@@ -1517,7 +1519,9 @@ vim.list_extend(M, {
     'NullptrExceptions/cython-snips', ft = 'cython',
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
-      os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'build_snippets.py') .. ' cython')
+      if vim.fn.has('win32') == 0 then
+        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'build_snippets.py') .. ' cython')
+      end
     end
   }
 })
