@@ -19,14 +19,10 @@ def _symlink(link, file, create=True):
         link.unlink()
 
 
-def _package(package):
-    with open(package, 'r') as j:
-        package = json.load(j)
-    return package['contributes']['snippets']
-
-
 def _generator():
-    for item in _package(FRIENDLY / 'package.json'):
+    with open(FRIENDLY / 'package.json', 'r') as j:
+        package = json.load(j)
+    for item in package['contributes']['snippets']:
         file = FRIENDLY / item['path']
         language = item['language']
         yield file, language
@@ -58,7 +54,6 @@ def cython(create=True):
             ]
         }
     }
-
     for file, language in _generator():
         if language == 'python':
             link = CYTHON / file.relative_to(FRIENDLY).parent / file.stem / 'cython.json'
