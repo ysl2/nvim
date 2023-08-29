@@ -109,17 +109,17 @@ M.greplist = function (inputlist, str)
   return nil
 end
 
-M.mergelists = function(...)
-    local mergedList = {}
-    for _, list in ipairs({...}) do
+M.flattenlist = function(complexlist)
+    local flattenedList = {}
+    for _, list in ipairs(complexlist) do
         if type(list) ~= 'table' then
           list = { list }
         end
         for _, value in ipairs(list) do
-            table.insert(mergedList, value)
+            table.insert(flattenedList, value)
         end
     end
-    return mergedList
+    return flattenedList
 end
 
 M.path = path
