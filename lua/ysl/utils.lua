@@ -109,17 +109,16 @@ M.greplist = function (inputlist, str)
   return nil
 end
 
-M.flattenlist = function(complexlist)
-    local flattenedList = {}
-    for _, list in ipairs(complexlist) do
-        if type(list) ~= 'table' then
-          list = { list }
-        end
-        for _, value in ipairs(list) do
-            table.insert(flattenedList, value)
-        end
+M.flattenlist = function(complexlist, result)
+    result = result or {}
+    for _, value in ipairs(complexlist) do
+      if type(value) == 'table' then
+        M.flattenlist(value, result)
+      else
+        table.insert(result, value)
+      end
     end
-    return flattenedList
+    return result
 end
 
 M.path = path
