@@ -112,6 +112,9 @@ end
 M.mergelists = function(...)
     local mergedList = {}
     for _, list in ipairs({...}) do
+        if type(list) ~= 'table' then
+          list = { list }
+        end
         for _, value in ipairs(list) do
             table.insert(mergedList, value)
         end
