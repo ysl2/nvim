@@ -326,9 +326,7 @@ vim.list_extend(M, {
   { 'kevinhwang91/nvim-bqf',  ft = 'qf',                             dependencies = 'nvim-treesitter/nvim-treesitter' },
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
   { 'rafamadriz/friendly-snippets', event = 'VeryLazy', build = function ()
-      if lsp == 'ysl.lsp.coc' then
-        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' friendly')
-      end
+      os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' friendly')
     end
   },
   {
@@ -1519,9 +1517,7 @@ vim.list_extend(M, {
     'ysl2/cython-snips', ft = 'cython',
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
-      if lsp == 'ysl.lsp.coc' then
-        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' cython')
-      end
+      os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'coc_snippets.py') .. ' cython')
     end
   }
 })

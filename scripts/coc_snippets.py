@@ -1,6 +1,6 @@
-import pathlib
 import os
 assert os.sep == '/', 'Not implemented yet for Windows system.'
+import pathlib
 import argparse
 import json
 import contextlib
@@ -15,8 +15,8 @@ def _symlink(link, file, create=True):
         if create:
             link.parent.mkdir(parents=True, exist_ok=True)
             link.symlink_to(file)
-        else:
-            link.unlink()
+            return
+        link.unlink()
 
 
 def _package(package):
@@ -49,7 +49,7 @@ def friendly(create=True):
 def cython(create=True):
     for file, language in _generator():
         if language == 'python':
-            link = CYTHON / file.relative_to(FRIENDLY)
+            link = CYTHON / file.relative_to(FRIENDLY).parent / file.stem / 'cython.json'
             _symlink(link, file, create)
 
     package_json = CYTHON / 'package.json'
@@ -61,22 +61,15 @@ def cython(create=True):
     for item in CYTHON.glob('**/*.json'):
         if item.as_posix() == package_json.as_posix():
             continue
-        relative = item.relative_to(CYTHON)
-        # TODO:
-        # 1. Create symlink of `cython.json` from python snippets.
-        # 2. Write package.json
-        path = relative.parent / item.stem / 'cython.json'
         pack = {
             'language': 'cython',
-            'path': path.as_posix()
+            'path': item.relative_to(CYTHON).as_posix()
         }
         package['contributes']['snippets'].append(pack)
 
-    print(package)
-
-    # package_json.parent.mkdir(parents=True, exist_ok=True)
-    # with open(package_json, 'w') as j:
-    #     json.dump(package, j)
+    package_json.parent.mkdir(parents=True, exist_ok=True)
+    with open(package_json, 'w') as j:
+        json.dump(package, j)
 
 
 if __name__ == '__main__':
