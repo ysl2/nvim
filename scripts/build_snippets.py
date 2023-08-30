@@ -24,20 +24,20 @@ def _generator():
         package = json.load(j)
     for item in package['contributes']['snippets']:
         file = FRIENDLY / item['path']
-        language = item['language']
-        yield file, language
+        languages = item['language']
+        if not isinstance(languages, (list, tuple)):
+            languages = [languages]
+        for language in languages:
+            yield file, language
 
 
 def friendly(create=True):
     for file, language in _generator():
-        if not isinstance(language, (list, tuple)):
-            language = [language]
         links = []
-        for l in language:
-            filename = file.stem
-            if filename != l:
-                link = file.parent / filename / f'{l}.json'
-                links.append(link)
+        filename = file.stem
+        if filename != language:
+            link = file.parent / filename / f'{language}.json'
+            links.append(link)
         for link in links:
             _symlink(link, file, create)
 
@@ -55,6 +55,9 @@ def cython(create=True):
         }
     }
     for file, language in _generator():
+        if redundancies := list(CYTHON.glob(f'**/*{language}.json')):
+            for redundancy in redundancies:
+                redundancy.unlink()
         if language == 'python':
             link = CYTHON / file.relative_to(FRIENDLY).parent / file.stem / 'cython.json'
             package['contributes']['snippets'].append({
