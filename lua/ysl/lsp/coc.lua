@@ -168,7 +168,7 @@ return {
         opts)
 
       -- Use <c-j> to trigger snippets
-      vim.keymap.set('i', '<c-j>', '<Plug>(coc-snippets-expand-jump)')
+      -- vim.keymap.set('i', '<c-j>', '<Plug>(coc-snippets-expand-jump)')
       -- Use <c-space> to trigger completion.
       vim.keymap.set('i', '<c-space>', 'coc#refresh()', { silent = true, expr = true })
 
