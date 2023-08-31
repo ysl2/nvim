@@ -108,7 +108,11 @@ git fetch origin && git merge origin/master --no-edit
 #### Python
 
 ```bash
+# For nvim_lsp and coc both:
 pip install flake8 black
+
+# For coc only:
+pip install jedi
 ```
 
 #### C
