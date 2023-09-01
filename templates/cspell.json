@@ -13,6 +13,7 @@
       "cmake",
       "eisvogel",
       "dirsfirst",
-      "pynvim"
+      "pynvim",
+      "rustup"
     ]
 }
