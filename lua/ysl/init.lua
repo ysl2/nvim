@@ -50,6 +50,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'Visual', { reverse = true })
   end
 })
+vim.cmd('language en_US.UTF8')
 
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '

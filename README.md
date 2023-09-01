@@ -35,7 +35,7 @@ Insights from:
 - `ripgrep`: Essential, for fuzzy search and replace.
 - `nerd-font`: Optional, but recommended.
 - `lazygit`: Optional, for git support.
-- `npm` & `yarn`: Optional, for markdown preview and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
+- `npm` & `yarn`: Optional, for some lsp support, markdown preview, and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
 
 ### Install & update
 
@@ -108,7 +108,11 @@ git fetch origin && git merge origin/master --no-edit
 #### Python
 
 ```bash
+# For nvim_lsp and coc both:
 pip install flake8 black
+
+# For coc only:
+pip install jedi
 ```
 
 #### C
