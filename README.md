@@ -115,6 +115,13 @@ pip install flake8 black
 
 `./clang-format` on project. See: https://github.com/clangd/coc-clangd/issues/39
 
+#### Rust
+
+```bash
+# For coc
+rustup component add rust-analyzer
+```
+
 #### Markdown
 
 `~/.markdownlint`

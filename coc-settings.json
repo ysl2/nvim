@@ -50,12 +50,8 @@
   "diagnostic.infoSign": "\uea74",
   "diagnostic.hintSign": "\uea6b",
   "sumneko-lua.enableNvimLuaDev": true,
-  "rust-analyzer.cargo.buildScripts.enable": false,
-  "rust-analyzer.procMacro.enable": false,
   "suggest.snippetIndicator": "...",
   "tabnine.enablePreselect": false,
-  "python.formatting.provider": "none",
-  "python.linting.enabled": false,
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
     "python": "flake8"

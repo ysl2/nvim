@@ -5,10 +5,10 @@ return {
     branch = 'release',
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
-      {
-        'ysl2/coc-rust-analyzer',
-        build = 'yarn install --frozen-lockfile'
-      },
+      -- {
+      --   'ysl2/coc-rust-analyzer',
+      --   build = 'yarn install --frozen-lockfile'
+      -- },
       {
         'neoclide/jsonc.vim',
         config = function()
@@ -46,7 +46,8 @@ return {
         'coc-clangd',
         'coc-markdownlint',
         'coc-diagnostic',
-        'coc-spell-checker'
+        'coc-spell-checker',
+        'coc-rust-analyzer'
       }
 
       vim.g.coc_user_config = vim.empty_dict()
@@ -83,7 +84,15 @@ return {
               '-q', '-'
             })
           }
-        }
+        },
+        ['rust-analyzer.server.path'] = (function ()
+          if vim.fn.has('win32') == 1 then
+            return
+          end
+          local result = U.exec('which rust-analyzer')
+          result = result:gsub('%s+', '')  -- Trim line end `\n`
+          return result
+        end)()
       })
 
       -- HACK: Coc config for specific Windows.
