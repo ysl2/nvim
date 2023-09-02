@@ -5,10 +5,6 @@ return {
     branch = 'release',
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
-      -- {
-      --   'ysl2/coc-rust-analyzer',
-      --   build = 'yarn install --frozen-lockfile'
-      -- },
       {
         'neoclide/jsonc.vim',
         config = function()
