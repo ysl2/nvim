@@ -264,6 +264,7 @@ end
 -- ===
 -- === Load Secret
 -- ===
+local transparent = (not (vim.opt.winblend._value == 0)) and (not vim.g.started_by_firenvim)
 M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
   {
     'folke/tokyonight.nvim',
@@ -271,7 +272,8 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
     priority = 1000,
     config = function()
       require('tokyonight').setup({
-        lualine_bold = true
+        lualine_bold = true,
+        transparent = transparent
       })
       vim.cmd.colorscheme('tokyonight')
     end
@@ -1000,7 +1002,7 @@ vim.list_extend(M, {
   },
   {
     'xiyaowong/nvim-transparent',
-    cond = (not (vim.opt.winblend._value == 0)) and (not vim.g.started_by_firenvim),
+    cond = transparent,
     lazy = false,
     config = function()
       require('transparent').setup({
@@ -1082,7 +1084,6 @@ vim.list_extend(M, {
           'TelescopePromptBorder',
         },
         exclude_groups = {}, -- table: groups you don't want to clear
-        -- ignore_linked_group = true, -- boolean: don't clear a group that links to another group
       })
     end
   },
