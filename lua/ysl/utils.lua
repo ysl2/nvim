@@ -124,13 +124,11 @@ end
 M.path = path
 
 M.exec = function(command)
-  print('hello')
   local file = io.popen(command)
   local output = file and file:read('*a')
   if file then
     file:close()
   end
-  print('|' .. output .. '|')
   return output
 end
 
