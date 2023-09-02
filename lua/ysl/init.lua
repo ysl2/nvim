@@ -1076,6 +1076,10 @@ vim.list_extend(M, {
           'NormalFloat',
           'Pmenu',
           'VertSplit',
+          'CursorLine',
+          'TelescopeNormal',
+          'TelescopeBorder',
+          'TelescopePromptBorder',
         },
         exclude_groups = {}, -- table: groups you don't want to clear
         -- ignore_linked_group = true, -- boolean: don't clear a group that links to another group
@@ -1221,7 +1225,7 @@ vim.list_extend(M, {
                 return temp == '' and '' or 'recording @' .. temp
               end,
             },
-            'filesize', 'encoding', 'fileformat', 'filetype'
+            'filesize', 'encoding', 'fileformat', function() return vim.opt.filetype._value end
           },
         },
       })
