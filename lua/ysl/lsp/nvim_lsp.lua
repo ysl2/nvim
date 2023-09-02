@@ -87,13 +87,9 @@ return {
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
       'folke/neodev.nvim',
       'b0o/schemastore.nvim',
+      'simrat39/rust-tools.nvim',
     },
     config = function()
-      -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-      require('neodev').setup({
-        -- add any options here, or leave empty to use the default settings
-      })
-
       -- Add additional capabilities supported by nvim-cmp
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       capabilities.textDocument.foldingRange = {
@@ -110,7 +106,7 @@ return {
         )
       }
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls', 'marksman', 'sourcery', 'clangd' },
+        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls', 'marksman', 'sourcery', 'clangd', 'rust_analyzer' },
         automatic_installation = true,
         handlers = {
           -- The first entry (without a key) will be the default handler
@@ -122,6 +118,11 @@ return {
           -- Next, you can provide a dedicated handler for specific servers.
           -- For example, a handler override for the `rust_analyzer`:
           ['lua_ls'] = function ()
+            -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+            require('neodev').setup({
+              -- add any options here, or leave empty to use the default settings
+            })
+
             lspconfig.lua_ls.setup(vim.tbl_deep_extend('force', default, {
               settings = {
                 Lua = {
@@ -146,6 +147,11 @@ return {
               }
             }))
           end,
+          ['rust_analyzer'] = function ()
+            require('rust-tools').setup({
+              server = default
+            })
+          end
         },
       }
     end
@@ -190,6 +196,7 @@ return {
       'hrsh7th/cmp-nvim-lua',
       'onsails/lspkind.nvim',
       'windwp/nvim-autopairs',
+      { 'saecki/crates.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, config = function() require('crates').setup() end },
     },
     config = function ()
       -- Set up nvim-cmp.
@@ -241,6 +248,7 @@ return {
           { name = 'cmp_tabnine' },
           { name = 'luasnip' },
           { name = 'nvim_lua' },
+          { name = 'crates' },
           { name = 'nvim_lsp' },
           { name = 'async_path' },
         }, {
@@ -327,5 +335,5 @@ return {
         end
       })
     end,
-  }
+  },
 }

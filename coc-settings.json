@@ -71,5 +71,6 @@
    },
   "diagnostic-languageserver.formatFiletypes": {
     "python": "black"
-  }
+  },
+  "inlayHint.display": false
 }

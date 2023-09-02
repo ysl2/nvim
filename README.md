@@ -117,13 +117,18 @@ pip install jedi
 
 #### C
 
-`./clang-format` on project. See: https://github.com/clangd/coc-clangd/issues/39
+`./clang-format` on project root or root's parent folder. See: https://github.com/clangd/coc-clangd/issues/39
 
 #### Rust
 
 ```bash
-# For coc
+# For coc, rust-analyzer is installed by rustup.
 rustup component add rust-analyzer
+
+# For nvim_lsp, rust-analyzer only auto starts for cargo projects.
+# To create a cargo project, run the following shell command:
+cargo new {project_name}
+# If you need to start rust-analyzer for single rust file, you should run neovim command `:RustStartStandaloneServerForBuffer`
 ```
 
 #### Markdown
