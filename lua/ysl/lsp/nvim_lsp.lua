@@ -196,7 +196,7 @@ return {
       'hrsh7th/cmp-nvim-lua',
       'onsails/lspkind.nvim',
       'windwp/nvim-autopairs',
-      { 'saecki/crates.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, config = function() require('crates').setup() end },
+      'saecki/crates.nvim',
     },
     config = function ()
       -- Set up nvim-cmp.
@@ -335,5 +335,19 @@ return {
         end
       })
     end,
+  },
+  {
+    'saecki/crates.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'jose-elias-alvarez/null-ls.nvim',
+    },
+    config = function()
+      require('crates').setup({
+        null_ls = {
+          enabled = true,
+        },
+      })
+    end
   },
 }
