@@ -1387,6 +1387,9 @@ vim.list_extend(M, {
   {
     'petertriho/nvim-scrollbar',
     event = 'VeryLazy',
+    keys = {
+      { '<Leader>|', '<CMD>ScrollbarToggle<CR>', mode = 'n', silent = true }
+    },
     dependencies = {
       'lewis6991/gitsigns.nvim'
     },
