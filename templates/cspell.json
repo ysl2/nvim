@@ -14,6 +14,7 @@
       "eisvogel",
       "dirsfirst",
       "pynvim",
-      "rustup"
+      "rustup",
+      "sourcery"
     ]
 }

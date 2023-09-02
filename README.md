@@ -112,7 +112,7 @@ git fetch origin && git merge origin/master --no-edit
 pip install flake8 black
 
 # For coc only:
-pip install jedi
+pip install jedi sourcery
 ```
 
 #### C
