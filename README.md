@@ -141,6 +141,13 @@ cargo new {project_name}
 
 ### Register & history system
 
+#### File content diff
+
+1. Vsplit two files left and right into different buffer or window.
+2. Focus to the left file, type command `:diffthis<CR>`
+3. Focus to the right file, do the same command.
+4. To close diff mode, type command `:diffoff<CR>`
+
 ### Motion system
 
 ### Buffer & window system
