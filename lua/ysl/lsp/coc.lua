@@ -53,11 +53,11 @@ return {
       local sep = U.SEP
       -- vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
       --   ['snippets.ultisnips.directories'] = {
-      --     U.path(vim.fn.stdpath('data'), 'lazy', 'vim-snippets', 'UltiSnips'),
+      --     U.path({vim.fn.stdpath('data'), 'lazy', 'vim-snippets', 'UltiSnips'}),
       --   }
       -- })
-      local friendly = U.path(vim.fn.stdpath('data'), 'lazy', 'friendly-snippets', 'snippets')
-      local cython = U.path(vim.fn.stdpath('data'), 'lazy', 'cython-snips')
+      local friendly = U.path({vim.fn.stdpath('data'), 'lazy', 'friendly-snippets', 'snippets'})
+      local cython = U.path({vim.fn.stdpath('data'), 'lazy', 'cython-snips'})
       vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
         ['snippets.textmateSnippetsRoots'] = U.flattenlist({
           U.CUSTOM_SNIPPETS_PATH,

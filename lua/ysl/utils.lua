@@ -18,6 +18,11 @@ M.GROUP = {
   NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
 }
 
+local path = function(pathlist)
+  local result, _ = table.concat(pathlist, sep):gsub('/', sep)
+  return result
+end
+
 M.LSP = {
   CSPELL = {
     FILETYPES = {
@@ -25,7 +30,7 @@ M.LSP = {
       'plaintext'
     },
     EXTRA_ARGS = {
-      CONFIG = vim.fn.stdpath('config') .. sep .. 'templates' .. sep .. 'cspell.json'
+      CONFIG = path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
     }
   },
   FLAKE8 = {
@@ -42,12 +47,7 @@ M.LSP = {
   }
 }
 
-local path = function(...)
-  local result, _ = table.concat({ ... }, sep):gsub('/', sep)
-  return result
-end
-
-M.CUSTOM_SNIPPETS_PATH = path(vim.fn.stdpath('config'), 'templates', 'snippets')
+M.CUSTOM_SNIPPETS_PATH = path({vim.fn.stdpath('config'), 'templates', 'snippets'})
 
 -- =================
 -- === Functions ===

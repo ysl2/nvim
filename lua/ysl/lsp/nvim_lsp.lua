@@ -163,8 +163,8 @@ return {
     config = function ()
       require('luasnip.loaders.from_vscode').lazy_load({ paths = {
         U.CUSTOM_SNIPPETS_PATH,
-        U.path(vim.fn.stdpath('data'), 'lazy', 'friendly-snippets'),
-        U.path(vim.fn.stdpath('data'), 'lazy', 'cython-snips'),
+        U.path({vim.fn.stdpath('data'), 'lazy', 'friendly-snippets'}),
+        U.path({vim.fn.stdpath('data'), 'lazy', 'cython-snips'}),
       }})
       local luasnip = require('luasnip')
       -- Stop snippets when you leave to normal mode

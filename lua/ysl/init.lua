@@ -165,7 +165,7 @@ vim.api.nvim_create_user_command('MyWrapToggle', _my_custom_toggle_wrap, {
 -- ===============
 -- === Plugins ===
 -- ===============
-local lazypath = U.path(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
+local lazypath = U.path({vim.fn.stdpath('data'), 'lazy', 'lazy.nvim'})
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
@@ -178,7 +178,8 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local function _my_custom_load(plugins)
+local function _my_custom_load(plugins, opts)
+  opts = opts or {}
   require('lazy').setup(plugins, {
     -- defaults = { lazy = true }
     performance = {
@@ -200,7 +201,15 @@ local function _my_custom_load(plugins)
           'zipPlugin',
         }
       }
-    }
+    },
+    lockfile = (function()
+      local lsp
+      if opts.lsp then
+        lsp = U.splitstr(opts.lsp, '.')
+        lsp = lsp[#lsp]
+      end
+      return U.path({vim.fn.stdpath('config'), lsp and 'lazy-lock-' .. lsp .. '.json' or 'lazy-lock.json'})
+    end)()
   })
 end
 
@@ -330,7 +339,7 @@ vim.list_extend(M, {
   { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
   { 'rafamadriz/friendly-snippets', event = 'VeryLazy', build = function ()
       if vim.fn.has('win32') == 0 then
-        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'build_snippets.py') .. ' friendly')
+        os.execute('/usr/bin/env python3 ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' friendly')
       end
     end
   },
@@ -588,7 +597,7 @@ vim.list_extend(M, {
       vim.g.undotree_WindowLayout = 3
       vim.g.undotree_SetFocusWhenToggle = 1
       if vim.fn.has('persistent_undo') == 1 then
-        local target_path = vim.fn.expand(U.path(vim.fn.stdpath('data'), '.undodir'))
+        local target_path = vim.fn.expand(U.path({vim.fn.stdpath('data'), '.undodir'}))
         if vim.fn.isdirectory(target_path) == 0 then
           vim.fn.mkdir(target_path, 'p')
         end
@@ -744,7 +753,7 @@ vim.list_extend(M, {
               -- sudo apt install texlive-full texlive-lang-chinese fonts-wqy-microhei
               cjk = ' -V CJKmainfont="WenQuanYi Micro Hei"'
             end
-            local latex_template = U.path(vim.fn.stdpath('config'), 'templates', 'eisvogel.latex')
+            local latex_template = U.path({vim.fn.stdpath('config'), 'templates', 'eisvogel.latex'})
             cmd = ('cd "%s" && pandoc %s --pdf-engine=xelatex --template="%s"%s -o %s.pdf'):format(dir, fileName,
               latex_template,
               cjk, fileNameWithoutExt)
@@ -1529,10 +1538,10 @@ vim.list_extend(M, {
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
       if vim.fn.has('win32') == 0 then
-        os.execute('/usr/bin/env python3 ' .. U.path(vim.fn.stdpath('config'), 'scripts', 'build_snippets.py') .. ' cython')
+        os.execute('/usr/bin/env python3 ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' cython')
       end
     end
   }
 })
 
-_my_custom_load(M)
+_my_custom_load(M, { lsp = lsp })
