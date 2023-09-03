@@ -15,6 +15,18 @@
       "dirsfirst",
       "pynvim",
       "rustup",
-      "sourcery"
+      "sourcery",
+      "torchvision",
+      "pytorch",
+      "dotbooks",
+      "autossh",
+      "midjourney",
+      "typora",
+      "tensorflow",
+      "cuda",
+      "cudnn",
+      "sourcery",
+      "termscp",
+      "fuser"
     ]
 }
