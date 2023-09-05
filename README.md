@@ -91,9 +91,9 @@ git fetch origin && git merge origin/master --no-edit
 
 ## Keymaps
 
-|key| command | note |
-|---|---| --- |
-||||
+| key | command | note |
+| --- | ------- | ---- |
+|     |         |      |
 
 ## Systems
 
@@ -105,15 +105,37 @@ git fetch origin && git merge origin/master --no-edit
 
 ### LSP system
 
+About debugger: My neovim configuration does not provide inner debugger like `nvim-dap`. Integrate an inner debugger is not a hard work, but I prefer using other more powerful outer debugger.
+
+You can find language-specific outer debuggers below.
+
 #### Python
 
-```bash
-# For nvim_lsp and coc both:
-pip install flake8 black
+1. Python environment dependencies
 
-# For coc only:
-pip install jedi sourcery
-```
+   ```bash
+   # For nvim_lsp and coc both:
+   pip install flake8 black
+   # Optional:
+   # 1. This library provides python static type check:
+   # pip install flake8-annotations
+
+   # For coc only:
+   pip install jedi sourcery
+   ```
+
+2. Python debugger
+
+   Again, my neovim configuration does not provide inner debugger like `nvim-dap`. Integrate an inner debugger is not a hard work, but I prefer using other outer debugger.
+
+   For python, there are several pip libs can support debug. E.g, `pdb`, `ipdb`, `pudb`.
+
+   Another choice is to use some logger like `pysnooper`, `loguru`.
+
+   ```bash
+   # pdb is python built-in library, so you don't need to install it via pip. Just import it.
+   pip install ipdb pudb pysnooper loguru
+   ```
 
 #### C
 
