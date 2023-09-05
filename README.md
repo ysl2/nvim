@@ -101,6 +101,10 @@ git fetch origin && git merge origin/master --no-edit
 
 ### Color & outlook system
 
+#### Transparency
+
+Experimental now. Not recommended.
+
 ### Session system
 
 ### File system
