@@ -56,38 +56,40 @@ git pull origin master
 git fetch origin && git merge origin/master --no-edit
 ```
 
-## Project structure tree, and how to cover the default settings with your local configuration
+## Project structure tree, and how to replace the default settings with your local configuration
 
 ### Project structure tree
 
 ```text
 ❯ tree --dirsfirst
 .
-├── lua
-│   └── ysl
-│       ├── lsp
-│       │   ├── coc.lua
-│       │   └── nvim_lsp.lua
-│       ├── init.lua
-│       ├── secret.lua
-│       └── utils.lua
-├── snippets
-│   ├── lua.json
-│   └── python.json
-├── templates
-│   ├── cspell.json
-│   └── eisvogel.latex
-├── coc-settings.json
-├── init.lua
-├── lazy-lock.json
-├── LICENSE
-├── package.json
-└── README.md
+├── lua                      |
+│   └── ysl                  |
+│       ├── lsp              | Choose one LSP backend between them.
+│       │   ├── coc.lua      | Coc LSP backend.
+│       │   └── nvim_lsp.lua | Nvim built-in LSP backend.
+│       ├── init.lua         | Main configuration file.
+│       ├── secret.lua       | Self local configuration, for overriding some default value. Default not exists, needs to be created by yourself.
+│       └── utils.lua        | Some useful functions.
+├── templates                |
+│   ├── snippets             | Snippets folder.
+│   │   ├── cython.json      |
+│   │   ├── lua.json         |
+│   │   ├── package.json     | Used by LuaSnip to recognize snippets folder structure.
+│   │   └── python.json      |
+│   ├── cspell.json          | Words whitelist for cspell diagnostic in markdown file.
+│   └── eisvogel.latex       | Markdown to Latex template.
+├── coc-settings.json        | Coc settings file.
+├── init.lua                 | Project entrance. Nvim will read this file first.
+├── lazy-lock-coc.json       | Plugins version tracking file, for coc branch.
+├── lazy-lock-nvim_lsp.json  | Plugins version tracking file, for nvim_lsp branch.
+├── LICENSE                  |
+└── README.md                |
 
 5 directories, 15 files
 ```
 
-### Cover the default settings with your local configuration
+### Replace the default settings with your local configuration
 
 ```lua
 -- ./lua/ysl/secret.lua
