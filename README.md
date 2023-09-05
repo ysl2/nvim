@@ -94,6 +94,8 @@ git fetch origin && git merge origin/master --no-edit
 
 ### Replace the default settings with your local configuration
 
+Put the code below into `./lua/ysl/secret.lua`
+
 ```lua
 -- ./lua/ysl/secret.lua
 
