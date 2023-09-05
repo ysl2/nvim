@@ -89,6 +89,47 @@ git fetch origin && git merge origin/master --no-edit
 
 ### Cover the default settings with your local configuration
 
+```lua
+-- ./lua/ysl/secret.lua
+
+local M = {}
+
+-- M.requires, default value: { 'ysl.lsp.nvim_lsp' }
+M.requires = {
+  'ysl.lsp.coc'  -- Use coc to override default LSP backend (default: nvim_lsp).
+  -- 'ysl.lsp.nvim_lsp'
+}
+
+-- M.plugins, default value: {}
+-- You can add some plugins into the table, lazy.nvim plugins manager will load them.
+-- M.plugins = {}
+
+-- M.config, default value: {}
+M.config = {
+  vim = {
+    opt = {
+      -- WARNING: Transparency is an experimental feature now.
+      -- winblend = 70  -- Uncomment this to enable transparency.
+    }
+  }
+}
+
+-- M.colorscheme, default value: { 'folke/tokyonight.nvim' }
+-- You can specify `colorscheme` to override default colorscheme.
+-- M.colorscheme = {
+--   {
+--     'folke/tokyonight.nvim',
+--     lazy = false,
+--     priority = 1000,
+--     config = function()
+--       vim.cmd('colorscheme tokyonight-storm')
+--     end
+--   }
+-- }
+
+return M
+```
+
 ## Keymaps
 
 | key | command | note |
