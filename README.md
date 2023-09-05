@@ -63,30 +63,33 @@ git fetch origin && git merge origin/master --no-edit
 ```text
 ❯ tree --dirsfirst
 .
-├── lua                      |
-│   └── ysl                  |
-│       ├── lsp              | Choose one LSP backend between them.
-│       │   ├── coc.lua      | Coc LSP backend.
-│       │   └── nvim_lsp.lua | Nvim built-in LSP backend.
-│       ├── init.lua         | Main configuration file.
-│       ├── secret.lua       | Self local configuration, for overriding some default value. Default not exists, needs to be created by yourself.
-│       └── utils.lua        | Some useful functions.
-├── templates                |
-│   ├── snippets             | Snippets folder.
-│   │   ├── cython.json      |
-│   │   ├── lua.json         |
-│   │   ├── package.json     | Used by LuaSnip to recognize snippets folder structure.
-│   │   └── python.json      |
-│   ├── cspell.json          | Words whitelist for cspell diagnostic in markdown file.
-│   └── eisvogel.latex       | Markdown to Latex template.
-├── coc-settings.json        | Coc settings file.
-├── init.lua                 | Project entrance. Nvim will read this file first.
-├── lazy-lock-coc.json       | Plugins version tracking file, for coc branch.
-├── lazy-lock-nvim_lsp.json  | Plugins version tracking file, for nvim_lsp branch.
-├── LICENSE                  |
-└── README.md                |
+├── lua                                |
+│   └── ysl                            |
+│       ├── lsp                        | Choose one LSP backend between them.
+│       │   ├── coc.lua                | Coc LSP backend.
+│       │   └── nvim_lsp.lua           | Nvim built-in LSP backend.
+│       ├── init.lua                   | Main configuration file.
+│       ├── secret.lua                 | Self local configuration, for overriding some default value. Default not exists, needs to be created by yourself.
+│       └── utils.lua                  | Some useful functions.
+├─ scripts                             | Some build scripts stored here.
+│  └── build_snippets.py               |
+├── templates                          |
+│   ├── snippets                       | Snippets folder.
+│   │   ├── cython.json -> python.json |
+│   │   ├── lua.json                   |
+│   │   ├── package.json               | Used by LuaSnip to recognize snippets folder structure.
+│   │   └── python.json                |
+│   ├── cspell.json                    | Words whitelist for cspell diagnostic in markdown file.
+│   └── eisvogel.latex                 | Markdown to Latex template.
+├── coc-settings.json                  | Coc settings file.
+├── init.lua                           | Project entrance. Nvim will read this file first.
+├── lazy-lock-coc.json                 | Plugins version tracking file, for coc branch.
+├── lazy-lock.json                     | Only be created when lsp backend is nil. E.g, when you use neovim into vscode by vscode's neovim plugin.
+├── lazy-lock-nvim_lsp.json            | Plugins version tracking file, for nvim_lsp branch.
+├── LICENSE                            |
+└── README.md                          |
 
-5 directories, 15 files
+6 directories, 19 files
 ```
 
 ### Replace the default settings with your local configuration
