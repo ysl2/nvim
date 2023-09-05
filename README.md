@@ -97,6 +97,8 @@ git fetch origin && git merge origin/master --no-edit
 
 ## Systems
 
+### Plugins management system
+
 ### Color & outlook system
 
 ### Session system
