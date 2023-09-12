@@ -1281,9 +1281,9 @@ vim.list_extend(M, {
       local function _my_custom_zen_mode_toggle(opt)
         if _G.MY_CUSTOM_ZEN_WINID == vim.fn.win_getid() then
           _my_custom_zen_mode_off(opt)
-          return
+        else
+          _my_custom_zen_mode_on()
         end
-        _my_custom_zen_mode_on()
         _my_plugin_lualine()
       end
       vim.keymap.set('n', '<C-w>z', function() return _my_custom_zen_mode_toggle({ cmd = 'wincmd =' }) end, { silent = true })
@@ -1298,6 +1298,7 @@ vim.list_extend(M, {
             end
           end
           _my_custom_zen_mode_off()
+          _my_plugin_lualine()
         end
       })
     end
