@@ -63,14 +63,10 @@ function _G.my_custom_check_no_name_buffer(cmdstr)
   end
   vim.cmd(cmdstr)
 end
-vim.keymap.set('n', '<C-w><C-h>', '<CMD>lua _G.my_custom_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
-  { silent = true })
-vim.keymap.set('n', '<C-w><C-j>', '<CMD>lua _G.my_custom_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
-  { silent = true })
-vim.keymap.set('n', '<C-w><C-k>', '<CMD>lua _G.my_custom_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
-  { silent = true })
-vim.keymap.set('n', '<C-w><C-l>', '<CMD>lua _G.my_custom_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
-  { silent = true })
+vim.keymap.set('n', '<C-w><C-h>', function() return _G.my_custom_check_no_name_buffer('bel vs | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-j>', function() return _G.my_custom_check_no_name_buffer('abo sp | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-k>', function() return _G.my_custom_check_no_name_buffer('bel sp | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-l>', function() return _G.my_custom_check_no_name_buffer('abo vs | silent! b# | winc p') end, { silent = true })
 vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
@@ -512,7 +508,7 @@ vim.list_extend(M, {
     cmd = 'Telescope',
     keys = {
       { '<LEADER>f', '<CMD>Telescope find_files<CR>',                 mode = 'n', silent = true },
-      { '<LEADER>F', "<CMD>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '--no-ignore', '-g', '!.git' }})<CR>",     mode = 'n', silent = true },
+      { '<LEADER>F', function() return require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '--no-ignore', '-g', '!.git' }}) end,     mode = 'n', silent = true },
       { '<LEADER>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
       { '<LEADER>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
       { '<LEADER>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
@@ -719,8 +715,8 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     keys = {
       { [[<C-\>]] },
-      { '<LEADER>T', '<CMD>lua _G.my_plugin_toggleterm({})<CR>',                  mode = 'n', silent = true },
-      { '<LEADER>g', "<CMD>lua _G.my_plugin_toggleterm({ cmd = 'lazygit' })<CR>", mode = 'n', silent = true },
+      { '<LEADER>T', function() return _G.my_plugin_toggleterm() end,                    mode = 'n', silent = true },
+      { '<LEADER>g', function() return _G.my_plugin_toggleterm({ cmd = 'lazygit' }) end, mode = 'n', silent = true },
       {
         '<LEADER>r',
         function()
@@ -793,10 +789,11 @@ vim.list_extend(M, {
         direction = 'float',
       })
 
-      function _G.my_plugin_toggleterm(mytable)
-        mytable.cmd = mytable.cmd or vim.fn.input('Enter command: ')
-        mytable = vim.tbl_deep_extend('force', { hidden = true }, mytable)
-        require('toggleterm.terminal').Terminal:new(mytable):toggle()
+      function _G.my_plugin_toggleterm(opts)
+        opts = opts or {}
+        opts.cmd = opts.cmd or vim.fn.input('Enter command: ')
+        opts = vim.tbl_deep_extend('force', { hidden = true }, opts)
+        require('toggleterm.terminal').Terminal:new(opts):toggle()
       end
     end
   },
@@ -1293,9 +1290,7 @@ vim.list_extend(M, {
         callback = function()
           if not _G.MY_CUSTOM_ZEN_MODE_WINID then return end
           for _, winid in ipairs(vim.api.nvim_list_wins()) do
-            if winid == _G.MY_CUSTOM_ZEN_MODE_WINID then
-              return
-            end
+            if winid == _G.MY_CUSTOM_ZEN_MODE_WINID then return end
           end
           _my_custom_zen_mode_off()
           _my_plugin_lualine()
