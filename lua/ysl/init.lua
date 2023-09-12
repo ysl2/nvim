@@ -1230,7 +1230,7 @@ vim.list_extend(M, {
         sections = {
           lualine_c = lualine_c(),
           lualine_x = {
-            function() return _G.MY_CUSTOM_ZEN_MODE and 'ZenMode' or '' end,
+            function() return _G.MY_CUSTOM_ZEN_WINID and 'ZenMode' or '' end,
             {
               'macro-recording',
               fmt = function()
@@ -1267,7 +1267,7 @@ vim.list_extend(M, {
 
       local function _my_custom_zen_mode_off()
         vim.cmd('wincmd =')
-        _G.MY_CUSTOM_ZEN_MODE = nil
+        _G.MY_CUSTOM_ZEN_WINID = nil
       end
       local function _my_custom_zen_mode_lualine(fn)
         return function()
@@ -1277,13 +1277,13 @@ vim.list_extend(M, {
       end
       vim.keymap.set('n', '<C-w>z',
         _my_custom_zen_mode_lualine(function()
-          if _G.MY_CUSTOM_ZEN_MODE then
+          if _G.MY_CUSTOM_ZEN_WINID == vim.fn.win_getid() then
             _my_custom_zen_mode_off()
             return
           end
           vim.cmd('wincmd |')
           vim.cmd('wincmd _')
-          _G.MY_CUSTOM_ZEN_MODE = true
+          _G.MY_CUSTOM_ZEN_WINID = vim.fn.win_getid()
         end) , { silent = true })
       vim.keymap.set('n', '<C-w>=', _my_custom_zen_mode_lualine(_my_custom_zen_mode_off))
     end
