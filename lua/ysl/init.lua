@@ -63,13 +63,13 @@ function _G.my_custom_check_no_name_buffer(cmdstr)
   end
   vim.cmd(cmdstr)
 end
-vim.keymap.set('n', '<C-w><C-h>', '<CMD>lua my_custom_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w><C-h>', '<CMD>lua _G.my_custom_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w><C-j>', '<CMD>lua my_custom_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w><C-j>', '<CMD>lua _G.my_custom_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w><C-k>', '<CMD>lua my_custom_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w><C-k>', '<CMD>lua _G.my_custom_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
   { silent = true })
-vim.keymap.set('n', '<C-w><C-l>', '<CMD>lua my_custom_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
+vim.keymap.set('n', '<C-w><C-l>', '<CMD>lua _G.my_custom_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
   { silent = true })
 vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
@@ -949,6 +949,9 @@ vim.list_extend(M, {
           presets = {
             operators = false
           }
+        },
+        triggers_blacklist = {
+          n = { ':' }
         }
       })
     end,
@@ -1265,27 +1268,38 @@ vim.list_extend(M, {
         end,
       })
 
-      local function _my_custom_zen_mode_off()
-        vim.cmd('wincmd =')
+      local function _my_custom_zen_mode_off(opts)
+        opts = opts or {}
+        if opts.cmd then vim.cmd(opts.cmd) end
         _G.MY_CUSTOM_ZEN_WINID = nil
       end
-      local function _my_custom_zen_mode_lualine(fn)
-        return function()
-          fn()
-          _my_plugin_lualine()
-        end
+      local function _my_custom_zen_mode_on()
+        vim.cmd('wincmd |')
+        vim.cmd('wincmd _')
+        _G.MY_CUSTOM_ZEN_WINID = vim.fn.win_getid()
       end
-      vim.keymap.set('n', '<C-w>z',
-        _my_custom_zen_mode_lualine(function()
-          if _G.MY_CUSTOM_ZEN_WINID == vim.fn.win_getid() then
-            _my_custom_zen_mode_off()
-            return
+      local function _my_custom_zen_mode_toggle(opt)
+        if _G.MY_CUSTOM_ZEN_WINID == vim.fn.win_getid() then
+          _my_custom_zen_mode_off(opt)
+          return
+        end
+        _my_custom_zen_mode_on()
+        _my_plugin_lualine()
+      end
+      vim.keymap.set('n', '<C-w>z', function() return _my_custom_zen_mode_toggle({ cmd = 'wincmd =' }) end, { silent = true })
+      vim.keymap.set('n', '<C-w>Z', function() return _my_custom_zen_mode_toggle() end, { silent = true })
+      vim.keymap.set('n', '<C-w>=', function() return _my_custom_zen_mode_off({ cmd = 'wincmd =' }) end, { silent = true })
+      vim.api.nvim_create_autocmd('WinEnter', {
+        callback = function()
+          if not _G.MY_CUSTOM_ZEN_WINID then return end
+          for _, winid in ipairs(vim.api.nvim_list_wins()) do
+            if winid == _G.MY_CUSTOM_ZEN_WINID then
+              return
+            end
           end
-          vim.cmd('wincmd |')
-          vim.cmd('wincmd _')
-          _G.MY_CUSTOM_ZEN_WINID = vim.fn.win_getid()
-        end) , { silent = true })
-      vim.keymap.set('n', '<C-w>=', _my_custom_zen_mode_lualine(_my_custom_zen_mode_off))
+          _my_custom_zen_mode_off()
+        end
+      })
     end
   },
   {
