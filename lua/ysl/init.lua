@@ -1248,7 +1248,6 @@ vim.list_extend(M, {
       vim.api.nvim_create_autocmd('RecordingEnter', {
         callback = _my_plugin_lualine,
       })
-
       vim.api.nvim_create_autocmd('RecordingLeave', {
         callback = function()
           -- This is going to seem really weird!
