@@ -57,10 +57,24 @@ vim.g.mapleader = ' '
 vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
 vim.keymap.set({'n', 'v'}, '<C-a>', '')
 vim.keymap.set({'n', 'v'}, '<C-i>', '<C-a>', { silent = true })
+function _G.my_custom_check_no_name_buffer(cmdstr)
+  if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
+    return
+  end
+  vim.cmd(cmdstr)
+end
+vim.keymap.set('n', '<C-w><C-h>', '<CMD>lua my_custom_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
+  { silent = true })
+vim.keymap.set('n', '<C-w><C-j>', '<CMD>lua my_custom_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
+  { silent = true })
+vim.keymap.set('n', '<C-w><C-k>', '<CMD>lua my_custom_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
+  { silent = true })
+vim.keymap.set('n', '<C-w><C-l>', '<CMD>lua my_custom_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
+  { silent = true })
 vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
--- For rename variables.
+-- For coc rename variables.
 vim.keymap.set('i', '<A-b>', '<Left>', { silent = true })
 vim.keymap.set('i', '<A-f>', '<Right>', { silent = true })
 -- :h cmdline-editing
@@ -85,22 +99,14 @@ vim.cmd([[
 	" forward one word
 	:cnoremap <A-f>	<S-Right>
 ]])
-
-function _G.my_custom_check_no_name_buffer(cmdstr)
-  if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
-    return
-  end
-  vim.cmd(cmdstr)
-end
-
-vim.keymap.set('n', '<C-w><C-h>', '<CMD>lua my_custom_check_no_name_buffer("bel vs | silent! b# | winc p")<CR>',
-  { silent = true })
-vim.keymap.set('n', '<C-w><C-j>', '<CMD>lua my_custom_check_no_name_buffer("abo sp | silent! b# | winc p")<CR>',
-  { silent = true })
-vim.keymap.set('n', '<C-w><C-k>', '<CMD>lua my_custom_check_no_name_buffer("bel sp | silent! b# | winc p")<CR>',
-  { silent = true })
-vim.keymap.set('n', '<C-w><C-l>', '<CMD>lua my_custom_check_no_name_buffer("abo vs | silent! b# | winc p")<CR>',
-  { silent = true })
+vim.keymap.set('n', '<A-.>', '<C-w>>', { silent = true })
+vim.keymap.set('n', '<A-,>', '<C-w><', { silent = true })
+vim.keymap.set('n', '<A-->', '<C-w>-', { silent = true })
+vim.keymap.set('n', '<A-=>', '<C-w>+', { silent = true })
+vim.keymap.set('n', '<C-w>z', function()
+  vim.cmd('wincmd |')
+  vim.cmd('wincmd _')
+end , { silent = true })
 
 -- Auto delete [No Name] buffers.
 if not vim.g.vscode then
@@ -1228,7 +1234,6 @@ vim.list_extend(M, {
         sections = {
           lualine_c = lualine_c(),
           lualine_x = {
-            function() return _G.MY_CUSTOM_ZEN_MODE and 'ZenMode' or '' end,
             {
               'macro-recording',
               fmt = function()
@@ -1262,28 +1267,6 @@ vim.list_extend(M, {
           )
         end,
       })
-
-      local function _my_custom_zen_mode_off()
-        vim.cmd('wincmd =')
-        _G.MY_CUSTOM_ZEN_MODE = nil
-      end
-      local function _my_custom_zen_mode_lualine(fn)
-        return function()
-          fn()
-          _my_plugin_lualine()
-        end
-      end
-      vim.keymap.set('n', '<C-w>z',
-        _my_custom_zen_mode_lualine(function()
-          if _G.MY_CUSTOM_ZEN_MODE then
-            _my_custom_zen_mode_off()
-            return
-          end
-          vim.cmd('wincmd |')
-          vim.cmd('wincmd _')
-          _G.MY_CUSTOM_ZEN_MODE = true
-        end) , { silent = true })
-      vim.keymap.set('n', '<C-w>=', _my_custom_zen_mode_lualine(_my_custom_zen_mode_off))
     end
   },
   {
