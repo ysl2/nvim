@@ -103,10 +103,6 @@ vim.keymap.set('n', '<A-.>', '<C-w>>', { silent = true })
 vim.keymap.set('n', '<A-,>', '<C-w><', { silent = true })
 vim.keymap.set('n', '<A-->', '<C-w>-', { silent = true })
 vim.keymap.set('n', '<A-=>', '<C-w>+', { silent = true })
-vim.keymap.set('n', '<C-w>z', function()
-  vim.cmd('wincmd |')
-  vim.cmd('wincmd _')
-end , { silent = true })
 
 -- Auto delete [No Name] buffers.
 if not vim.g.vscode then
@@ -1234,6 +1230,7 @@ vim.list_extend(M, {
         sections = {
           lualine_c = lualine_c(),
           lualine_x = {
+            function() return _G.MY_CUSTOM_ZEN_MODE and 'ZenMode' or '' end,
             {
               'macro-recording',
               fmt = function()
@@ -1267,6 +1264,28 @@ vim.list_extend(M, {
           )
         end,
       })
+
+      local function _my_custom_zen_mode_off()
+        vim.cmd('wincmd =')
+        _G.MY_CUSTOM_ZEN_MODE = nil
+      end
+      local function _my_custom_zen_mode_lualine(fn)
+        return function()
+          fn()
+          _my_plugin_lualine()
+        end
+      end
+      vim.keymap.set('n', '<C-w>z',
+        _my_custom_zen_mode_lualine(function()
+          if _G.MY_CUSTOM_ZEN_MODE then
+            _my_custom_zen_mode_off()
+            return
+          end
+          vim.cmd('wincmd |')
+          vim.cmd('wincmd _')
+          _G.MY_CUSTOM_ZEN_MODE = true
+        end) , { silent = true })
+      vim.keymap.set('n', '<C-w>=', _my_custom_zen_mode_lualine(_my_custom_zen_mode_off))
     end
   },
   {
