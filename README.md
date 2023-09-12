@@ -228,6 +228,10 @@ cargo new {project_name}
 
 ### Buffer & window system
 
+#### Zen mode
+
+Use `<C-w>q` to quit a window, and the zen mode will be safely closed. If `:q<CR>`, the zen mode will not be closed.
+
 ### Terminal system
 
 ### Miscellaneous
