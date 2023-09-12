@@ -1269,23 +1269,25 @@ vim.list_extend(M, {
         opts = opts or {}
         if opts.cmd then vim.cmd(opts.cmd) end
         _G.MY_CUSTOM_ZEN_MODE_WINID = nil
+        _my_plugin_lualine()
       end
       local function _my_custom_zen_mode_on()
         vim.cmd('wincmd |')
         vim.cmd('wincmd _')
         _G.MY_CUSTOM_ZEN_MODE_WINID = vim.fn.win_getid()
+        _my_plugin_lualine()
       end
       local function _my_custom_zen_mode_toggle(opt)
         if _G.MY_CUSTOM_ZEN_MODE_WINID == vim.fn.win_getid() then
           _my_custom_zen_mode_off(opt)
-        else
-          _my_custom_zen_mode_on()
+          return
         end
-        _my_plugin_lualine()
+        _my_custom_zen_mode_on()
       end
       vim.keymap.set('n', '<C-w>z', function() return _my_custom_zen_mode_toggle({ cmd = 'wincmd =' }) end, { silent = true })
       vim.keymap.set('n', '<C-w>Z', function() return _my_custom_zen_mode_toggle() end, { silent = true })
       vim.keymap.set('n', '<C-w>=', function() return _my_custom_zen_mode_off({ cmd = 'wincmd =' }) end, { silent = true })
+      vim.keymap.set('n', '<C-w>q', function() return _my_custom_zen_mode_off({ cmd = 'wincmd q' }) end, { silent = true })
       vim.api.nvim_create_autocmd('WinEnter', {
         callback = function()
           if not _G.MY_CUSTOM_ZEN_MODE_WINID then return end
@@ -1293,7 +1295,6 @@ vim.list_extend(M, {
             if winid == _G.MY_CUSTOM_ZEN_MODE_WINID then return end
           end
           _my_custom_zen_mode_off()
-          _my_plugin_lualine()
         end
       })
     end
