@@ -95,10 +95,10 @@ vim.cmd([[
 	" forward one word
 	:cnoremap <A-f>	<S-Right>
 ]])
-vim.keymap.set('n', '<A-.>', '<C-w>>', { silent = true })
-vim.keymap.set('n', '<A-,>', '<C-w><', { silent = true })
-vim.keymap.set('n', '<A-->', '<C-w>-', { silent = true })
-vim.keymap.set('n', '<A-=>', '<C-w>+', { silent = true })
+vim.keymap.set('n', '<A-.>', '<C-w>5>', { silent = true })
+vim.keymap.set('n', '<A-,>', '<C-w>5<', { silent = true })
+vim.keymap.set('n', '<A-->', '<C-w>5-', { silent = true })
+vim.keymap.set('n', '<A-=>', '<C-w>5+', { silent = true })
 
 -- Auto delete [No Name] buffers.
 if not vim.g.vscode then
