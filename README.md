@@ -247,7 +247,14 @@ Use `<C-w>q` to quit a window, and the zen mode will be safely closed. If `:q<CR
 ## Tricks
 
 ```lua
+-- Silent save.
 vim.keymap.set('n', ':w<CR>', '<CMD>silent w<CR>', { silent = true })
+
+-- No pain to read source code.
+vim.keymap.set('n', 'gD', function ()
+  vim.fn['CocAction']('jumpDefinition', 'vsplit')
+  vim.cmd('normal zt')
+end, { silent = true })
 
 -- For changing hlslens `n` and `N` keys to keep the searched words in the middle line of screen.
 n -> nzzzv
