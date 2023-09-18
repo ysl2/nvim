@@ -27,6 +27,25 @@
       "cudnn",
       "sourcery",
       "termscp",
-      "fuser"
+      "fuser",
+      "vsplit",
+      "diffthis",
+      "diffoff",
+      "linediff",
+      "markdownlint",
+      "treesitter",
+      "localappdata",
+      "cython",
+      "vscode's",
+      "winblend",
+      "folke",
+      "tokyonight",
+      "ipdb",
+      "pudb",
+      "pysnooper",
+      "loguru",
+      "hlslens",
+      "nzzzv",
+      "nzzzv"
     ]
 }
