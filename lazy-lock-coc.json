@@ -22,6 +22,7 @@
   "jsonc.vim": { "branch": "master", "commit": "6fb92460f9e50505c9b93181a00f27d10c9b383f" },
   "lazy.nvim": { "branch": "main", "commit": "357db58dbdf56422dbb3a84ae2c47efee8e0ca25" },
   "leetcode.vim": { "branch": "master", "commit": "98789e406779fd4d4f50270330f00b972917ae0e" },
+  "linediff.vim": { "branch": "main", "commit": "245d16328c47a132574e0fa4298d24a0f78b20b0" },
   "lualine.nvim": { "branch": "master", "commit": "45e27ca739c7be6c49e5496d14fcf45a303c3a63" },
   "markdown-preview.nvim": { "branch": "master", "commit": "02cc3874738bc0f86e4b91f09b8a0ac88aef8e96" },
   "neovim-session-manager": { "branch": "master", "commit": "597c81f4cb36786a5999ee2bb4048acffc444dcf" },

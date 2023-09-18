@@ -1585,6 +1585,10 @@ vim.list_extend(M, {
       config = function()
           require('wildfire').setup()
       end,
+  },
+  {
+    'AndrewRadev/linediff.vim',
+    cmd = { 'Linediff' }
   }
 })
 
