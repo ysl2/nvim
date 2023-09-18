@@ -491,15 +491,6 @@ vim.list_extend(M, {
             include_surrounding_whitespace = false,
           }
         },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = '<CR>', -- set to `false` to disable one of the mappings
-            node_incremental = '<CR>',
-            scope_incremental = '<C-CR>',
-            node_decremental = '<A-CR>',
-          },
-        },
         indent = {  -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136
             enable = true,
             -- disable = {}
@@ -1586,6 +1577,14 @@ vim.list_extend(M, {
       { '<A-p>', function() return vim.fn['codeium#CycleCompletions'](-1) end, mode = 'i', silent = true, expr = true },
       { '<A-x>', function() return vim.fn['codeium#Clear']() end, mode = 'i', silent = true, expr = true }
     }
+  },
+  {
+      'sustech-data/wildfire.nvim',
+      event = 'VeryLazy',
+      dependencies = { 'nvim-treesitter/nvim-treesitter' },
+      config = function()
+          require('wildfire').setup()
+      end,
   }
 })
 
