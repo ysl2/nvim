@@ -176,6 +176,9 @@ You can find language-specific outer debuggers below.
 
    # For coc only:
    pip install jedi sourcery
+
+   # If you don't know which to install, you can directly install all of them.
+   pip install pynvim jedi flake8 black sourcery
    ```
 
 2. Python debugger
