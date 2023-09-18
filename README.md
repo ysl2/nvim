@@ -36,6 +36,7 @@ Insights from:
 - `nerd-font`: Optional, but recommended.
 - `lazygit`: Optional, for git support.
 - `npm` & `yarn`: Optional, for some lsp support, markdown preview, and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
+- `wakatime-cli`: Optional, for time tracking.
 
 ### Install & update
 
