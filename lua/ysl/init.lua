@@ -1589,6 +1589,10 @@ vim.list_extend(M, {
   {
     'AndrewRadev/linediff.vim',
     cmd = { 'Linediff' }
+  },
+  {
+    'wakatime/vim-wakatime',
+    event = { 'BufReadPost', 'BufNewFile' },
   }
 })
 
