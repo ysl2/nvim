@@ -224,6 +224,10 @@ vim.list_extend(M, {
     config = function()
       require('nvim-surround').setup({
         -- Configuration here, or leave empty to use defaults
+        keymaps = {
+          insert = '<A-g>s',
+          insert_line = '<A-g>S',
+        }
       })
     end
   },
@@ -1577,7 +1581,7 @@ vim.list_extend(M, {
       vim.g.codeium_disable_bindings = 1
     end,
     keys = {
-      { '<TAB>', function() return vim.fn['codeium#Accept']() end, mode = 'i', silent = true, expr = true },
+      { '<C-g>', function() return vim.fn['codeium#Accept']() end, mode = 'i', silent = true, expr = true },
       { '<A-n>', function() return vim.fn['codeium#CycleCompletions'](1) end, mode = 'i', silent = true, expr = true },
       { '<A-p>', function() return vim.fn['codeium#CycleCompletions'](-1) end, mode = 'i', silent = true, expr = true },
       { '<A-x>', function() return vim.fn['codeium#Clear']() end, mode = 'i', silent = true, expr = true }
