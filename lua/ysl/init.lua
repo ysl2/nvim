@@ -1284,8 +1284,9 @@ vim.list_extend(M, {
         end
         _my_custom_zen_mode_on()
       end
-      vim.keymap.set('n', '<C-w>z', function() return _my_custom_zen_mode_toggle({ cmd = 'wincmd =' }) end, { silent = true })
-      vim.keymap.set('n', '<C-w>Z', function() return _my_custom_zen_mode_toggle() end, { silent = true })
+      -- vim.keymap.set('n', '<C-w>z', function() return _my_custom_zen_mode_toggle({ cmd = 'wincmd =' }) end, { silent = true })
+      -- vim.keymap.set('n', '<C-w>Z', function() return _my_custom_zen_mode_toggle() end, { silent = true })
+      vim.keymap.set('n', '<C-w>z', function () return _my_custom_zen_mode_on() end, { silent = true })
       vim.keymap.set('n', '<C-w>=', function() return _my_custom_zen_mode_off({ cmd = 'wincmd =' }) end, { silent = true })
       vim.keymap.set('n', '<C-w>q', function() return _my_custom_zen_mode_off({ cmd = 'wincmd q' }) end, { silent = true })
       vim.api.nvim_create_autocmd('WinEnter', {
