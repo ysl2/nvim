@@ -316,7 +316,13 @@ vim.list_extend(M, {
     'folke/todo-comments.nvim',
     event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim', lazy = true },
-    config = function() require('todo-comments').setup {} end,
+    config = function()
+      require('todo-comments').setup({
+        keywords = {
+          WARN = { icon = U.SIGNS.Warn, },
+        },
+      })
+    end,
   },
   { 'ysl2/bufdelete.nvim',        cmd = 'Bd' },
   { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
