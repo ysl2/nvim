@@ -1592,7 +1592,7 @@ vim.list_extend(M, {
   },
   {
     'wakatime/vim-wakatime',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'VeryLazy' },
   }
 })
 
