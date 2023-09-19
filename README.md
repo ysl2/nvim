@@ -34,9 +34,7 @@ Insights from:
 - A C compiler `clang` or `gcc` (choose one between them): Essential, for nvim-treesitter support.
 - `ripgrep`: Essential, for fuzzy search and replace.
 - `nerd-font`: Optional, but recommended.
-- `lazygit`: Optional, for git support.
 - `npm` & `yarn`: Optional, for some lsp support, markdown preview, and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
-- `wakatime-cli`: Optional, for time tracking.
 
 ### Install & update
 
@@ -251,6 +249,16 @@ Use `<C-w>q` to quit a window, and the zen mode will be safely closed. If `:q<CR
 #### With Chrome
 
 #### Applications
+
+##### Wakatime
+
+Install `wakatime-cli`.
+
+##### Lazygit
+
+Install `lazygit`.
+
+##### Lf
 
 ## My forked plugins list
 
