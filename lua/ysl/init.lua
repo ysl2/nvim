@@ -48,6 +48,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     -- https://neovim.io/doc/user/api.html#nvim_set_hl()
     vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'none' })
     vim.api.nvim_set_hl(0, 'Visual', { reverse = true })
+    vim.api.nvim_set_hl(0, 'DiffText', { reverse = true })
   end
 })
 vim.cmd('language en_US.UTF8')
