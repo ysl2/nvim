@@ -222,6 +222,8 @@ marksman
 
 Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
 
+The inverse search is unavailable beacuse the `vimtex` plugin is lazyloaded to gain best startup speed. If you want to inverse search, you should remove the lazy load statement.
+
 ### Fuzzy search & global replace system
 
 ### Mark system
