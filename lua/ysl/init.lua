@@ -432,7 +432,7 @@ vim.list_extend(M, {
           -- the name of the parser)
           -- list of language that will be disabled
           -- disable = { "c", "rust" },
-          disable = {},
+          disable = { 'latex' },
           -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
           -- disable = function(lang, buf)
           --     local max_filesize = 100 * 1024 -- 100 KB
@@ -1600,7 +1600,23 @@ vim.list_extend(M, {
     event = { 'VeryLazy' },
   },
   {
-    'lervag/vimtex'
+    'lervag/vimtex',
+    config = function()
+      vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_format_enabled = 1
+      vim.g.vimtex_motion_enabled = 0
+      vim.g.vimtex_text_obj_enabled = 0
+      local other_mappings = {
+        'dsc', 'dse', 'ds$', 'dsd',
+        'csc', 'cse', 'cs$', 'csd',
+        'tsc', 'tse', 'ts$', 'tsd', 'tsf'
+      }
+      vim.g.vimtex_mapping_disable = {
+        n = other_mappings,
+        x = other_mappings
+      }
+      vim.g.vimtex_syntax_conceal_disable = 1
+    end
   }
 })
 

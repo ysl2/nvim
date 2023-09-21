@@ -218,6 +218,10 @@ marksman
 
 `~/.markdownlint`
 
+#### Latex
+
+Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
+
 ### Fuzzy search & global replace system
 
 ### Mark system
