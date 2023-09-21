@@ -241,10 +241,6 @@ marksman
 
 1. `:Linediff`
 
-#### Zen mode
-
-Use `<C-w>q` to quit a window, and the zen mode will be safely closed. If `:q<CR>`, the zen mode will not be closed.
-
 ### Terminal system
 
 ### Miscellaneous
