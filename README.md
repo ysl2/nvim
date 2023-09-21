@@ -211,6 +211,11 @@ cargo new {project_name}
 
 #### Markdown
 
+```
+# For coc dependencies:
+marksman
+```
+
 `~/.markdownlint`
 
 ### Fuzzy search & global replace system

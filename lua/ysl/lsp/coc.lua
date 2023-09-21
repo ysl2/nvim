@@ -13,11 +13,7 @@ return {
             command = [[syntax match Comment +\/\/.\+$+]]
           })
         end
-      },
-      {
-        'ysl2/coc-marksman',
-        build = 'yarn install --frozen-lockfile'
-      },
+      }
     },
     config = function()
       vim.keymap.set('n', '\\<TAB>', function()
@@ -44,7 +40,8 @@ return {
         'coc-diagnostic',
         'coc-spell-checker',
         'coc-rust-analyzer',
-        'coc-vimtex'
+        'coc-vimtex',
+        '@yaegassy/coc-marksman'
       }
 
       vim.g.coc_user_config = vim.empty_dict()
