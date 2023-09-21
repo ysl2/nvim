@@ -43,7 +43,8 @@ return {
         'coc-markdownlint',
         'coc-diagnostic',
         'coc-spell-checker',
-        'coc-rust-analyzer'
+        'coc-rust-analyzer',
+        'coc-vimtex'
       }
 
       vim.g.coc_user_config = vim.empty_dict()

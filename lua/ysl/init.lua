@@ -1598,6 +1598,9 @@ vim.list_extend(M, {
   {
     'wakatime/vim-wakatime',
     event = { 'VeryLazy' },
+  },
+  {
+    'lervag/vimtex'
   }
 })
 
