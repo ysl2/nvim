@@ -4,7 +4,6 @@
   "bufferline.nvim": { "branch": "main", "commit": "243893ba9d5d1049dd451a25cab32ec7f8f67bcf" },
   "calendar.vim": { "branch": "master", "commit": "66e6d0955efb6beb68912dce3ff484e8805d975c" },
   "close-buffers.vim": { "branch": "master", "commit": "0b29fbc483344e2ebec96a28070698d72a8a767c" },
-  "coc-marksman": { "branch": "master", "commit": "f26966e07c8bf4dd104678321ef32df9a1e324a0" },
   "coc.nvim": { "branch": "release", "commit": "b4735a634aa397491fd6adcebd7deff501592f62" },
   "codeium.vim": { "branch": "main", "commit": "45dd945883c2ff87553d78710797ad7a2602b269" },
   "csv.vim": { "branch": "master", "commit": "15ff93edf5b26c466affbb356e0696b7d6a3b499" },
