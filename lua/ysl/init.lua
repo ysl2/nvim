@@ -311,7 +311,6 @@ vim.list_extend(M, U.set(U.safeget(S, 'plugins'), {}))
 -- ===
 vim.list_extend(M, {
   { 'Asheq/close-buffers.vim',             cmd = 'Bdelete' },
-  { 'romainl/vim-cool',                    event = 'VeryLazy' },
   { 'tpope/vim-fugitive',                  cmd = 'Git' },
   {
     'lewis6991/gitsigns.nvim',
@@ -1151,7 +1150,9 @@ vim.list_extend(M, {
     config = function()
       -- require('hlslens').setup()
       require('scrollbar.handlers.search').setup({
-          -- hlslens config overrides
+        -- hlslens config overrides
+        calm_down = true,
+        nearest_float_when = 'never'
       })
     end
   },
@@ -1204,11 +1205,17 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
-      'folke/noice.nvim',
     },
     config = function()
-      local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
-      local spinner_counter = 0
+      local noice_ok, noice = pcall(require, 'noice')
+      local copilot_ok, copilot_api = pcall(require, 'copilot.api')
+
+      local spinners
+      local spinner_counter
+      if copilot_ok then
+        spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+        spinner_counter = 0
+      end
 
       local lualine = require('lualine')
       lualine.setup({
@@ -1224,8 +1231,7 @@ vim.list_extend(M, {
                 return 'g:coc_status'
               end
               if lsp == 'ysl.lsp.nvim_lsp' then
-                local ok, noice = pcall(require, 'noice')
-                if not ok then return '' end
+                if not noice_ok then return '' end
                 return {
                   function()
                     return noice.api.status.lsp_progress.get_hl()
@@ -1240,16 +1246,12 @@ vim.list_extend(M, {
           },
           lualine_x = {
             function() return _G.MY_CUSTOM_ZEN_MODE_WINID and 'ZenMode' or '' end,
-            {
-              'macro-recording',
-              fmt = function()
-                local temp = vim.fn.reg_recording()
-                return temp == '' and '' or 'recording @' .. temp
-              end,
-            },
             function()
-              local ok, api = pcall(require, 'copilot.api')
-              if not ok then return '' end
+              local register = vim.fn.reg_recording()
+              return register == '' and '' or 'recording @' .. register
+            end,
+            function()
+              if not copilot_ok then return '' end
               local icon = {
                 [''] = '',
                 InProgress = (function()
@@ -1261,7 +1263,7 @@ vim.list_extend(M, {
                 Warning = '',
               }
               local status
-              api.register_status_notification_handler(function(data)
+              copilot_api.register_status_notification_handler(function(data)
                 status = icon[data.status]
               end)
               return status or ''
@@ -1432,7 +1434,22 @@ vim.list_extend(M, {
             opts = {
               skip = true
             }
-          }
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              kind = '',
+              find = 'written',
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              kind = 'search_count',
+            },
+            opts = { skip = true },
+          },
         },
       })
 
