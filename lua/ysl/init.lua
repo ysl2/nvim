@@ -1637,7 +1637,8 @@ vim.list_extend(M, {
   },
   {
     'zbirenbaum/copilot.lua',
-    event = { 'BufReadPost', 'BufNewFile' },
+    -- event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'InsertEnter' },
     build = ':Copilot auth',
     config = function()
       require('copilot').setup({
