@@ -1207,34 +1207,34 @@ vim.list_extend(M, {
       'folke/noice.nvim',
     },
     config = function()
-
-      local noice = require('noice')
-      local function lualine_c()
-        local result = { 'filename' }
-        if lsp == 'ysl.lsp.coc' then
-          result[#result+1] = 'g:coc_status'
-        elseif lsp == 'ysl.lsp.nvim_lsp' then
-          result[#result+1] = {
-            function()
-              return noice.api.status.lsp_progress.get_hl()
-            end,
-            cond = function()
-              return noice.api.status.lsp_progress.has()
-            end,
-          }
-        end
-        return result
-      end
-
       local lualine = require('lualine')
-
       lualine.setup({
         options = {
           section_separators = { left = '', right = '' },
           component_separators = { left = '', right = '' }
         },
         sections = {
-          lualine_c = lualine_c(),
+          lualine_c = {
+            'filename',
+            (function ()
+              if lsp == 'ysl.lsp.coc' then
+                return 'g:coc_status'
+              end
+              if lsp == 'ysl.lsp.nvim_lsp' then
+                local ok, noice = pcall(require, 'noice')
+                if not ok then return '' end
+                return {
+                  function()
+                    return noice.api.status.lsp_progress.get_hl()
+                  end,
+                  cond = function()
+                    return noice.api.status.lsp_progress.has()
+                  end,
+                }
+              end
+              return ''
+            end)()
+          },
           lualine_x = {
             function() return _G.MY_CUSTOM_ZEN_MODE_WINID and 'ZenMode' or '' end,
             {
@@ -1244,6 +1244,28 @@ vim.list_extend(M, {
                 return temp == '' and '' or 'recording @' .. temp
               end,
             },
+            function()
+              local ok, api = pcall(require, 'copilot.api')
+              if not ok then return '' end
+              local status = ''
+              api.register_status_notification_handler(function(data)
+                -- customize your message however you want
+                if data.status == '' then
+                  status = ''
+                  return
+                end
+                if data.status == 'InProgress' then
+                  status = ''
+                end
+                if data.status == 'Normal' then
+                  status = ''
+                end
+                if data.status == 'Warning' then
+                  status = ''
+                end
+              end)
+              return status
+            end,
             'filesize', 'encoding', 'fileformat', function() return vim.opt.filetype._value end
           },
         },
@@ -1620,20 +1642,10 @@ vim.list_extend(M, {
       vim.g.vimtex_compiler_silent = 1
     end
   },
-  -- {
-  --   'github/copilot.vim',
-  --   event = { 'BufReadPost', 'BufNewFile' },
-  --   config = function()
-  --     vim.cmd([[
-  --       imap <silent><script><expr> <C-g> copilot#Accept("\<CR>")
-  --       let g:copilot_no_tab_map = v:true
-  --     ]])
-  --   end
-  -- },
   {
     'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
+    event = { 'BufReadPost', 'BufNewFile' },
+    build = ':Copilot auth',
     config = function()
       require('copilot').setup({
         panel = {
