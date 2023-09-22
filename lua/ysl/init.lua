@@ -1631,18 +1631,18 @@ vim.list_extend(M, {
   --   end
   -- },
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
     config = function()
-      require("copilot").setup({
+      require('copilot').setup({
         panel = {
           auto_refresh = true,
         },
         suggestion = {
           auto_trigger = true,
           keymap = {
-            accept = "<C-g>",
+            accept = '<C-g>',
             accept_word = '<C-g>',
             accept_line = '<C-g>',
           },
