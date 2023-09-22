@@ -1207,6 +1207,9 @@ vim.list_extend(M, {
       'folke/noice.nvim',
     },
     config = function()
+      local spinners = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
+      local spinner_counter = 0
+
       local lualine = require('lualine')
       lualine.setup({
         options = {
@@ -1249,19 +1252,25 @@ vim.list_extend(M, {
               if not ok then return '' end
               local icon = {
                 [''] = '',
-                InProgress = '',
+                InProgress = (function()
+                  spinner_counter = (spinner_counter + 1) % #spinners
+                  return spinners[spinner_counter]
+                end)(),
                 Normal = '',
                 Warning = '',
               }
               local status
               api.register_status_notification_handler(function(data)
-                status = icon[data.status] or ''
+                status = icon[data.status]
               end)
-              return status
+              return status or ''
             end,
             'filesize', 'encoding', 'fileformat', function() return vim.opt.filetype._value end
           },
         },
+        refresh = {
+          statusline = 0,
+        }
       })
 
       local function _my_plugin_lualine()
