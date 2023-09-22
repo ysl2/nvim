@@ -236,6 +236,18 @@ For multiple tex files in a project, use `{main_file_name}.tex.latexmain` to def
 
 ### Buffer & window system
 
+#### AI context complement
+
+##### Copilot
+
+If you're in China you might need to add this into `lua/ysl/secret.lua`:
+
+```lua
+-- lua/ysl/secret.lua
+
+vim.g.copilot_proxy = '127.0.0.1:7890'
+```
+
 #### File content diff
 
 ##### Whole file diff
