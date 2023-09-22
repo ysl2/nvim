@@ -1620,15 +1620,35 @@ vim.list_extend(M, {
       vim.g.vimtex_compiler_silent = 1
     end
   },
+  -- {
+  --   'github/copilot.vim',
+  --   event = { 'BufReadPost', 'BufNewFile' },
+  --   config = function()
+  --     vim.cmd([[
+  --       imap <silent><script><expr> <C-g> copilot#Accept("\<CR>")
+  --       let g:copilot_no_tab_map = v:true
+  --     ]])
+  --   end
+  -- },
   {
-    'github/copilot.vim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
     config = function()
-      vim.cmd([[
-        imap <silent><script><expr> <C-g> copilot#Accept("\<CR>")
-        let g:copilot_no_tab_map = v:true
-      ]])
-    end
+      require("copilot").setup({
+        panel = {
+          auto_refresh = true,
+        },
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<C-g>",
+            accept_word = '<C-g>',
+            accept_line = '<C-g>',
+          },
+        }
+      })
+    end,
   }
 })
 
