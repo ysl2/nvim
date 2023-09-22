@@ -260,7 +260,8 @@ vim.list_extend(M, {
     end
   },
   {
-    'phaazon/hop.nvim',
+    'smoka7/hop.nvim',
+    version = '*',
     event = 'VeryLazy',
     keys = {
       { '<Leader><Leader>', '<CMD>silent! HopChar1MW<CR>',   mode = '', silent = true },
