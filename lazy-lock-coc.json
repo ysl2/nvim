@@ -5,7 +5,7 @@
   "calendar.vim": { "branch": "master", "commit": "66e6d0955efb6beb68912dce3ff484e8805d975c" },
   "close-buffers.vim": { "branch": "master", "commit": "0b29fbc483344e2ebec96a28070698d72a8a767c" },
   "coc.nvim": { "branch": "release", "commit": "b4735a634aa397491fd6adcebd7deff501592f62" },
-  "codeium.vim": { "branch": "main", "commit": "45dd945883c2ff87553d78710797ad7a2602b269" },
+  "copilot.vim": { "branch": "release", "commit": "998cf5ab1b85e844c7e8edb864a997e590df7182" },
   "csv.vim": { "branch": "master", "commit": "15ff93edf5b26c466affbb356e0696b7d6a3b499" },
   "cython-snips": { "branch": "main", "commit": "80108883f38ff0e4d3b3b6a5d722c8e858d07bcc" },
   "cython.vim": { "branch": "master", "commit": "a073ff9bc0cb7d80e8167fa506c7df99f73a3125" },

@@ -1570,19 +1570,19 @@ vim.list_extend(M, {
       end
     end
   },
-  {
-    'Exafunction/codeium.vim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    init = function()
-      vim.g.codeium_disable_bindings = 1
-    end,
-    keys = {
-      { '<C-g>', function() return vim.fn['codeium#Accept']() end, mode = 'i', silent = true, expr = true },
-      { '<A-n>', function() return vim.fn['codeium#CycleCompletions'](1) end, mode = 'i', silent = true, expr = true },
-      { '<A-p>', function() return vim.fn['codeium#CycleCompletions'](-1) end, mode = 'i', silent = true, expr = true },
-      { '<A-x>', function() return vim.fn['codeium#Clear']() end, mode = 'i', silent = true, expr = true }
-    }
-  },
+  -- {
+  --   'Exafunction/codeium.vim',
+  --   event = { 'BufReadPost', 'BufNewFile' },
+  --   init = function()
+  --     vim.g.codeium_disable_bindings = 1
+  --   end,
+  --   keys = {
+  --     { '<C-g>', function() return vim.fn['codeium#Accept']() end, mode = 'i', silent = true, expr = true },
+  --     { '<A-n>', function() return vim.fn['codeium#CycleCompletions'](1) end, mode = 'i', silent = true, expr = true },
+  --     { '<A-p>', function() return vim.fn['codeium#CycleCompletions'](-1) end, mode = 'i', silent = true, expr = true },
+  --     { '<A-x>', function() return vim.fn['codeium#Clear']() end, mode = 'i', silent = true, expr = true }
+  --   }
+  -- },
   {
     'sustech-data/wildfire.nvim',
     event = 'VeryLazy',
@@ -1618,6 +1618,16 @@ vim.list_extend(M, {
       }
       vim.g.vimtex_syntax_conceal_disable = 1
       vim.g.vimtex_compiler_silent = 1
+    end
+  },
+  {
+    'github/copilot.vim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      vim.cmd([[
+        imap <silent><script><expr> <C-g> copilot#Accept("\<CR>")
+        let g:copilot_no_tab_map = v:true
+      ]])
     end
   }
 })
