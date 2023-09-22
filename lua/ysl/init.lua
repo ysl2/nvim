@@ -1617,6 +1617,7 @@ vim.list_extend(M, {
         x = other_mappings
       }
       vim.g.vimtex_syntax_conceal_disable = 1
+      vim.g.vimtex_compiler_silent = 1
     end
   }
 })
