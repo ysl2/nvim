@@ -1648,8 +1648,9 @@ vim.list_extend(M, {
   {
     'zbirenbaum/copilot.lua',
     event = { 'InsertEnter' },
-    build = ':Copilot auth',
+    -- build = ':Copilot auth',
     config = function()
+      vim.g.copilot_proxy = 'localhost:7890'
       require('copilot').setup({
         panel = {
           auto_refresh = true,
