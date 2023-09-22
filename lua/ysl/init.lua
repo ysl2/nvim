@@ -1207,7 +1207,7 @@ vim.list_extend(M, {
       'folke/noice.nvim',
     },
     config = function()
-      local spinners = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' }
+      local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
       local spinner_counter = 0
 
       local lualine = require('lualine')
