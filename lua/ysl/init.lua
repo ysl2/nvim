@@ -1247,22 +1247,15 @@ vim.list_extend(M, {
             function()
               local ok, api = pcall(require, 'copilot.api')
               if not ok then return '' end
-              local status = ''
+              local icon = {
+                [''] = '',
+                InProgress = '',
+                Normal = '',
+                Warning = '',
+              }
+              local status
               api.register_status_notification_handler(function(data)
-                -- customize your message however you want
-                if data.status == '' then
-                  status = ''
-                  return
-                end
-                if data.status == 'InProgress' then
-                  status = ''
-                end
-                if data.status == 'Normal' then
-                  status = ''
-                end
-                if data.status == 'Warning' then
-                  status = ''
-                end
+                status = icon[data.status] or ''
               end)
               return status
             end,
