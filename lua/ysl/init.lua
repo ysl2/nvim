@@ -1355,6 +1355,12 @@ vim.list_extend(M, {
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
+    commit = (function()
+      if lsp == 'ysl.lsp.coc' then
+        return '3b664e8277c36accec37f43414d85a3b64feba5f'
+      end
+      return nil
+    end)(),
     config = function()
       local nvim_autopairs = require('nvim-autopairs')
       if lsp ~= 'ysl.lsp.coc' then
