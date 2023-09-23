@@ -49,6 +49,7 @@
       "nzzzv",
       "wakatime",
       "latexmain",
-      "vimtex"
+      "vimtex",
+      "openai"
     ]
 }

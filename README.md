@@ -248,6 +248,22 @@ If you're in China you might need to add this into `lua/ysl/secret.lua`:
 vim.g.copilot_proxy = '127.0.0.1:7890'
 ```
 
+##### ChatGPT
+
+1. It depends on curl, so you should set the environment variable `$http_proxy` and `$https_proxy` first, like this:
+
+    ```bash
+    export http_proxy='127.0.0.1:7890'
+    export https_proxy="${http_proxy}"
+    ```
+
+2. Add your api key. You can set it into environment variable, or add to a secret file and custom the read command (follow the official plugin README)
+
+    ```bash
+    export OPENAI_API_KEY=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
+    ```
+
+
 #### File content diff
 
 ##### Whole file diff
