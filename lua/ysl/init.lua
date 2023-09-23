@@ -275,6 +275,24 @@ vim.list_extend(M, {
       require('hop').setup()
     end
   },
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    keys = {
+      { '/' },
+      { '?' }
+    },
+    config = function ()
+      require('flash').setup({
+        jump = {
+          autojump = true,
+        },
+        label = {
+          uppercase = false,
+        }
+      })
+    end
+  }
 })
 
 if vim.g.vscode then
