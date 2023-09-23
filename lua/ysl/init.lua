@@ -268,8 +268,8 @@ vim.list_extend(M, {
     version = '*',
     event = 'VeryLazy',
     keys = {
-      { '<Leader><Leader>', '<CMD>silent! HopChar1MW<CR>',   mode = '', silent = true },
-      { '<Leader><TAB>',    '<CMD>silent! HopPatternMW<CR>', mode = '', silent = true }
+      { 's', '<CMD>silent! HopChar1MW<CR>', mode = { 'n', 'o', 'x' }, silent = true },
+      { '<Leader><TAB>', '<CMD>silent! HopPatternMW<CR>', mode = { 'n', 'o', 'x' }, silent = true }
     },
     config = function()
       require('hop').setup()
@@ -279,8 +279,7 @@ vim.list_extend(M, {
     'folke/flash.nvim',
     event = 'VeryLazy',
     keys = {
-      { '/' },
-      { '?' }
+      { '<c-s>', mode = { 'c' }, function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
     },
     config = function ()
       require('flash').setup({
