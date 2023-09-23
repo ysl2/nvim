@@ -145,9 +145,13 @@ local function _my_custom_toggle_wrap(opts)
   if vim.opt.wrap._value then
     vim.keymap.set({'n', 'v'}, 'j', 'gj', { silent = true })
     vim.keymap.set({'n', 'v'}, 'k', 'gk', { silent = true })
+    vim.keymap.set({'n', 'v'}, '0', 'g0', { silent = true })
+    vim.keymap.set({'n', 'v'}, '$', 'g$', { silent = true })
   else
     vim.keymap.del({'n', 'v'}, 'j')
     vim.keymap.del({'n', 'v'}, 'k')
+    vim.keymap.del({'n', 'v'}, '0')
+    vim.keymap.del({'n', 'v'}, '$')
   end
   print('vim.opt.wrap = ' .. tostring(vim.opt.wrap._value))
 end
