@@ -238,13 +238,19 @@ For multiple tex files in a project, use `{main_file_name}.tex.latexmain` to def
 
 ##### Copilot
 
-If you're in China you might need to add this into `lua/ysl/secret.lua`:
+1. If you're in China you might need to add this into `lua/ysl/secret.lua`:
 
-```lua
--- lua/ysl/secret.lua
+    ```lua
+    -- lua/ysl/secret.lua
 
-vim.g.copilot_proxy = '127.0.0.1:7890'
-```
+    vim.g.copilot_proxy = '127.0.0.1:7890'
+    ```
+
+2. The copilot key is stored in `~/.config/github-copilot/hosts.json`:
+
+    ```json
+    {"github.com":{"user":"your-github-name","oauth_token":"your-key-stored-here"}}
+    ```
 
 ##### ChatGPT
 
