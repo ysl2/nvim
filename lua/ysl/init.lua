@@ -1699,6 +1699,7 @@ vim.list_extend(M, {
     event = { 'InsertEnter' },
     build = ':Copilot auth',
     config = function()
+      local accept = '<C-g>'
       require('copilot').setup({
         panel = {
           auto_refresh = true,
@@ -1706,9 +1707,9 @@ vim.list_extend(M, {
         suggestion = {
           auto_trigger = true,
           keymap = {
-            accept = '<C-g>',
-            accept_word = '<C-g>',
-            accept_line = '<C-g>',
+            accept = accept,
+            accept_word = accept,
+            accept_line = accept
           },
         }
       })
