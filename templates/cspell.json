@@ -50,6 +50,7 @@
       "wakatime",
       "latexmain",
       "vimtex",
-      "openai"
+      "openai",
+      "zathura"
     ]
 }
