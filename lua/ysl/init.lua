@@ -1723,7 +1723,11 @@ vim.list_extend(M, {
       'nvim-telescope/telescope.nvim'
     },
     config = function()
-      require('chatgpt').setup()
+      require('chatgpt').setup({
+        popup_input = {
+          submit = '<CR>'
+        }
+      })
     end
   }
 })
