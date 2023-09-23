@@ -1363,7 +1363,7 @@ vim.list_extend(M, {
       if lsp == 'ysl.lsp.coc' then
         return '3b664e8277c36accec37f43414d85a3b64feba5f'
       end
-      return nil
+      return 'origin/HEAD'
     end)(),
     config = function()
       local nvim_autopairs = require('nvim-autopairs')
