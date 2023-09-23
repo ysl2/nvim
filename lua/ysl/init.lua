@@ -1718,6 +1718,9 @@ vim.list_extend(M, {
   {
     'jackMort/ChatGPT.nvim',
     event = 'VeryLazy',
+    keys = {
+      { '<Leader>c', '<CMD>ChatGPT<CR>', mode = 'n', silent = true }
+    },
     dependencies = {
       'MunifTanjim/nui.nvim',
       'nvim-lua/plenary.nvim',
