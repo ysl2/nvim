@@ -222,8 +222,6 @@ marksman
 
 Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
 
-The inverse search is unavailable because the `vimtex` plugin is lazyloaded to gain best startup speed. If you want to inverse search, you should remove the lazy load statement.
-
 For multiple tex files in a project, use `{main_file_name}.tex.latexmain` to define the main file. For example, if the main file in the project is `./main.tex`, you should add another file named as `./main.tex.latexmain` to tell vimtex the `./main.tex` is exactly the main file.
 
 ### Fuzzy search & global replace system
