@@ -1719,6 +1719,7 @@ vim.list_extend(M, {
   },
   {
     'jackMort/ChatGPT.nvim',
+    cond = os.getenv('OPENAI_API_KEY') ~= nil,
     event = 'VeryLazy',
     keys = {
       { '<Leader>c', '<CMD>ChatGPT<CR>', mode = 'n', silent = true }
