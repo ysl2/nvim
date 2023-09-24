@@ -13,7 +13,6 @@
   "distant.nvim": { "branch": "v0.2", "commit": "01a5e2f5c8fdcb7ac91eaf3241dafed861fabab6" },
   "dressing.nvim": { "branch": "master", "commit": "c1e1d5fa44fe08811b6ef4aadac2b50e602f9504" },
   "dropbar.nvim": { "branch": "master", "commit": "54813b42387535413c5b9f8bd175810559e81d32" },
-  "flash.nvim": { "branch": "main", "commit": "cc8c7e03987134997d74ee87e55a5717279f2d05" },
   "fm-nvim": { "branch": "master", "commit": "8e6a77049330e7c797eb9e63affd75eb796fe75e" },
   "friendly-snippets": { "branch": "main", "commit": "ebf6d6e83494cdd88a54a429340256f4dbb6a052" },
   "gitsigns.nvim": { "branch": "main", "commit": "f0e9f5dd3218774fa725e55965b40ca78c2104eb" },

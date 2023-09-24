@@ -279,28 +279,6 @@ vim.list_extend(M, {
       require('hop').setup()
     end
   },
-  {
-    'folke/flash.nvim',
-    event = 'VeryLazy',
-    keys = {
-      { '<c-s>', mode = { 'c' }, function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
-    },
-    config = function ()
-      require('flash').setup({
-        jump = {
-          autojump = true,
-        },
-        label = {
-          uppercase = false,
-        },
-        modes = {
-          char = {
-            enabled = false,
-          }
-        }
-      })
-    end
-  }
 })
 
 if vim.g.vscode then
@@ -1685,14 +1663,14 @@ vim.list_extend(M, {
       vim.g.vimtex_format_enabled = 1
       vim.g.vimtex_motion_enabled = 0
       vim.g.vimtex_text_obj_enabled = 0
-      local other_mappings = {
+      local vimtex_mapping_disable = {
         'dsc', 'dse', 'ds$', 'dsd',
         'csc', 'cse', 'cs$', 'csd',
         'tsc', 'tse', 'ts$', 'tsd', 'tsf'
       }
       vim.g.vimtex_mapping_disable = {
-        n = other_mappings,
-        x = other_mappings
+        n = vimtex_mapping_disable,
+        x = vimtex_mapping_disable
       }
       vim.g.vimtex_syntax_conceal_disable = 1
       vim.g.vimtex_compiler_silent = 1
