@@ -48,11 +48,13 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     -- https://neovim.io/doc/user/api.html#nvim_set_hl()
     vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'none' })
     vim.api.nvim_set_hl(0, 'Visual', { reverse = true })
-    vim.api.nvim_set_hl(0, 'DiffAdd', { reverse = true })
-    vim.api.nvim_set_hl(0, 'DiffChange', { reverse = true })
-    vim.api.nvim_set_hl(0, 'DiffDelete', { reverse = true })
-    local bg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui')
-    vim.api.nvim_set_hl(0, 'DiffText', { reverse = true, bold = true, fg = bg })
+
+    local opts = { underline = true, bold = true }
+    vim.api.nvim_set_hl(0, 'DiffAdd', opts)
+    vim.api.nvim_set_hl(0, 'DiffChange', opts)
+    vim.api.nvim_set_hl(0, 'DiffDelete', opts)
+    local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui')
+    vim.api.nvim_set_hl(0, 'DiffText', { reverse = true, bold = true , fg = fg })
   end
 })
 vim.cmd('language en_US.UTF8')
