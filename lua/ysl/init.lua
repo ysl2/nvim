@@ -104,6 +104,8 @@ vim.keymap.set('n', '<A-.>', '<C-w>5>', { silent = true })
 vim.keymap.set('n', '<A-,>', '<C-w>5<', { silent = true })
 vim.keymap.set('n', '<A-->', '<C-w>5-', { silent = true })
 vim.keymap.set('n', '<A-=>', '<C-w>5+', { silent = true })
+vim.keymap.set('n', '<Leader>d', '<CMD>diffthis<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>D', '<CMD>diffoff!<CR>', { silent = true })
 
 -- Auto delete [No Name] buffers.
 if not vim.g.vscode then
@@ -844,7 +846,7 @@ vim.list_extend(M, {
     branch = 'v0.2',
     keys = {
       {
-        '<LEADER>dc',
+        '<LEADER>Rc',
         function()
           local hosts = U.safeget(S, { 'config', 'distant' })
           if not hosts then
@@ -858,7 +860,7 @@ vim.list_extend(M, {
         silent = true
       },
       {
-        '<LEADER>do',
+        '<LEADER>Ro',
         function()
           local path = vim.fn.input('Enter path: ')
           require('distant.command').open({ args = { path }, opts = {} })
@@ -866,7 +868,7 @@ vim.list_extend(M, {
         mode = 'n',
         silent = true
       },
-      { '<LEADER>ds', '<CMD>DistantShell<CR>', mode = 'n', silent = true }
+      { '<LEADER>Rs', '<CMD>DistantShell<CR>', mode = 'n', silent = true }
     },
     config = function()
       require('distant').setup { ['*'] = require('distant.settings').chip_default() }
