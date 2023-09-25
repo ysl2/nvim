@@ -1699,7 +1699,6 @@ vim.list_extend(M, {
   },
   {
     'jackMort/ChatGPT.nvim',
-    cond = os.getenv('OPENAI_API_KEY') ~= nil,
     event = 'VeryLazy',
     keys = {
       { '<Leader>c', '<CMD>ChatGPT<CR>', mode = 'n', silent = true }
@@ -1711,6 +1710,7 @@ vim.list_extend(M, {
     },
     config = function()
       require('chatgpt').setup({
+        api_key_cmd = not os.getenv('OPENAI_API_KEY') and "echo ''",
         popup_input = {
           submit = '<CR>'
         }
