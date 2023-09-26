@@ -234,6 +234,12 @@ For multiple tex files in a project, use `{main_file_name}.tex.latexmain` to def
 
 ### Buffer & window system
 
+#### Built-in keymaps
+
+- `:bp<CR>`
+- `:bn<CR>`
+- `<C-6>` or `<C-^>`: For toggle two buffers.
+
 #### AI context complement
 
 ##### Copilot
