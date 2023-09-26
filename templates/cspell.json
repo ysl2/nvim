@@ -54,6 +54,8 @@
       "zathura",
       "convolutional",
       "unetr",
-      "swin"
+      "swin",
+      "mhsa",
+      "downsampling"
     ]
 }
