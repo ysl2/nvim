@@ -1683,6 +1683,7 @@ vim.list_extend(M, {
       }
       vim.g.vimtex_syntax_conceal_disable = 1
       vim.g.vimtex_compiler_silent = 1
+      vim.g.vimtex_quickfix_mode = 0
     end
   },
   {

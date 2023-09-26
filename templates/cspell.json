@@ -56,6 +56,6 @@
       "unetr",
       "swin",
       "mhsa",
-      "downsampling"
+      "downsampling",
     ]
 }
