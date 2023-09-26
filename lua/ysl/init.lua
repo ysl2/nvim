@@ -147,8 +147,17 @@ local function _my_custom_toggle_wrap(opts)
     vim.opt.wrap = not vim.opt.wrap._value
   end
   if vim.opt.wrap._value then
-    vim.keymap.set({'n', 'v'}, 'j', 'gj', { silent = true })
-    vim.keymap.set({'n', 'v'}, 'k', 'gk', { silent = true })
+    local function g(key)
+      return function()
+        if vim.v.count1 == 1 then
+          return 'g' .. key
+        end
+        return key
+      end
+    end
+    for _, key in ipairs({ 'k', 'j' }) do
+      vim.keymap.set({'n', 'v'}, key, g(key), { silent = true, expr = true })
+    end
     vim.keymap.set({'n', 'v'}, '0', 'g0', { silent = true })
     vim.keymap.set({'n', 'v'}, '$', 'g$', { silent = true })
   else
