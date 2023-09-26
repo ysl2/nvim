@@ -1713,6 +1713,11 @@ vim.list_extend(M, {
         api_key_cmd = not os.getenv('OPENAI_API_KEY') and "echo ''",
         popup_input = {
           submit = '<CR>'
+        },
+        chat = {
+          keymaps = {
+            draft_message = '<A-d>',
+          }
         }
       })
     end
