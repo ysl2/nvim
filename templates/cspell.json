@@ -52,6 +52,8 @@
       "vimtex",
       "openai",
       "zathura",
-      "convolutional"
+      "convolutional",
+      "unetr",
+      "swin"
     ]
 }
