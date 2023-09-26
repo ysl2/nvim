@@ -51,6 +51,7 @@
       "latexmain",
       "vimtex",
       "openai",
-      "zathura"
+      "zathura",
+      "convolutional"
     ]
 }

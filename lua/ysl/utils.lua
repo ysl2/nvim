@@ -27,7 +27,8 @@ M.LSP = {
   CSPELL = {
     FILETYPES = {
       'markdown',
-      'plaintext'
+      'plaintext',
+      'latex'
     },
     EXTRA_ARGS = {
       CONFIG = path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
