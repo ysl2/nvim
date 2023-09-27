@@ -282,7 +282,7 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     keys = {
       { 's', '<CMD>silent! HopChar1MW<CR>', mode = { 'n', 'o', 'x' }, silent = true },
-      { '<Leader><TAB>', '<CMD>silent! HopPatternMW<CR>', mode = { 'n', 'o', 'x' }, silent = true }
+      { '<TAB>', '<CMD>silent! HopPatternMW<CR>', mode = { 'n', 'o', 'x' }, silent = true }
     },
     config = function()
       require('hop').setup()
