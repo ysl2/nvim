@@ -224,10 +224,10 @@ Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
 
 #### Bash
 
-```bash
+```text
 # For coc
 npm install -g bash-language-server
-sudo apt install shellcheck
+shellcheck>=v0.7
 shfmt
 ```
 

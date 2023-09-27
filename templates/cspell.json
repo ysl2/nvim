@@ -57,6 +57,7 @@
       "swin",
       "mhsa",
       "downsampling",
-      "shellcheck"
+      "shellcheck",
+      "shfmt"
     ]
 }
