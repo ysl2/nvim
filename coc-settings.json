@@ -54,7 +54,8 @@
   "tabnine.enablePreselect": false,
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
-    "python": "flake8"
+    "python": "flake8",
+    "sh": "shellcheck"
   },
   "diagnostic-languageserver.linters": {
      "flake8": {
@@ -73,5 +74,6 @@
     "python": "black",
     "sh": "shfmt"
   },
-  "inlayHint.display": false
+  "inlayHint.display": false,
+  "bashIde.shellcheckPath": ""
 }
