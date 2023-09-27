@@ -222,6 +222,13 @@ marksman
 
 Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
 
+#### Bash
+
+```bash
+# For coc
+npm install -g bash-language-server
+```
+
 ### Fuzzy search & global replace system
 
 ### Mark system
