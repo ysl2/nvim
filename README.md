@@ -270,7 +270,7 @@ For multiple tex files in a project, use `{main_file_name}.tex.latexmain` to def
 2. Add your api key. You can set it into environment variable, or add to a secret file and custom the read command (follow the official plugin README)
 
     ```bash
-    export OPENAI_API_KEY=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
+    export OPENAI_API_KEY=your-key
     ```
 
 
