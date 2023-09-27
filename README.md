@@ -211,7 +211,7 @@ cargo new {project_name}
 
 #### Markdown
 
-```
+```text
 # For coc dependencies:
 marksman
 ```
@@ -227,6 +227,7 @@ Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
 ```bash
 # For coc
 npm install -g bash-language-server
+sudo apt install shellcheck
 ```
 
 ### Fuzzy search & global replace system
