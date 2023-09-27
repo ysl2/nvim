@@ -228,6 +228,7 @@ Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
 # For coc
 npm install -g bash-language-server
 sudo apt install shellcheck
+shfmt
 ```
 
 ### Fuzzy search & global replace system

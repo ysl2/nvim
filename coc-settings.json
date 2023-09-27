@@ -70,7 +70,8 @@
      }
    },
   "diagnostic-languageserver.formatFiletypes": {
-    "python": "black"
+    "python": "black",
+    "sh": "shfmt"
   },
   "inlayHint.display": false
 }
