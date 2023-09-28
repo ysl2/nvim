@@ -235,11 +235,11 @@ return {
       -- Applying codeAction to the selected region.
       -- Example: `<leader>aap` for current paragraph
       local opts = { silent = true, nowait = true }
-      vim.keymap.set('x', [[\a]], '<Plug>(coc-codeaction-selected)', opts)
-      vim.keymap.set('n', [[\a]], '<Plug>(coc-codeaction-selected)', opts)
+      vim.keymap.set('x', [[\ac]], '<Plug>(coc-codeaction-line)', opts)
+      vim.keymap.set('n', [[\ac]], '<Plug>(coc-codeaction-line)', opts)
 
       -- Remap keys for applying codeAction to the current buffer.
-      vim.keymap.set('n', [[\ac]], '<Plug>(coc-codeaction)', opts)
+      vim.keymap.set('n', [[\aC]], '<Plug>(coc-codeaction)', opts)
 
       -- Apply AutoFix to problem on the current line.
       vim.keymap.set('n', [[\qf]], '<Plug>(coc-fix-current)', opts)
