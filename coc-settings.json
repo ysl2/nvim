@@ -1,21 +1,5 @@
 {
   "Lua.telemetry.enable": false,
-  "languageserver": {
-    "sourcery": {
-      "command": "sourcery",
-      "args": ["lsp"],
-      "filetypes": ["python"],
-      "initializationOptions": {
-        "extension_version": "coc.vim",
-        "editor_version": "vim"
-      },
-      "settings": {
-        "sourcery": {
-          "metricsEnabled": true
-        }
-      }
-    }
-  },
   "suggest.completionItemKindLabels": {
     "text": "\ueb8d Text",
     "method": "\uea8c Method",
@@ -54,26 +38,47 @@
   "tabnine.enablePreselect": false,
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
-    "python": "flake8",
+    // "python": ["flake8", "sourcery"],
+    "python": ["sourcery"],
     "sh": "shellcheck"
   },
   "diagnostic-languageserver.linters": {
-     "flake8": {
-       "debounce": 200,
-       "rootPatterns": [".git", "pyproject.toml", "setup.py", "requirements.txt", ".root", ".flake8"],
-       "securities": {
-         "W": "warning",
-         "E": "error",
-         "F": "info",
-         "C": "info",
-         "N": "hint"
-       }
-     }
+    "flake8": {
+      "debounce": 200,
+      "rootPatterns": [".git", "pyproject.toml", "setup.py", "requirements.txt", ".root", ".flake8"],
+      "securities": {
+        "W": "warning",
+        "E": "error",
+        "F": "info",
+        "C": "info",
+        "N": "hint"
+      }
+    },
+    "sourcery": {
+      "args": [
+        "review",
+        "--verbose",
+        "--csv",
+        "--no-summary",
+      ],
+      "command": "sourcery",
+      "formatLines": 2,
+      "formatPattern": [
+        "^.*\\n(.*),(\\d+),(.*),(.*)$",
+        {
+          "line": 2,
+          "message": 4,
+        }
+      ],
+      "sourcename": "sourcery",
+      "sourceNameFilter": true,
+    }
    },
   "diagnostic-languageserver.formatFiletypes": {
     "python": "black",
     "sh": "shfmt"
   },
   "inlayHint.display": false,
-  "bashIde.shellcheckPath": ""
+  "bashIde.shellcheckPath": "",
+  "diagnostic-languageserver.trace.server": "verbose"
 }
