@@ -222,6 +222,10 @@ marksman
 
 Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
 
+```bash
+sudo apt install zathura
+```
+
 #### Bash
 
 ```text
