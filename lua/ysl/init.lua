@@ -160,6 +160,8 @@ local function _my_custom_toggle_wrap(opts)
     end
     vim.keymap.set({'n', 'v'}, '0', 'g0', { silent = true })
     vim.keymap.set({'n', 'v'}, '$', 'g$', { silent = true })
+    vim.keymap.set({'n', 'v'}, 'g0', '0', { silent = true })
+    vim.keymap.set({'n', 'v'}, 'g$', '$', { silent = true })
     vim.keymap.set('n', '<C-d>', '<C-d>g0', { silent = true })
     vim.keymap.set('n', '<C-u>', '<C-u>g0', { silent = true })
   else
@@ -167,6 +169,8 @@ local function _my_custom_toggle_wrap(opts)
     vim.keymap.del({'n', 'v'}, 'k')
     vim.keymap.del({'n', 'v'}, '0')
     vim.keymap.del({'n', 'v'}, '$')
+    vim.keymap.del({'n', 'v'}, 'g0')
+    vim.keymap.del({'n', 'v'}, 'g$')
     vim.keymap.del('n', '<C-d>')
     vim.keymap.del('n', '<C-u>')
   end
