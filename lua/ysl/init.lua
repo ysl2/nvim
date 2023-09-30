@@ -156,7 +156,7 @@ local function _my_custom_toggle_wrap(opts)
       end
     end
     for _, key in ipairs({ 'k', 'j' }) do
-      vim.keymap.set({'n', 'v'}, key, g(key), { silent = true, expr = true })
+      vim.keymap.set({'n', 'v'}, key, g(key), { silent = true, buffer = true, expr = true })
     end
     vim.keymap.set({'n', 'v'}, '0', 'g0', { silent = true, buffer = true })
     vim.keymap.set({'n', 'v'}, '$', 'g$', { silent = true, buffer = true })
@@ -165,14 +165,14 @@ local function _my_custom_toggle_wrap(opts)
     vim.keymap.set({'n', 'v'}, '<C-d>', '<C-d>g0', { silent = true, buffer = true })
     vim.keymap.set({'n', 'v'}, '<C-u>', '<C-u>g0', { silent = true, buffer = true })
   else
-    vim.keymap.del({'n', 'v'}, 'j')
-    vim.keymap.del({'n', 'v'}, 'k')
-    vim.keymap.del({'n', 'v'}, '0')
-    vim.keymap.del({'n', 'v'}, '$')
-    vim.keymap.del({'n', 'v'}, 'g0')
-    vim.keymap.del({'n', 'v'}, 'g$')
-    vim.keymap.del({'n', 'v'}, '<C-d>')
-    vim.keymap.del({'n', 'v'}, '<C-u>')
+    vim.keymap.del({'n', 'v'}, 'j', { buffer = true })
+    vim.keymap.del({'n', 'v'}, 'k', { buffer = true })
+    vim.keymap.del({'n', 'v'}, '0', { buffer = true })
+    vim.keymap.del({'n', 'v'}, '$', { buffer = true })
+    vim.keymap.del({'n', 'v'}, 'g0', { buffer = true })
+    vim.keymap.del({'n', 'v'}, 'g$', { buffer = true })
+    vim.keymap.del({'n', 'v'}, '<C-d>', { buffer = true })
+    vim.keymap.del({'n', 'v'}, '<C-u>', { buffer = true })
   end
   print('vim.opt.wrap = ' .. tostring(vim.opt.wrap._value))
 end
