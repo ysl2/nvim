@@ -146,34 +146,6 @@ local function _my_custom_toggle_wrap(opts)
   else
     vim.opt.wrap = not vim.opt.wrap._value
   end
-  if vim.opt.wrap._value then
-    local function g(key)
-      return function()
-        if vim.v.count1 == 1 then
-          return 'g' .. key
-        end
-        return key
-      end
-    end
-    for _, key in ipairs({ 'k', 'j' }) do
-      vim.keymap.set({'n', 'v'}, key, g(key), { silent = true, buffer = true, expr = true })
-    end
-    vim.keymap.set({'n', 'v'}, '0', 'g0', { silent = true, buffer = true })
-    vim.keymap.set({'n', 'v'}, '$', 'g$', { silent = true, buffer = true })
-    vim.keymap.set({'n', 'v'}, 'g0', '0', { silent = true, buffer = true })
-    vim.keymap.set({'n', 'v'}, 'g$', '$', { silent = true, buffer = true })
-    vim.keymap.set({'n', 'v'}, '<C-d>', '<C-d>g0', { silent = true, buffer = true })
-    vim.keymap.set({'n', 'v'}, '<C-u>', '<C-u>g0', { silent = true, buffer = true })
-  else
-    vim.keymap.del({'n', 'v'}, 'j', { buffer = true })
-    vim.keymap.del({'n', 'v'}, 'k', { buffer = true })
-    vim.keymap.del({'n', 'v'}, '0', { buffer = true })
-    vim.keymap.del({'n', 'v'}, '$', { buffer = true })
-    vim.keymap.del({'n', 'v'}, 'g0', { buffer = true })
-    vim.keymap.del({'n', 'v'}, 'g$', { buffer = true })
-    vim.keymap.del({'n', 'v'}, '<C-d>', { buffer = true })
-    vim.keymap.del({'n', 'v'}, '<C-u>', { buffer = true })
-  end
   print('vim.opt.wrap = ' .. tostring(vim.opt.wrap._value))
 end
 vim.api.nvim_create_user_command('MyWrapToggle', _my_custom_toggle_wrap, {
@@ -186,6 +158,38 @@ vim.api.nvim_create_user_command('MyWrapToggle', _my_custom_toggle_wrap, {
       end
     end
     return cmp
+  end
+})
+local function _g(key)
+  return function()
+    if vim.v.count1 == 1 then
+      return 'g' .. key
+    end
+    return key
+  end
+end
+vim.api.nvim_create_autocmd('OptionSet', {
+  callback = function()
+    if vim.opt.wrap._value then
+      for _, key in ipairs({ 'k', 'j' }) do
+        vim.keymap.set({'n', 'v'}, key, _g(key), { silent = true, expr = true })
+      end
+      vim.keymap.set({'n', 'v'}, '0', 'g0', { silent = true })
+      vim.keymap.set({'n', 'v'}, '$', 'g$', { silent = true })
+      vim.keymap.set({'n', 'v'}, 'g0', '0', { silent = true })
+      vim.keymap.set({'n', 'v'}, 'g$', '$', { silent = true })
+      vim.keymap.set({'n', 'v'}, '<C-d>', '<C-d>g0', { silent = true })
+      vim.keymap.set({'n', 'v'}, '<C-u>', '<C-u>g0', { silent = true })
+    else
+      pcall(vim.keymap.del, {'n', 'v'}, 'j')
+      pcall(vim.keymap.del, {'n', 'v'}, 'k')
+      pcall(vim.keymap.del, {'n', 'v'}, '0')
+      pcall(vim.keymap.del, {'n', 'v'}, '$')
+      pcall(vim.keymap.del, {'n', 'v'}, 'g0')
+      pcall(vim.keymap.del, {'n', 'v'}, 'g$')
+      pcall(vim.keymap.del, {'n', 'v'}, '<C-d>')
+      pcall(vim.keymap.del, {'n', 'v'}, '<C-u>')
+    end
   end
 })
 
