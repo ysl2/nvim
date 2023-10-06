@@ -203,7 +203,9 @@ if not vim.loop.fs_stat(lazypath) then
     'git',
     'clone',
     '--filter=blob:none',
-    'git@git.zhlh6.cn:ysl2/lazy.nvim.git',
+    -- 'git@git.zhlh6.cn:ysl2/lazy.nvim.git',
+    -- 'git@github.com:ysl2/lazy.nvim.git',
+    'git@github.com:folke/lazy.nvim.git',
     lazypath,
   })
 end
@@ -427,13 +429,14 @@ vim.list_extend(M, {
       local nvim_treesitter_install = require('nvim-treesitter.install')
       nvim_treesitter_install.prefer_git = true
       nvim_treesitter_install.compilers = { 'clang', 'gcc' }
-      local parsers = require('nvim-treesitter.parsers').get_parser_configs()
-      for _, p in pairs(parsers) do
-        p.install_info.url = p.install_info.url:gsub(
-          'https://github.com/',
-          'git@git.zhlh6.cn:'
-        )
-      end
+      -- local parsers = require('nvim-treesitter.parsers').get_parser_configs()
+      -- for _, p in pairs(parsers) do
+      --   p.install_info.url = p.install_info.url:gsub(
+      --     'https://github.com/',
+      --     -- 'git@git.zhlh6.cn:'
+      --     'git@github.com:'
+      --   )
+      -- end
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
