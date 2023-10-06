@@ -1744,6 +1744,18 @@ vim.list_extend(M, {
         }
       })
     end
+  },
+  {
+    'danymat/neogen',
+    cmd = 'Neogen',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = function()
+      local neogen = require('neogen')
+      neogen.setup()
+      local opts = { silent = true }
+      vim.keymap.set('i', '<C-j>', function() neogen.jump_next() end, opts)
+      vim.keymap.set('i', '<C-k>', function() neogen.jump_prev() end, opts)
+    end,
   }
 })
 
