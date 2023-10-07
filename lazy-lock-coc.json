@@ -25,6 +25,7 @@
   "linediff.vim": { "branch": "main", "commit": "245d16328c47a132574e0fa4298d24a0f78b20b0" },
   "lualine.nvim": { "branch": "master", "commit": "45e27ca739c7be6c49e5496d14fcf45a303c3a63" },
   "markdown-preview.nvim": { "branch": "master", "commit": "02cc3874738bc0f86e4b91f09b8a0ac88aef8e96" },
+  "nabla.nvim": { "branch": "master", "commit": "8c143ad2b3ab3b8ffbd51e238ccfcbd246452a7e" },
   "neogen": { "branch": "main", "commit": "70127baaff25611deaf1a29d801fc054ad9d2dc1" },
   "neovim-session-manager": { "branch": "master", "commit": "c25ee4b8176828bb3e9b83db5f8443c101db3ea2" },
   "noice.nvim": { "branch": "main", "commit": "7cf858c30841c9c41601ce58e5bc2023228037ef" },

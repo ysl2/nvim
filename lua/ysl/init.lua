@@ -440,7 +440,7 @@ vim.list_extend(M, {
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
-        ensure_installed = { 'vim', 'query', 'lua', 'python', 'bash', 'c', 'make', 'rust' },
+        ensure_installed = { 'vim', 'query', 'lua', 'python', 'bash', 'c', 'make', 'rust', 'latex' },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -464,7 +464,7 @@ vim.list_extend(M, {
           -- the name of the parser)
           -- list of language that will be disabled
           -- disable = { "c", "rust" },
-          disable = { 'latex' },
+          disable = {},
           -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
           -- disable = function(lang, buf)
           --     local max_filesize = 100 * 1024 -- 100 KB
@@ -1697,7 +1697,7 @@ vim.list_extend(M, {
         n = vimtex_mapping_disable,
         x = vimtex_mapping_disable
       }
-      vim.g.vimtex_syntax_conceal_disable = 1
+      vim.g.vimtex_syntax_enabled = 0
       vim.g.vimtex_compiler_silent = 1
       vim.g.vimtex_quickfix_mode = 0
     end
@@ -1759,7 +1759,15 @@ vim.list_extend(M, {
       vim.keymap.set('i', '<C-j>', function() neogen.jump_next() end, opts)
       vim.keymap.set('i', '<C-k>', function() neogen.jump_prev() end, opts)
     end,
-  }
+  },
+  {
+    'jbyuki/nabla.nvim',
+    ft = { 'tex', 'markdown' },
+    keys = {
+      { '<Leader>n', '<CMD>lua require("nabla").popup()<CR>', mode = 'n', silent = true },
+      { '<Leader>N', '<CMD>lua require("nabla").toggle_virt()<CR>', mode = 'n', silent = true }
+    }
+  },
 })
 
 _my_custom_load(M, { lsp = lsp })
