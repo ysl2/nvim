@@ -1759,15 +1759,7 @@ vim.list_extend(M, {
       vim.keymap.set('i', '<C-j>', function() neogen.jump_next() end, opts)
       vim.keymap.set('i', '<C-k>', function() neogen.jump_prev() end, opts)
     end,
-  },
-  {
-    'jbyuki/nabla.nvim',
-    ft = { 'tex', 'markdown' },
-    keys = {
-      { '<Leader>n', '<CMD>lua require("nabla").popup()<CR>', mode = 'n', silent = true },
-      { '<Leader>N', '<CMD>lua require("nabla").toggle_virt()<CR>', mode = 'n', silent = true }
-    }
-  },
+  }
 })
 
 _my_custom_load(M, { lsp = lsp })
