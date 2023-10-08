@@ -36,7 +36,7 @@ M.LSP = {
   },
   FLAKE8 = {
     EXTRA_ARGS = {
-      '--max-line-length=120',
+      '--max-line-length=' .. vim.fn.winwidth('$'),
       '--ignore=ANN101,ANN102,E402,E741,E203',
     }
   },
