@@ -50,6 +50,8 @@ M.LSP = {
 
 M.CUSTOM_SNIPPETS_PATH = path({vim.fn.stdpath('config'), 'templates', 'snippets'})
 
+M.HOST = { GITHUB_SSH = 'git@github.com:' }
+
 -- =================
 -- === Functions ===
 -- =================

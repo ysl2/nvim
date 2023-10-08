@@ -197,15 +197,15 @@ vim.api.nvim_create_autocmd('OptionSet', {
 -- ===============
 -- === Plugins ===
 -- ===============
+local host_offical = U.HOST.GITHUB_SSH
+local host = U.set(U.safeget(S, {'config', 'host'}), host_offical)
 local lazypath = U.path({vim.fn.stdpath('data'), 'lazy', 'lazy.nvim'})
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
     'clone',
     '--filter=blob:none',
-    -- 'git@git.zhlh6.cn:ysl2/lazy.nvim.git',
-    -- 'git@github.com:ysl2/lazy.nvim.git',
-    'git@github.com:folke/lazy.nvim.git',
+    host .. (host == host_offical and 'folke' or 'ysl2') .. '/lazy.nvim.git',
     lazypath,
   })
 end
@@ -328,7 +328,7 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
   })
 
 local requires = U.set(U.safeget(S, 'requires'), {
-  'ysl.lsp.nvim_lsp'
+  'ysl.lsp.coc'
 })
 local lsp = U.greplist(requires, 'ysl%.lsp.*')
 
@@ -429,14 +429,15 @@ vim.list_extend(M, {
       local nvim_treesitter_install = require('nvim-treesitter.install')
       nvim_treesitter_install.prefer_git = true
       nvim_treesitter_install.compilers = { 'clang', 'gcc' }
-      -- local parsers = require('nvim-treesitter.parsers').get_parser_configs()
-      -- for _, p in pairs(parsers) do
-      --   p.install_info.url = p.install_info.url:gsub(
-      --     'https://github.com/',
-      --     -- 'git@git.zhlh6.cn:'
-      --     'git@github.com:'
-      --   )
-      -- end
+      if host ~= host_offical then
+        local parsers = require('nvim-treesitter.parsers').get_parser_configs()
+        for _, p in pairs(parsers) do
+          p.install_info.url = p.install_info.url:gsub(
+            'https://github.com/',
+            host
+          )
+        end
+      end
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"

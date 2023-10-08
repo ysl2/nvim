@@ -112,6 +112,7 @@ M.requires = {
 
 -- M.config, default value: {}
 M.config = {
+  host = 'git@git.zhlh6.cn:', -- For swiching to China github mirror.
   vim = {
     opt = {
       -- WARNING: Transparency is an experimental feature now.
