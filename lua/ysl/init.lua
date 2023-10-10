@@ -52,7 +52,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     local opts = { underline = true, bold = true }
     vim.api.nvim_set_hl(0, 'DiffAdd', opts)
     vim.api.nvim_set_hl(0, 'DiffChange', opts)
-    vim.api.nvim_set_hl(0, 'DiffDelete', opts)
+    vim.api.nvim_set_hl(0, 'DiffDelete', { reverse = true })
     local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui')
     vim.api.nvim_set_hl(0, 'DiffText', { reverse = true, bold = true , fg = fg })
   end
