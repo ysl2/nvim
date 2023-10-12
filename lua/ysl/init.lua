@@ -205,7 +205,7 @@ if not vim.loop.fs_stat(lazypath) then
     'git',
     'clone',
     '--filter=blob:none',
-    host .. (host == host_offical and 'folke' or 'ysl2') .. '/lazy.nvim.git',
+    host .. 'folke/lazy.nvim.git',
     lazypath,
   })
 end
@@ -243,7 +243,10 @@ local function _my_custom_load(plugins, opts)
         lsp = lsp[#lsp]
       end
       return U.path({vim.fn.stdpath('config'), lsp and 'lazy-lock-' .. lsp .. '.json' or 'lazy-lock.json'})
-    end)()
+    end)(),
+    git = {
+      url_format = host .. '%s.git',
+    }
   })
 end
 
@@ -853,13 +856,13 @@ vim.list_extend(M, {
       {
         '<LEADER>Rc',
         function()
-          local hosts = U.safeget(S, { 'config', 'distant' })
-          if not hosts then
-            print('Missing host lists.')
+          local machines = U.safeget(S, { 'config', 'distant' })
+          if not machines then
+            print('Missing machine lists.')
             return
           end
-          local idx = tonumber(vim.fn.input('Enter host idx: '))
-          require('distant.command').connect(hosts[idx])
+          local idx = tonumber(vim.fn.input('Enter machine idx: '))
+          require('distant.command').connect(machines[idx])
         end,
         mode = 'n',
         silent = true
@@ -885,7 +888,7 @@ vim.list_extend(M, {
       -- ```
       --
       -- HACK: Read variables from secret file.
-      -- S.config.distant is a list type (also can be defined as a table that can give a host alia. By yourself.)
+      -- S.config.distant is a list type (also can be defined as a table that can give a machine alias. By yourself.)
       -- e.g,
       --
       -- ```lua
