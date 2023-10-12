@@ -78,8 +78,8 @@ vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
 -- For coc rename variables.
-vim.keymap.set('i', '<A-b>', '<Left>', { silent = true })
-vim.keymap.set('i', '<A-f>', '<Right>', { silent = true })
+vim.keymap.set('i', '<A-h>', '<Left>', { silent = true })
+vim.keymap.set('i', '<A-l>', '<Right>', { silent = true })
 -- :h cmdline-editing
 -- :h emacs-keys
 vim.cmd([[
@@ -106,8 +106,27 @@ vim.keymap.set('n', '<A-.>', '<C-w>5>', { silent = true })
 vim.keymap.set('n', '<A-,>', '<C-w>5<', { silent = true })
 vim.keymap.set('n', '<A-->', '<C-w>5-', { silent = true })
 vim.keymap.set('n', '<A-=>', '<C-w>5+', { silent = true })
-vim.keymap.set('n', '<Leader>d', '<CMD>diffthis<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>D', '<CMD>diffoff!<CR>', { silent = true })
+local _my_custom_diff_diffwins = {}
+local function _my_custom_diff_diffwins_clean()
+  vim.cmd('diffoff!')
+  _my_custom_diff_diffwins = {}
+end
+vim.keymap.set('n', '<Leader>d', function()
+  if #_my_custom_diff_diffwins >= 2 then
+    _my_custom_diff_diffwins_clean()
+    return
+  end
+  local winnr =  tostring(vim.fn.winnr())
+  local cached_winnr_idx, _ = U.greplist(_my_custom_diff_diffwins, winnr)
+  if cached_winnr_idx then
+    vim.cmd('diffoff')
+    table.remove(_my_custom_diff_diffwins, cached_winnr_idx)
+  else
+    vim.cmd('diffthis')
+    table.insert(_my_custom_diff_diffwins, winnr)
+  end
+end, { silent = true })
+vim.keymap.set('n', '<Leader>D', function() return _my_custom_diff_diffwins_clean() end, { silent = true })
 
 -- Auto delete [No Name] buffers.
 if not vim.g.vscode then
@@ -333,7 +352,7 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
 local requires = U.set(U.safeget(S, 'requires'), {
   'ysl.lsp.coc'
 })
-local lsp = U.greplist(requires, 'ysl%.lsp.*')
+local _, lsp = U.greplist(requires, 'ysl%.lsp.*')
 
 for _, v in ipairs(requires) do
   vim.list_extend(M, require(v))

@@ -104,9 +104,9 @@ end
 -- @param input: list[string]
 -- @param str: string
 M.greplist = function (inputlist, str)
-  for _, v in ipairs(inputlist) do
+  for i, v in ipairs(inputlist) do
     if v:match(str) then
-      return v
+      return i, v
     end
   end
   return nil
