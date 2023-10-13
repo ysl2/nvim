@@ -132,6 +132,7 @@ M.exec = function(command)
   if file then
     file:close()
   end
+  output = output:gsub('%s+', '')  -- Trim line end `\n`
   return output
 end
 

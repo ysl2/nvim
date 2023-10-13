@@ -83,10 +83,24 @@ return {
           if vim.fn.has('win32') == 1 then
             return
           end
-          local result = U.exec('which rust-analyzer')
-          result = result:gsub('%s+', '')  -- Trim line end `\n`
-          return result
-        end)()
+          return U.exec('which rust-analyzer')
+        end)(),
+        ['languageserver'] = {
+          sourcery = {
+            initializationOptions = {
+              token = (function()
+                if vim.fn.has('win32') == 1 then
+                  return
+                end
+                local token = '~/.config/sourcery/auth.yaml'
+                if not vim.fn.glob(token) then
+                  return nil
+                end
+                return U.exec('cat '..token.." | awk '{print $2}'")
+              end)()
+            }
+          }
+        }
       })
 
       -- HACK: Coc config for specific Windows.
