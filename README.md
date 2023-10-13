@@ -194,6 +194,10 @@ You can find language-specific outer debuggers below.
    pip install ipdb pudb pysnooper loguru
    ```
 
+3. sourcery
+
+   This config will auto dynamically read `~/.config/sourcery/auth.yaml`(this is the default sourcery config file) to load the sourcery token.
+
 #### C
 
 `./clang-format` on project root or root's parent folder. See: https://github.com/clangd/coc-clangd/issues/39
