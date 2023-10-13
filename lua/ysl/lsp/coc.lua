@@ -90,7 +90,7 @@ return {
             initializationOptions = {
               token = (function()
                 if vim.fn.has('win32') == 1 then
-                  return
+                  return nil
                 end
                 local token = '~/.config/sourcery/auth.yaml'
                 if not vim.fn.glob(token) then
