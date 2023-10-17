@@ -1232,22 +1232,21 @@ vim.list_extend(M, {
       local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
       require('hlchunk').setup({
         chunk = {
+          notify = false,
+          use_treesitter = true,
           chars = {
-              horizontal_line = "─",
-              vertical_line = "│",
-              left_top = "┌",
-              left_bottom = "└",
-              right_arrow = "─",
+            left_top = "┌",
+            left_bottom = "└",
+            right_arrow = "─",
           },
           style = {
-              { fg = fg }
+            { fg = fg }
           },
-          notify = false
         },
         line_num = {
           use_treesitter = true,
           style = {
-              { fg = fg }
+            { fg = fg }
           },
         },
         blank = {
