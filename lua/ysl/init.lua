@@ -605,9 +605,10 @@ vim.list_extend(M, {
               ['<C-j>'] = telescope_actions.move_selection_next,
               ['<C-k>'] = telescope_actions.move_selection_previous,
               ['<C-r>'] = require('telescope.actions.layout').toggle_preview,
-              ['<C-x>'] = telescope_actions.delete_buffer,
               ['<C-s>'] = telescope_actions.select_horizontal,
-              ['<C-e>'] = telescope_actions.select_default
+              ['<C-e>'] = telescope_actions.select_default,
+              ['<C-f>'] = telescope_actions.cycle_history_next,
+              ['<C-b>'] = telescope_actions.cycle_history_prev,
             }
           },
           layout_config = {
@@ -626,6 +627,18 @@ vim.list_extend(M, {
           -- Default configuration for builtin pickers goes here:
           git_status = { preview = { hide_on_startup = false } },
           live_grep = { preview = { hide_on_startup = false } },
+          buffers = {
+            sort_lastused = true,
+            sort_mru = true,
+            mappings = {
+              i = {
+                ['<C-x>'] = telescope_actions.delete_buffer,
+              }
+            }
+          },
+          colorscheme = {
+            enable_preview = true,
+          }
           -- Now the picker_config_key will be applied every time you call this
           -- builtin picker
         },
