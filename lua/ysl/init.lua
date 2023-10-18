@@ -1805,6 +1805,14 @@ vim.list_extend(M, {
   {
     'kristijanhusak/vim-carbon-now-sh',
     cmd = 'CarbonNowSh'
+  },
+  {
+    'AckslD/nvim-FeMaco.lua',
+    cmd = 'FeMaco',
+    ft = 'markdown',
+    config = function()
+      require('femaco').setup()
+    end
   }
 })
 
