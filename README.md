@@ -139,6 +139,8 @@ return M
 
 ## Keymaps
 
+check conflicts example: `:verbose imap`
+
 | key | command | note |
 | --- | ------- | ---- |
 |     |         |      |

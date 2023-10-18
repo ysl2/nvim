@@ -77,9 +77,6 @@ vim.keymap.set('n', '<C-w><C-l>', function() return _G.my_custom_check_no_name_b
 vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
--- For coc rename variables.
-vim.keymap.set('i', '<A-b>', '<Left>', { silent = true })
-vim.keymap.set('i', '<A-f>', '<Right>', { silent = true })
 
 -- :h cmdline-editing
 -- :h emacs-keys
@@ -1537,28 +1534,29 @@ vim.list_extend(M, {
         },
       })
 
-      vim.api.nvim_create_autocmd('LspProgress', {
-        pattern = '*',
-        command = 'redrawstatus'
-      })
+      if lsp == 'ysl.lsp.nvim_lsp' then
+        vim.api.nvim_create_autocmd('LspProgress', {
+          pattern = '*',
+          command = 'redrawstatus'
+        })
+        vim.api.nvim_create_autocmd('LspAttach', {
+          group = U.GROUP.NVIM_LSP,
+          callback = function(ev)
+            local noice_lsp = require('noice.lsp')
+            vim.keymap.set({'n', 'i', 's'}, '<c-f>', function()
+              if not noice_lsp.scroll(4) then
+                return '<c-f>'
+              end
+            end, { silent = true, expr = true })
 
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = U.GROUP.NVIM_LSP,
-        callback = function(ev)
-          local noice_lsp = require('noice.lsp')
-          vim.keymap.set({'n', 'i', 's'}, '<c-f>', function()
-            if not noice_lsp.scroll(4) then
-              return '<c-f>'
-            end
-          end, { silent = true, expr = true })
-
-          vim.keymap.set({'n', 'i', 's'}, '<c-b>', function()
-            if not noice_lsp.scroll(-4) then
-              return '<c-b>'
-            end
-          end, { silent = true, expr = true })
-        end
-      })
+            vim.keymap.set({'n', 'i', 's'}, '<c-b>', function()
+              if not noice_lsp.scroll(-4) then
+                return '<c-b>'
+              end
+            end, { silent = true, expr = true })
+          end
+        })
+      end
     end
   },
   {

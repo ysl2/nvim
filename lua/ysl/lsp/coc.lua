@@ -277,10 +277,22 @@ return {
       local opts = { silent = true, nowait = true, expr = true }
       vim.keymap.set('n', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
       vim.keymap.set('n', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
-      vim.keymap.set('i', '<C-f>',
-        'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
-      vim.keymap.set('i', '<C-b>',
-        'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
+      vim.keymap.set('i', '<C-f>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
+      vim.keymap.set('i', '<C-b>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
+      vim.keymap.set('i', '<C-f>', function()
+        if vim.fn['coc#float#has_scroll']() == 1 then
+          vim.cmd([[call coc#float#scroll(1)]])
+          return
+        end
+        return '<Right>'
+      end, opts)
+      vim.keymap.set('i', '<C-b>', function()
+        if vim.fn['coc#float#has_scroll']() == 1 then
+          vim.cmd([[call coc#float#scroll(0)]])
+          return
+        end
+        return '<Left>'
+      end, opts)
       vim.keymap.set('v', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
       vim.keymap.set('v', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
 
