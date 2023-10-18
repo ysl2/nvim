@@ -1794,6 +1794,10 @@ vim.list_extend(M, {
       vim.keymap.set('i', '<C-j>', function() neogen.jump_next() end, opts)
       vim.keymap.set('i', '<C-k>', function() neogen.jump_prev() end, opts)
     end,
+  },
+  {
+    'kristijanhusak/vim-carbon-now-sh',
+    cmd = 'CarbonNowSh'
   }
 })
 

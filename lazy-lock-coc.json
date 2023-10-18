@@ -63,6 +63,7 @@
   "trouble.nvim": { "branch": "main", "commit": "02219b557d4726a789be58c5d6bd6e139c46a9fe" },
   "undotree": { "branch": "master", "commit": "0e11ba7325efbbb3f3bebe06213afa3e7ec75131" },
   "vim-bookmarks": { "branch": "master", "commit": "cf3555c88df877a88ae1c66909a889c10ea02718" },
+  "vim-carbon-now-sh": { "branch": "master", "commit": "31a18d26fc27e7bd5786da092ed886273b4cf639" },
   "vim-colorscheme-switcher": { "branch": "master", "commit": "9bf9718688e201405c52d78f9741f9dd4a1ae279" },
   "vim-fugitive": { "branch": "master", "commit": "cbe9dfa162c178946afa689dd3f42d4ea8bf89c1" },
   "vim-illuminate": { "branch": "master", "commit": "3bd2ab64b5d63b29e05691e624927e5ebbf0fb86" },
