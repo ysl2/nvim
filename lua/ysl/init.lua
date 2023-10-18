@@ -1447,10 +1447,17 @@ vim.list_extend(M, {
     end
   },
   {
-    (function() if lsp == 'ysl.lsp.coc' then return 'ysl2' else return 'simrat39' end end)() .. '/symbols-outline.nvim',
-    keys = { { '<LEADER>v', '<CMD>SymbolsOutline<CR>', mode = 'n', silent = true } },
+    'stevearc/aerial.nvim',
+    keys = { { '<LEADER>v', '<cmd>AerialToggle!<CR>', mode = 'n', silent = true } },
     config = function()
-      require('symbols-outline').setup {}
+      require('aerial').setup({
+        backends = { 'treesitter' },
+        layout = {
+          placement = 'edge'
+        },
+        attach_mode = 'global',
+        close_automatic_events = { 'unsupported' },
+      })
     end
   },
   {
