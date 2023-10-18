@@ -1278,12 +1278,13 @@ vim.list_extend(M, {
       local noice_ok, noice = pcall(require, 'noice')
       local copilot_ok, copilot_api = pcall(require, 'copilot.api')
 
-      local spinners
-      local spinner_counter
+      local _my_custom_spinners
+      local _my_custom_spinner_counter
       if copilot_ok then
-        spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
-        spinner_counter = 0
+        _my_custom_spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+        _my_custom_spinner_counter = 0
       end
+      local _my_custom_zenmode_winid
 
       local lualine = require('lualine')
       lualine.setup({
@@ -1317,15 +1318,15 @@ vim.list_extend(M, {
               local register = vim.fn.reg_recording()
               return register == '' and '' or 'recording @' .. register
             end,
-            function() return _G.MY_CUSTOM_ZEN_MODE_WINID and 'ZenMode' or '' end,
+            function() return _my_custom_zenmode_winid and 'ZenMode' or '' end,
             function()
               if not copilot_ok then return '' end
               local icon = {
                 [''] = '',
                 InProgress = (function()
-                  spinner_counter = spinner_counter % #spinners
-                  spinner_counter = spinner_counter + 1
-                  return spinners[spinner_counter]
+                  _my_custom_spinner_counter = _my_custom_spinner_counter % #_my_custom_spinners
+                  _my_custom_spinner_counter = _my_custom_spinner_counter + 1
+                  return _my_custom_spinners[_my_custom_spinner_counter]
                 end)(),
                 Normal = '',
                 Warning = '',
@@ -1366,37 +1367,38 @@ vim.list_extend(M, {
         end,
       })
 
-      local function _my_custom_zen_mode_off(opts)
+      local function _my_custom_zenmode_off(opts)
         opts = opts or {}
         if opts.cmd then vim.cmd(opts.cmd) end
-        _G.MY_CUSTOM_ZEN_MODE_WINID = nil
+        _my_custom_zenmode_winid = nil
         _my_plugin_lualine()
       end
-      local function _my_custom_zen_mode_on()
+      local function _my_custom_zenmode_on()
         vim.cmd('wincmd |')
         vim.cmd('wincmd _')
-        _G.MY_CUSTOM_ZEN_MODE_WINID = vim.fn.win_getid()
+        _my_custom_zenmode_winid = vim.fn.win_getid()
         _my_plugin_lualine()
       end
-      local function _my_custom_zen_mode_toggle(opt)
-        if _G.MY_CUSTOM_ZEN_MODE_WINID == vim.fn.win_getid() then
-          _my_custom_zen_mode_off(opt)
-          return
-        end
-        _my_custom_zen_mode_on()
-      end
-      -- vim.keymap.set('n', '<C-w>z', function() return _my_custom_zen_mode_toggle({ cmd = 'wincmd =' }) end, { silent = true })
-      -- vim.keymap.set('n', '<C-w>Z', function() return _my_custom_zen_mode_toggle() end, { silent = true })
-      vim.keymap.set('n', '<C-w>z', function () return _my_custom_zen_mode_on() end, { silent = true })
-      vim.keymap.set('n', '<C-w>=', function() return _my_custom_zen_mode_off({ cmd = 'wincmd =' }) end, { silent = true })
-      vim.keymap.set('n', '<C-w>q', function() return _my_custom_zen_mode_off({ cmd = 'wincmd q' }) end, { silent = true })
+      -- local function _my_custom_zenmode_toggle(opt)
+      --   -- if _my_custom_zenmode_winid == vim.fn.win_getid() then
+      --   if zenmode_winid == vim.fn.win_getid() then
+      --     _my_custom_zenmode_off(opt)
+      --     return
+      --   end
+      --   _my_custom_zenmode_on()
+      -- end
+      -- vim.keymap.set('n', '<C-w>z', function() return _my_custom_zenmode_toggle({ cmd = 'wincmd =' }) end, { silent = true })
+      -- vim.keymap.set('n', '<C-w>Z', function() return _my_custom_zenmode_toggle() end, { silent = true })
+      vim.keymap.set('n', '<C-w>z', function () return _my_custom_zenmode_on() end, { silent = true })
+      vim.keymap.set('n', '<C-w>=', function() return _my_custom_zenmode_off({ cmd = 'wincmd =' }) end, { silent = true })
+      vim.keymap.set('n', '<C-w>q', function() return _my_custom_zenmode_off({ cmd = 'wincmd q' }) end, { silent = true })
       vim.api.nvim_create_autocmd('WinEnter', {
         callback = function()
-          if not _G.MY_CUSTOM_ZEN_MODE_WINID then return end
+          if not _my_custom_zenmode_winid then return end
           for _, winid in ipairs(vim.api.nvim_list_wins()) do
-            if winid == _G.MY_CUSTOM_ZEN_MODE_WINID then return end
+            if winid == _my_custom_zenmode_winid then return end
           end
-          _my_custom_zen_mode_off()
+          _my_custom_zenmode_off()
         end
       })
     end
