@@ -1313,11 +1313,11 @@ vim.list_extend(M, {
             end)()
           },
           lualine_x = {
-            function() return _G.MY_CUSTOM_ZEN_MODE_WINID and 'ZenMode' or '' end,
             function()
               local register = vim.fn.reg_recording()
               return register == '' and '' or 'recording @' .. register
             end,
+            function() return _G.MY_CUSTOM_ZEN_MODE_WINID and 'ZenMode' or '' end,
             function()
               if not copilot_ok then return '' end
               local icon = {
