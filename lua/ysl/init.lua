@@ -78,8 +78,9 @@ vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
 -- For coc rename variables.
-vim.keymap.set('i', '<A-h>', '<Left>', { silent = true })
-vim.keymap.set('i', '<A-l>', '<Right>', { silent = true })
+vim.keymap.set('i', '<A-b>', '<Left>', { silent = true })
+vim.keymap.set('i', '<A-f>', '<Right>', { silent = true })
+
 -- :h cmdline-editing
 -- :h emacs-keys
 vim.cmd([[
