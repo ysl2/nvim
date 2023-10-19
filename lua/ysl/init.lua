@@ -959,37 +959,60 @@ vim.list_extend(M, {
       })
     end
   },
+  -- { 'stevearc/dressing.nvim',
+  --   lazy = true,
+  --   config = function()
+  --     require('dressing').setup {}
+  --   end
+  -- },
+  -- {
+  --   'ysl2/neovim-session-manager',
+  --   lazy = false,
+  --   cmd = 'SessionManager',
+  --   keys = {
+  --     { '<LEADER>o', '<CMD>SessionManager load_session<CR>',   mode = 'n', silent = true },
+  --     { '<LEADER>O', '<CMD>SessionManager delete_session<CR>', mode = 'n', silent = true }
+  --   },
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'stevearc/dressing.nvim'
+  --   },
+  --   config = function()
+  --     require('session_manager').setup({
+  --       autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir
+  --     })
+  --
+  --     vim.api.nvim_create_autocmd('VimEnter', {
+  --       callback = function()
+  --         if vim.fn.has('win32') == 1 then
+  --           vim.cmd('silent! cd %:p:h')
+  --           -- An empty file will be opened if you use right mouse click. So `bw!` to delete it.
+  --           -- Once you delete the empty buffer, netrw won't popup. So you needn't do `vim.cmd('silent! au! FileExplorer *')` to silent netrw.
+  --           vim.cmd('silent! bw!')
+  --         end
+  --         -- vim.fn.argc() is 1 (not 0) if you open from right mouse click on windows platform.
+  --         -- So it can't be an instance that can be treated as in a workspace.
+  --         if vim.fn.has('win32') == 1 or vim.fn.argc() == 0 then
+  --           vim.cmd('silent! SessionManager load_current_dir_session')
+  --         end
+  --       end
+  --     })
+  --   end
+  -- },
   {
-    'ysl2/neovim-session-manager',
-    lazy = false,
-    cmd = 'SessionManager',
-    keys = {
-      { '<LEADER>o', '<CMD>SessionManager load_session<CR>',   mode = 'n', silent = true },
-      { '<LEADER>O', '<CMD>SessionManager delete_session<CR>', mode = 'n', silent = true }
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      { 'stevearc/dressing.nvim', lazy = true, config = function() require('dressing').setup {} end },
-    },
+    'folke/persistence.nvim',
     config = function()
-      require('session_manager').setup({
-        autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir
-      })
-
-      vim.api.nvim_create_autocmd('VimEnter', {
+      local persistence = require('persistence')
+      persistence.setup()
+      vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+        nested = true,
         callback = function()
-          if vim.fn.has('win32') == 1 then
-            vim.cmd('silent! cd %:p:h')
-            -- An empty file will be opened if you use right mouse click. So `bw!` to delete it.
-            -- Once you delete the empty buffer, netrw won't popup. So you needn't do `vim.cmd('silent! au! FileExplorer *')` to silent netrw.
-            vim.cmd('silent! bw!')
+          if vim.fn.argc() == 0 and not vim.g.started_with_stdin then
+            persistence.load()
+            return
           end
-          -- vim.fn.argc() is 1 (not 0) if you open from right mouse click on windows platform.
-          -- So it can't be an instance that can be treated as in a workspace.
-          if vim.fn.has('win32') == 1 or vim.fn.argc() == 0 then
-            vim.cmd('silent! SessionManager load_current_dir_session')
-          end
-        end
+          persistence.stop()
+        end,
       })
     end
   },
