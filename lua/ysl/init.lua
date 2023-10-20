@@ -1102,7 +1102,7 @@ vim.list_extend(M, {
     config = function()
       require('project_nvim').setup({
         detection_methods = { 'pattern' },
-        patterns = { '.git', '.root' },
+        patterns = { '.root', '.git'  },
       })
     end,
   },
