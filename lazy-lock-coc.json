@@ -17,6 +17,7 @@
   "friendly-snippets": { "branch": "main", "commit": "43727c2ff84240e55d4069ec3e6158d74cb534b6" },
   "gitsigns.nvim": { "branch": "main", "commit": "ff01d34daaed72f271a8ffa088a7e839a60c640f" },
   "hlchunk.nvim": { "branch": "main", "commit": "130da2983519ed83beb513de64d16f22228b764a" },
+  "hologram.nvim": { "branch": "main", "commit": "f5194f71ec1578d91b2e3119ff08e574e2eab542" },
   "hop.nvim": { "branch": "master", "commit": "1cbaa79457e6b5e9b04e6d5d8d19bd6b65ffa2be" },
   "img-paste.vim": { "branch": "master", "commit": "eb552346aafc661e4f50654eb82c514dd15aef05" },
   "jsonc.vim": { "branch": "master", "commit": "6fb92460f9e50505c9b93181a00f27d10c9b383f" },

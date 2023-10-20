@@ -1837,6 +1837,16 @@ vim.list_extend(M, {
     config = function()
       require('femaco').setup()
     end
+  },
+  {
+    'edluffy/hologram.nvim',
+    cond = U.exec('echo $TERM') == 'xterm-kitty',
+    ft = { 'markdown', 'latex' },
+    config = function()
+      require('hologram').setup{
+          auto_display = true -- WIP automatic markdown image display, may be prone to breaking
+      }
+    end
   }
 })
 
