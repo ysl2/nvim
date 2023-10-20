@@ -1837,6 +1837,10 @@ vim.list_extend(M, {
     config = function()
       require('femaco').setup()
     end
+  },
+  {
+    'fladson/vim-kitty',
+    ft = 'kitty'
   }
 })
 

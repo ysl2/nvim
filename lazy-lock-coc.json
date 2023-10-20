@@ -67,6 +67,7 @@
   "vim-colorscheme-switcher": { "branch": "master", "commit": "9bf9718688e201405c52d78f9741f9dd4a1ae279" },
   "vim-fugitive": { "branch": "master", "commit": "cbe9dfa162c178946afa689dd3f42d4ea8bf89c1" },
   "vim-illuminate": { "branch": "master", "commit": "3bd2ab64b5d63b29e05691e624927e5ebbf0fb86" },
+  "vim-kitty": { "branch": "main", "commit": "891475671feebc4bf0f29f0a0987067913a81686" },
   "vim-markdown-toc": { "branch": "master", "commit": "7ec05df27b4922830ace2246de36ac7e53bea1db" },
   "vim-misc": { "branch": "master", "commit": "3e6b8fb6f03f13434543ce1f5d24f6a5d3f34f0b" },
   "vim-plugin-AnsiEsc": { "branch": "master", "commit": "8760f22da3ac497aad7ae99ad6ba9b850f18439a" },
