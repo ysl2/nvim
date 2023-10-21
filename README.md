@@ -242,6 +242,14 @@ shellcheck>=v0.7
 shfmt
 ```
 
+#### Multimedia
+
+need `viu` and press `<Leader>r` to run `jpg`, `png`, `pdf` file and show it's content.
+
+```
+cargo install viu
+```
+
 ### Fuzzy search & global replace system
 
 ### Mark system
@@ -257,6 +265,12 @@ shfmt
 - `:bp<CR>`
 - `:bn<CR>`
 - `<C-6>` or `<C-^>`: For toggle two buffers.
+
+#### Delete buffer
+
+`:bd<CR>` for current buffer but don't save layout.
+`:Bd<CR>` for current buffer and keep layout.
+`:Bde [opt]` for `all`, `other`, etc.
 
 #### AI context complement
 

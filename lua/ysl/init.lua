@@ -841,7 +841,7 @@ vim.list_extend(M, {
             end
             _G.my_plugin_vimtex_compile = not _G.my_plugin_vimtex_compile
             _G.my_plugin_lualine_refresh()
-          elseif fileExt == 'png' then
+          elseif fileExt == 'png' or fileExt == 'jpg' then
             cmd = ('cd "%s" && viu %s'):format(dir, fileName)
           elseif fileExt == 'pdf' then
             cmd = ('cd "%s" && pdftoppm -f 1 -l 1 "%s" > "/tmp/%s.png" && viu "/tmp/%s.png"'):format(dir, fileName, fileNameWithoutExt, fileNameWithoutExt)
