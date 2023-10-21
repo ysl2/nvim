@@ -410,7 +410,7 @@ vim.list_extend(M, {
   {
     'is0n/fm-nvim',
     keys = {
-       { '<Leader>l', '<CMD>Lf<CR>', mode = 'n', silent = true },
+       { '<Leader>R', '<CMD>Lf<CR>', mode = 'n', silent = true, desc = '<CMD>Lf<CR>' },
     },
     config = function()
       require('fm-nvim').setup{
@@ -846,7 +846,8 @@ vim.list_extend(M, {
           _G.my_plugin_toggleterm({ cmd = cmd, close_on_exit = false })
         end,
         mode = 'n',
-        silent = true
+        silent = true,
+        desc = 'Run command for this filetype'
       },
     },
     config = function()
@@ -891,7 +892,7 @@ vim.list_extend(M, {
     branch = 'v0.2',
     keys = {
       {
-        '<LEADER>Rc',
+        '<LEADER>Lc',
         function()
           local machines = U.safeget(S, { 'config', 'distant' })
           if not machines then
@@ -902,18 +903,20 @@ vim.list_extend(M, {
           require('distant.command').connect(machines[idx])
         end,
         mode = 'n',
-        silent = true
+        silent = true,
+        desc = 'Distant Connect'
       },
       {
-        '<LEADER>Ro',
+        '<LEADER>Lo',
         function()
           local path = vim.fn.input('Enter path: ')
           require('distant.command').open({ args = { path }, opts = {} })
         end,
         mode = 'n',
-        silent = true
+        silent = true,
+        desc = 'Distant open'
       },
-      { '<LEADER>Rs', '<CMD>DistantShell<CR>', mode = 'n', silent = true }
+      { '<LEADER>Lr', '<CMD>DistantShell<CR>', mode = 'n', silent = true, desc = '<CMD>DistantShell<CR>' }
     },
     config = function()
       require('distant').setup { ['*'] = require('distant.settings').chip_default() }
@@ -1026,10 +1029,10 @@ vim.list_extend(M, {
   {
     'ysl2/leetcode.vim',
     keys = {
-      { '<leader>Ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true },
-      { '<leader>Lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true },
-      { '<leader>Ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true },
-      { '<leader>Li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true }
+      { '<leader>Ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeList<CR>' },
+      { '<leader>Lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeTest<CR>' },
+      { '<leader>Ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSubmit<CR>' },
+      { '<leader>Li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSignIn<CR>' }
     },
     config = function()
       vim.g.leetcode_china = 0
