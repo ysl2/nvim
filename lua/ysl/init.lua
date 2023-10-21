@@ -833,6 +833,13 @@ vim.list_extend(M, {
             cmd = ('cd "%s" && javac %s && java %s'):format(dir, fileName, fileNameWithoutExt)
           elseif ft == 'sh' then
             cmd = ('cd "%s" && bash %s'):format(dir, fileName)
+          elseif ft == 'tex' then
+            vim.cmd('VimtexCompile')
+            if _G.my_plugin_vimtex_compile == nil then
+              return
+            end
+            _G.my_plugin_vimtex_compile = not _G.my_plugin_vimtex_compile
+            _G.my_plugin_lualine_refresh()
           end
           if cmd == nil then return end
           cmd = cmd:gsub('/', sep)
@@ -1316,6 +1323,16 @@ vim.list_extend(M, {
         sections = {
           lualine_c = {
             'filename',
+            function ()
+              if _G.my_plugin_vimtex_compile == nil then
+                return ''
+              end
+              local map = {
+                ['true'] = ' ',
+                ['false'] = '󰜺 ',
+              }
+              return map[tostring(_G.my_plugin_vimtex_compile)]
+            end,
             (function ()
               if lsp == 'ysl.lsp.coc' then
                 return 'g:coc_status'
@@ -1332,7 +1349,7 @@ vim.list_extend(M, {
                 }
               end
               return ''
-            end)()
+            end)(),
           },
           lualine_x = {
             function()
@@ -1366,12 +1383,12 @@ vim.list_extend(M, {
         }
       })
 
-      local function _my_plugin_lualine()
+      function _G.my_plugin_lualine_refresh()
         lualine.refresh({ place = { 'statusline' }, })
       end
 
       vim.api.nvim_create_autocmd('RecordingEnter', {
-        callback = _my_plugin_lualine,
+        callback = _G.my_plugin_lualine_refresh,
       })
       vim.api.nvim_create_autocmd('RecordingLeave', {
         callback = function()
@@ -1383,7 +1400,7 @@ vim.list_extend(M, {
           -- ensure `vim.fn.reg_recording` is purged before asking lualine to refresh.
           local timer = vim.loop.new_timer()
           timer:start(50, 0,
-            vim.schedule_wrap(_my_plugin_lualine)
+            vim.schedule_wrap(_G.my_plugin_lualine_refresh)
           )
         end,
       })
@@ -1392,13 +1409,13 @@ vim.list_extend(M, {
         opts = opts or {}
         if opts.cmd then vim.cmd(opts.cmd) end
         _my_custom_zenmode_winid = nil
-        _my_plugin_lualine()
+        _G.my_plugin_lualine_refresh()
       end
       local function _my_custom_zenmode_on()
         vim.cmd('wincmd |')
         vim.cmd('wincmd _')
         _my_custom_zenmode_winid = vim.fn.win_getid()
-        _my_plugin_lualine()
+        _G.my_plugin_lualine_refresh()
       end
       -- local function _my_custom_zenmode_toggle(opt)
       --   -- if _my_custom_zenmode_winid == vim.fn.win_getid() then
@@ -1766,6 +1783,8 @@ vim.list_extend(M, {
       vim.g.vimtex_syntax_enabled = 0
       vim.g.vimtex_compiler_silent = 1
       vim.g.vimtex_quickfix_mode = 0
+
+      _G.my_plugin_vimtex_compile = false
     end
   },
   {
