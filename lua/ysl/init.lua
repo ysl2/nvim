@@ -410,7 +410,7 @@ vim.list_extend(M, {
   {
     'is0n/fm-nvim',
     keys = {
-       { '<Leader>R', '<CMD>Lf<CR>', mode = 'n', silent = true, desc = '<CMD>Lf<CR>' },
+       { '<Leader>l', '<CMD>Lf<CR>', mode = 'n', silent = true, desc = '<CMD>Lf<CR>' },
     },
     config = function()
       require('fm-nvim').setup{
