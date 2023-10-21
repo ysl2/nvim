@@ -1851,6 +1851,10 @@ vim.list_extend(M, {
   {
     'fladson/vim-kitty',
     ft = 'kitty'
+  },
+  {
+    'camnw/lf-vim',
+    ft = 'lf'
   }
 })
 
