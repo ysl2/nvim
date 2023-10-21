@@ -798,6 +798,7 @@ vim.list_extend(M, {
           local dir = vim.fn.expand('%:p:h')
           local fileName = vim.fn.expand('%:t')
           local fileNameWithoutExt = vim.fn.expand('%:t:r')
+          local fileExt = vim.fn.expand('%:t:e')
 
           local sep = U.SEP
           if ft == 'c' then
@@ -840,6 +841,8 @@ vim.list_extend(M, {
             end
             _G.my_plugin_vimtex_compile = not _G.my_plugin_vimtex_compile
             _G.my_plugin_lualine_refresh()
+          elseif fileExt == 'png' then
+            cmd = ('cd "%s" && viu %s'):format(dir, fileName)
           end
           if cmd == nil then return end
           cmd = cmd:gsub('/', sep)
