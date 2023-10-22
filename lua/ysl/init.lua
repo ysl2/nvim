@@ -1332,6 +1332,7 @@ vim.list_extend(M, {
           lualine_c = {
             'filename',
             function ()
+              if vim.opt.filetype._value ~= 'tex' then return '' end
               if _G.my_plugin_vimtex_compile == nil then
                 return ''
               end
