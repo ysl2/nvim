@@ -1641,8 +1641,8 @@ vim.list_extend(M, {
       { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, silent = true },
       { 'gp', '<Plug>(YankyGPutAfter)', mode = { 'n', 'x' }, silent = true },
       { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, silent = true },
-      { '<A-n>', '<Plug>(YankyCycleForward)', mode = 'n', silent = true },
-      { '<A-p>', '<Plug>(YankyCycleBackward)', mode = 'n', silent = true },
+      { '<A-p>', '<Plug>(YankyCycleForward)', mode = 'n', silent = true },
+      { '<A-n>', '<Plug>(YankyCycleBackward)', mode = 'n', silent = true },
     },
     dependencies = {
       'kkharji/sqlite.lua',
