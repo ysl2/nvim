@@ -53,8 +53,11 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'DiffAdd', opts)
     vim.api.nvim_set_hl(0, 'DiffChange', opts)
     vim.api.nvim_set_hl(0, 'DiffDelete', { reverse = true })
-    local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui')
-    vim.api.nvim_set_hl(0, 'DiffText', { reverse = true, bold = true , fg = fg })
+    local fg_difftext = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui')
+    vim.api.nvim_set_hl(0, 'DiffText', { reverse = true, bold = true , fg = fg_difftext })
+
+    local fg_miniindentscopesymbol = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
+    vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', { fg = fg_miniindentscopesymbol, bold = true })
   end
 })
 vim.cmd('language en_US.UTF8')
@@ -1275,32 +1278,25 @@ vim.list_extend(M, {
     end
   },
   {
-    'shellRaining/hlchunk.nvim',
-    event = 'VeryLazy',
-    config = function ()
-      local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
-      require('hlchunk').setup({
-        chunk = {
-          notify = false,
-          use_treesitter = true,
-          chars = {
-            left_top = "┌",
-            left_bottom = "└",
-            right_arrow = "─",
-          },
-          style = {
-            { fg = fg }
-          },
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    config = function()
+      require('ibl').setup({
+        scope = { enabled = false },
+      })
+    end
+  },
+  {
+    'echasnovski/mini.indentscope',
+    version = false,
+    config = function()
+      local indentscope = require('mini.indentscope')
+      indentscope.setup({
+        draw = {
+          animation = indentscope.gen_animation.none()
         },
-        line_num = {
-          use_treesitter = true,
-          style = {
-            { fg = fg }
-          },
-        },
-        blank = {
-          enable = false,
-        },
+        symbol = '│',
+        options = { try_as_border = true },
       })
     end
   },
