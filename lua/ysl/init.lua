@@ -844,7 +844,7 @@ vim.list_extend(M, {
           elseif U.greplist(fileExt, { 'png', 'jpg', 'gif' }) ~= nil then
             cmd = ('cd "%s" && chafa %s'):format(dir, fileName)
           elseif fileExt == 'pdf' then
-            cmd = ('cd "%s" && pdftoppm -f 1 -l 1 "%s" > "/tmp/%s.png" && viu "/tmp/%s.png"'):format(dir, fileName, fileNameWithoutExt, fileNameWithoutExt)
+            cmd = ('cd "%s" && pdftoppm -f 1 -l 1 -png "%s" > "/tmp/%s.png" && chafa "/tmp/%s.png"'):format(dir, fileName, fileNameWithoutExt, fileNameWithoutExt)
           end
           if cmd == nil then return end
           cmd = cmd:gsub('/', sep)

@@ -244,7 +244,9 @@ shfmt
 
 #### Multimedia
 
-need `viu` and press `<Leader>r` to run `jpg`, `png`, `pdf` file and show it's content.
+need `chafa` and press `<Leader>r` to run `jpg`, `png`, `gif` file and show it's content.
+
+need `pdftoppm` and `chafa` for `pdf` preview.
 
 ```
 cargo install viu
