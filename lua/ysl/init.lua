@@ -115,7 +115,7 @@ vim.keymap.set('n', '<Leader>d', function()
     return
   end
   local winnr =  tostring(vim.fn.winnr())
-  local cached_winnr_idx, _ = U.greplist(_my_custom_diff_diffwins, winnr)
+  local cached_winnr_idx, _ = U.greplist(winnr, _my_custom_diff_diffwins)
   if cached_winnr_idx then
     vim.cmd('diffoff')
     table.remove(_my_custom_diff_diffwins, cached_winnr_idx)
@@ -350,7 +350,7 @@ M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
 local requires = U.set(U.safeget(S, 'requires'), {
   'ysl.lsp.coc'
 })
-local _, lsp = U.greplist(requires, 'ysl%.lsp.*')
+local _, lsp = U.greplist('ysl%.lsp.*', requires)
 
 for _, v in ipairs(requires) do
   vim.list_extend(M, require(v))
@@ -841,8 +841,8 @@ vim.list_extend(M, {
             end
             _G.my_plugin_vimtex_compile = not _G.my_plugin_vimtex_compile
             _G.my_plugin_lualine_refresh()
-          elseif fileExt == 'png' or fileExt == 'jpg' then
-            cmd = ('cd "%s" && viu %s'):format(dir, fileName)
+          elseif U.greplist(fileExt, { 'png', 'jpg', 'gif' }) ~= nil then
+            cmd = ('cd "%s" && chafa %s'):format(dir, fileName)
           elseif fileExt == 'pdf' then
             cmd = ('cd "%s" && pdftoppm -f 1 -l 1 "%s" > "/tmp/%s.png" && viu "/tmp/%s.png"'):format(dir, fileName, fileNameWithoutExt, fileNameWithoutExt)
           end

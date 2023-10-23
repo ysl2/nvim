@@ -103,7 +103,7 @@ end
 -- Find a string in a string list with regex
 -- @param input: list[string]
 -- @param str: string
-M.greplist = function (inputlist, str)
+M.greplist = function (str, inputlist)
   for i, v in ipairs(inputlist) do
     if v:match(str) then
       return i, v
