@@ -1507,6 +1507,7 @@ vim.list_extend(M, {
   },
   {
     'folke/noice.nvim',
+    cond = not vim.g.started_by_firenvim,
     event = 'VeryLazy',
     keys = {
       { '<Leader>:', '<CMD>NoiceDismiss<CR>', mode = 'n', silent = true }

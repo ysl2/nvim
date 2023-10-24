@@ -333,6 +333,8 @@ You should comment the `cond = not not vim.g.started_by_firenvim,` line for the 
 
 If you not sure whether the firenvim is builded, you can first comment this line, then manually call `:call firenvim#install(0)` to build firenvim, then uncomment it.
 
+press `ctrl+e` in the browser input dialogue to open nvim.
+
 #### Applications
 
 ##### Wakatime
