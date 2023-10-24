@@ -1333,8 +1333,8 @@ vim.list_extend(M, {
                 return ''
               end
               local map = {
-                ['true'] = '',
-                ['false'] = '󰜺',
+                ['true'] = '',
+                ['false'] = '',
               }
               return map[tostring(_G.my_plugin_vimtex_compile)]
             end,
