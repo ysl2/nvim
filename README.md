@@ -327,7 +327,11 @@ cargo install viu
 
 #### With VSCode
 
-#### With Chrome
+#### With Browser like Chrome, Firefox, etc.
+
+You should comment the `cond = not not vim.g.started_by_firenvim,` line for the first time. Then restart nvim, the firenvim will be installed. After installed, you should uncomment it.
+
+If you not sure whether the firenvim is builded, you can first comment this line, then manually call `:call firenvim#install(0)` to build firenvim, then uncomment it.
 
 #### Applications
 
