@@ -834,7 +834,7 @@ vim.list_extend(M, {
           elseif ft == 'sh' then
             cmd = ('cd "%s" && bash %s'):format(dir, fileName)
           elseif ft == 'tex' then
-            vim.cmd('VimtexCompile')
+            pcall(vim.cmd, 'VimtexCompile')
             if _G.my_plugin_vimtex_compile == nil then
               return
             end
@@ -1279,11 +1279,11 @@ vim.list_extend(M, {
     config = function()
       require('ibl').setup({
         scope = { enabled = false },
-        exclude = {
-          filetypes = {
-            'text',
-          },
-        },
+        -- exclude = {
+        --   filetypes = {
+        --     'text',
+        --   },
+        -- },
       })
     end
   },
@@ -1888,10 +1888,14 @@ vim.list_extend(M, {
           vim.api.nvim_buf_set_keymap(0, 'n', 'H', '<C-v>h:VBox<CR>', { noremap = true, silent = true })
           -- draw a box by pressing "f" with visual selection
           vim.api.nvim_buf_set_keymap(0, 'v', 'f', ':VBox<CR>', { noremap = true, silent = true })
+
+          pcall(vim.cmd, 'IBLDisable')
         else
           vim.cmd[[setlocal ve=]]
           vim.cmd[[mapclear <buffer>]]
           vim.b.venn_enabled = nil
+
+          pcall(vim.cmd, 'IBLEnable')
         end
       end, mode = 'n', silent = true }
     }
