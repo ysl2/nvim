@@ -249,7 +249,7 @@ need `chafa` and press `<Leader>r` to run `jpg`, `png`, `gif` file and show it's
 need `pdftoppm` and `chafa` for `pdf` preview.
 
 ```
-cargo install viu
+cargo install chafa
 ```
 
 ### Fuzzy search & global replace system

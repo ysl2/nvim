@@ -201,14 +201,10 @@ vim.api.nvim_create_autocmd('OptionSet', {
       vim.keymap.set({'n', 'v'}, '<C-d>', '<C-d>g0', { silent = true })
       vim.keymap.set({'n', 'v'}, '<C-u>', '<C-u>g0', { silent = true })
     else
-      pcall(vim.keymap.del, {'n', 'v'}, 'j')
-      pcall(vim.keymap.del, {'n', 'v'}, 'k')
-      pcall(vim.keymap.del, {'n', 'v'}, '0')
-      pcall(vim.keymap.del, {'n', 'v'}, '$')
-      pcall(vim.keymap.del, {'n', 'v'}, 'g0')
-      pcall(vim.keymap.del, {'n', 'v'}, 'g$')
-      pcall(vim.keymap.del, {'n', 'v'}, '<C-d>')
-      pcall(vim.keymap.del, {'n', 'v'}, '<C-u>')
+      local keys = { 'k', 'j', '0', '$', 'g0', 'g$', '<C-d>', '<C-u>' }
+      for _, key in ipairs(keys) do
+        pcall(vim.keymap.del, {'n', 'v'}, key)
+      end
     end
   end
 })
@@ -1721,8 +1717,9 @@ vim.list_extend(M, {
       }
     },
     config = function()
+      local trouble = require('trouble')
       if lsp == 'ysl.lsp.coc' then
-        require('trouble').setup {
+        trouble.setup {
           position = 'bottom', -- position of the list can be: bottom, top, left, right
           height = 8, -- height of the trouble list when position is top or bottom
           icons = true, -- use devicons for filenames
@@ -1732,7 +1729,7 @@ vim.list_extend(M, {
         }
         return
       end
-      require('trouble').setup()
+      trouble.setup()
     end
   },
   { 'cybardev/cython.vim', ft = 'cython' },
