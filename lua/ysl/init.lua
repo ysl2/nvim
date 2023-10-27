@@ -1776,7 +1776,7 @@ vim.list_extend(M, {
     'lervag/vimtex',
     config = function()
       vim.g.vimtex_view_method = 'zathura'
-      vim.g.vimtex_view_zathura_options = '--mode fullscreen'
+      -- vim.g.vimtex_view_zathura_options = '--mode fullscreen'
       vim.g.vimtex_format_enabled = 1
       vim.g.vimtex_motion_enabled = 0
       vim.g.vimtex_text_obj_enabled = 0
