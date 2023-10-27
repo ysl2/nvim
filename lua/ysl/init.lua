@@ -1365,6 +1365,7 @@ vim.list_extend(M, {
             function() return _my_custom_zenmode_winid and 'ZenMode' or '' end,
             function()
               if not copilot_ok then return '' end
+              if vim.opt.ft._value == '' then return '' end
               local icon = {
                 [''] = '',
                 InProgress = (function()
