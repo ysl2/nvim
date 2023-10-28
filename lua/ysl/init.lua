@@ -103,10 +103,10 @@ vim.cmd([[
 	" forward one word
 	:cnoremap <A-f>	<S-Right>
 ]])
-vim.keymap.set('n', '<A-.>', '<C-w>5>', { silent = true })
-vim.keymap.set('n', '<A-,>', '<C-w>5<', { silent = true })
-vim.keymap.set('n', '<A-->', '<C-w>5-', { silent = true })
-vim.keymap.set('n', '<A-=>', '<C-w>5+', { silent = true })
+-- vim.keymap.set('n', '<A-.>', '<C-w>5>', { silent = true })
+-- vim.keymap.set('n', '<A-,>', '<C-w>5<', { silent = true })
+-- vim.keymap.set('n', '<A-->', '<C-w>5-', { silent = true })
+-- vim.keymap.set('n', '<A-=>', '<C-w>5+', { silent = true })
 local _my_custom_diff_diffwins = {}
 local function _my_custom_diff_diffwins_clean()
   vim.cmd('diffoff!')
@@ -1207,17 +1207,17 @@ vim.list_extend(M, {
       })
     end
   },
-  {
-    'ysl2/vim-colorscheme-switcher',
-    dependencies = 'xolox/vim-misc',
-    keys = {
-      { '<A-_>', '<CMD>PrevColorScheme<CR>' },
-      { '<A-+>', '<CMD>NextColorScheme<CR>' },
-    },
-    config = function()
-      vim.g.colorscheme_switcher_define_mappings = 0
-    end
-  },
+  -- {
+  --   'ysl2/vim-colorscheme-switcher',
+  --   dependencies = 'xolox/vim-misc',
+  --   keys = {
+  --     { '<A-_>', '<CMD>PrevColorScheme<CR>' },
+  --     { '<A-+>', '<CMD>NextColorScheme<CR>' },
+  --   },
+  --   config = function()
+  --     vim.g.colorscheme_switcher_define_mappings = 0
+  --   end
+  -- },
   {
     'iamcco/markdown-preview.nvim',
     build = 'cd app && yarn install',
