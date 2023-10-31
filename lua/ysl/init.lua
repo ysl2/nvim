@@ -1495,7 +1495,7 @@ vim.list_extend(M, {
   },
   {
     'stevearc/aerial.nvim',
-    keys = { { '<LEADER>v', '<cmd>AerialToggle!<CR>', mode = 'n', silent = true } },
+    keys = { { '<LEADER>v', function() require('aerial').toggle({ focus = true }) end, mode = 'n', silent = true } },
     config = function()
       require('aerial').setup({
         backends = { 'treesitter' },
@@ -1504,6 +1504,7 @@ vim.list_extend(M, {
         },
         attach_mode = 'global',
         close_automatic_events = { 'unsupported' },
+        show_guides = true,
       })
     end
   },
