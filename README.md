@@ -321,6 +321,12 @@ cargo install chafa
 
 1. `:Linediff`
 
+#### File sync scroll
+
+1. Vsplit two buffers.
+
+2. `:set scrollbind` for each buffer.
+
 ### Terminal system
 
 ### Miscellaneous
