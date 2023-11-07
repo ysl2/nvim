@@ -552,7 +552,7 @@ vim.list_extend(M, {
         },
         indent = {  -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136
             enable = true,
-            -- disable = {}
+            disable = { 'c' }
         },
       }
       vim.cmd([[
