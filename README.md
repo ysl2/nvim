@@ -233,6 +233,16 @@ Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
 sudo apt install zathura
 ```
 
+The default latex compiler is `latexmk`, the default compile engine is `pdflatex`.
+
+If you want to use `xelatex` (for Chinese support) as compile engine in specific project, you should add a `.latexmkrc` in your project root, then add this into this `.latexmkrc`:
+
+```
+$pdf_mode = 5;
+```
+
+This tells latexmk to use `xelatex` as this project's compile engine. the mode `5` represents `xelatex`. Check vimtex's help doc for more info.
+
 #### Bash
 
 ```text
