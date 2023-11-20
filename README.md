@@ -202,6 +202,8 @@ You can find language-specific outer debuggers below.
 
 #### C
 
+For coc, you also need to manually install `clangd`.
+
 `./clang-format` on project root or root's parent folder. See: https://github.com/clangd/coc-clangd/issues/39
 
 #### Rust
