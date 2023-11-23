@@ -605,9 +605,9 @@ vim.list_extend(M, {
               ['<C-k>'] = telescope_actions.move_selection_previous,
               ['<C-r>'] = require('telescope.actions.layout').toggle_preview,
               ['<C-s>'] = telescope_actions.select_horizontal,
-              ['<C-e>'] = telescope_actions.select_default,
-              ['<C-f>'] = telescope_actions.cycle_history_next,
-              ['<C-b>'] = telescope_actions.cycle_history_prev,
+              ['<C-t>'] = telescope_actions.select_default,
+              ['<A-n>'] = telescope_actions.cycle_history_next,
+              ['<A-p>'] = telescope_actions.cycle_history_prev,
             }
           },
           layout_config = {
