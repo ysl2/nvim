@@ -1903,6 +1903,10 @@ vim.list_extend(M, {
         end
       end, mode = 'n', silent = true }
     }
+  },
+  {
+    'tpope/vim-rsi',
+    event = 'InsertEnter'
   }
 })
 
