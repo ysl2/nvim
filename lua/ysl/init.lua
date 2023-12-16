@@ -3,6 +3,10 @@ local U = require('ysl.utils')
 -- =============
 -- === Basic ===
 -- =============
+
+-- ===
+-- === Settings
+-- ===
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.splitright = true
@@ -68,6 +72,9 @@ vim.api.nvim_create_autocmd('BufEnter', {
   command = 'set filetype=masm'
 })
 
+-- ===
+-- === Keymaps
+-- ===
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
 vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
@@ -86,7 +93,6 @@ vim.keymap.set('n', '<C-w><C-l>', function() return _G.my_custom_check_no_name_b
 vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
-
 -- :h cmdline-editing
 -- :h emacs-keys
 vim.cmd([[
@@ -109,6 +115,9 @@ vim.cmd([[
 	" forward one word
 	:cnoremap <A-f>	<S-Right>
 ]])
+-- NOTE:
+-- These keymaps below are conflict with the st (simple terminal) keymaps, so disable them.
+-- They will be taken into account in the future.
 -- vim.keymap.set('n', '<A-.>', '<C-w>5>', { silent = true })
 -- vim.keymap.set('n', '<A-,>', '<C-w>5<', { silent = true })
 -- vim.keymap.set('n', '<A-->', '<C-w>5-', { silent = true })
@@ -135,6 +144,9 @@ vim.keymap.set('n', '<Leader>d', function()
 end, { silent = true })
 vim.keymap.set('n', '<Leader>D', function() return _my_custom_diff_diffwins_clean() end, { silent = true })
 
+-- ===
+-- === Functions
+-- ===
 -- Auto delete [No Name] buffers.
 if not vim.g.vscode then
   vim.api.nvim_create_autocmd('BufLeave', {
