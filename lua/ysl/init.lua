@@ -292,7 +292,15 @@ vim.list_extend(M, {
     'numToStr/Comment.nvim',
     event = 'VeryLazy',
     dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
+      {
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        config = function ()
+          vim.g.skip_ts_context_commentstring_module = true
+          require('ts_context_commentstring').setup {
+            enable_autocmd = false,
+          }
+        end
+      }
     },
     config = function()
       require('Comment').setup({
@@ -442,7 +450,6 @@ vim.list_extend(M, {
     end,
     dependencies = {
       'windwp/nvim-ts-autotag',
-      'JoosepAlviste/nvim-ts-context-commentstring',
       'nvim-treesitter/playground',
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -503,10 +510,6 @@ vim.list_extend(M, {
           additional_vim_regex_highlighting = false,
         },
         autotag = { enable = true },
-        context_commentstring = {
-          enable = true,
-          enable_autocmd = false,
-        },
         playground = { enable = true },
         textobjects = {
           select = {
