@@ -63,6 +63,10 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end
 })
 vim.cmd('language en_US.UTF8')
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '*.asm',
+  command = 'set filetype=masm'
+})
 
 vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
