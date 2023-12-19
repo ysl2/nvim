@@ -79,7 +79,9 @@ vim.keymap.set('n', '<SPACE>', '')
 vim.g.mapleader = ' '
 vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
 vim.keymap.set({'n', 'v'}, '<C-a>', '')
-vim.keymap.set({'n', 'v'}, '<C-s>', '<C-a>', { silent = true })
+vim.keymap.set({'n', 'v'}, '<C-x>', '')
+vim.keymap.set({'n', 'v'}, '<A-a>', '<C-a>', { silent = true })
+vim.keymap.set({'n', 'v'}, '<A-x>', '<C-x>', { silent = true })
 function _G.my_custom_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
     return
