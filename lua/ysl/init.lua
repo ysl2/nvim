@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt.shiftwidth = vim.opt.tabstop._value
   end
 })
-vim.opt.shm = vim.opt.shm._value .. 'I'
+vim.opt.shortmess = vim.opt.shortmess._value .. 'I'
 vim.opt.timeoutlen = 300
 vim.opt.writebackup = false
 -- Use `winblend` to control the transparency, `0` for opaque.
@@ -1592,18 +1592,56 @@ vim.list_extend(M, {
             filter = {
               event = 'msg_show',
               kind = '',
-              find = 'written',
+              find = 'written'
             },
             opts = { skip = true },
           },
           {
             filter = {
               event = 'msg_show',
-              kind = 'search_count',
+              find = 'lines yanked'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = 'more line'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = 'fewer lines'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = 'line less'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = 'change;'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = 'changes;'
             },
             opts = { skip = true },
           },
         },
+        messages = {
+          view_search = false
+        }
       })
 
       if lsp == 'ysl.lsp.nvim_lsp' then
