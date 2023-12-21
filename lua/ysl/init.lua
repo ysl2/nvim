@@ -1658,6 +1658,13 @@ vim.list_extend(M, {
               find = 'substitutions on'
             },
             opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = 'buffers deleted'
+            },
+            opts = { skip = true },
           }
         },
         messages = {
