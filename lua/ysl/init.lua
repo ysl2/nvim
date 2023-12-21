@@ -1638,6 +1638,20 @@ vim.list_extend(M, {
             },
             opts = { skip = true },
           },
+          {
+            filter = {
+              event = 'msg_show',
+              find = '>ed'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = '<ed'
+            },
+            opts = { skip = true },
+          }
         },
         messages = {
           view_search = false
