@@ -1651,6 +1651,13 @@ vim.list_extend(M, {
               find = '<ed'
             },
             opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = 'substitutions on'
+            },
+            opts = { skip = true },
           }
         },
         messages = {
