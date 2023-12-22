@@ -71,6 +71,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
   pattern = '*.asm',
   command = 'set filetype=masm'
 })
+vim.cmd([[autocmd! nvim_swapfile]])
 
 -- ===
 -- === Keymaps
