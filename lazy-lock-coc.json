@@ -13,6 +13,7 @@
   "cython.vim": { "branch": "master", "commit": "a073ff9bc0cb7d80e8167fa506c7df99f73a3125" },
   "distant.nvim": { "branch": "v0.2", "commit": "01a5e2f5c8fdcb7ac91eaf3241dafed861fabab6" },
   "dropbar.nvim": { "branch": "master", "commit": "e218e882a8e993e267b727859d8688f84e91ef1a" },
+  "firenvim": { "branch": "master", "commit": "138424db463e6c0e862a05166a4ccc781cd7c19d" },
   "fm-nvim": { "branch": "master", "commit": "8e6a77049330e7c797eb9e63affd75eb796fe75e" },
   "friendly-snippets": { "branch": "main", "commit": "53d3df271d031c405255e99410628c26a8f0d2b0" },
   "gitsigns.nvim": { "branch": "main", "commit": "d195f0c35ced5174d3ecce1c4c8ebb3b5bc23fa9" },
