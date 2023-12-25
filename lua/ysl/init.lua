@@ -64,6 +64,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', { fg = fg_miniindentscopesymbol, bold = true })
 
     vim.api.nvim_set_hl(0, 'AerialLine', { reverse = true })
+
+    local fg_cursorlinenb = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
+    vim.api.nvim_set_hl(0, 'LineNr', { fg = fg_cursorlinenb})
   end
 })
 vim.cmd('language en_US.UTF8')
