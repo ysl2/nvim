@@ -18,19 +18,6 @@ vim.opt.scrolloff = 1
 vim.opt.maxmempattern = 2000
 vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 300
-vim.opt.tabstop = 4
-vim.opt.expandtab = true
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'lua', 'json', 'markdown', 'sshconfig', 'vim', 'yaml' },
-  callback = function()
-    vim.opt.tabstop = 2
-  end
-})
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function()
-    vim.opt.shiftwidth = vim.opt.tabstop._value
-  end
-})
 vim.opt.shortmess = vim.opt.shortmess._value .. 'I'
 vim.opt.timeoutlen = 300
 vim.opt.writebackup = false
@@ -39,14 +26,50 @@ vim.opt.winblend = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'winblend' }), 0
 vim.opt.pumblend = vim.opt.winblend._value
 vim.g.neovide_transparency = 1 - vim.opt.winblend._value / 100
 vim.g.neovide_cursor_animation_length = 0
-vim.api.nvim_create_autocmd('BufWritePre', {
-  command = 'set ff=unix'
-})
 vim.opt.guicursor = ''
 vim.opt.cursorline = true
 vim.opt.exrc = true
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
+vim.cmd('language en_US.UTF8')
+vim.cmd([[autocmd! nvim_swapfile]])
+
+-- === Filetype settings.
+vim.opt.tabstop = 4
+vim.opt.expandtab = true
+vim.api.nvim_create_autocmd('BufEnter', {
+  -- Must be 'BufEnter', not 'FileType'. Otherwise, this will cause problems if put after the `tabstop`.
+  callback = function()
+    vim.opt.shiftwidth = vim.opt.tabstop._value
+  end
+})
+vim.api.nvim_create_autocmd('BufWritePre', {
+  callback = function()
+    vim.opt.fileformat = 'unix'
+  end
+})
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'lua', 'json', 'markdown', 'sshconfig', 'vim', 'yaml' },
+  callback = function()
+    vim.opt.tabstop = 2
+  end
+})
+vim.api.nvim_create_autocmd('BufEnter', {
+  -- Must be 'BufEnter', not 'FileType'. Otherwise, it won't work.
+  pattern = '*.asm',
+  callback = function()
+    vim.opt.filetype = 'masm'
+  end
+})
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'cpp' },
+  callback = function()
+    vim.opt.expandtab = false
+    vim.opt.cindent = true
+  end
+})
+
+-- === Colorscheme settings.
 vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     -- https://neovim.io/doc/user/api.html#nvim_set_hl()
@@ -69,12 +92,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'LineNr', { fg = fg_cursorlinenb})
   end
 })
-vim.cmd('language en_US.UTF8')
-vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = '*.asm',
-  command = 'set filetype=masm'
-})
-vim.cmd([[autocmd! nvim_swapfile]])
 
 -- ===
 -- === Keymaps
