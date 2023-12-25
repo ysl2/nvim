@@ -98,26 +98,25 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 -- ===
 -- === Keymaps
 -- ===
-vim.keymap.set('n', '<SPACE>', '')
+vim.keymap.set({ 'n', 'v' }, '<SPACE>', '')
 vim.g.mapleader = ' '
 vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
 vim.keymap.set({'n', 'v'}, '<C-a>', '')
 vim.keymap.set({'n', 'v'}, '<C-x>', '')
 vim.keymap.set({'n', 'v'}, '<A-a>', '<C-a>', { silent = true })
 vim.keymap.set({'n', 'v'}, '<A-x>', '<C-x>', { silent = true })
-function _G.my_custom_check_no_name_buffer(cmdstr)
-  if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
-    return
-  end
-  vim.cmd(cmdstr)
-end
-vim.keymap.set('n', '<C-w><C-h>', function() return _G.my_custom_check_no_name_buffer('bel vs | silent! b# | winc p') end, { silent = true })
-vim.keymap.set('n', '<C-w><C-j>', function() return _G.my_custom_check_no_name_buffer('abo sp | silent! b# | winc p') end, { silent = true })
-vim.keymap.set('n', '<C-w><C-k>', function() return _G.my_custom_check_no_name_buffer('bel sp | silent! b# | winc p') end, { silent = true })
-vim.keymap.set('n', '<C-w><C-l>', function() return _G.my_custom_check_no_name_buffer('abo vs | silent! b# | winc p') end, { silent = true })
 vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
+-- NOTE:
+-- These keymaps below are conflict with the st (simple terminal) keymaps, so disable them.
+-- They will be taken into account in the future.
+-- vim.keymap.set('n', '<A-.>', '<C-w>5>', { silent = true })
+-- vim.keymap.set('n', '<A-,>', '<C-w>5<', { silent = true })
+-- vim.keymap.set('n', '<A-->', '<C-w>5-', { silent = true })
+-- vim.keymap.set('n', '<A-=>', '<C-w>5+', { silent = true })
+
+-- === Emacs cmdline.
 -- :h cmdline-editing
 -- :h emacs-keys
 vim.cmd([[
@@ -140,13 +139,22 @@ vim.cmd([[
 	" forward one word
 	:cnoremap <A-f>	<S-Right>
 ]])
--- NOTE:
--- These keymaps below are conflict with the st (simple terminal) keymaps, so disable them.
--- They will be taken into account in the future.
--- vim.keymap.set('n', '<A-.>', '<C-w>5>', { silent = true })
--- vim.keymap.set('n', '<A-,>', '<C-w>5<', { silent = true })
--- vim.keymap.set('n', '<A-->', '<C-w>5-', { silent = true })
--- vim.keymap.set('n', '<A-=>', '<C-w>5+', { silent = true })
+
+-- === Keymap functions.
+
+-- 1. Move buffers.
+function _G.my_custom_check_no_name_buffer(cmdstr)
+  if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
+    return
+  end
+  vim.cmd(cmdstr)
+end
+vim.keymap.set('n', '<C-w><C-h>', function() return _G.my_custom_check_no_name_buffer('bel vs | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-j>', function() return _G.my_custom_check_no_name_buffer('abo sp | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-k>', function() return _G.my_custom_check_no_name_buffer('bel sp | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-l>', function() return _G.my_custom_check_no_name_buffer('abo vs | silent! b# | winc p') end, { silent = true })
+
+-- 2. Diffview.
 local _my_custom_diff_diffwins = {}
 local function _my_custom_diff_diffwins_clean()
   vim.cmd('diffoff!')
