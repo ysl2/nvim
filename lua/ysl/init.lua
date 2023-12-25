@@ -1615,9 +1615,7 @@ vim.list_extend(M, {
               event = 'lsp',
               kind = 'progress'
             },
-            opts = {
-              skip = true
-            }
+            opts = { skip = true },
           },
           {
             filter = {
@@ -1658,28 +1656,14 @@ vim.list_extend(M, {
           {
             filter = {
               event = 'msg_show',
-              find = 'change;'
+              find = 'changes?;'
             },
             opts = { skip = true },
           },
           {
             filter = {
               event = 'msg_show',
-              find = 'changes;'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = '>ed'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = '<ed'
+              find = '[><]+ed'
             },
             opts = { skip = true },
           },
@@ -1696,7 +1680,35 @@ vim.list_extend(M, {
               find = 'buffers deleted'
             },
             opts = { skip = true },
-          }
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = '%d+L, %d+B'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = '^[/?]+'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = '--No lines in buffer--'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              event = 'msg_show',
+              find = '^:!'
+            },
+            opts = { skip = true },
+          },
         },
         messages = {
           view_search = false
