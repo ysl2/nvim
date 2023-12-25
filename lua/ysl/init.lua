@@ -36,13 +36,14 @@ vim.cmd([[autocmd! nvim_swapfile]])
 
 -- === Filetype settings.
 vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-vim.api.nvim_create_autocmd('BufEnter', {
-  -- Must be 'BufEnter', not 'FileType'. Otherwise, this will cause problems if put after the `tabstop`.
-  callback = function()
-    vim.opt.shiftwidth = vim.opt.tabstop._value
-  end
-})
+-- vim.api.nvim_create_autocmd('BufEnter', {
+--   -- Must be 'BufEnter', not 'FileType'. Otherwise, this will cause problems if put after the `tabstop`.
+--   callback = function()
+--     vim.opt.shiftwidth = vim.opt.tabstop._value
+--   end
+-- })
 vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function()
     vim.opt.fileformat = 'unix'
@@ -51,21 +52,22 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'lua', 'json', 'markdown', 'sshconfig', 'vim', 'yaml' },
   callback = function()
-    vim.opt.tabstop = 2
-  end
-})
-vim.api.nvim_create_autocmd('BufEnter', {
-  -- Must be 'BufEnter', not 'FileType'. Otherwise, it won't work.
-  pattern = '*.asm',
-  callback = function()
-    vim.opt.filetype = 'masm'
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
   end
 })
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'c', 'cpp' },
   callback = function()
-    vim.opt.expandtab = false
-    vim.opt.cindent = true
+    vim.opt_local.expandtab = false
+    vim.opt_local.cindent = true
+  end
+})
+vim.api.nvim_create_autocmd('BufEnter', {
+  -- Must be 'BufEnter', not 'FileType'. Otherwise, treesitter won't work.
+  pattern = '*.asm',
+  callback = function()
+    vim.opt.filetype = 'masm'
   end
 })
 
