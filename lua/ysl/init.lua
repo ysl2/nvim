@@ -1,4 +1,4 @@
-local _, S = pcall(require, 'ysl.secret') -- Load machine specific secrets.
+local _, S = pcall(require, 'ysl.localhost') -- Load machine specific secrets.
 local U = require('ysl.utils')
 -- =============
 -- === Basic ===

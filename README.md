@@ -9,7 +9,7 @@
 > 3. Original keymap: I don't like to define many custom keymaps so I try my best to keep native keymaps and only map some functions or applications.
 > 4. Very fast: All plugins are lazyloaded so you can gain best performance of this configuration.
 > 5. Clean: The files are clean and well structured so that you can easily understand and modify them to fit your needs.
-> 6. Choose your own: I provide a local config file `./lua/ysl/secret.lua` so that you can cover some default settings like: which colorscheme, which lsp backend, which file to require, add your own plugin list. For example, You can select your lsp backend flavor from `./lua/ysl/lsp/nvim_lsp.lua` or `./lua/ysl/lsp/coc.lua`, default is `nvim_lsp`, choose the one you like from these two files, write it into `./lua/ysl/secret.lua`.
+> 6. Choose your own: I provide a local config file `./lua/ysl/localhost.lua` so that you can cover some default settings like: which colorscheme, which lsp backend, which file to require, add your own plugin list. For example, You can select your lsp backend flavor from `./lua/ysl/lsp/nvim_lsp.lua` or `./lua/ysl/lsp/coc.lua`, default is `nvim_lsp`, choose the one you like from these two files, write it into `./lua/ysl/localhost.lua`.
 > 7. Integration with others: VSCode's neovim extension support, Chrome input frame edit support.
 
 ## Introduction
@@ -68,7 +68,7 @@ git fetch origin && git merge origin/master --no-edit
 │       │   ├── coc.lua                | Coc LSP backend.
 │       │   └── nvim_lsp.lua           | Nvim built-in LSP backend.
 │       ├── init.lua                   | Main configuration file.
-│       ├── secret.lua                 | Self local configuration, for overriding some default value. Default not exists, needs to be created by yourself.
+│       ├── localhost.lua              | Self local configuration, for overriding some default value. Default not exists, needs to be created by yourself.
 │       └── utils.lua                  | Some useful functions.
 ├─ scripts                             | Some build scripts stored here.
 │  └── build_snippets.py               |
@@ -93,10 +93,10 @@ git fetch origin && git merge origin/master --no-edit
 
 ### Replace the default settings with your local configuration
 
-Put the code below into `./lua/ysl/secret.lua`
+Put the code below into `./lua/ysl/localhost.lua`
 
 ```lua
--- ./lua/ysl/secret.lua
+-- ./lua/ysl/localhost.lua
 
 local M = {}
 
@@ -290,10 +290,10 @@ cargo install chafa
 
 ##### Copilot
 
-1. If you're in China you might need to add this into `lua/ysl/secret.lua`:
+1. If you're in China you might need to add this into `lua/ysl/localhost.lua`:
 
     ```lua
-    -- lua/ysl/secret.lua
+    -- lua/ysl/localhost.lua
 
     vim.g.copilot_proxy = '127.0.0.1:7890'
     ```
@@ -313,7 +313,7 @@ cargo install chafa
     export https_proxy="${http_proxy}"
     ```
 
-2. Add your api key. You can set it into environment variable, or add to a secret file and custom the read command (follow the official plugin README)
+2. Add your api key. You can set it into environment variable, or add to a localhost file and custom the read command (follow the official plugin README)
 
     ```bash
     export OPENAI_API_KEY=your-key

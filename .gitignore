@@ -2,5 +2,5 @@ plugin
 Session.vim
 .luarc.json
 lazy-lock.json
-secret.lua
+localhost.lua
 .vim
