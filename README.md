@@ -264,7 +264,41 @@ need `pdftoppm` and `chafa` for `pdf` preview.
 cargo install chafa
 ```
 
-### Fuzzy search & global replace system
+### Search & global replace system
+
+#### Replace catch (builtin)
+
+Let's say you have the following text:
+
+```
+Hello, world!
+```
+
+You want to replace `Hello` with `Hi` while preserving the original punctuation. You can use the following command:
+
+```
+:%s/\(Hello\),/\1, Hi/g
+```
+
+After executing this command, the text will become:
+
+```
+Hello, Hi world!
+```
+
+Another example:
+
+The original string is:
+
+```
+\textbf{0.82217}
+```
+
+You want to replace it to `0.82217`, you can do this:
+
+```
+:%s/\\textbf{\(\d\.\d\+\)}/\1/g
+```
 
 ### Mark system
 
