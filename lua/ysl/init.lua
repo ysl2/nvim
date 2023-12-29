@@ -518,7 +518,7 @@ vim.list_extend(M, {
 
       require('nvim-treesitter.configs').setup {
         -- A list of parser names, or "all"
-        ensure_installed = { 'vim', 'query', 'lua', 'python', 'bash', 'c', 'make', 'rust', 'latex', 'toml' },
+        ensure_installed = { 'vim', 'query', 'lua', 'python', 'bash', 'c', 'make', 'rust', 'latex', 'toml', 'vimdoc' },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -2005,7 +2005,26 @@ vim.list_extend(M, {
     cmd = 'FeMaco',
     ft = 'markdown',
     config = function()
-      require('femaco').setup()
+      require('femaco').setup({
+        float_opts = function()
+          return {
+            relative = 'win',
+            width = vim.api.nvim_win_get_width(0),
+            height = vim.api.nvim_win_get_height(0),
+            row = 0,
+            col = 0,
+            style = 'minimal',
+            border = 'single',
+            zindex = 1,
+          }
+        end,
+        post_open_float = function()
+          vim.wo.number = true
+          vim.wo.relativenumber = true
+          vim.wo.signcolumn = 'yes'
+          vim.wo.cursorline = true
+        end,
+      })
     end
   },
   {
