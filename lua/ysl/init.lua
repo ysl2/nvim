@@ -1718,6 +1718,13 @@ vim.list_extend(M, {
             },
             opts = { skip = true },
           },
+          {
+            filter = {
+              event = 'msg_show',
+              find = 'lines changed'
+            },
+            opts = { skip = true },
+          },
         },
         messages = {
           view_search = false
