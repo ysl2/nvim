@@ -70,8 +70,8 @@ git fetch origin && git merge origin/master --no-edit
 │       ├── init.lua                   | Main configuration file.
 │       ├── localhost.lua              | Self local configuration, for overriding some default value. Default not exists, needs to be created by yourself.
 │       └── utils.lua                  | Some useful functions.
-├─ scripts                             | Some build scripts stored here.
-│  └── build_snippets.py               |
+├── scripts                            | Some build scripts stored here.
+│   └── build_snippets.py              |
 ├── templates                          |
 │   ├── snippets                       | Snippets folder.
 │   │   ├── cython.json -> python.json |
