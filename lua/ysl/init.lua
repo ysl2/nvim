@@ -1400,13 +1400,12 @@ vim.list_extend(M, {
                 return 'g:coc_status'
               end
               if lsp == 'ysl.lsp.nvim_lsp' then
-                if not noice_ok then return '' end
                 return {
                   function()
                     return noice.api.status.lsp_progress.get_hl()
                   end,
                   cond = function()
-                    return noice.api.status.lsp_progress.has()
+                    return noice_ok and noice.api.status.lsp_progress.has()
                   end,
                 }
               end
@@ -1416,10 +1415,12 @@ vim.list_extend(M, {
           lualine_x = {
             {
               function()
-                local result = require('noice').api.statusline.search.get()
+                local result = noice.api.statusline.search.get()
                 return U.splitstr(result, ' ')[2]
               end,
-              cond = require('noice').api.statusline.search.has,
+              cond = function()
+                return noice_ok and noice.api.statusline.search.has()
+              end
             },
             function()
               local register = vim.fn.reg_recording()
