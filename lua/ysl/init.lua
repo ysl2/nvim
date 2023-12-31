@@ -420,8 +420,14 @@ vim.list_extend(M, U.set(U.safeget(S, 'plugins'), {}))
 -- === Load Others
 -- ===
 vim.list_extend(M, {
-  { 'Asheq/close-buffers.vim',             cmd = 'Bdelete' },
-  { 'tpope/vim-fugitive',                  cmd = 'Git' },
+  {
+    'Asheq/close-buffers.vim',
+    cmd = 'Bdelete'
+  },
+  {
+    'tpope/vim-fugitive',
+    cmd = 'Git'
+  },
   {
     'lewis6991/gitsigns.nvim',
     event = 'VeryLazy',
@@ -429,11 +435,21 @@ vim.list_extend(M, {
       require('gitsigns').setup()
     end,
   },
-  { 'NvChad/nvim-colorizer.lua',         config = function() require('colorizer').setup() end, event = 'VeryLazy' },
+  {
+    'NvChad/nvim-colorizer.lua',
+    event = 'VeryLazy',
+    config = function()
+      require('colorizer').setup()
+    end,
+  },
+  {
+    'nvim-lua/plenary.nvim',
+    lazy = true
+  },
   {
     'folke/todo-comments.nvim',
     event = 'VeryLazy',
-    dependencies = { 'nvim-lua/plenary.nvim', lazy = true },
+    dependencies = 'nvim-lua/plenary.nvim',
     config = function()
       require('todo-comments').setup({
         keywords = {
@@ -442,24 +458,55 @@ vim.list_extend(M, {
       })
     end,
   },
-  { 'ysl2/bufdelete.nvim',        cmd = 'Bd' },
-  { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
-  { 'mzlogin/vim-markdown-toc',   ft = 'markdown' },
-  { 'mg979/vim-visual-multi', event = 'VeryLazy' },
-  { 'ysl2/vim-bookmarks',
-    event = 'VeryLazy',
-    keys = {
-      { 'mm', '<CMD>BookmarkToggle<CR>', mode = 'n', silent = true },
-      { 'mi', '<CMD>BookmarkAnnotate<CR>', mode = 'n', silent = true },
-      { 'mA', '<CMD>BookmarkShowAll<CR>', mode = 'n', silent = true },
-      { 'gM', '<CMD>BookmarkPrev<CR>', mode = 'n', silent = true },
-      { 'gm', '<CMD>BookmarkNext<CR>', mode = 'n', silent = true },
+  {
+    'ysl2/bufdelete.nvim',
+    cmd = 'Bd'
+  },
+  {
+    'dhruvasagar/vim-table-mode',
+    ft = 'markdown',
+  },
+  {
+    'mzlogin/vim-markdown-toc',
+    ft = 'markdown'
+  },
+  {
+    'mg979/vim-visual-multi',
+    event = 'VeryLazy'
+  },
+  -- {
+  --   'ysl2/vim-bookmarks',
+  --   event = 'VeryLazy',
+  --   keys = {
+  --     { 'mm', '<CMD>BookmarkToggle<CR>', mode = 'n', silent = true },
+  --     { 'mi', '<CMD>BookmarkAnnotate<CR>', mode = 'n', silent = true },
+  --     { 'ml', '<CMD>BookmarkShowAll<CR>', mode = 'n', silent = true },
+  --     { 'mn', '<CMD>BookmarkNext<CR>', mode = 'n', silent = true },
+  --     { 'mp', '<CMD>BookmarkPrev<CR>', mode = 'n', silent = true },
+  --     { 'mc', '<CMD>BookmarkClear<CR>', mode = 'n', silent = true },
+  --     { 'mC', '<CMD>BookmarkClearAll<CR>', mode = 'n', silent = true },
+  --   }
+  -- },
+  {
+    'itchyny/calendar.vim',
+    cmd = 'Calendar'
+  },
+  {
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf',
+    dependencies = 'nvim-treesitter/nvim-treesitter'
+  },
+  {
+    'jspringyc/vim-word',
+    cmd = {
+      'WordCountLine',
+      'WordCount'
     }
   },
-  { 'itchyny/calendar.vim',   cmd = 'Calendar' },
-  { 'kevinhwang91/nvim-bqf',  ft = 'qf',                             dependencies = 'nvim-treesitter/nvim-treesitter' },
-  { 'jspringyc/vim-word',     cmd = { 'WordCountLine', 'WordCount' } },
-  { 'rafamadriz/friendly-snippets', event = 'VeryLazy', build = function ()
+  {
+    'rafamadriz/friendly-snippets',
+    event = 'VeryLazy',
+    build = function ()
       if vim.fn.has('win32') == 0 then
         os.execute('/usr/bin/env python3 ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' friendly')
       end
@@ -624,8 +671,8 @@ vim.list_extend(M, {
       { '<LEADER>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
       { '<LEADER>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
       { '<LEADER>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
-      { '<LEADER>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
-      { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true },
+      -- { '<LEADER>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
+      -- { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true },
       { '<LEADER>U', '<CMD>Telescope resume<CR>',                     mode = 'n', silent = true },
       {
         '<Leader>/', function()
@@ -641,7 +688,7 @@ vim.list_extend(M, {
             'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
       },
       'xiyaowong/telescope-emoji.nvim',
-      'ysl2/telescope-vim-bookmarks.nvim'
+      -- 'ysl2/telescope-vim-bookmarks.nvim'
     },
     config = function()
       local telescope = require('telescope')
@@ -702,7 +749,7 @@ vim.list_extend(M, {
       }
       telescope.load_extension('fzf')
       telescope.load_extension('emoji')
-      telescope.load_extension('vim_bookmarks')
+      -- telescope.load_extension('vim_bookmarks')
 
       vim.api.nvim_create_autocmd('User', {
         pattern = 'TelescopePreviewerLoaded',
@@ -715,7 +762,9 @@ vim.list_extend(M, {
   {
     'mbbill/undotree',
     event = { 'BufReadPost', 'BufNewFile' },
-    keys = { { '<LEADER>u', '<CMD>UndotreeToggle<CR>', mode = 'n', silent = true } },
+    keys = {
+      { '<LEADER>u', '<CMD>UndotreeToggle<CR>', mode = 'n', silent = true }
+    },
     config = function()
       vim.g.undotree_WindowLayout = 3
       vim.g.undotree_SetFocusWhenToggle = 1
@@ -730,11 +779,15 @@ vim.list_extend(M, {
     end
   },
   {
+    'nvim-tree/nvim-web-devicons',
+    lazy = true
+  },
+  {
     (function() return vim.fn.has('win32') == 1 and 'ysl2' or 'nvim-tree' end)() .. '/nvim-tree.lua',
     keys = {
       { '<LEADER>e', '<CMD>NvimTreeToggle<CR>', mode = 'n', silent = true },
     },
-    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+    dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
@@ -947,72 +1000,72 @@ vim.list_extend(M, {
       })
     end
   },
-  {
-    'ysl2/distant.nvim',
-    branch = 'v0.2',
-    keys = {
-      {
-        '<LEADER>Lc',
-        function()
-          local machines = U.safeget(S, { 'config', 'distant' })
-          if not machines then
-            print('Missing machine lists.')
-            return
-          end
-          local idx = tonumber(vim.fn.input('Enter machine idx: '))
-          require('distant.command').connect(machines[idx])
-        end,
-        mode = 'n',
-        silent = true,
-        desc = 'Distant Connect'
-      },
-      {
-        '<LEADER>Lo',
-        function()
-          local path = vim.fn.input('Enter path: ')
-          require('distant.command').open({ args = { path }, opts = {} })
-        end,
-        mode = 'n',
-        silent = true,
-        desc = 'Distant open'
-      },
-      { '<LEADER>Lr', '<CMD>DistantShell<CR>', mode = 'n', silent = true, desc = '<CMD>DistantShell<CR>' }
-    },
-    config = function()
-      require('distant').setup { ['*'] = require('distant.settings').chip_default() }
-      -- HACK: If path contains whitespace, you should link .ssh folder to another place.
-      --
-      -- ```dos
-      -- cd C:\Users\Public
-      -- mklink /D .ssh "C:\Users\fa fa\.ssh"
-      -- ```
-      --
-      -- HACK: Read variables from secret file.
-      -- S.config.distant is a list type (also can be defined as a table that can give a machine alias. By yourself.)
-      -- e.g,
-      --
-      -- ```lua
-      -- S.config = {
-      --   distant = {
-      --     {
-      --       args = { 'ssh://user1@111.222.333.444:22' },
-      --       opts = {
-      --         options = {
-      --           -- ['ssh.backend'] = 'libssh', -- No need to specify this. Just for example.
-      --           ['ssh.user_known_hosts_files'] = 'C:\\Users\\Public\\.ssh\\known_hosts',
-      --           ['ssh.identity_files'] = 'C:\\Users\\Public\\.ssh\\id_rsa'
-      --         }
-      --       }
-      --     },
-      --     {
-      --       args = { 'ssh://user2@127.0.0.1:2233' },
-      --       opts = {} -- Or leave it empty on Linux.
-      --     }
-      --   }
-      -- }
-      -- ```
-    end
-  },
+  -- {
+  --   'ysl2/distant.nvim',
+  --   branch = 'v0.2',
+  --   keys = {
+  --     {
+  --       '<LEADER>Lc',
+  --       function()
+  --         local machines = U.safeget(S, { 'config', 'distant' })
+  --         if not machines then
+  --           print('Missing machine lists.')
+  --           return
+  --         end
+  --         local idx = tonumber(vim.fn.input('Enter machine idx: '))
+  --         require('distant.command').connect(machines[idx])
+  --       end,
+  --       mode = 'n',
+  --       silent = true,
+  --       desc = 'Distant Connect'
+  --     },
+  --     {
+  --       '<LEADER>Lo',
+  --       function()
+  --         local path = vim.fn.input('Enter path: ')
+  --         require('distant.command').open({ args = { path }, opts = {} })
+  --       end,
+  --       mode = 'n',
+  --       silent = true,
+  --       desc = 'Distant open'
+  --     },
+  --     { '<LEADER>Lr', '<CMD>DistantShell<CR>', mode = 'n', silent = true, desc = '<CMD>DistantShell<CR>' }
+  --   },
+  --   config = function()
+  --     require('distant').setup { ['*'] = require('distant.settings').chip_default() }
+  --     -- HACK: If path contains whitespace, you should link .ssh folder to another place.
+  --     --
+  --     -- ```dos
+  --     -- cd C:\Users\Public
+  --     -- mklink /D .ssh "C:\Users\fa fa\.ssh"
+  --     -- ```
+  --     --
+  --     -- HACK: Read variables from secret file.
+  --     -- S.config.distant is a list type (also can be defined as a table that can give a machine alias. By yourself.)
+  --     -- e.g,
+  --     --
+  --     -- ```lua
+  --     -- S.config = {
+  --     --   distant = {
+  --     --     {
+  --     --       args = { 'ssh://user1@111.222.333.444:22' },
+  --     --       opts = {
+  --     --         options = {
+  --     --           -- ['ssh.backend'] = 'libssh', -- No need to specify this. Just for example.
+  --     --           ['ssh.user_known_hosts_files'] = 'C:\\Users\\Public\\.ssh\\known_hosts',
+  --     --           ['ssh.identity_files'] = 'C:\\Users\\Public\\.ssh\\id_rsa'
+  --     --         }
+  --     --       }
+  --     --     },
+  --     --     {
+  --     --       args = { 'ssh://user2@127.0.0.1:2233' },
+  --     --       opts = {} -- Or leave it empty on Linux.
+  --     --     }
+  --     --   }
+  --     -- }
+  --     -- ```
+  --   end
+  -- },
   {
     'ysl2/img-paste.vim',
     ft = 'markdown',
@@ -1074,7 +1127,7 @@ vim.list_extend(M, {
     config = function()
       local persistence = require('persistence')
       persistence.setup()
-      vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+      vim.api.nvim_create_autocmd('VimEnter', {
         nested = true,
         callback = function()
           if vim.fn.argc() == 0 and not vim.g.started_with_stdin then
@@ -1086,20 +1139,20 @@ vim.list_extend(M, {
       })
     end
   },
-  {
-    'ysl2/leetcode.vim',
-    keys = {
-      { '<leader>Ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeList<CR>' },
-      { '<leader>Lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeTest<CR>' },
-      { '<leader>Ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSubmit<CR>' },
-      { '<leader>Li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSignIn<CR>' }
-    },
-    config = function()
-      vim.g.leetcode_china = 0
-      vim.g.leetcode_browser = 'chrome'
-      vim.g.leetcode_solution_filetype = 'python'
-    end
-  },
+  -- {
+  --   'ysl2/leetcode.vim',
+  --   keys = {
+  --     { '<leader>Ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeList<CR>' },
+  --     { '<leader>Lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeTest<CR>' },
+  --     { '<leader>Ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSubmit<CR>' },
+  --     { '<leader>Li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSignIn<CR>' }
+  --   },
+  --   config = function()
+  --     vim.g.leetcode_china = 0
+  --     vim.g.leetcode_browser = 'chrome'
+  --     vim.g.leetcode_solution_filetype = 'python'
+  --   end
+  -- },
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
@@ -1176,93 +1229,93 @@ vim.list_extend(M, {
       })
     end,
   },
-  {
-    'xiyaowong/nvim-transparent',
-    cond = transparent,
-    lazy = false,
-    config = function()
-      require('transparent').setup({
-        extra_groups = { -- table/string: additional groups that should be cleared
-          -- In particular, when you set it to 'all', that means all available groups
-          'lualine_a_inactive',
-          'lualine_b_visual',
-          'lualine_b_replace',
-          'lualine_b_insert',
-          'lualine_b_command',
-          'lualine_b_terminal',
-          'lualine_b_inactive',
-          'lualine_b_normal',
-          'lualine_c_visual',
-          'lualine_c_replace',
-          'lualine_c_insert',
-          'lualine_c_command',
-          'lualine_c_terminal',
-          'lualine_c_inactive',
-          'lualine_c_normal',
-          'lualine_b_diff_added_normal',
-          'lualine_b_diff_added_insert',
-          'lualine_b_diff_added_visual',
-          'lualine_b_diff_added_replace',
-          'lualine_b_diff_added_command',
-          'lualine_b_diff_added_terminal',
-          'lualine_b_diff_added_inactive',
-          'lualine_b_diff_modified_normal',
-          'lualine_b_diff_modified_insert',
-          'lualine_b_diff_modified_visual',
-          'lualine_b_diff_modified_replace',
-          'lualine_b_diff_modified_command',
-          'lualine_b_diff_modified_terminal',
-          'lualine_b_diff_modified_inactive',
-          'lualine_b_diff_removed_normal',
-          'lualine_b_diff_removed_insert',
-          'lualine_b_diff_removed_visual',
-          'lualine_b_diff_removed_replace',
-          'lualine_b_diff_removed_command',
-          'lualine_b_diff_removed_terminal',
-          'lualine_b_diff_removed_inactive',
-          'lualine_b_diagnostics_error_normal',
-          'lualine_b_diagnostics_error_insert',
-          'lualine_b_diagnostics_error_visual',
-          'lualine_b_diagnostics_error_replace',
-          'lualine_b_diagnostics_error_command',
-          'lualine_b_diagnostics_error_terminal',
-          'lualine_b_diagnostics_error_inactive',
-          'lualine_b_diagnostics_warn_normal',
-          'lualine_b_diagnostics_warn_insert',
-          'lualine_b_diagnostics_warn_visual',
-          'lualine_b_diagnostics_warn_replace',
-          'lualine_b_diagnostics_warn_command',
-          'lualine_b_diagnostics_warn_terminal',
-          'lualine_b_diagnostics_warn_inactive',
-          'lualine_b_diagnostics_info_normal',
-          'lualine_b_diagnostics_info_insert',
-          'lualine_b_diagnostics_info_visual',
-          'lualine_b_diagnostics_info_replace',
-          'lualine_b_diagnostics_info_command',
-          'lualine_b_diagnostics_info_terminal',
-          'lualine_b_diagnostics_info_inactive',
-          'lualine_b_diagnostics_hint_normal',
-          'lualine_b_diagnostics_hint_insert',
-          'lualine_b_diagnostics_hint_visual',
-          'lualine_b_diagnostics_hint_replace',
-          'lualine_b_diagnostics_hint_command',
-          'lualine_b_diagnostics_hint_terminal',
-          'lualine_b_diagnostics_hint_inactive',
-          'NvimTreeNormal',
-          'NvimTreeStatuslineNc',
-          'NvimTreeWinSeparator',
-          'NormalFloat',
-          'Pmenu',
-          'VertSplit',
-          'CursorLine',
-          'TelescopeNormal',
-          'TelescopeBorder',
-          'TelescopePromptBorder',
-        },
-        exclude_groups = {}, -- table: groups you don't want to clear
-      })
-    end
-  },
+  -- {
+  --   'xiyaowong/nvim-transparent',
+  --   cond = transparent,
+  --   lazy = false,
+  --   config = function()
+  --     require('transparent').setup({
+  --       extra_groups = { -- table/string: additional groups that should be cleared
+  --         -- In particular, when you set it to 'all', that means all available groups
+  --         'lualine_a_inactive',
+  --         'lualine_b_visual',
+  --         'lualine_b_replace',
+  --         'lualine_b_insert',
+  --         'lualine_b_command',
+  --         'lualine_b_terminal',
+  --         'lualine_b_inactive',
+  --         'lualine_b_normal',
+  --         'lualine_c_visual',
+  --         'lualine_c_replace',
+  --         'lualine_c_insert',
+  --         'lualine_c_command',
+  --         'lualine_c_terminal',
+  --         'lualine_c_inactive',
+  --         'lualine_c_normal',
+  --         'lualine_b_diff_added_normal',
+  --         'lualine_b_diff_added_insert',
+  --         'lualine_b_diff_added_visual',
+  --         'lualine_b_diff_added_replace',
+  --         'lualine_b_diff_added_command',
+  --         'lualine_b_diff_added_terminal',
+  --         'lualine_b_diff_added_inactive',
+  --         'lualine_b_diff_modified_normal',
+  --         'lualine_b_diff_modified_insert',
+  --         'lualine_b_diff_modified_visual',
+  --         'lualine_b_diff_modified_replace',
+  --         'lualine_b_diff_modified_command',
+  --         'lualine_b_diff_modified_terminal',
+  --         'lualine_b_diff_modified_inactive',
+  --         'lualine_b_diff_removed_normal',
+  --         'lualine_b_diff_removed_insert',
+  --         'lualine_b_diff_removed_visual',
+  --         'lualine_b_diff_removed_replace',
+  --         'lualine_b_diff_removed_command',
+  --         'lualine_b_diff_removed_terminal',
+  --         'lualine_b_diff_removed_inactive',
+  --         'lualine_b_diagnostics_error_normal',
+  --         'lualine_b_diagnostics_error_insert',
+  --         'lualine_b_diagnostics_error_visual',
+  --         'lualine_b_diagnostics_error_replace',
+  --         'lualine_b_diagnostics_error_command',
+  --         'lualine_b_diagnostics_error_terminal',
+  --         'lualine_b_diagnostics_error_inactive',
+  --         'lualine_b_diagnostics_warn_normal',
+  --         'lualine_b_diagnostics_warn_insert',
+  --         'lualine_b_diagnostics_warn_visual',
+  --         'lualine_b_diagnostics_warn_replace',
+  --         'lualine_b_diagnostics_warn_command',
+  --         'lualine_b_diagnostics_warn_terminal',
+  --         'lualine_b_diagnostics_warn_inactive',
+  --         'lualine_b_diagnostics_info_normal',
+  --         'lualine_b_diagnostics_info_insert',
+  --         'lualine_b_diagnostics_info_visual',
+  --         'lualine_b_diagnostics_info_replace',
+  --         'lualine_b_diagnostics_info_command',
+  --         'lualine_b_diagnostics_info_terminal',
+  --         'lualine_b_diagnostics_info_inactive',
+  --         'lualine_b_diagnostics_hint_normal',
+  --         'lualine_b_diagnostics_hint_insert',
+  --         'lualine_b_diagnostics_hint_visual',
+  --         'lualine_b_diagnostics_hint_replace',
+  --         'lualine_b_diagnostics_hint_command',
+  --         'lualine_b_diagnostics_hint_terminal',
+  --         'lualine_b_diagnostics_hint_inactive',
+  --         'NvimTreeNormal',
+  --         'NvimTreeStatuslineNc',
+  --         'NvimTreeWinSeparator',
+  --         'NormalFloat',
+  --         'Pmenu',
+  --         'VertSplit',
+  --         'CursorLine',
+  --         'TelescopeNormal',
+  --         'TelescopeBorder',
+  --         'TelescopePromptBorder',
+  --       },
+  --       exclude_groups = {}, -- table: groups you don't want to clear
+  --     })
+  --   end
+  -- },
   -- {
   --   'ysl2/vim-colorscheme-switcher',
   --   dependencies = 'xolox/vim-misc',
@@ -1559,7 +1612,9 @@ vim.list_extend(M, {
   },
   {
     'stevearc/aerial.nvim',
-    keys = { { '<LEADER>v', function() require('aerial').toggle({ focus = true }) end, mode = 'n', silent = true } },
+    keys = {
+      { '<LEADER>v', function() require('aerial').toggle({ focus = true }) end, mode = 'n', silent = true }
+    },
     config = function()
       require('aerial').setup({
         backends = { 'treesitter' },
@@ -1840,7 +1895,7 @@ vim.list_extend(M, {
     cmd = 'AnsiEsc',
     keys = {
       {
-        '<Leader>A', function()
+        '<Leader>E', function()
           local pos = vim.fn.getpos('.')
           local colors_name = vim.g.colors_name
           vim.cmd('silent! AnsiEsc')
@@ -1883,9 +1938,13 @@ vim.list_extend(M, {
       trouble.setup()
     end
   },
-  { 'cybardev/cython.vim', ft = 'cython' },
   {
-    'NullptrExceptions/cython-snips', ft = 'cython',
+    'cybardev/cython.vim',
+    ft = 'cython'
+  },
+  {
+    'NullptrExceptions/cython-snips',
+    ft = 'cython',
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
       if vim.fn.has('win32') == 0 then
@@ -1916,11 +1975,11 @@ vim.list_extend(M, {
   },
   {
     'AndrewRadev/linediff.vim',
-    cmd = { 'Linediff' }
+    cmd = 'Linediff'
   },
   {
     'wakatime/vim-wakatime',
-    event = { 'VeryLazy' },
+    event = 'VeryLazy',
   },
   {
     'lervag/vimtex',
@@ -1948,7 +2007,7 @@ vim.list_extend(M, {
   },
   {
     'zbirenbaum/copilot.lua',
-    event = { 'InsertEnter' },
+    event = 'InsertEnter',
     build = ':Copilot auth',
     config = function()
       local accept = '<C-g>'
@@ -1970,8 +2029,12 @@ vim.list_extend(M, {
   {
     'jackMort/ChatGPT.nvim',
     event = 'VeryLazy',
-    keys = {
-      { '<Leader>c', '<CMD>ChatGPT<CR>', mode = 'n', silent = true }
+    cmd = {
+      'ChatGPT',
+      'ChatGPTActAs',
+      'ChatGPTCompleteCode',
+      'ChatGPTEditWithInstructions',
+      'ChatGPTRun',
     },
     dependencies = {
       'MunifTanjim/nui.nvim',
