@@ -155,6 +155,12 @@ check conflicts example: `:verbose imap`
 
 Experimental now. Not recommended.
 
+#### GUI font size
+
+```vim
+set guifont=consolas:h20
+```
+
 ### Session system
 
 ### File system
