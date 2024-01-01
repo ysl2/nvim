@@ -143,16 +143,16 @@ vim.cmd([[
 -- === Keymap functions.
 
 -- 1. Move buffers.
-function _G.my_custom_check_no_name_buffer(cmdstr)
+local function _my_custom_check_no_name_buffer(cmdstr)
   if vim.fn.empty(vim.fn.bufname(vim.fn.bufnr())) == 1 then
     return
   end
   vim.cmd(cmdstr)
 end
-vim.keymap.set('n', '<C-w><C-h>', function() return _G.my_custom_check_no_name_buffer('bel vs | silent! b# | winc p') end, { silent = true })
-vim.keymap.set('n', '<C-w><C-j>', function() return _G.my_custom_check_no_name_buffer('abo sp | silent! b# | winc p') end, { silent = true })
-vim.keymap.set('n', '<C-w><C-k>', function() return _G.my_custom_check_no_name_buffer('bel sp | silent! b# | winc p') end, { silent = true })
-vim.keymap.set('n', '<C-w><C-l>', function() return _G.my_custom_check_no_name_buffer('abo vs | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-h>', function() return _my_custom_check_no_name_buffer('bel vs | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-j>', function() return _my_custom_check_no_name_buffer('abo sp | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-k>', function() return _my_custom_check_no_name_buffer('bel sp | silent! b# | winc p') end, { silent = true })
+vim.keymap.set('n', '<C-w><C-l>', function() return _my_custom_check_no_name_buffer('abo vs | silent! b# | winc p') end, { silent = true })
 
 -- 2. Diffview.
 local _my_custom_diff_diffwins = {}
@@ -180,25 +180,6 @@ vim.keymap.set('n', '<Leader>D', function() return _my_custom_diff_diffwins_clea
 -- ===
 -- === Functions
 -- ===
--- Auto delete [No Name] buffers.
-if not vim.g.vscode then
-  vim.api.nvim_create_autocmd('BufLeave', {
-    callback = function()
-      local buffers = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr('$')),
-        'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
-      local next = next
-      if next(buffers) == nil then
-        return
-      end
-      local cmdstr = ':silent! bw!'
-      for _, v in pairs(buffers) do
-        cmdstr = cmdstr .. ' ' .. v
-      end
-      vim.cmd(cmdstr)
-    end
-  })
-end
-
 -- Switch wrap mode.
 vim.opt.wrap = false
 local function _my_custom_toggle_wrap(opts)
@@ -1124,17 +1105,41 @@ vim.list_extend(M, {
   -- },
   {
     'folke/persistence.nvim',
+    lazy = false,
+    dependencies = 'folke/noice.nvim',
     config = function()
       local persistence = require('persistence')
       persistence.setup()
       vim.api.nvim_create_autocmd('VimEnter', {
         nested = true,
         callback = function()
+          -- Auto delete [No Name] buffers.
+          local function _my_custom_del_no_name_buf()
+            if not vim.g.vscode then
+              vim.api.nvim_create_autocmd('BufLeave', {
+                callback = function()
+                  local buffers = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr('$')),
+                    'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
+                  local next = next
+                  if next(buffers) == nil then
+                    return
+                  end
+                  local cmdstr = ':silent! bw!'
+                  for _, v in pairs(buffers) do
+                    cmdstr = cmdstr .. ' ' .. v
+                  end
+                  vim.cmd(cmdstr)
+                end
+              })
+            end
+          end
+
           if vim.fn.argc() == 0 and not vim.g.started_with_stdin then
             persistence.load()
-            return
+          else
+            persistence.stop()
           end
-          persistence.stop()
+          _my_custom_del_no_name_buf()
         end,
       })
     end
@@ -1384,6 +1389,7 @@ vim.list_extend(M, {
   },
   {
     'lukas-reineke/indent-blankline.nvim',
+    event = 'VeryLazy',
     main = 'ibl',
     config = function()
       require('ibl').setup({
