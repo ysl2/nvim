@@ -281,6 +281,7 @@ local function _my_custom_load(plugins, opts)
           'tohtml',
           'tutor',
           'zipPlugin',
+          'osc52',
         }
       }
     },
@@ -646,6 +647,17 @@ vim.list_extend(M, {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     cmd = 'Telescope',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = (vim.fn.has('win32') == 0) and 'make' or
+            'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+      },
+      'xiyaowong/telescope-emoji.nvim',
+      'ahmedkhalf/project.nvim',
+      -- 'ysl2/telescope-vim-bookmarks.nvim'
+    },
     keys = {
       { '<LEADER>f', '<CMD>Telescope find_files<CR>',                 mode = 'n', silent = true },
       { '<LEADER>F', function() return require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '--no-ignore', '-g', '!.git' }}) end,     mode = 'n', silent = true },
@@ -660,16 +672,6 @@ vim.list_extend(M, {
           require('telescope.builtin').current_buffer_fuzzy_find()
         end, mode = 'n', silent = true
       }
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = (vim.fn.has('win32') == 0) and 'make' or
-            'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-      },
-      'xiyaowong/telescope-emoji.nvim',
-      -- 'ysl2/telescope-vim-bookmarks.nvim'
     },
     config = function()
       local telescope = require('telescope')
@@ -730,6 +732,7 @@ vim.list_extend(M, {
       }
       telescope.load_extension('fzf')
       telescope.load_extension('emoji')
+      telescope.load_extension('projects')
       -- telescope.load_extension('vim_bookmarks')
 
       vim.api.nvim_create_autocmd('User', {
@@ -1382,10 +1385,7 @@ vim.list_extend(M, {
   },
   {
     'Bekaboo/dropbar.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('dropbar').setup()
-    end
+    -- There is no need to set lazyload beacuse the author has already done it.
   },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -1636,7 +1636,7 @@ vim.list_extend(M, {
   {
     'folke/noice.nvim',
     cond = not vim.g.started_by_firenvim,
-    event = 'VeryLazy',
+    lazy = true,
     keys = {
       { '<Leader>:', '<CMD>NoiceDismiss<CR>', mode = 'n', silent = true }
     },
@@ -2103,14 +2103,6 @@ vim.list_extend(M, {
         end,
       })
     end
-  },
-  {
-    'fladson/vim-kitty',
-    ft = 'kitty'
-  },
-  {
-    'camnw/lf-vim',
-    ft = 'lf'
   },
   {
     'jbyuki/venn.nvim',
