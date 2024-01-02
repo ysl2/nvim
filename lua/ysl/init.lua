@@ -458,19 +458,19 @@ vim.list_extend(M, {
     'mg979/vim-visual-multi',
     event = 'VeryLazy'
   },
-  -- {
-  --   'ysl2/vim-bookmarks',
-  --   event = 'VeryLazy',
-  --   keys = {
-  --     { 'mm', '<CMD>BookmarkToggle<CR>', mode = 'n', silent = true },
-  --     { 'mi', '<CMD>BookmarkAnnotate<CR>', mode = 'n', silent = true },
-  --     { 'ml', '<CMD>BookmarkShowAll<CR>', mode = 'n', silent = true },
-  --     { 'mn', '<CMD>BookmarkNext<CR>', mode = 'n', silent = true },
-  --     { 'mp', '<CMD>BookmarkPrev<CR>', mode = 'n', silent = true },
-  --     { 'mc', '<CMD>BookmarkClear<CR>', mode = 'n', silent = true },
-  --     { 'mC', '<CMD>BookmarkClearAll<CR>', mode = 'n', silent = true },
-  --   }
-  -- },
+  {
+    'ysl2/vim-bookmarks',
+    event = 'VeryLazy',
+    keys = {
+      { 'mm', '<CMD>BookmarkToggle<CR>', mode = 'n', silent = true },
+      { 'mi', '<CMD>BookmarkAnnotate<CR>', mode = 'n', silent = true },
+      { 'ml', '<CMD>BookmarkShowAll<CR>', mode = 'n', silent = true },
+      { 'mn', '<CMD>BookmarkNext<CR>', mode = 'n', silent = true },
+      { 'mp', '<CMD>BookmarkPrev<CR>', mode = 'n', silent = true },
+      { 'mc', '<CMD>BookmarkClear<CR>', mode = 'n', silent = true },
+      { 'mC', '<CMD>BookmarkClearAll<CR>', mode = 'n', silent = true },
+    }
+  },
   {
     'itchyny/calendar.vim',
     cmd = 'Calendar'
@@ -658,7 +658,7 @@ vim.list_extend(M, {
       },
       'xiyaowong/telescope-emoji.nvim',
       'ahmedkhalf/project.nvim',
-      -- 'ysl2/telescope-vim-bookmarks.nvim'
+      'ysl2/telescope-vim-bookmarks.nvim'
     },
     keys = {
       { '<LEADER>f', '<CMD>Telescope find_files<CR>',                 mode = 'n', silent = true },
@@ -666,8 +666,8 @@ vim.list_extend(M, {
       { '<LEADER>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
       { '<LEADER>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
       { '<LEADER>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
-      -- { '<LEADER>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
-      -- { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true },
+      { '<LEADER>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
+      { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true },
       { '<LEADER>U', '<CMD>Telescope resume<CR>',                     mode = 'n', silent = true },
       {
         '<Leader>/', function()
@@ -735,7 +735,7 @@ vim.list_extend(M, {
       telescope.load_extension('fzf')
       telescope.load_extension('emoji')
       telescope.load_extension('projects')
-      -- telescope.load_extension('vim_bookmarks')
+      telescope.load_extension('vim_bookmarks')
 
       vim.api.nvim_create_autocmd('User', {
         pattern = 'TelescopePreviewerLoaded',
@@ -2140,8 +2140,21 @@ vim.list_extend(M, {
     }
   },
   {
-    'tpope/vim-rsi',
+    'ysl2/vim-rsi',
     event = 'InsertEnter'
+  },
+  {
+    'camnw/lf-vim',
+    ft = 'lf',
+    config = function()
+      -- Ref: https://github.com/camnw/lf-vim/compare/master...sarmong:lf-vim:master
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'lf',
+        callback = function()
+          vim.opt_local.commentstring = '#\\ %s'
+        end
+      })
+    end
   }
 })
 
