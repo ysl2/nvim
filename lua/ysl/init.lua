@@ -687,7 +687,7 @@ vim.list_extend(M, {
               ['<C-k>'] = telescope_actions.move_selection_previous,
               ['<C-r>'] = require('telescope.actions.layout').toggle_preview,
               ['<C-s>'] = telescope_actions.select_horizontal,
-              ['<C-t>'] = telescope_actions.select_default,
+              ['<C-t>'] = telescope_actions.select_tab,
               ['<A-n>'] = telescope_actions.cycle_history_next,
               ['<A-p>'] = telescope_actions.cycle_history_prev,
             }
@@ -793,19 +793,20 @@ vim.list_extend(M, {
         vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
         vim.keymap.set('n', 'g.', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
         vim.keymap.set('n', '<C-h>', api.tree.collapse_all, opts('Collapse'))
-        vim.keymap.set('n', 'T', function()
+
+        vim.keymap.set('n', 't', function()
           local node = api.tree.get_node_under_cursor()
           api.node.open.tab(node)
           vim.cmd.tabprev()
         end, opts('open_tab_silent'))
 
-        vim.keymap.set('n', 't', function()
+        vim.keymap.set('n', '<C-t>', function()
           local node = api.tree.get_node_under_cursor()
           vim.cmd('quit')
           api.node.open.tab(node)
         end, opts('open_tab_and_close_tree'))
 
-        vim.keymap.set('n', '<C-t>', function()
+        vim.keymap.set('n', '<A-t>', function()
           local node = api.tree.get_node_under_cursor()
           vim.cmd('wincmd l')
           api.node.open.tab(node)
