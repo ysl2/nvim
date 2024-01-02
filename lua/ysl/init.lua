@@ -92,6 +92,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
     local fg_cursorlinenb = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
     vim.api.nvim_set_hl(0, 'LineNr', { fg = fg_cursorlinenb})
+
+    vim.api.nvim_set_hl(0, 'WinBarNC', { link = 'none'})
   end
 })
 
@@ -861,7 +863,6 @@ vim.list_extend(M, {
         desc = 'Pick a window'
       }
     },
-    version = '1.*',
     config = function()
       require('window-picker').setup({
         show_prompt = false,
@@ -1785,6 +1786,12 @@ vim.list_extend(M, {
             filter = {
               event = 'msg_show',
               find = 'lines changed'
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              find = 'No windows left to pick after filtering'
             },
             opts = { skip = true },
           },
