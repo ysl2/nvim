@@ -326,6 +326,20 @@ You want to replace it to `0.82217`, you can do this:
 `:Bd<CR>` for current buffer and keep layout.
 `:Bde [opt]` for `all`, `other`, etc.
 
+#### Change CRLF to LF
+
+1. Single file change
+
+    ```vim
+    :set ff=unix
+    ```
+
+2. Bulk change
+
+    ```sh
+    npm install -g crlf2lf
+    ```
+
 #### AI context complement
 
 ##### Copilot
