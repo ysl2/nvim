@@ -391,7 +391,9 @@ You want to replace it to `0.82217`, you can do this:
 
 1. Vsplit two buffers.
 
-2. `:set scrollbind` for each buffer.
+2. `:set scrollbind` or `:set scb` for each buffer.
+
+3. If you want to turn off sync scroll, use `:set noscrollbind` or `:set noscb`.
 
 ### Terminal system
 
