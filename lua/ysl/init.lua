@@ -1357,9 +1357,9 @@ vim.list_extend(M, {
   },
   {
     'kevinhwang91/nvim-hlslens',
-    dependencies = {
-      'petertriho/nvim-scrollbar',
-    },
+    -- dependencies = {
+    --   'petertriho/nvim-scrollbar',
+    -- },
     keys = {
       { '/' },
       { '?' },
@@ -1377,9 +1377,9 @@ vim.list_extend(M, {
       { 'g#', [[g#<CMD>lua require('hlslens').start()<CR>]], mode = { 'n', 'v' }, silent = true },
     },
     config = function()
-      -- require('hlslens').setup()
-      require('scrollbar.handlers.search').setup({
-        -- hlslens config overrides
+      -- require('scrollbar.handlers.search').setup({
+      --   -- hlslens config overrides
+      require('hlslens').setup({
         calm_down = true,
         nearest_float_when = 'never'
       })
@@ -1832,31 +1832,31 @@ vim.list_extend(M, {
       end
     end
   },
-  {
-    'petertriho/nvim-scrollbar',
-    event = 'VeryLazy',
-    keys = {
-      { '<Leader>|', '<CMD>ScrollbarToggle<CR>', mode = 'n', silent = true }
-    },
-    dependencies = {
-      'lewis6991/gitsigns.nvim'
-    },
-    config = function()
-      require('scrollbar').setup({
-        handle = {
-          color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui'),
-        },
-        marks = {
-          Search = { color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui') },
-        },
-        handlers = {
-          cursor = false,
-        },
-      })
-
-      require('scrollbar.handlers.gitsigns').setup()
-    end
-  },
+  -- {
+  --   'petertriho/nvim-scrollbar',
+  --   event = 'VeryLazy',
+  --   keys = {
+  --     { '<Leader>|', '<CMD>ScrollbarToggle<CR>', mode = 'n', silent = true }
+  --   },
+  --   dependencies = {
+  --     'lewis6991/gitsigns.nvim'
+  --   },
+  --   config = function()
+  --     require('scrollbar').setup({
+  --       handle = {
+  --         color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui'),
+  --       },
+  --       marks = {
+  --         Search = { color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui') },
+  --       },
+  --       handlers = {
+  --         cursor = false,
+  --       },
+  --     })
+  --
+  --     require('scrollbar.handlers.gitsigns').setup()
+  --   end
+  -- },
   {
     'gbprod/yanky.nvim',
     event = 'VeryLazy',
