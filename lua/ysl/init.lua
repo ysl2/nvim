@@ -1117,7 +1117,7 @@ vim.list_extend(M, {
   {
     'folke/persistence.nvim',
     lazy = false,
-    dependencies = 'folke/noice.nvim',
+    -- dependencies = 'folke/noice.nvim',
     config = function()
       local persistence = require('persistence')
       persistence.setup()
@@ -1431,7 +1431,7 @@ vim.list_extend(M, {
       'nvim-tree/nvim-web-devicons',
     },
     config = function()
-      local noice_ok, noice = pcall(require, 'noice')
+      -- local noice_ok, noice = pcall(require, 'noice')
       local copilot_ok, copilot_api = pcall(require, 'copilot.api')
 
       local _my_custom_spinners
@@ -1466,29 +1466,29 @@ vim.list_extend(M, {
               if lsp == 'ysl.lsp.coc' then
                 return 'g:coc_status'
               end
-              if lsp == 'ysl.lsp.nvim_lsp' then
-                return {
-                  function()
-                    return noice.api.status.lsp_progress.get_hl()
-                  end,
-                  cond = function()
-                    return noice_ok and noice.api.status.lsp_progress.has()
-                  end,
-                }
-              end
+              -- if lsp == 'ysl.lsp.nvim_lsp' then
+              --   return {
+              --     function()
+              --       return noice.api.status.lsp_progress.get_hl()
+              --     end,
+              --     cond = function()
+              --       return noice_ok and noice.api.status.lsp_progress.has()
+              --     end,
+              --   }
+              -- end
               return ''
             end)(),
           },
           lualine_x = {
-            {
-              function()
-                local result = noice.api.statusline.search.get()
-                return U.splitstr(result, ' ')[2]
-              end,
-              cond = function()
-                return noice_ok and noice.api.statusline.search.has()
-              end
-            },
+            -- {
+            --   function()
+            --     local result = noice.api.statusline.search.get()
+            --     return U.splitstr(result, ' ')[2]
+            --   end,
+            --   cond = function()
+            --     return noice_ok and noice.api.statusline.search.has()
+            --   end
+            -- },
             function()
               local register = vim.fn.reg_recording()
               return register == '' and '' or 'recording @' .. register
@@ -1641,197 +1641,102 @@ vim.list_extend(M, {
       })
     end
   },
-  {
-    'folke/noice.nvim',
-    cond = not vim.g.started_by_firenvim,
-    lazy = true,
-    keys = {
-      { '<Leader>:', '<CMD>NoiceDismiss<CR>', mode = 'n', silent = true }
-    },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      'MunifTanjim/nui.nvim',
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      'rcarriga/nvim-notify',
-    },
-    config = function()
-      local format = {
-        { '{data.progress.client} ', hl_group = 'CursorLineNr' },
-        '({data.progress.percentage}%) ',
-        { '{data.progress.title} ', hl_group = 'LineNr' },
-      }
-      require('noice').setup({
-        lsp = {
-          progress = {
-            enabled = true,
-            format = vim.list_extend({
-              { '{spinner} ', hl_group = 'NoiceLspProgressSpinner' },
-            }, format),
-            format_done = vim.list_extend({
-              { '✔ ', hl_group = 'NoiceLspProgressSpinner' },
-            }, format),
-          },
-          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-          override = {
-            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-            ['vim.lsp.util.stylize_markdown'] = true,
-            ['cmp.entry.get_documentation'] = true,
-          },
-        },
-        -- you can enable a preset for easier configuration
-        presets = {
-          command_palette = true, -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
-        },
-        status = {
-          lsp_progress = { event = 'lsp', kind = 'progress' }
-        },
-        routes = {
-          {
-            filter = {
-              event = 'lsp',
-              kind = 'progress'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              kind = '',
-              find = 'written'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = 'lines yanked'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = 'more line'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = 'fewer lines'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = 'line less'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = 'changes?;'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = '[><]+ed'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = 'substitutions on'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = 'buffers deleted'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = '%d+L, %d+B'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = '^[/?]+'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = '--No lines in buffer--'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = '^:!'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              event = 'msg_show',
-              find = 'lines changed'
-            },
-            opts = { skip = true },
-          },
-          {
-            filter = {
-              find = 'No windows left to pick after filtering'
-            },
-            opts = { skip = true },
-          },
-        },
-        messages = {
-          view_search = false
-        }
-      })
-
-      if lsp == 'ysl.lsp.nvim_lsp' then
-        vim.api.nvim_create_autocmd('LspProgress', {
-          pattern = '*',
-          command = 'redrawstatus'
-        })
-        vim.api.nvim_create_autocmd('LspAttach', {
-          group = U.GROUP.NVIM_LSP,
-          callback = function(ev)
-            local noice_lsp = require('noice.lsp')
-            vim.keymap.set({'n', 'i', 's'}, '<c-f>', function()
-              if not noice_lsp.scroll(4) then
-                return '<c-f>'
-              end
-            end, { silent = true, expr = true })
-
-            vim.keymap.set({'n', 'i', 's'}, '<c-b>', function()
-              if not noice_lsp.scroll(-4) then
-                return '<c-b>'
-              end
-            end, { silent = true, expr = true })
-          end
-        })
-      end
-    end
-  },
+  -- {
+  --   'folke/noice.nvim',
+  --   cond = not vim.g.started_by_firenvim,
+  --   lazy = true,
+  --   keys = {
+  --     { '<Leader>:', '<CMD>NoiceDismiss<CR>', mode = 'n', silent = true }
+  --   },
+  --   dependencies = {
+  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --     'MunifTanjim/nui.nvim',
+  --     -- OPTIONAL:
+  --     --   `nvim-notify` is only needed, if you want to use the notification view.
+  --     --   If not available, we use `mini` as the fallback
+  --     'rcarriga/nvim-notify',
+  --   },
+  --   config = function()
+  --     local format = {
+  --       { '{data.progress.client} ', hl_group = 'CursorLineNr' },
+  --       '({data.progress.percentage}%) ',
+  --       { '{data.progress.title} ', hl_group = 'LineNr' },
+  --     }
+  --     require('noice').setup({
+  --       lsp = {
+  --         progress = {
+  --           enabled = true,
+  --           format = vim.list_extend({
+  --             { '{spinner} ', hl_group = 'NoiceLspProgressSpinner' },
+  --           }, format),
+  --           format_done = vim.list_extend({
+  --             { '✔ ', hl_group = 'NoiceLspProgressSpinner' },
+  --           }, format),
+  --         },
+  --         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+  --         override = {
+  --           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+  --           ['vim.lsp.util.stylize_markdown'] = true,
+  --           ['cmp.entry.get_documentation'] = true,
+  --         },
+  --       },
+  --       -- you can enable a preset for easier configuration
+  --       presets = {
+  --         command_palette = true, -- position the cmdline and popupmenu together
+  --         long_message_to_split = true, -- long messages will be sent to a split
+  --       },
+  --       status = {
+  --         lsp_progress = { event = 'lsp', kind = 'progress' }
+  --       },
+  --       routes = {
+  --         { filter = { event = 'lsp', kind = 'progress' }, opts = { skip = true }, },
+  --         { filter = { event = 'msg_show', }, opts = { skip = true }, },
+  --         { filter = { find = 'No windows left to pick after filtering' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', kind = '', find = 'written' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = 'lines yanked' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = 'more line' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = 'fewer lines' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = 'line less' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = 'changes?;' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = '[><]+ed' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = 'substitutions on' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = 'buffers deleted' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = '%d+L, %d+B' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = '^[/?]+' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = '--No lines in buffer--' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = '^:!' }, opts = { skip = true }, },
+  --         -- { filter = { event = 'msg_show', find = 'lines changed' }, opts = { skip = true }, },
+  --       },
+  --       messages = {
+  --         view_search = false
+  --       }
+  --     })
+  --
+  --     if lsp == 'ysl.lsp.nvim_lsp' then
+  --       vim.api.nvim_create_autocmd('LspProgress', {
+  --         pattern = '*',
+  --         command = 'redrawstatus'
+  --       })
+  --       vim.api.nvim_create_autocmd('LspAttach', {
+  --         group = U.GROUP.NVIM_LSP,
+  --         callback = function(ev)
+  --           local noice_lsp = require('noice.lsp')
+  --           vim.keymap.set({'n', 'i', 's'}, '<c-f>', function()
+  --             if not noice_lsp.scroll(4) then
+  --               return '<c-f>'
+  --             end
+  --           end, { silent = true, expr = true })
+  --
+  --           vim.keymap.set({'n', 'i', 's'}, '<c-b>', function()
+  --             if not noice_lsp.scroll(-4) then
+  --               return '<c-b>'
+  --             end
+  --           end, { silent = true, expr = true })
+  --         end
+  --       })
+  --     end
+  --   end
+  -- },
   -- {
   --   'petertriho/nvim-scrollbar',
   --   event = 'VeryLazy',
