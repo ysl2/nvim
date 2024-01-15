@@ -58,6 +58,9 @@
       "mhsa",
       "downsampling",
       "shellcheck",
-      "shfmt"
+      "shfmt",
+      "jaccard",
+      "voxel",
+      "voxels"
     ]
 }
