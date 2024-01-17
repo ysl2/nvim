@@ -1786,7 +1786,7 @@ vim.list_extend(M, {
       require('yanky').setup({
         ring = {
           history_length = vim.opt.maxmempattern._value,
-          storage = 'sqlite',
+          storage = vim.fn.has('win32') == 0 and 'sqlite' or 'shada',
         },
         picker = {
           telescope = {
