@@ -1,5 +1,4 @@
 {
-  "ChatGPT.nvim": { "branch": "main", "commit": "48c59167beeb6ee0caa501c46cecc97b9be8571d" },
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
   "aerial.nvim": { "branch": "master", "commit": "e2e3bc2df4490690ea005395eecdc8eeb30c4def" },
   "bufdelete.nvim": { "branch": "master", "commit": "576a142108117f9326365bf4f7c494619aed55fe" },
@@ -25,7 +24,6 @@
   "lualine.nvim": { "branch": "master", "commit": "566b7036f717f3d676362742630518a47f132fff" },
   "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
   "neogen": { "branch": "main", "commit": "70127baaff25611deaf1a29d801fc054ad9d2dc1" },
-  "nui.nvim": { "branch": "main", "commit": "35da9ca1de0fc4dda96c2e214d93d363c145f418" },
   "nvim-FeMaco.lua": { "branch": "main", "commit": "6af458f0196215f397db31a6e1fb2df795811693" },
   "nvim-autopairs": { "branch": "master", "commit": "3b664e8277c36accec37f43414d85a3b64feba5f" },
   "nvim-bqf": { "branch": "main", "commit": "bdc2a4e5bb670b3c0e33ada9c0eec636d93a0748" },

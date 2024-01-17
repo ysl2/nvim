@@ -1951,35 +1951,35 @@ vim.list_extend(M, {
       })
     end,
   },
-  {
-    'jackMort/ChatGPT.nvim',
-    event = 'VeryLazy',
-    cmd = {
-      'ChatGPT',
-      'ChatGPTActAs',
-      'ChatGPTCompleteCode',
-      'ChatGPTEditWithInstructions',
-      'ChatGPTRun',
-    },
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim'
-    },
-    config = function()
-      require('chatgpt').setup({
-        api_key_cmd = not os.getenv('OPENAI_API_KEY') and "echo ''",
-        popup_input = {
-          submit = '<CR>'
-        },
-        chat = {
-          keymaps = {
-            draft_message = '<A-d>',
-          }
-        }
-      })
-    end
-  },
+  -- {
+  --   'jackMort/ChatGPT.nvim',
+  --   event = 'VeryLazy',
+  --   cmd = {
+  --     'ChatGPT',
+  --     'ChatGPTActAs',
+  --     'ChatGPTCompleteCode',
+  --     'ChatGPTEditWithInstructions',
+  --     'ChatGPTRun',
+  --   },
+  --   dependencies = {
+  --     'MunifTanjim/nui.nvim',
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-telescope/telescope.nvim'
+  --   },
+  --   config = function()
+  --     require('chatgpt').setup({
+  --       api_key_cmd = not os.getenv('OPENAI_API_KEY') and "echo ''",
+  --       popup_input = {
+  --         submit = '<CR>'
+  --       },
+  --       chat = {
+  --         keymaps = {
+  --           draft_message = '<A-d>',
+  --         }
+  --       }
+  --     })
+  --   end
+  -- },
   {
     'danymat/neogen',
     cmd = 'Neogen',
