@@ -28,13 +28,20 @@ Insights from:
 
 ### Prerequisites
 
-- A build tool: Essential, for enhance telescope performance, choose one below depends on your system.
-  - `make` (for MacOS and Linux only)
-  - `cmake` (for Windows only)
-- A C compiler `clang` or `gcc` (choose one between them): Essential, for nvim-treesitter support.
-- `ripgrep`: Essential, for fuzzy search and replace.
-- `nerd-font`: Optional, but recommended.
-- `npm` & `yarn`: Optional, for some lsp support, markdown preview, and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
+- Linux/Mac/Windows:
+    - Neovim version >= 0.10.0
+    - A build tool: Essential, for enhance telescope performance, choose one below depends on your system.
+        - `make` (for MacOS and Linux only)
+        - `cmake` (for Windows only)
+    - A C compiler `clang` or `gcc` (if Linux/Mac, choose one between them; else if Windows, clang recommended): Essential, for nvim-treesitter support.
+    - `ripgrep`: Essential, for fuzzy search and replace.
+    - `nodejs` and `yarn`: Essential, for some lsp support, markdown preview, and [`coc`](https://github.com/neoclide/coc.nvim) language server backend support.
+    - pip package:
+        - pynvim (essential, for coc-snippets and builtin functions support).
+    - A `nerd-font`: Optional, but recommended.
+- Only Windows:
+    - [`Visual Studio C/C++ Build Tools` and `Windows SDK`](https://visualstudio.microsoft.com/downloads/) : Only essential for windows users, for telescope-fzf-native.nvim plugin build process.
+    - `powershell 7`: Only essential for windows users, for terminal support.
 
 ### Install & update
 
@@ -112,7 +119,10 @@ M.requires = {
 
 -- M.config, default value: {}
 M.config = {
-  host = 'git@git.zhlh6.cn:', -- For swiching to China github mirror.
+  github = { -- For swiching to China github mirror.
+    ssh = 'git@git.zhlh6.cn:',
+    raw = 'https://mirror.ghproxy.com/https://github.com/'
+  },
   vim = {
     opt = {
       -- WARNING: Transparency is an experimental feature now.
@@ -406,6 +416,10 @@ You want to replace it to `0.82217`, you can do this:
 You should comment the `cond = not not vim.g.started_by_firenvim,` line for the first time. Then restart nvim, the firenvim will be installed. After installed, you should uncomment it.
 
 If you not sure whether the firenvim is builded, you can first comment this line, then manually call `:call firenvim#install(0)` to build firenvim, then uncomment it.
+
+Then you should set the keymap to `<C-e>` in `chrome://extensions/shortcuts`:
+
+![image_2024-01-17-23-44-13](assets/README/images/image_2024-01-17-23-44-13.png)
 
 press `ctrl+e` in the browser input dialogue to open nvim.
 

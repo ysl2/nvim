@@ -32,7 +32,7 @@ vim.opt.exrc = true
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.cmd('language en_US.UTF8')
-vim.cmd([[autocmd! nvim_swapfile]])
+pcall(vim.cmd, 'autocmd! nvim_swapfile')
 
 -- === Filetype settings.
 vim.opt.tabstop = 4
@@ -247,15 +247,15 @@ vim.api.nvim_create_autocmd('OptionSet', {
 -- ===============
 -- === Plugins ===
 -- ===============
-local host_offical = U.HOST.GITHUB_SSH
-local host = U.set(U.safeget(S, {'config', 'host'}), host_offical)
+local github_ssh = U.set(U.safeget(S, {'config', 'github', 'ssh'}), U.GITHUB.SSH)
+local github_raw = U.set(U.safeget(S, {'config', 'github', 'raw'}), U.GITHUB.RAW)
 local lazypath = U.path({vim.fn.stdpath('data'), 'lazy', 'lazy.nvim'})
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
     'clone',
     '--filter=blob:none',
-    host .. 'folke/lazy.nvim.git',
+    github_ssh .. 'folke/lazy.nvim.git',
     lazypath,
   })
 end
@@ -296,7 +296,7 @@ local function _my_custom_load(plugins, opts)
       return U.path({vim.fn.stdpath('config'), lsp and 'lazy-lock-' .. lsp .. '.json' or 'lazy-lock.json'})
     end)(),
     git = {
-      url_format = host .. '%s.git',
+      url_format = github_ssh .. '%s.git',
     }
   })
 end
@@ -543,12 +543,12 @@ vim.list_extend(M, {
       local nvim_treesitter_install = require('nvim-treesitter.install')
       nvim_treesitter_install.prefer_git = true
       nvim_treesitter_install.compilers = { 'clang', 'gcc' }
-      if host ~= host_offical then
+      if github_raw ~= U.GITHUB.RAW then
         local parsers = require('nvim-treesitter.parsers').get_parser_configs()
         for _, p in pairs(parsers) do
           p.install_info.url = p.install_info.url:gsub(
             'https://github.com/',
-            host
+            github_raw
           )
         end
       end
