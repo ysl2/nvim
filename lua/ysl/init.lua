@@ -1909,7 +1909,9 @@ vim.list_extend(M, {
   {
     'lervag/vimtex',
     config = function()
-      vim.g.vimtex_view_method = 'zathura'
+      if vim.fn.has('win32') == 0 then
+        vim.g.vimtex_view_method = 'zathura'
+      end
       -- vim.g.vimtex_view_zathura_options = '--mode fullscreen'
       vim.g.vimtex_format_enabled = 1
       vim.g.vimtex_motion_enabled = 0

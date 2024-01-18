@@ -245,21 +245,30 @@ marksman
 
 #### Latex
 
-Need to install `zathura` pdf viewer, and use `<C-LeftMouse>` to inverse search.
+1. PDF viewer
 
-```bash
-sudo apt install zathura
-```
+    You need to install `zathura` (for Linux/Mac) or `sumatraPDF` (for Windows) pdf viewer, and use `<C-LeftMouse>` or double click `<LeftMouse>` to inverse search. If inverse search does not work, you should `:h vimtex` for more to configure it.
 
-The default latex compiler is `latexmk`, the default compile engine is `pdflatex`.
+    ```bash
+    sudo apt install zathura
+    ```
 
-If you want to use `xelatex` (for Chinese support) as compile engine in specific project, you should add a `.latexmkrc` in your project root, then add this into this `.latexmkrc`:
+    - There might be a bug when vimtex with sumatraPDF about pdf refresh with xelatex. See `:h vimtex-view-sumatrapdf` for help to fix it (I haven't encounterd this).
+    - There might also be a bug when vimtex with zathura about synctex. See `:h vimtex-view-zathura` for help to fix it (I'm lazy to fix this, so I just ignored it).
 
-```
-$pdf_mode = 5;
-```
+2. xeletex
 
-This tells latexmk to use `xelatex` as this project's compile engine. the mode `5` represents `xelatex`. Check vimtex's help doc for more info.
+    The default latex compiler is `latexmk`, the default compile engine is `pdflatex`.
+
+    If you want to use `xelatex` (for Chinese support) as compile engine in specific project, you should add a `.latexmkrc` in your project root, then add this into this `.latexmkrc`:
+
+    ```
+    $pdf_mode = 5;
+    ```
+
+    This tells latexmk to use `xelatex` as this project's compile engine. the mode `5` represents `xelatex`. Check vimtex's help doc for more info.
+
+
 
 #### Bash
 
