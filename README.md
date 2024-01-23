@@ -234,6 +234,15 @@ cargo new {project_name}
 # If you need to start rust-analyzer for single rust file, you should run neovim command `:RustStartStandaloneServerForBuffer`
 ```
 
+#### Bash
+
+```text
+# For coc
+npm install -g bash-language-server
+shellcheck>=v0.7
+shfmt
+```
+
 #### Markdown
 
 ```text
@@ -268,16 +277,21 @@ marksman
 
     This tells latexmk to use `xelatex` as this project's compile engine. the mode `5` represents `xelatex`. Check vimtex's help doc for more info.
 
+#### Typst
 
+1. Requirements
 
-#### Bash
+    ```text
+    typst
+    # These Below are only for coc:
+    typst-lsp
+    ```
 
-```text
-# For coc
-npm install -g bash-language-server
-shellcheck>=v0.7
-shfmt
-```
+1. Workflow: Use nvim to edit, it provides syntax lighlighting (`typst.vim`) and lsp completion (`typst-lsp`). Then open an another terminal to manually use `typst watch` command to generate pdf for instant preview.
+
+1. Others: Might not need, and also not provided in this config.
+
+    - Typst instant preview: By `typst-preview.nvim`. Also need `typst-preview v0.10.4` and `websocat v0.12.0` (Follow the instruction of comments in typst-preview.nvim in `./lua/ysl/init.lua`)
 
 #### Multimedia
 

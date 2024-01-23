@@ -2068,7 +2068,18 @@ vim.list_extend(M, {
         end
       })
     end
-  }
+  },
+  {
+    'kaarmu/typst.vim',
+    ft = 'typst'
+  },
+  -- {
+  --   'chomosuke/typst-preview.nvim',
+  --   ft = 'typst',
+  --   -- Then you should manually install typst-preview v0.10.4 and websocat v1.12.0, the install path is:
+  --   -- ~/.local/share/nvim/typst-preview/typst-preview-linux-x64
+  --   -- ~/.local/share/nvim/typst-preview/websocat.x86_64-unknown-linux-musl
+  -- }
 })
 
 _my_custom_load(M, { lsp = lsp })
