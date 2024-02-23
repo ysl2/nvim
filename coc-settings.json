@@ -61,7 +61,7 @@
   "tabnine.enablePreselect": false,
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
-    "python": "flake8",
+    // "python": "flake8",
     "sh": "shellcheck"
   },
   "diagnostic-languageserver.linters": {
@@ -78,7 +78,7 @@
      }
    },
   "diagnostic-languageserver.formatFiletypes": {
-    "python": "black",
+    // "python": "black",
     "sh": "shfmt"
   },
   "inlayHint.display": false,

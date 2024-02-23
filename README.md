@@ -185,19 +185,37 @@ You can find language-specific outer debuggers below.
 
 1. Python environment dependencies
 
-   ```bash
-   # For nvim_lsp and coc both:
-   pip install flake8 black
-   # Optional:
-   # 1. This library provides python static type check:
-   # pip install flake8-annotations
+    ```bash
+    # For coc (not tested on nvim_lsp):
+    pip install jedi ruff sourcery
+    ```
 
-   # For coc only:
-   pip install jedi sourcery
+    Configure ruff:
 
-   # If you don't know which to install, you can directly install all of them.
-   pip install pynvim jedi flake8 black sourcery
-   ```
+    - Linter
+
+        ```jsonc
+        // coc-settings.json
+
+        // ruff check --help
+        "ruff.lint.args": [
+          "--ignore",
+          "F401"
+        ]
+        ```
+
+    - Formatter
+
+        ```jsonc
+        // coc-settings.json
+
+        // ruff format --help
+        "ruff.format.args": [
+          "--config",
+          // Ref: https://docs.astral.sh/ruff/formatter/#configuration
+          "format.quote-style='single'"
+        ]
+        ```
 
 2. Python debugger
 

@@ -24,6 +24,7 @@ return {
 
       vim.g.coc_global_extensions = {
         'coc-jedi',
+        '@yaegassy/coc-ruff',
         'coc-sh',
         'coc-tabnine',
         'coc-sumneko-lua',
@@ -64,21 +65,22 @@ return {
         }),
         ['cSpell.import'] = { U.LSP.CSPELL.EXTRA_ARGS.CONFIG },
         ['cSpell.enabledLanguageIds'] = U.LSP.CSPELL.FILETYPES,
-        ['diagnostic-languageserver.linters'] = {
-          flake8 = {
-            args = vim.list_extend(U.LSP.FLAKE8.EXTRA_ARGS, {
-              '--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s',
-              '-'
-            })
-          }
-        },
-        ['diagnostic-languageserver.formatters'] = {
-          black = {
-            args = vim.list_extend(U.LSP.BLACK.EXTRA_ARGS, {
-              '-q', '-'
-            })
-          }
-        },
+        -- ['diagnostic-languageserver.linters'] = {
+        --   flake8 = {
+        --     args = vim.list_extend(U.LSP.FLAKE8.EXTRA_ARGS, {
+        --       '--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s',
+        --       '-'
+        --     })
+        --   }
+        -- },
+        -- ['diagnostic-languageserver.formatters'] = {
+        --   black = {
+        --     args = vim.list_extend(U.LSP.BLACK.EXTRA_ARGS, {
+        --       '-q', '-'
+        --     })
+        --   }
+        -- },
+        ['ruff.format.args'] = U.LSP.RUFF.FORMAT.ARGS,
         ['rust-analyzer.server.path'] = (function ()
           if vim.fn.has('win32') == 1 then
             return
