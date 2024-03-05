@@ -747,6 +747,7 @@ vim.list_extend(M, {
         pattern = 'TelescopePreviewerLoaded',
         callback = function()
           vim.cmd('setlocal number')
+          vim.cmd('setlocal wrap')
         end
       })
     end
