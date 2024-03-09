@@ -1,68 +1,6 @@
+local _, S = pcall(require, 'ysl.localhost')
 local M = {}
 
-
--- =================
--- === Constants ===
--- =================
-local sep = vim.fn.has('win32') == 1 and '\\' or '/'
-M.SEP = sep
-
-M.TOBOOLEAN = {
-  ['true'] = true,
-  ['false'] = false
-}
-
-M.SIGNS = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-
-M.GROUP = {
-  NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
-}
-
-local path = function(pathlist)
-  local result, _ = table.concat(pathlist, sep):gsub('/', sep)
-  return result
-end
-
-M.LSP = {
-  CSPELL = {
-    FILETYPES = {
-      'markdown',
-      'plaintext',
-      'latex'
-    },
-    EXTRA_ARGS = {
-      CONFIG = path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
-    }
-  },
-  -- FLAKE8 = {
-  --   EXTRA_ARGS = {
-  --     '--max-line-length=' .. vim.fn.winwidth('$'),
-  --     '--ignore=ANN101,ANN102,E402,E741,E203',
-  --   }
-  -- },
-  -- BLACK = {
-  --   EXTRA_ARGS = {
-  --     '--line-length=120',
-  --     '--skip-string-normalization',
-  --   }
-  -- },
-  RUFF = {
-    FORMAT = {
-      ARGS = {
-        "--line-length=" .. vim.fn.winwidth('$'),
-        "--config",
-        "format.quote-style='single'"
-      }
-    }
-  }
-}
-
-M.CUSTOM_SNIPPETS_PATH = path({vim.fn.stdpath('config'), 'templates', 'snippets'})
-
-M.GITHUB = {
-    SSH = 'git@github.com:',
-    RAW = 'https://github.com/',
-}
 
 -- =================
 -- === Functions ===
@@ -136,7 +74,12 @@ M.flattenlist = function(complexlist, result)
     return result
 end
 
-M.path = path
+local sep = vim.fn.has('win32') == 1 and '\\' or '/'
+
+M.path = function(pathlist)
+  local result, _ = table.concat(pathlist, sep):gsub('/', sep)
+  return result
+end
 
 M.exec = function(command)
   local file = io.popen(command)
@@ -147,5 +90,63 @@ M.exec = function(command)
   output = output:gsub('%s+', '')  -- Trim line end `\n`
   return output
 end
+
+
+-- =================
+-- === Constants ===
+-- =================
+M.SEP = sep
+
+M.TOBOOLEAN = {
+  ['true'] = true,
+  ['false'] = false
+}
+
+M.SIGNS = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+
+M.GROUP = {
+  NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
+}
+
+M.LSP = {
+  CSPELL = {
+    FILETYPES = {
+      'markdown',
+      'plaintext',
+      'latex'
+    },
+    EXTRA_ARGS = {
+      CONFIG = M.path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
+    }
+  },
+  -- FLAKE8 = {
+  --   EXTRA_ARGS = {
+  --     '--max-line-length=' .. vim.fn.winwidth('$'),
+  --     '--ignore=ANN101,ANN102,E402,E741,E203',
+  --   }
+  -- },
+  -- BLACK = {
+  --   EXTRA_ARGS = {
+  --     '--line-length=120',
+  --     '--skip-string-normalization',
+  --   }
+  -- },
+  RUFF = {
+    FORMAT = {
+      ARGS = {
+        "--line-length=" .. vim.fn.winwidth('$'),
+        "--config",
+        "format.quote-style='single'"
+      }
+    }
+  }
+}
+
+M.CUSTOM_SNIPPETS_PATH = M.path({vim.fn.stdpath('config'), 'templates', 'snippets'})
+
+M.GITHUB = {
+    SSH = M.set(M.safeget(S, {'config', 'utils', 'github', 'ssh'}), 'git@github.com:'),
+    RAW = M.set(M.safeget(S, {'config', 'utils', 'github', 'raw'}), 'https://github.com/'),
+}
 
 return M

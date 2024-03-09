@@ -102,7 +102,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 -- ===
 vim.keymap.set({ 'n', 'v' }, '<SPACE>', '')
 vim.g.mapleader = ' '
-vim.keymap.set('i', '<C-c>', '<C-[>', { silent = true })
+-- Ref: https://github.com/neoclide/coc.nvim/issues/1469
+-- Ref: https://github.com/spiritphyz/Save-the-Environment/commit/30bf1837d6b1d536bf770b2befa3a7a6e43e8af3
+vim.keymap.set('i', '<C-c>', '<ESC>', { silent = true })
 vim.keymap.set({'n', 'v'}, '<C-a>', '')
 vim.keymap.set({'n', 'v'}, '<C-x>', '')
 vim.keymap.set({'n', 'v'}, '<A-a>', '<C-a>', { silent = true })
@@ -247,15 +249,13 @@ vim.api.nvim_create_autocmd('OptionSet', {
 -- ===============
 -- === Plugins ===
 -- ===============
-local github_ssh = U.set(U.safeget(S, {'config', 'github', 'ssh'}), U.GITHUB.SSH)
-local github_raw = U.set(U.safeget(S, {'config', 'github', 'raw'}), U.GITHUB.RAW)
 local lazypath = U.path({vim.fn.stdpath('data'), 'lazy', 'lazy.nvim'})
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
     'clone',
     '--filter=blob:none',
-    github_ssh .. 'folke/lazy.nvim.git',
+    U.GITHUB.SSH .. 'folke/lazy.nvim.git',
     lazypath,
   })
 end
@@ -296,7 +296,7 @@ local function _my_custom_load(plugins, opts)
       return U.path({vim.fn.stdpath('config'), lsp and 'lazy-lock-' .. lsp .. '.json' or 'lazy-lock.json'})
     end)(),
     git = {
-      url_format = github_ssh .. '%s.git',
+      url_format = U.GITHUB.SSH .. '%s.git',
     }
   })
 end
@@ -375,7 +375,7 @@ end
 -- === Load Secret
 -- ===
 local transparent = (not (vim.opt.winblend._value == 0)) and (not vim.g.started_by_firenvim)
-M[#M + 1] = U.set(U.safeget(S, 'colorscheme'),
+M[#M + 1] = U.set(U.safeget(S, {'config', 'vim', 'opt', 'colorscheme' }),
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -543,12 +543,12 @@ vim.list_extend(M, {
       local nvim_treesitter_install = require('nvim-treesitter.install')
       nvim_treesitter_install.prefer_git = true
       nvim_treesitter_install.compilers = { 'clang', 'gcc' }
-      if github_raw ~= U.GITHUB.RAW then
+      if U.GITHUB.RAW ~= 'https://github.com/' then
         local parsers = require('nvim-treesitter.parsers').get_parser_configs()
         for _, p in pairs(parsers) do
           p.install_info.url = p.install_info.url:gsub(
             'https://github.com/',
-            github_raw
+            U.GITHUB.RAW
           )
         end
       end

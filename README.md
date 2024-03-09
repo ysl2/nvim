@@ -107,10 +107,10 @@ Put the code below into `./lua/ysl/localhost.lua`
 
 local M = {}
 
--- M.requires, default value: { 'ysl.lsp.nvim_lsp' }
+-- M.requires, default value: { 'ysl.lsp.coc' }
 M.requires = {
-  'ysl.lsp.coc'  -- Use coc to override default LSP backend (default: nvim_lsp).
-  -- 'ysl.lsp.nvim_lsp'
+  'ysl.lsp.nvim_lsp' -- Use nvim_lsp to override default LSP backend (default: coc).
+  -- 'ysl.lsp.coc'
 }
 
 -- M.plugins, default value: {}
@@ -119,30 +119,32 @@ M.requires = {
 
 -- M.config, default value: {}
 M.config = {
-  github = { -- For swiching to China github mirror.
-    ssh = 'git@git.zhlh6.cn:',
-    raw = 'https://mirror.ghproxy.com/https://github.com/'
+  utils = {
+    github = { -- For swiching to China github mirror.
+      ssh = 'git@git.zhlh6.cn:',
+      raw = 'https://mirror.ghproxy.com/https://github.com/'
+    },
   },
   vim = {
     opt = {
       -- WARNING: Transparency is an experimental feature now.
       -- winblend = 70  -- Uncomment this to enable transparency.
+      -- -- M.vim.opt.colorscheme, default value: { 'folke/tokyonight.nvim' }
+      -- -- You can specify `colorscheme` to override default colorscheme.
+      -- colorscheme = {
+      --   {
+      --     'folke/tokyonight.nvim',
+      --     lazy = false,
+      --     priority = 1000,
+      --     config = function()
+      --       vim.cmd('colorscheme tokyonight-storm')
+      --     end
+      --   }
+      -- }
     }
   }
 }
 
--- M.colorscheme, default value: { 'folke/tokyonight.nvim' }
--- You can specify `colorscheme` to override default colorscheme.
--- M.colorscheme = {
---   {
---     'folke/tokyonight.nvim',
---     lazy = false,
---     priority = 1000,
---     config = function()
---       vim.cmd('colorscheme tokyonight-storm')
---     end
---   }
--- }
 
 return M
 ```
@@ -323,7 +325,7 @@ cargo install chafa
 
 ### Search & global replace system
 
-#### Replace catch (builtin)
+#### Replace catch (builtin regex)
 
 Let's say you have the following text:
 

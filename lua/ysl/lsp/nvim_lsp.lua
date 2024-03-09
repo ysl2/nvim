@@ -6,7 +6,7 @@ return {
     cmd = { 'Mason', 'MasonInstall', 'MasonUpdate' },
     config = function()
       require('mason').setup({
-        github = { download_url_template = 'https://ghproxy.com/https://github.com/%s/releases/download/%s/%s', }
+        github = { download_url_template = U.GITHUB.RAW .. '%s/releases/download/%s/%s', }
       })
     end
   },
@@ -106,7 +106,7 @@ return {
         )
       }
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls', 'marksman', 'sourcery', 'clangd', 'rust_analyzer' },
+        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls', 'marksman', 'sourcery', 'clangd', 'rust_analyzer', 'ruff_lsp' },
         automatic_installation = true,
         handlers = {
           -- The first entry (without a key) will be the default handler
@@ -181,12 +181,12 @@ return {
     end
   },
   {
-    'yioneko/nvim-cmp', -- Autocompletion plugin
+    'hrsh7th/nvim-cmp', -- Autocompletion plugin
     event = 'InsertEnter',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
       'hrsh7th/cmp-buffer',
-      'FelipeLema/cmp-async-path',
+      'https://codeberg.org/FelipeLema/cmp-async-path',
       'L3MON4D3/LuaSnip', -- Snippets plugin
       'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
       {
@@ -297,8 +297,8 @@ return {
             null_ls.builtins.diagnostics.cspell.with(cspell),
             null_ls.builtins.code_actions.cspell.with(cspell),
             null_ls.builtins.completion.tags,
-            null_ls.builtins.diagnostics.flake8.with({ extra_args = U.LSP.FLAKE8.EXTRA_ARGS }),
-            null_ls.builtins.formatting.black.with({ extra_args = U.LSP.BLACK.EXTRA_ARGS }),
+            -- null_ls.builtins.diagnostics.flake8.with({ extra_args = U.LSP.FLAKE8.EXTRA_ARGS }),
+            -- null_ls.builtins.formatting.black.with({ extra_args = U.LSP.BLACK.EXTRA_ARGS }),
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.code_actions.shellcheck,
             null_ls.builtins.formatting.shfmt,
