@@ -33,6 +33,7 @@ vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.cmd('language en_US.UTF8')
 pcall(vim.cmd, 'autocmd! nvim_swapfile')
+vim.opt.lazyredraw = true
 
 -- === Filetype settings.
 vim.opt.tabstop = 4
