@@ -10,7 +10,6 @@
   "csv.vim": { "branch": "master", "commit": "962f88787ec6873eba1c7dbbd81d2723f1ee3c4b" },
   "cython-snips": { "branch": "main", "commit": "80108883f38ff0e4d3b3b6a5d722c8e858d07bcc" },
   "cython.vim": { "branch": "master", "commit": "a073ff9bc0cb7d80e8167fa506c7df99f73a3125" },
-  "dropbar.nvim": { "branch": "master", "commit": "f1034cfe852cf62a0ebb12ae583f1477ea07e060" },
   "fm-nvim": { "branch": "master", "commit": "8e6a77049330e7c797eb9e63affd75eb796fe75e" },
   "friendly-snippets": { "branch": "main", "commit": "dcd4a586439a1c81357d5b9d26319ae218cc9479" },
   "gitsigns.nvim": { "branch": "main", "commit": "2c2463dbd82eddd7dbab881c3a62cfbfbe3c67ae" },
@@ -72,5 +71,6 @@
   "vimtex": { "branch": "master", "commit": "a77d14b2e4391c0d3e860708bb1fd56161ab68eb" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" },
   "wildfire.nvim": { "branch": "master", "commit": "1729faca1c6ae34520a6e531983a3737d3654ee1" },
+  "winbar.nvim": { "branch": "main", "commit": "a7a84178dd9c05fc6a5a642ed8a4c3d1bd57f3a0" },
   "yanky.nvim": { "branch": "main", "commit": "7c5cbf0122ff2dfbb6a92f14885894f65949cc8b" }
 }

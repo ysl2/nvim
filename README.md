@@ -29,7 +29,7 @@ Insights from:
 ### Prerequisites
 
 - Linux/Mac/Windows:
-    - Neovim version >= 0.10.0
+    <!-- - Neovim version >= 0.10.0 -->
     - A build tool: Essential, for enhance telescope performance, choose one below depends on your system.
         - `make` (for MacOS and Linux only)
         - `cmake` (for Windows only)

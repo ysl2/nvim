@@ -1393,9 +1393,17 @@ vim.list_extend(M, {
     opts = { open_cmd = 'noswapfile vnew' },
     dependencies = 'nvim-lua/plenary.nvim',
   },
+  -- NOTE: Disable this beacuse it cannot show winbar when no treesitter support. Use winbar.nvim instead.
+  -- {
+  --   'Bekaboo/dropbar.nvim',
+  --   -- There is no need to set lazyload beacuse the author has already done it.
+  -- },
   {
-    'Bekaboo/dropbar.nvim',
-    -- There is no need to set lazyload beacuse the author has already done it.
+    'ysl2/winbar.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('winbar').setup()
+    end
   },
   {
     'lukas-reineke/indent-blankline.nvim',
