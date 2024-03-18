@@ -672,6 +672,7 @@ vim.list_extend(M, {
       { '<LEADER>F', function() return require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '--no-ignore', '-g', '!.git' }}) end,     mode = 'n', silent = true },
       { '<LEADER>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
       { '<LEADER>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
+      { '<LEADER>S', function() return require('telescope.builtin').live_grep({ vimgrep_arguments = {'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '--hidden', '--no-ignore', '-g', '!.git' }}) end,     mode = 'n', silent = true },
       { '<LEADER>G', '<CMD>Telescope git_status<CR>',                 mode = 'n', silent = true },
       { '<LEADER>m', '<CMD>Telescope vim_bookmarks current_file<CR>', mode = 'n', silent = true },
       { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true },
