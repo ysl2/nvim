@@ -934,13 +934,13 @@ vim.list_extend(M, {
             cmd = ('cd "%s" && javac %s && java %s'):format(dir, fileName, fileNameWithoutExt)
           elseif ft == 'sh' then
             cmd = ('cd "%s" && bash %s'):format(dir, fileName)
-          elseif ft == 'tex' then
-            pcall(vim.cmd, 'VimtexCompile')
-            if _G.my_plugin_vimtex_compile == nil then
-              return
-            end
-            _G.my_plugin_vimtex_compile = not _G.my_plugin_vimtex_compile
-            _G.my_plugin_lualine_refresh()
+          -- elseif ft == 'tex' then
+          --   pcall(vim.cmd, 'VimtexCompile')
+          --   if _G.my_plugin_vimtex_compile == nil then
+          --     return
+          --   end
+          --   _G.my_plugin_vimtex_compile = not _G.my_plugin_vimtex_compile
+          --   _G.my_plugin_lualine_refresh()
           elseif U.greplist(fileExt, { 'png', 'jpg', 'gif', 'svg' }) ~= nil then
             cmd = ('cd "%s" && chafa %s'):format(dir, fileName)
           elseif fileExt == 'pdf' then
@@ -1461,17 +1461,17 @@ vim.list_extend(M, {
         sections = {
           lualine_c = {
             'filename',
-            function ()
-              if vim.opt.filetype._value ~= 'tex' then return '' end
-              if _G.my_plugin_vimtex_compile == nil then
-                return ''
-              end
-              local map = {
-                ['true'] = '',
-                ['false'] = '',
-              }
-              return map[tostring(_G.my_plugin_vimtex_compile)]
-            end,
+            -- function ()
+            --   if vim.opt.filetype._value ~= 'tex' then return '' end
+            --   if _G.my_plugin_vimtex_compile == nil then
+            --     return ''
+            --   end
+            --   local map = {
+            --     ['true'] = '',
+            --     ['false'] = '',
+            --   }
+            --   return map[tostring(_G.my_plugin_vimtex_compile)]
+            -- end,
             (function ()
               if lsp == 'ysl.lsp.coc' then
                 return 'g:coc_status'
@@ -1936,10 +1936,10 @@ vim.list_extend(M, {
         x = vimtex_mapping_disable
       }
       vim.g.vimtex_syntax_enabled = 0
-      vim.g.vimtex_compiler_silent = 1
+      -- vim.g.vimtex_compiler_silent = 1
       vim.g.vimtex_quickfix_mode = 0
 
-      _G.my_plugin_vimtex_compile = false
+      -- _G.my_plugin_vimtex_compile = false
     end
   },
   {
