@@ -854,7 +854,10 @@ vim.list_extend(M, {
           update_root = true
         },
         notify = { threshold = vim.log.levels.WARN },
-        filters = { custom = { "^.git$" } }
+        filters = { custom = { "^.git$" } },
+        filesystem_watchers = {
+          debounce_delay = 1,
+        }
       })
     end
   },
