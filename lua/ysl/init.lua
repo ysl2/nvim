@@ -899,7 +899,7 @@ vim.list_extend(M, {
           local dir = vim.fn.expand('%:p:h')
           local fileName = vim.fn.expand('%:t')
           local fileNameWithoutExt = vim.fn.expand('%:t:r')
-          local fileExt = vim.fn.expand('%:t:e')
+          local fileExt = vim.fn.expand('%:e')
 
           local sep = U.SEP
           if ft == 'c' then
@@ -1063,16 +1063,23 @@ vim.list_extend(M, {
   -- },
   {
     'ysl2/img-paste.vim',
-    ft = 'markdown',
+    -- ft = { 'markdown', 'tex', 'typst' },
+    event = { 'BufReadPost', 'BufNewFile' },
     keys = {
       { '<LEADER>p', '<CMD>call mdip#MarkdownClipboardImage()<CR><ESC>', mode = 'n', silent = true },
     },
-    config = function()
+    init = function()
+      vim.g.mdip_imgname = ''
       vim.api.nvim_create_autocmd('BufEnter', {
-        pattern = '*.md',
+        -- pattern = { '*.md', '*.tex', '*.typ' },
         callback = function()
-          vim.g.mdip_imgdir = 'assets' .. '/' .. vim.fn.expand('%:t:r') .. '/' .. 'images'
+          vim.g.mdip_imgdir = 'assets' .. '/' .. vim.fn.expand('%:t:r') .. '/' .. 'figures'
           vim.g.mdip_imgdir_intext = vim.g.mdip_imgdir
+          vim.g.PasteImageFunction = ({
+            ['md'] = 'g:MarkdownPasteImage',
+            ['tex'] = 'g:LatexPasteImage',
+            ['typ'] = 'g:TypstPasteImage'
+          })[vim.fn.expand('%:e')] or 'g:EmptyPasteImage'
         end
       })
     end

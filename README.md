@@ -462,7 +462,7 @@ If you not sure whether the firenvim is builded, you can first comment this line
 
 Then you should set the keymap to `<C-e>` in `chrome://extensions/shortcuts`:
 
-![image_2024-01-17-23-44-13](assets/README/images/image_2024-01-17-23-44-13.png)
+![image_2024-01-17-23-44-13](assets/README/figures/2024-01-17-23-44-13.png)
 
 press `ctrl+e` in the browser input dialogue to open nvim.
 
