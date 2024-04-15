@@ -282,20 +282,20 @@ return {
     },
     config = function()
         local null_ls = require('null-ls')
-        local cspell = {
-          filetypes = U.LSP.CSPELL.FILETYPES,
-          extra_args = {
-            '--config=' .. U.LSP.CSPELL.EXTRA_ARGS.CONFIG
-          },
-        }
+        -- local cspell = {
+        --   filetypes = U.LSP.CSPELL.FILETYPES,
+        --   extra_args = {
+        --     '--config=' .. U.LSP.CSPELL.EXTRA_ARGS.CONFIG
+        --   },
+        -- }
         null_ls.setup({
           -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
           sources = {
             null_ls.builtins.code_actions.gitsigns,
             null_ls.builtins.completion.luasnip,
             null_ls.builtins.completion.spell,
-            null_ls.builtins.diagnostics.cspell.with(cspell),
-            null_ls.builtins.code_actions.cspell.with(cspell),
+            -- null_ls.builtins.diagnostics.cspell.with(cspell),
+            -- null_ls.builtins.code_actions.cspell.with(cspell),
             null_ls.builtins.completion.tags,
             -- null_ls.builtins.diagnostics.flake8.with({ extra_args = U.LSP.FLAKE8.EXTRA_ARGS }),
             -- null_ls.builtins.formatting.black.with({ extra_args = U.LSP.BLACK.EXTRA_ARGS }),

@@ -82,5 +82,6 @@
     "sh": "shfmt"
   },
   "inlayHint.display": false,
-  "bashIde.shellcheckPath": ""
+  "bashIde.shellcheckPath": "",
+  "ltex.additionalRules.languageModel": "~/.ngrams",
 }

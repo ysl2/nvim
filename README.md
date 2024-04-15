@@ -323,6 +323,22 @@ need `pdftoppm` and `chafa` for `pdf` preview.
 cargo install chafa
 ```
 
+#### Grammer diagnostic
+
+1. Manually install `ltex-ls`
+
+    - Check current `ltex-ls` version that compatible with `coc-ltex`, for example, `15.2.0`.
+
+    - And manually download and extract the tarball into `~/.config/coc/extensions/node_modules/coc-ltex/lib`
+
+    - Example (need to further check version):
+
+      - Download link : https://github.com/valentjn/ltex-ls/releases/download/15.2.0/ltex-ls-15.2.0-linux-x64.tar.gz
+
+      - Target installation destination: `~/.config/coc/extensions/node_modules/coc-ltex/lib/ltex-ls-15.2.0`
+
+2. Download and extract [ngrams/en.zip](https://languagetool.org/download/ngram-data/ngrams-en-20150817.zip) to `~/.ngrams/en` (need more than 8G disk space).
+
 ### Search & global replace system
 
 #### Replace catch (builtin regex)

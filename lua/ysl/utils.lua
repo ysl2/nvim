@@ -109,16 +109,16 @@ M.GROUP = {
 }
 
 M.LSP = {
-  CSPELL = {
-    FILETYPES = {
-      'markdown',
-      'plaintext',
-      'latex'
-    },
-    EXTRA_ARGS = {
-      CONFIG = M.path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
-    }
-  },
+  -- CSPELL = {
+  --   FILETYPES = {
+  --     'markdown',
+  --     'plaintext',
+  --     'latex'
+  --   },
+  --   EXTRA_ARGS = {
+  --     CONFIG = M.path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
+  --   }
+  -- },
   -- FLAKE8 = {
   --   EXTRA_ARGS = {
   --     '--max-line-length=' .. vim.fn.winwidth('$'),

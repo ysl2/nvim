@@ -39,10 +39,11 @@ return {
         'coc-clangd',
         'coc-markdownlint',
         'coc-diagnostic',
-        'coc-spell-checker',
+        -- 'coc-spell-checker',  -- Not needed beacuse of coc-ltex
         'coc-rust-analyzer',
         'coc-vimtex',
-        '@yaegassy/coc-marksman'
+        '@yaegassy/coc-marksman',
+        'coc-ltex'
       }
 
       vim.g.coc_user_config = vim.empty_dict()
@@ -63,8 +64,8 @@ return {
           friendly, U.splitstr(vim.fn.glob(friendly .. sep .. '**' .. sep), '\n'),
           cython, U.splitstr(vim.fn.glob(cython .. sep .. '**' .. sep), '\n')
         }),
-        ['cSpell.import'] = { U.LSP.CSPELL.EXTRA_ARGS.CONFIG },
-        ['cSpell.enabledLanguageIds'] = U.LSP.CSPELL.FILETYPES,
+        -- ['cSpell.import'] = { U.LSP.CSPELL.EXTRA_ARGS.CONFIG },
+        -- ['cSpell.enabledLanguageIds'] = U.LSP.CSPELL.FILETYPES,
         -- ['diagnostic-languageserver.linters'] = {
         --   flake8 = {
         --     args = vim.list_extend(U.LSP.FLAKE8.EXTRA_ARGS, {
