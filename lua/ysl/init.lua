@@ -399,7 +399,7 @@ for _, v in ipairs(requires) do
   vim.list_extend(M, require(v))
 end
 
-vim.list_extend(M, U.set(U.safeget(S, 'plugins'), {}))
+vim.list_extend(M, U.set(U.safeget(S, { 'plugins', 'nvim' }), {}))
 
 -- ===
 -- === Load Others

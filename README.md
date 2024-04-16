@@ -115,7 +115,10 @@ M.requires = {
 
 -- M.plugins, default value: {}
 -- You can add some plugins into the table, lazy.nvim plugins manager will load them.
--- M.plugins = {}
+-- M.plugins = {
+--   vim = { 'someone/balabala' },
+--   coc = { 'coc-ltex' }
+-- }
 
 -- M.config, default value: {}
 M.config = {

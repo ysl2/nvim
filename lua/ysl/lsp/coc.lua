@@ -1,3 +1,4 @@
+local _, S = pcall(require, 'ysl.localhost') -- Load machine specific secrets.
 local U = require('ysl.utils')
 return {
   {
@@ -22,7 +23,7 @@ return {
       --   vim.cmd('set cmdheight=1')
       -- end, { silent = true })
 
-      vim.g.coc_global_extensions = {
+      local coc_global_extensions = {
         'coc-jedi',
         '@yaegassy/coc-ruff',
         'coc-sh',
@@ -43,14 +44,16 @@ return {
         'coc-rust-analyzer',
         'coc-vimtex',
         '@yaegassy/coc-marksman',
-        'coc-ltex'
+        -- 'coc-ltex'  -- Too much memory used.
       }
+      vim.list_extend(coc_global_extensions, U.set(U.safeget(S, { 'plugins', 'coc' }), {}))
+      vim.g.coc_global_extensions = coc_global_extensions
 
       vim.g.coc_user_config = vim.empty_dict()
 
       -- HACK: Coc config shared by Windows, Linux and Mac.
-      -- NOTE: dependencies: 'honza/vim-snippets',
       local sep = U.SEP
+      -- NOTE: dependencies: 'honza/vim-snippets',
       -- vim.g.coc_user_config = vim.tbl_deep_extend('force', vim.g.coc_user_config, {
       --   ['snippets.ultisnips.directories'] = {
       --     U.path({vim.fn.stdpath('data'), 'lazy', 'vim-snippets', 'UltiSnips'}),
