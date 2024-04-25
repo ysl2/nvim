@@ -131,15 +131,15 @@ M.LSP = {
   --     '--skip-string-normalization',
   --   }
   -- },
-  RUFF = {
-    FORMAT = {
-      ARGS = {
-        "--line-length=" .. vim.fn.winwidth('$'),
-        "--config",
-        "format.quote-style='single'"
-      }
-    }
-  }
+  -- RUFF = {
+  --   FORMAT = {
+  --     ARGS = {
+  --       "--line-length=" .. vim.fn.winwidth('$'),
+  --       "--config",
+  --       "format.quote-style='single'"
+  --     }
+  --   }
+  -- }
 }
 
 M.CUSTOM_SNIPPETS_PATH = M.path({vim.fn.stdpath('config'), 'templates', 'snippets'})

@@ -84,7 +84,7 @@ return {
         --     })
         --   }
         -- },
-        ['ruff.format.args'] = U.LSP.RUFF.FORMAT.ARGS,
+        -- ['ruff.format.args'] = U.LSP.RUFF.FORMAT.ARGS,
         ['rust-analyzer.server.path'] = (function ()
           if vim.fn.has('win32') == 1 then
             return
