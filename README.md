@@ -192,7 +192,7 @@ You can find language-specific outer debuggers below.
 
     ```bash
     # For coc (not tested on nvim_lsp):
-    pip install jedi ruff sourcery
+    pip install jedi ruff-lsp sourcery
     ```
 
     Configure ruff:
