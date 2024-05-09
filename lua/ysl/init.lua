@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end
 })
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'lua', 'json', 'markdown', 'sshconfig', 'vim', 'yaml' },
+  pattern = { 'lua', 'json', 'markdown', 'sshconfig', 'vim', 'yaml', 'bib' },
   callback = function()
     vim.opt_local.tabstop = 2
     vim.opt_local.shiftwidth = 2
