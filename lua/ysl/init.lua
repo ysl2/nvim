@@ -668,8 +668,8 @@ vim.list_extend(M, {
       'ysl2/telescope-vim-bookmarks.nvim'
     },
     keys = {
-      { '<LEADER>f', function() return require('telescope.builtin').find_files({ path_display = { "absolute" }}) end, mode = 'n', silent = true },
-      { '<LEADER>F', function() return require('telescope.builtin').find_files({ find_command = { 'rg', '--files', '--hidden', '--no-ignore', '-g', '!.git' }, path_display = { "absolute" } }) end, mode = 'n', silent = true },
+      { '<LEADER>f', function() return require('telescope.builtin').find_files({ path_display = { 'absolute' }}) end, mode = 'n', silent = true },
+      { '<LEADER>F', function() return require('telescope.builtin').find_files({ find_command = { 'rg', '--files', '--hidden', '--no-ignore', '-g', '!.git' }, path_display = { 'absolute' } }) end, mode = 'n', silent = true },
       { '<LEADER>b', '<CMD>Telescope buffers<CR>',                    mode = 'n', silent = true },
       { '<LEADER>s', '<CMD>Telescope live_grep<CR>',                  mode = 'n', silent = true },
       { '<LEADER>S', function() return require('telescope.builtin').live_grep({ vimgrep_arguments = {'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '--hidden', '--no-ignore', '-g', '!.git' }}) end,     mode = 'n', silent = true },
@@ -725,7 +725,8 @@ vim.list_extend(M, {
               i = {
                 ['<C-x>'] = telescope_actions.delete_buffer,
               }
-            }
+            },
+            preview = { hide_on_startup = false }
           },
           colorscheme = {
             enable_preview = true,
