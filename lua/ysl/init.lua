@@ -499,7 +499,7 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     build = function ()
       if vim.fn.has('win32') == 0 then
-        os.execute('/usr/bin/env python3 ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' friendly')
+        os.execute('/usr/bin/env python ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' friendly')
       end
     end
   },
@@ -1894,7 +1894,7 @@ vim.list_extend(M, {
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
       if vim.fn.has('win32') == 0 then
-        os.execute('/usr/bin/env python3 ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' cython')
+        os.execute('/usr/bin/env python ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' cython')
       end
     end
   },
