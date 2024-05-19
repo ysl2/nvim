@@ -150,7 +150,17 @@ return {
             require('rust-tools').setup({
               server = default
             })
-          end
+          end,
+          ['ruff_lsp'] = function ()
+            lspconfig.ruff_lsp.setup(vim.tbl_deep_extend('force', default, {
+              on_attach = function(client, bufnr)
+                -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.hoverProvider = false
+                client.server_capabilities.renameProvider = false
+              end,
+            }))
+          end,
         },
       }
     end
@@ -299,7 +309,8 @@ return {
             -- null_ls.builtins.diagnostics.flake8.with({ extra_args = U.LSP.FLAKE8.EXTRA_ARGS }),
             -- null_ls.builtins.formatting.black.with({ extra_args = U.LSP.BLACK.EXTRA_ARGS }),
             null_ls.builtins.formatting.stylua,
-            null_ls.builtins.code_actions.shellcheck,
+            -- BUG: here.
+            -- null_ls.builtins.code_actions.shellcheck,
             null_ls.builtins.formatting.shfmt,
             null_ls.builtins.diagnostics.markdownlint
           }
