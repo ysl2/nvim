@@ -91,22 +91,21 @@ return {
     },
     config = function()
       -- Add additional capabilities supported by nvim-cmp
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true
-      }
-
       local lspconfig = require('lspconfig')
       local default = {
         -- on_attach = my_custom_on_attach,
         capabilities = vim.tbl_deep_extend('force',
           lspconfig.util.default_config.capabilities,
-          capabilities
+          require('cmp_nvim_lsp').default_capabilities()
         )
       }
+      default.capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+      }
+
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls', 'marksman', 'sourcery', 'clangd', 'rust_analyzer', 'ruff_lsp' },
+        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls', 'marksman', 'sourcery', 'clangd', 'rust_analyzer', 'ruff_lsp', 'typst_lsp' },
         automatic_installation = true,
         handlers = {
           -- The first entry (without a key) will be the default handler
