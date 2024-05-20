@@ -1890,7 +1890,7 @@ vim.list_extend(M, {
     ft = 'cython'
   },
   {
-    'NullptrExceptions/cython-snips',
+    'ysl2/cython-snips',
     ft = 'cython',
     dependencies = 'rafamadriz/friendly-snippets',
     build = function ()
