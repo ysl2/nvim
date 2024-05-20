@@ -108,39 +108,39 @@ M.GROUP = {
   NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
 }
 
-M.LSP = {
-  -- CSPELL = {
-  --   FILETYPES = {
-  --     'markdown',
-  --     'plaintext',
-  --     'latex'
-  --   },
-  --   EXTRA_ARGS = {
-  --     CONFIG = M.path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
-  --   }
-  -- },
-  -- FLAKE8 = {
-  --   EXTRA_ARGS = {
-  --     '--max-line-length=' .. vim.fn.winwidth('$'),
-  --     '--ignore=ANN101,ANN102,E402,E741,E203',
-  --   }
-  -- },
-  -- BLACK = {
-  --   EXTRA_ARGS = {
-  --     '--line-length=120',
-  --     '--skip-string-normalization',
-  --   }
-  -- },
-  -- RUFF = {
-  --   FORMAT = {
-  --     ARGS = {
-  --       "--line-length=" .. vim.fn.winwidth('$'),
-  --       "--config",
-  --       "format.quote-style='single'"
-  --     }
-  --   }
-  -- }
-}
+-- M.LSP = {
+--   -- CSPELL = {
+--   --   FILETYPES = {
+--   --     'markdown',
+--   --     'plaintext',
+--   --     'latex'
+--   --   },
+--   --   EXTRA_ARGS = {
+--   --     CONFIG = M.path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
+--   --   }
+--   -- },
+--   -- FLAKE8 = {
+--   --   EXTRA_ARGS = {
+--   --     '--max-line-length=' .. vim.fn.winwidth('$'),
+--   --     '--ignore=ANN101,ANN102,E402,E741,E203',
+--   --   }
+--   -- },
+--   -- BLACK = {
+--   --   EXTRA_ARGS = {
+--   --     '--line-length=120',
+--   --     '--skip-string-normalization',
+--   --   }
+--   -- },
+--   -- RUFF = {
+--   --   FORMAT = {
+--   --     ARGS = {
+--   --       "--line-length=" .. vim.fn.winwidth('$'),
+--   --       "--config",
+--   --       "format.quote-style='single'"
+--   --     }
+--   --   }
+--   -- }
+-- }
 
 M.CUSTOM_SNIPPETS_PATH = M.path({vim.fn.stdpath('config'), 'templates', 'snippets'})
 
