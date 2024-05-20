@@ -83,6 +83,7 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
       'williamboman/mason.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
       'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
       'folke/neodev.nvim',
@@ -90,76 +91,95 @@ return {
       'simrat39/rust-tools.nvim',
     },
     config = function()
-      -- Add additional capabilities supported by nvim-cmp
-      local lspconfig = require('lspconfig')
-      local default = {
-        -- on_attach = my_custom_on_attach,
-        capabilities = vim.tbl_deep_extend('force',
-          lspconfig.util.default_config.capabilities,
-          require('cmp_nvim_lsp').default_capabilities()
-        )
-      }
-      default.capabilities.textDocument.foldingRange = {
+      -- LSP servers and clients are able to communicate to each other what features they support.
+      --  By default, Neovim doesn't support everything that is in the LSP specification.
+      --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+      --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true
       }
 
-      require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jedi_language_server', 'jsonls', 'vimls', 'bashls', 'marksman', 'sourcery', 'clangd', 'rust_analyzer', 'ruff_lsp', 'typst_lsp' },
-        automatic_installation = true,
-        handlers = {
-          -- The first entry (without a key) will be the default handler
-          -- and will be called for each installed server that doesn't have
-          -- a dedicated handler.
-          function (server_name) -- default handler (optional)
-              lspconfig[server_name].setup(default)
-          end,
-          -- Next, you can provide a dedicated handler for specific servers.
-          -- For example, a handler override for the `rust_analyzer`:
-          ['lua_ls'] = function ()
-            -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-            require('neodev').setup({
-              -- add any options here, or leave empty to use the default settings
-            })
+      -- Enable the following language servers
+      --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+      --
+      --  Add any additional override configuration in the following tables. Available keys are:
+      --  - cmd (table): Override the default command used to start the server
+      --  - filetypes (table): Override the default list of associated filetypes for the server
+      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
+      --  - settings (table): Override the default settings passed when initializing the server.
+      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local servers = {
+        lua_ls = {
+          settings = {
+            Lua = {
+              workspace = {
+                checkThirdParty = false,
+              },
+              completion = {
+                callSnippet = 'Replace'
+              },
+              telemetry = { enable = false },
+              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+              diagnostics = { disable = { 'missing-fields' } },
+            }
+          }
+        },
+        jedi_language_server = {},
+        json_ls = {
+          settings = {
+            json = {
+              schemas = require('schemastore').json.schemas(),
+              validate = { enable = true },
+            },
+          }
+        },
+        vimls = {},
+        bashls = {},
+        marksman = {},
+        sourcery = {},
+        clangd = {},
+        ruff_lsp = {
+          on_attach = function(client, bufnr)
+            -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.hoverProvider = false
+            client.server_capabilities.renameProvider = false
+          end
+        },
+        typst_lsp = {}
+      }
 
-            lspconfig.lua_ls.setup(vim.tbl_deep_extend('force', default, {
-              settings = {
-                Lua = {
-                  workspace = {
-                    checkThirdParty = false,
-                  },
-                  completion = {
-                    callSnippet = 'Replace'
-                  },
-                  telemetry = { enable = false },
-                }
-              }
-            }))
-          end,
-          ['jsonls'] = function ()
-            lspconfig.jsonls.setup(vim.tbl_deep_extend('force', default, {
-              settings = {
-                json = {
-                  schemas = require('schemastore').json.schemas(),
-                  validate = { enable = true },
-                },
-              }
-            }))
-          end,
-          ['rust_analyzer'] = function ()
-            require('rust-tools').setup({
-              server = default
-            })
-          end,
-          ['ruff_lsp'] = function ()
-            lspconfig.ruff_lsp.setup(vim.tbl_deep_extend('force', default, {
-              on_attach = function(client, bufnr)
-                -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
-                client.server_capabilities.documentFormattingProvider = false
-                client.server_capabilities.hoverProvider = false
-                client.server_capabilities.renameProvider = false
-              end,
-            }))
+      -- You can add other tools here that you want Mason to install
+      -- for you, so that they are available from within Neovim.
+      local ensure_installed = vim.tbl_keys(servers or {})
+      vim.list_extend(ensure_installed, {
+        'rust_analyzer',
+      })
+
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      require('neodev').setup({
+        -- add any options here, or leave empty to use the default settings
+      })
+
+      require('rust-tools').setup({
+        server = {
+          capabilities = capabilities,
+        }
+      })
+
+      require('mason-lspconfig').setup {
+        handlers = {
+          function (server_name) -- default handler (optional)
+            local server = servers[server_name] or {}
+            -- This handles overriding only values explicitly passed
+            -- by the server configuration above. Useful when disabling
+            -- certain features of an LSP (for example, turning off formatting for tsserver)
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            require('lspconfig')[server_name].setup(server)
           end,
         },
       }
