@@ -83,16 +83,20 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'DiffAdd', opts)
     vim.api.nvim_set_hl(0, 'DiffChange', opts)
     vim.api.nvim_set_hl(0, 'DiffDelete', { reverse = true })
-    local fg_difftext = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui')
-    vim.api.nvim_set_hl(0, 'DiffText', { reverse = true, bold = true , fg = fg_difftext })
 
-    local fg_miniindentscopesymbol = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
-    vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', { fg = fg_miniindentscopesymbol, bold = true })
+    local fg_incsearch = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('IncSearch')), 'bg', 'gui')
+    vim.api.nvim_set_hl(0, 'DiffText', { reverse = true, bold = true , fg = fg_incsearch })
+
+    -- local fg_cursorlinenr = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
+    -- vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', { fg = fg_cursorlinenr, bold = true })
+
+    local fg_conceal = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('Conceal')), 'fg', 'gui')
+    vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = fg_conceal })
+    vim.api.nvim_set_hl(0, 'LineNr', { fg = fg_conceal })
+    vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = fg_conceal })
+    vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = fg_conceal })
 
     vim.api.nvim_set_hl(0, 'AerialLine', { reverse = true })
-
-    local fg_cursorlinenb = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('CursorLineNr')), 'fg', 'gui')
-    vim.api.nvim_set_hl(0, 'LineNr', { fg = fg_cursorlinenb})
 
     vim.api.nvim_set_hl(0, 'WinBarNC', { link = 'none'})
   end
