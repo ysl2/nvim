@@ -3,6 +3,7 @@ return {
   {
     'williamboman/mason.nvim',
     build = ':MasonUpdate',
+    event = 'VeryLazy',
     cmd = { 'Mason', 'MasonInstall', 'MasonUpdate' },
     config = function()
       require('mason').setup({
@@ -79,8 +80,8 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     event = { 'BufReadPost', 'BufNewFile' },
+    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     dependencies = {
       'williamboman/mason.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -337,20 +338,20 @@ return {
   --       })
   --   end,
   -- },
-  {
-      'jay-babu/mason-null-ls.nvim',
-      event = { 'BufReadPost', 'BufNewFile' },
-      dependencies = {
-        'williamboman/mason.nvim',
-        'nvimtools/none-ls.nvim',
-      },
-      config = function()
-        require('mason-null-ls').setup({
-            ensure_installed = nil,
-            automatic_installation = true,
-        })
-      end,
-  },
+  -- {
+  --     'jay-babu/mason-null-ls.nvim',
+  --     event = { 'BufReadPost', 'BufNewFile' },
+  --     dependencies = {
+  --       'williamboman/mason.nvim',
+  --       'nvimtools/none-ls.nvim',
+  --     },
+  --     config = function()
+  --       require('mason-null-ls').setup({
+  --           ensure_installed = nil,
+  --           automatic_installation = true,
+  --       })
+  --     end,
+  -- },
   {
     'smjonas/inc-rename.nvim',
     event = 'VeryLazy',
@@ -366,20 +367,21 @@ return {
       })
     end,
   },
-  {
-    'saecki/crates.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvimtools/none-ls.nvim',
-    },
-    config = function()
-      require('crates').setup({
-        null_ls = {
-          enabled = true,
-        },
-      })
-    end
-  },
+  -- {
+  --   'saecki/crates.nvim',
+  --   event = 'VeryLazy',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvimtools/none-ls.nvim',
+  --   },
+  --   config = function()
+  --     require('crates').setup({
+  --       null_ls = {
+  --         enabled = true,
+  --       },
+  --     })
+  --   end
+  -- },
   {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
@@ -388,7 +390,7 @@ return {
       require('conform').setup({
         formatters_by_ft = {
           lua = { 'stylua' },
-          python = { 'ruff_format' },
+          python = { 'ruff_lsp' },
         },
       })
 
@@ -434,6 +436,50 @@ return {
         bang = true,
       })
 
+    end
+  },
+  {
+    'zapling/mason-conform.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'williamboman/mason.nvim',
+      'stevearc/conform.nvim',
+    },
+    config = function()
+      require('mason-conform').setup()
+    end
+  },
+  {
+    'mfussenegger/nvim-lint',
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require('lint').linters_by_ft = {
+        markdown = {'vale',}
+      }
+
+      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+        callback = function()
+
+          -- try_lint without arguments runs the linters defined in `linters_by_ft`
+          -- for the current filetype
+          require('lint').try_lint()
+
+          -- You can call `try_lint` with a linter name or a list of names to always
+          -- run specific linters, independent of the `linters_by_ft` configuration
+          -- require('lint').try_lint('cspell')
+        end,
+      })
+    end
+  },
+  {
+    'rshkarin/mason-nvim-lint',
+    event = 'VeryLazy',
+    dependencies = {
+      'williamboman/mason.nvim',
+      'mfussenegger/nvim-lint',
+    },
+    config = function()
+      require('mason-nvim-lint').setup()
     end
   }
 }
