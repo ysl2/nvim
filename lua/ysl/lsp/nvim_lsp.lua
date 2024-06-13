@@ -380,4 +380,60 @@ return {
       })
     end
   },
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo', 'Format', 'MySaveAndFormatToggle' },
+    config = function()
+      require('conform').setup({
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          python = { 'ruff_format' },
+        },
+      })
+
+      vim.api.nvim_create_user_command('Format', function(args)
+        local range = nil
+        if args.count ~= -1 then
+          local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+          range = {
+            start = { args.line1, 0 },
+            ['end'] = { args.line2, end_line:len() },
+          }
+        end
+        require('conform').format({ async = true, lsp_fallback = true, range = range })
+      end, { range = true })
+
+      require('conform').setup({
+        format_on_save = function(bufnr)
+          if vim.g.autoformat or vim.b[bufnr].autoformat then
+            return { timeout_ms = 500, lsp_fallback = true }
+          end
+        end
+      })
+
+      vim.api.nvim_create_user_command('MySaveAndFormatToggle', function(args)
+        if args.bang then
+          -- FormatDisable! will disable formatting just for this buffer
+          if vim.b.autoformat then
+            vim.b.autoformat = false
+          else
+            vim.b.autoformat = true
+          end
+          print('"vim.b.autoformat" = ' .. tostring(vim.b.autoformat))
+        else
+          if vim.g.autoformat then
+            vim.g.autoformat = false
+          else
+            vim.g.autoformat = true
+          end
+          print('"vim.g.autoformat" = ' .. tostring(vim.g.autoformat))
+        end
+      end, {
+        desc = 'Re-enable autoformat-on-save',
+        bang = true,
+      })
+
+    end
+  }
 }
