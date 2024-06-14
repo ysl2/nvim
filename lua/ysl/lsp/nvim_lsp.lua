@@ -129,7 +129,7 @@ return {
           }
         },
         jedi_language_server = {},
-        json_ls = {
+        jsonls = {
           settings = {
             json = {
               schemas = require('schemastore').json.schemas(),
