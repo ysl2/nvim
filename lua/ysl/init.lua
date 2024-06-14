@@ -1508,9 +1508,20 @@ vim.list_extend(M, {
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
+    dependencies = (function()
+      local deps = {
+        'nvim-tree/nvim-web-devicons',
+      }
+      if lsp == 'ysl.lsp.nvim_lsp' then
+        deps[#deps + 1] = {
+          'linrongbin16/lsp-progress.nvim',
+          config = function()
+            require('lsp-progress').setup()
+          end
+        }
+      end
+      return deps
+    end)(),
     config = function()
       -- local noice_ok, noice = pcall(require, 'noice')
       local copilot_ok, copilot_api = pcall(require, 'copilot.api')
@@ -1547,16 +1558,21 @@ vim.list_extend(M, {
               if lsp == 'ysl.lsp.coc' then
                 return 'g:coc_status'
               end
-              -- if lsp == 'ysl.lsp.nvim_lsp' then
-              --   return {
-              --     function()
-              --       return noice.api.status.lsp_progress.get_hl()
-              --     end,
-              --     cond = function()
-              --       return noice_ok and noice.api.status.lsp_progress.has()
-              --     end,
-              --   }
-              -- end
+              if lsp == 'ysl.lsp.nvim_lsp' then
+                -- return {
+                --   function()
+                --     return noice.api.status.lsp_progress.get_hl()
+                --   end,
+                --   cond = function()
+                --     return noice_ok and noice.api.status.lsp_progress.has()
+                --   end,
+                -- }
+                return {
+                  function()
+                    return require('lsp-progress').progress()
+                  end,
+                }
+              end
               return ''
             end)(),
           },
@@ -1658,6 +1674,16 @@ vim.list_extend(M, {
           _my_custom_zenmode_off()
         end
       })
+
+      if lsp == 'ysl.lsp.nvim_lsp' then
+        -- listen lsp-progress event and refresh lualine
+        vim.api.nvim_create_augroup('lualine_augroup', { clear = true })
+        vim.api.nvim_create_autocmd('User', {
+          group = 'lualine_augroup',
+          pattern = 'LspProgressStatusUpdated',
+          callback = require('lualine').refresh,
+        })
+      end
     end
   },
   {
