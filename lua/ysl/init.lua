@@ -1516,7 +1516,15 @@ vim.list_extend(M, {
         deps[#deps + 1] = {
           'linrongbin16/lsp-progress.nvim',
           config = function()
-            require('lsp-progress').setup()
+            require('lsp-progress').setup({
+              -- https://github.com/linrongbin16/lsp-progress.nvim/blob/55a04895ea20c365b670051a3128265d43bdfa3d/lua/lsp-progress/defaults.lua#L133
+              format = function(client_messages)
+                  if #client_messages > 0 then
+                      return table.concat(client_messages, ' ')
+                  end
+                  return ''
+              end,
+            })
           end
         }
       end
