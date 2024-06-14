@@ -1944,11 +1944,11 @@ vim.list_extend(M, {
       -- end
       require('trouble').setup({
         focus = true,
-        win = {
-          type = 'split',
-          relative = 'win',
-          position = 'bottom',
-        }
+        -- win = {
+        --   type = 'split',
+        --   relative = 'win',
+        --   position = 'bottom',
+        -- }
       })
     end
   },
