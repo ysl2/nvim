@@ -1093,12 +1093,6 @@ vim.list_extend(M, {
       })
     end
   },
-  -- { 'stevearc/dressing.nvim',
-  --   lazy = true,
-  --   config = function()
-  --     require('dressing').setup {}
-  --   end
-  -- },
   -- {
   --   'ysl2/neovim-session-manager',
   --   lazy = false,
