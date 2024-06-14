@@ -142,14 +142,14 @@ return {
         marksman = {},
         sourcery = {},
         clangd = {},
-        ruff_lsp = {
-          on_attach = function(client, bufnr)
-            -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.hoverProvider = false
-            client.server_capabilities.renameProvider = false
-          end
-        },
+        -- ruff_lsp = {
+        --   on_attach = function(client, bufnr)
+        --     -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
+        --     client.server_capabilities.documentFormattingProvider = false
+        --     client.server_capabilities.hoverProvider = false
+        --     client.server_capabilities.renameProvider = false
+        --   end
+        -- },
         typst_lsp = {}
       }
 
@@ -394,7 +394,11 @@ return {
       require('conform').setup({
         formatters_by_ft = {
           lua = { 'stylua' },
-          python = { 'ruff_lsp' },
+          python = {
+            'ruff_fix',
+            'ruff_format',
+            'ruff_organize_imports'
+          },
         },
       })
 
@@ -454,7 +458,8 @@ return {
     config = function()
       local lint = require('lint')
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' }
+        markdown = { 'markdownlint' },
+        -- python = { 'ruff' },
       }
       local always = {
         -- 'cspell',
