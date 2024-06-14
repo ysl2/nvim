@@ -149,4 +149,8 @@ M.GITHUB = {
     RAW = M.set(M.safeget(S, {'config', 'utils', 'github', 'raw'}), 'https://github.com/'),
 }
 
+M.EVENTS = {
+  YSLFILE = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }
+}
+
 return M

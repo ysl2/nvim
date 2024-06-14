@@ -82,7 +82,7 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = U.EVENTS.YSLFILE,
     cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     dependencies = {
       'williamboman/mason.nvim',
@@ -391,7 +391,7 @@ return {
   -- },
   {
     'stevearc/conform.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = U.EVENTS.YSLFILE,
     cmd = { 'ConformInfo', 'Format', 'MySaveAndFormatToggle' },
     dependencies = {
       'williamboman/mason.nvim',
@@ -457,7 +457,7 @@ return {
   },
   {
     'mfussenegger/nvim-lint',
-    event = { 'BufReadPre', 'BufReadPost', 'BufNewFile', 'InsertLeave', 'CursorMoved' },
+    event = vim.list_extend({ 'BufReadPre', 'InsertLeave', 'CursorMoved' }, U.EVENTS.YSLFILE),
     dependencies = {
       'williamboman/mason.nvim',
       'rshkarin/mason-nvim-lint',

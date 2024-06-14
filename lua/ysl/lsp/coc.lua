@@ -4,7 +4,7 @@ return {
   {
     'neoclide/coc.nvim',
     branch = 'release',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = U.EVENTS.YSLFILE,
     dependencies = {
       {
         'neoclide/jsonc.vim',

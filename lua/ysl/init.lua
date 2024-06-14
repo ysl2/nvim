@@ -762,7 +762,7 @@ vim.list_extend(M, {
   },
   {
     'mbbill/undotree',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = U.EVENTS.YSLFILE,
     keys = {
       { '<LEADER>u', '<CMD>UndotreeToggle<CR>', mode = 'n', silent = true }
     },
@@ -1073,7 +1073,7 @@ vim.list_extend(M, {
   {
     'ysl2/img-paste.vim',
     -- ft = { 'markdown', 'tex', 'typst' },
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = U.EVENTS.YSLFILE,
     keys = {
       { '<LEADER>p', '<CMD>call mdip#MarkdownClipboardImage()<CR><ESC>', mode = 'n', silent = true },
     },
