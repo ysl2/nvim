@@ -466,10 +466,10 @@ vim.list_extend(M, {
     'mzlogin/vim-markdown-toc',
     ft = 'markdown'
   },
-  {
-    'mg979/vim-visual-multi',
-    event = 'VeryLazy'
-  },
+  -- {
+  --   'mg979/vim-visual-multi',
+  --   event = 'VeryLazy'
+  -- },
   {
     'ysl2/vim-bookmarks',
     event = 'VeryLazy',
