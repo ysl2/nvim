@@ -82,11 +82,10 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    -- event = { 'BufReadPost', 'BufNewFile' },
-    -- cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
+    event = { 'BufReadPost', 'BufNewFile' },
+    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     dependencies = {
       'williamboman/mason.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
       'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
       'folke/neodev.nvim',
@@ -109,86 +108,88 @@ return {
         lineFoldingOnly = true
       }
 
-      -- Enable the following language servers
-      --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-      --
-      --  Add any additional override configuration in the following tables. Available keys are:
-      --  - cmd (table): Override the default command used to start the server
-      --  - filetypes (table): Override the default list of associated filetypes for the server
-      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-      --  - settings (table): Override the default settings passed when initializing the server.
-      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local servers = {
-        lua_ls = {
-          settings = {
-            Lua = {
-              workspace = {
-                checkThirdParty = false,
-              },
-              completion = {
-                callSnippet = 'Replace'
-              },
-              telemetry = { enable = false },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              diagnostics = { disable = { 'missing-fields' } },
-            }
-          }
-        },
-        jedi_language_server = {},
-        jsonls = {
-          settings = {
-            json = {
-              schemas = require('schemastore').json.schemas(),
-              validate = { enable = true },
-            },
-          }
-        },
-        vimls = {},
-        bashls = {},
-        marksman = {},
-        sourcery = {},
-        clangd = {},
-        -- ruff_lsp = {
-        --   on_attach = function(client, bufnr)
-        --     -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
-        --     client.server_capabilities.documentFormattingProvider = false
-        --     client.server_capabilities.hoverProvider = false
-        --     client.server_capabilities.renameProvider = false
-        --   end
-        -- },
-        typst_lsp = {}
+      local ensure_installed = {
+        'jedi_language_server',
+        'jsonls',
+        'vimls',
+        'bashls',
+        'marksman',
+        'sourcery',
+        'clangd',
+        'typst_lsp',
       }
 
-      -- You can add other tools here that you want Mason to install
-      -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'rust_analyzer',
-      })
+      local lspconfig = require('lspconfig')
+      local handlers = {
+        -- The first entry (without a key) will be the default handler
+        -- and will be called for each installed server that doesn't have
+        -- a dedicated handler.
+        function (server_name) -- default handler (optional)
+          lspconfig[server_name].setup(capabilities)
+        end,
+        -- Next, you can provide a dedicated handler for specific servers.
+        -- For example, a handler override for the `rust_analyzer`:
+        lua_ls = function()
+          -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+          require('neodev').setup({
+            -- add any options here, or leave empty to use the default settings
+          })
 
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+          lspconfig.lua_ls.setup(vim.tbl_deep_extend('force', {}, capabilities, {
+            settings = {
+              Lua = {
+                workspace = {
+                  checkThirdParty = false,
+                },
+                completion = {
+                  callSnippet = 'Replace'
+                },
+                telemetry = { enable = false },
+                -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+                diagnostics = { disable = { 'missing-fields' } },
+              }
+            }
+          }))
+        end,
+        jsonls = function()
+          lspconfig.jsonls.setup(vim.tbl_deep_extend('force', {}, capabilities, {
+            settings = {
+              json = {
+                schemas = require('schemastore').json.schemas(),
+                validate = { enable = true },
+              },
+            }
+          }))
+        end,
+        rust_analyzer = function()
+          require('rust-tools').setup({
+            server = {
+              capabilities = capabilities,
+            }
+          })
+        end,
+        -- ruff_lsp = function()
+        --   lspconfig.ruff_lsp.setup(vim.tbl_deep_extend('force', {}, capabilities, {
+        --     on_attach = function(client, bufnr)
+        --       -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
+        --       client.server_capabilities.documentFormattingProvider = false
+        --       client.server_capabilities.hoverProvider = false
+        --       client.server_capabilities.renameProvider = false
+        --     end
+        --   }))
+        -- end,
+      }
 
-      require('neodev').setup({
-        -- add any options here, or leave empty to use the default settings
-      })
-
-      require('rust-tools').setup({
-        server = {
-          capabilities = capabilities,
-        }
-      })
+      for k, _ in pairs(handlers) do
+        if k ~= 1 then
+          ensure_installed[#ensure_installed + 1] = k
+        end
+      end
 
       require('mason-lspconfig').setup {
-        handlers = {
-          function (server_name) -- default handler (optional)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
+        ensure_installed = ensure_installed,
+        automatic_installation = true,
+        handlers = handlers,
       }
     end
   },
@@ -456,7 +457,7 @@ return {
   },
   {
     'mfussenegger/nvim-lint',
-    event = { 'BufReadPre', 'BufReadPost', 'BufNewFile', 'InsertLeave' },
+    event = { 'BufReadPre', 'BufReadPost', 'BufNewFile', 'InsertLeave', 'CursorMoved' },
     dependencies = {
       'williamboman/mason.nvim',
       'rshkarin/mason-nvim-lint',
@@ -481,7 +482,7 @@ return {
         ensure_installed = ensure_installed,
       })
 
-      vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufReadPost', 'BufNewFile', 'InsertLeave' }, {
+      vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufReadPost', 'BufNewFile', 'InsertLeave', 'CursorMoved' }, {
         callback = function()
 
           -- try_lint without arguments runs the linters defined in `linters_by_ft`
