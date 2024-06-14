@@ -381,7 +381,7 @@ end
 -- === Load Secret
 -- ===
 local transparent = (not (vim.opt.winblend._value == 0)) and (not vim.g.started_by_firenvim)
-M[#M + 1] = U.set(U.safeget(S, {'config', 'vim', 'opt', 'colorscheme' }),
+M[#M + 1] = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'colorscheme' }),
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -1515,6 +1515,7 @@ vim.list_extend(M, {
       if lsp == 'ysl.lsp.nvim_lsp' then
         deps[#deps + 1] = {
           'linrongbin16/lsp-progress.nvim',
+          event = 'VeryLazy',
           config = function()
             require('lsp-progress').setup({
               -- https://github.com/linrongbin16/lsp-progress.nvim/blob/55a04895ea20c365b670051a3128265d43bdfa3d/lua/lsp-progress/defaults.lua#L133
@@ -1594,10 +1595,10 @@ vim.list_extend(M, {
             --     return noice_ok and noice.api.statusline.search.has()
             --   end
             -- },
-            function()
-              local register = vim.fn.reg_recording()
-              return register == '' and '' or 'recording @' .. register
-            end,
+            -- function()
+            --   local register = vim.fn.reg_recording()
+            --   return register == '' and '' or 'recording @' .. register
+            -- end,
             function() return _my_custom_zenmode_winid and 'ZenMode' or '' end,
             function()
               if not copilot_ok then return '' end
@@ -1689,7 +1690,7 @@ vim.list_extend(M, {
         vim.api.nvim_create_autocmd('User', {
           group = 'lualine_augroup',
           pattern = 'LspProgressStatusUpdated',
-          callback = require('lualine').refresh,
+          callback = lualine.refresh,
         })
       end
     end
