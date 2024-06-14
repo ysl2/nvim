@@ -1862,11 +1862,11 @@ vim.list_extend(M, {
     keys = {
       {
         '<Leader>x', function()
-          local cmd = 'TroubleToggle'
+          local cmd = 'Trouble diagnostics toggle'
           if lsp == 'ysl.lsp.coc' then
             cmd = [[
               call coc#rpc#request('fillDiagnostics', [bufnr('%')])
-              TroubleToggle loclist
+              Trouble loclist toggle
             ]]
           end
           vim.cmd(cmd)
@@ -1874,19 +1874,27 @@ vim.list_extend(M, {
       }
     },
     config = function()
-      local trouble = require('trouble')
-      if lsp == 'ysl.lsp.coc' then
-        trouble.setup {
-          position = 'bottom', -- position of the list can be: bottom, top, left, right
-          height = 8, -- height of the trouble list when position is top or bottom
-          icons = true, -- use devicons for filenames
-          auto_open = true, -- automatically open the list when you have diagnostics
-          auto_close = true, -- automatically close the list when you have no diagnostics
-          mode = 'loclist'
+      -- local trouble = require('trouble')
+      -- if lsp == 'ysl.lsp.coc' then
+      --   trouble.setup {
+      --     position = 'bottom', -- position of the list can be: bottom, top, left, right
+      --     height = 8, -- height of the trouble list when position is top or bottom
+      --     icons = true, -- use devicons for filenames
+      --     auto_open = true, -- automatically open the list when you have diagnostics
+      --     auto_close = true, -- automatically close the list when you have no diagnostics
+      --     mode = 'loclist',
+      --     focus = true
+      --   }
+      --   return
+      -- end
+      require('trouble').setup({
+        focus = true,
+        win = {
+          type = 'split',
+          relative = 'win',
+          position = 'bottom',
         }
-        return
-      end
-      trouble.setup()
+      })
     end
   },
   {
