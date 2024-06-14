@@ -384,8 +384,12 @@ return {
   -- },
   {
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
+    event = { 'BufReadPost', 'BufNewFile' },
     cmd = { 'ConformInfo', 'Format', 'MySaveAndFormatToggle' },
+    dependencies = {
+      'williamboman/mason.nvim',
+      'zapling/mason-conform.nvim',
+    },
     config = function()
       require('conform').setup({
         formatters_by_ft = {
@@ -414,6 +418,8 @@ return {
         end
       })
 
+      require('mason-conform').setup()
+
       vim.api.nvim_create_user_command('MySaveAndFormatToggle', function(args)
         if args.bang then
           -- FormatDisable! will disable formatting just for this buffer
@@ -439,24 +445,30 @@ return {
     end
   },
   {
-    'zapling/mason-conform.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'williamboman/mason.nvim',
-      'stevearc/conform.nvim',
-    },
-    config = function()
-      require('mason-conform').setup()
-    end
-  },
-  {
     'mfussenegger/nvim-lint',
     event = { 'BufReadPre', 'BufReadPost', 'BufNewFile', 'InsertLeave' },
+    dependencies = {
+      'williamboman/mason.nvim',
+      'rshkarin/mason-nvim-lint',
+    },
     config = function()
       local lint = require('lint')
       lint.linters_by_ft = {
-        markdown = {'markdownlint',}
+        markdown = { 'markdownlint' }
       }
+      local always = {
+        -- 'cspell',
+      }
+
+      local ensure_installed = {}
+      for _, linter in pairs(lint.linters_by_ft) do
+        vim.list_extend(ensure_installed, linter)
+      end
+      vim.list_extend(ensure_installed, always)
+
+      require('mason-nvim-lint').setup({
+        ensure_installed = ensure_installed,
+      })
 
       vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufReadPost', 'BufNewFile', 'InsertLeave' }, {
         callback = function()
@@ -467,20 +479,11 @@ return {
 
           -- You can call `try_lint` with a linter name or a list of names to always
           -- run specific linters, independent of the `linters_by_ft` configuration
-          -- require('lint').try_lint('cspell')
+          for _, linter in pairs(always) do
+            lint.try_lint(linter)
+          end
         end,
       })
-    end
-  },
-  {
-    'rshkarin/mason-nvim-lint',
-    event = 'VeryLazy',
-    dependencies = {
-      'williamboman/mason.nvim',
-      'mfussenegger/nvim-lint',
-    },
-    config = function()
-      require('mason-nvim-lint').setup()
     end
   }
 }
