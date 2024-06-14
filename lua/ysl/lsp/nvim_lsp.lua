@@ -27,10 +27,10 @@ return {
 
           -- Global mappings.
           -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-          vim.keymap.set('n', '\\e', vim.diagnostic.open_float, opts)
+          vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, opts)
           vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
           vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-          vim.keymap.set('n', '\\q', vim.diagnostic.setloclist, opts)
+          vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist, opts)
 
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -39,16 +39,16 @@ return {
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('n', '\\wa', vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set('n', '\\wr', vim.lsp.buf.remove_workspace_folder, opts)
-          vim.keymap.set('n', '\\wl', function()
+          vim.keymap.set('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder, opts)
+          vim.keymap.set('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+          vim.keymap.set('n', '<LocalLeader>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts)
-          vim.keymap.set('n', '\\D', vim.lsp.buf.type_definition, opts)
-          -- vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, opts)
-          vim.keymap.set({ 'n', 'v' }, '\\ca', vim.lsp.buf.code_action, opts)
+          vim.keymap.set('n', '<LocalLeader>D', vim.lsp.buf.type_definition, opts)
+          -- vim.keymap.set('n', '<LocalLeader>rn', vim.lsp.buf.rename, opts)
+          vim.keymap.set({ 'n', 'v' }, '<LocalLeader>ca', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-          vim.keymap.set('n', '\\f', function()
+          vim.keymap.set('n', '<LocalLeader>f', function()
             vim.lsp.buf.format { async = true }
           end, opts)
 
@@ -360,7 +360,7 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = U.GROUP.NVIM_LSP,
         callback = function(ev)
-          vim.keymap.set('n', '\\rn', function()
+          vim.keymap.set('n', '<LocalLeader>rn', function()
             return ':IncRename ' .. vim.fn.expand('<cword>')
           end, { expr = true })
         end

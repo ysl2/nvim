@@ -17,7 +17,7 @@ return {
       }
     },
     config = function()
-      -- vim.keymap.set('n', '\\<TAB>', function()
+      -- vim.keymap.set('n', '<LocalLeader><TAB>', function()
       --   vim.cmd('ccl')
       --   vim.cmd('lcl')
       --   vim.cmd('set cmdheight=1')
@@ -199,7 +199,7 @@ return {
       -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
       vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
       vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next)', { silent = true })
-      vim.keymap.set('n', '\\e', '<CMD>CocDiagnostics<CR>', { silent = true })
+      vim.keymap.set('n', '<LocalLeader>e', '<CMD>CocDiagnostics<CR>', { silent = true })
 
       -- GoTo code navigation.
       vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })

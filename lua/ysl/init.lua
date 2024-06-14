@@ -107,6 +107,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 -- ===
 vim.keymap.set({ 'n', 'v' }, '<SPACE>', '')
 vim.g.mapleader = ' '
+vim.g.localmapleader = '\\'
 -- Ref: https://github.com/neoclide/coc.nvim/issues/1469
 -- Ref: https://github.com/spiritphyz/Save-the-Environment/commit/30bf1837d6b1d536bf770b2befa3a7a6e43e8af3
 vim.keymap.set('i', '<C-c>', '<ESC>', { silent = true })
