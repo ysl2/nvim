@@ -1188,23 +1188,83 @@ vim.list_extend(M, {
   --     vim.g.leetcode_solution_filetype = 'python'
   --   end
   -- },
+  -- {
+  --   'folke/which-key.nvim',
+  --   -- event = 'VeryLazy',
+  --   config = function()
+  --     require('which-key').setup({
+  --       plugins = {
+  --         marks = false,     -- shows a list of your marks on ' and `
+  --         registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+  --         presets = {
+  --           operators = false
+  --         }
+  --       },
+  --       -- triggers_blacklist = {
+  --       --   n = { ':' }
+  --       -- }
+  --     })
+  --   end,
+  -- },
   {
-    'folke/which-key.nvim',
+    'echasnovski/mini.clue',
     event = 'VeryLazy',
+    version = false,
     config = function()
-      require('which-key').setup({
-        plugins = {
-          marks = false,     -- shows a list of your marks on ' and `
-          registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-          presets = {
-            operators = false
-          }
+      local miniclue = require('mini.clue')
+      miniclue.setup({
+        triggers = {
+          -- Leader triggers
+          { mode = 'n', keys = '<Leader>' },
+          { mode = 'x', keys = '<Leader>' },
+          { mode = 'n', keys = '<LocalLeader>' },
+          { mode = 'x', keys = '<LocalLeader>' },
+
+          -- Built-in completion
+          { mode = 'i', keys = '<C-x>' },
+
+          -- `g` key
+          { mode = 'n', keys = 'g' },
+          { mode = 'x', keys = 'g' },
+
+          -- Marks
+          { mode = 'n', keys = "'" },
+          { mode = 'n', keys = '`' },
+          { mode = 'x', keys = "'" },
+          { mode = 'x', keys = '`' },
+
+          -- Registers
+          { mode = 'n', keys = '"' },
+          { mode = 'x', keys = '"' },
+          { mode = 'i', keys = '<C-r>' },
+          { mode = 'c', keys = '<C-r>' },
+
+          -- Window commands
+          { mode = 'n', keys = '<C-w>' },
+
+          -- `z` key
+          { mode = 'n', keys = 'z' },
+          { mode = 'x', keys = 'z' },
         },
-        triggers_blacklist = {
-          n = { ':' }
+        clues = {
+          -- Enhance this by adding descriptions for <Leader> mapping groups
+          miniclue.gen_clues.builtin_completion(),
+          miniclue.gen_clues.g(),
+          miniclue.gen_clues.marks(),
+          miniclue.gen_clues.registers(),
+          miniclue.gen_clues.windows(),
+          miniclue.gen_clues.z(),
+        },
+        window = {
+          config = {
+            anchor = 'SW',
+            row = 'auto',
+            col = 'auto'
+          },
+          delay = vim.opt.timeoutlen._value
         }
       })
-    end,
+    end
   },
   {
     'glacambre/firenvim',
