@@ -407,6 +407,11 @@ return {
             'ruff_organize_imports'
           },
         },
+        format_on_save = function(bufnr)
+          if vim.g.autoformat or vim.b[bufnr].autoformat then
+            return { timeout_ms = 500, lsp_fallback = true }
+          end
+        end
       })
 
       vim.api.nvim_create_user_command('Format', function(args)
@@ -420,14 +425,6 @@ return {
         end
         require('conform').format({ async = true, lsp_fallback = true, range = range })
       end, { range = true })
-
-      require('conform').setup({
-        format_on_save = function(bufnr)
-          if vim.g.autoformat or vim.b[bufnr].autoformat then
-            return { timeout_ms = 500, lsp_fallback = true }
-          end
-        end
-      })
 
       require('mason-conform').setup()
 
