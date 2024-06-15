@@ -479,7 +479,7 @@ return {
         ensure_installed = ensure_installed,
       })
 
-      vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufReadPost', 'BufNewFile', 'InsertLeave', 'CursorMoved' }, {
+      vim.api.nvim_create_autocmd(vim.list_extend({ 'BufReadPre', 'InsertLeave', 'CursorMoved' }, U.EVENTS.YSLFILE), {
         callback = function()
 
           -- try_lint without arguments runs the linters defined in `linters_by_ft`
