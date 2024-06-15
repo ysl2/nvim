@@ -39,6 +39,7 @@ Insights from:
     - pip package:
         - pynvim (essential, for coc-snippets and builtin functions support).
     - A `nerd-font`: Optional, but recommended.
+    - xsel (For linux: `sudo apt install xsel`)
 - Only Windows:
     - [`Visual Studio C/C++ Build Tools` and `Windows SDK`](https://visualstudio.microsoft.com/downloads/) : Only essential for windows users, for telescope-fzf-native.nvim plugin build process.
     - `powershell 7`: Only essential for windows users, for terminal support.
