@@ -233,7 +233,7 @@ return {
       'hrsh7th/cmp-nvim-lua',
       'onsails/lspkind.nvim',
       'windwp/nvim-autopairs',
-      'saecki/crates.nvim',
+      -- 'saecki/crates.nvim',
     },
     config = function ()
       -- Set up nvim-cmp.
@@ -285,7 +285,7 @@ return {
           { name = 'cmp_tabnine' },
           { name = 'luasnip' },
           { name = 'nvim_lua' },
-          { name = 'crates' },
+          -- { name = 'crates' },
           { name = 'nvim_lsp' },
           { name = 'async_path' },
         }, {
