@@ -332,9 +332,9 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     config = function ()
       vim.g.skip_ts_context_commentstring_module = true
-      require('ts_context_commentstring').setup {
+      require('ts_context_commentstring').setup({
         enable_autocmd = false,
-      }
+      })
     end
   },
   {
@@ -514,7 +514,7 @@ vim.list_extend(M, {
        { '<Leader>l', '<CMD>Lf<CR>', mode = 'n', silent = true, desc = '<CMD>Lf<CR>' },
     },
     config = function()
-      require('fm-nvim').setup{
+      require('fm-nvim').setup({
         -- UI Options
         ui = {
           float = {
@@ -530,7 +530,7 @@ vim.list_extend(M, {
         mappings = {
           horz_split = '<C-s>',
         }
-      }
+      })
     end
   },
   {
@@ -559,7 +559,7 @@ vim.list_extend(M, {
         end
       end
 
-      require('nvim-treesitter.configs').setup {
+      require('nvim-treesitter.configs').setup({
         -- A list of parser names, or "all"
         ensure_installed = { 'vim', 'query', 'lua', 'python', 'bash', 'c', 'make', 'rust', 'toml', 'vimdoc' },
 
@@ -649,7 +649,7 @@ vim.list_extend(M, {
             enable = true,
             disable = { 'c' }
         },
-      }
+      })
       vim.cmd([[
         set foldmethod=expr
         set foldexpr=nvim_treesitter#foldexpr()
@@ -691,7 +691,7 @@ vim.list_extend(M, {
     config = function()
       local telescope = require('telescope')
       local telescope_actions = require('telescope.actions')
-      telescope.setup {
+      telescope.setup({
         defaults = {
           layout_strategy = 'vertical',
           path_display = { 'tail' },
@@ -745,7 +745,7 @@ vim.list_extend(M, {
             prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
           }
         }
-      }
+      })
       telescope.load_extension('fzf')
       telescope.load_extension('emoji')
       telescope.load_extension('projects')
@@ -1294,11 +1294,11 @@ vim.list_extend(M, {
     'ethanholz/nvim-lastplace',
     event = 'VeryLazy',
     config = function()
-      require 'nvim-lastplace'.setup {
+      require('nvim-lastplace').setup({
         lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
         lastplace_ignore_filetype = { 'gitcommit', 'gitrebase', 'svn', 'hgcommit' },
         lastplace_open_folds = true
-      }
+      })
     end
   },
   {

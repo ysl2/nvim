@@ -186,11 +186,11 @@ return {
         end
       end
 
-      require('mason-lspconfig').setup {
+      require('mason-lspconfig').setup({
         ensure_installed = ensure_installed,
         automatic_installation = true,
         handlers = handlers,
-      }
+      })
     end
   },
   {
@@ -237,7 +237,7 @@ return {
     },
     config = function ()
       -- Set up nvim-cmp.
-      local cmp = require'cmp'
+      local cmp = require('cmp')
       local luasnip = require('luasnip')
       cmp.setup({
         completion = { completeopt = 'menu,menuone,noinsert' },
@@ -398,7 +398,8 @@ return {
       'zapling/mason-conform.nvim',
     },
     config = function()
-      require('conform').setup({
+      local conform = require('conform')
+      conform.setup({
         formatters_by_ft = {
           lua = { 'stylua' },
           python = {
@@ -423,7 +424,7 @@ return {
             ['end'] = { args.line2, end_line:len() },
           }
         end
-        require('conform').format({ async = true, lsp_fallback = true, range = range })
+        conform.format({ async = true, lsp_fallback = true, range = range })
       end, { range = true })
 
       require('mason-conform').setup()
