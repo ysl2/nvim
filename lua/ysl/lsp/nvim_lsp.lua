@@ -193,39 +193,98 @@ return {
       })
     end
   },
+  -- {
+  --   'L3MON4D3/LuaSnip', -- Snippets plugin
+  --   build = 'make install_jsregexp',
+  --   lazy = true,
+  --   config = function ()
+  --     require('luasnip.loaders.from_vscode').lazy_load({ paths = {
+  --       U.CUSTOM_SNIPPETS_PATH,
+  --       U.path({vim.fn.stdpath('data'), 'lazy', 'friendly-snippets'}),
+  --       U.path({vim.fn.stdpath('data'), 'lazy', 'cython-snips'}),
+  --     }})
+  --     local luasnip = require('luasnip')
+  --     -- Stop snippets when you leave to normal mode
+  --     vim.api.nvim_create_autocmd('ModeChanged', {
+  --       callback = function()
+  --         if ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
+  --             and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+  --             and not luasnip.session.jump_active
+  --         then
+  --           luasnip.unlink_current()
+  --         end
+  --       end
+  --     })
+  --   end
+  -- },
   {
-    'L3MON4D3/LuaSnip', -- Snippets plugin
-    build = 'make install_jsregexp',
-    lazy = true,
-    config = function ()
-      require('luasnip.loaders.from_vscode').lazy_load({ paths = {
-        U.CUSTOM_SNIPPETS_PATH,
-        U.path({vim.fn.stdpath('data'), 'lazy', 'friendly-snippets'}),
-        U.path({vim.fn.stdpath('data'), 'lazy', 'cython-snips'}),
-      }})
-      local luasnip = require('luasnip')
-      -- Stop snippets when you leave to normal mode
-      vim.api.nvim_create_autocmd('ModeChanged', {
-        callback = function()
-          if ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
-              and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
-              and not luasnip.session.jump_active
-          then
-            luasnip.unlink_current()
+    'garymjr/nvim-snippets',
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+    },
+    keys = {
+      {
+        '<C-j>',
+        function()
+          if vim.snippet.active({ direction = 1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
+            return
           end
-        end
+          return '<C-j>'
+        end,
+        expr = true,
+        silent = true,
+        mode = 'i',
+      },
+      {
+        '<C-j>',
+        function()
+          vim.schedule(function()
+            vim.snippet.jump(1)
+          end)
+        end,
+        expr = true,
+        silent = true,
+        mode = 's',
+      },
+      {
+        '<C-k>',
+        function()
+          if vim.snippet.active({ direction = -1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(-1)
+            end)
+            return
+          end
+          return '<C-k>'
+        end,
+        expr = true,
+        silent = true,
+        mode = { 'i', 's' },
+      },
+    },
+    config = function()
+      require('snippets').setup({
+        friendly_snippets = true,
+        search_paths = {
+          U.CUSTOM_SNIPPETS_PATH,
+        }
       })
     end
   },
   {
-    'ysl2/nvim-cmp', -- Autocompletion plugin
+    -- 'ysl2/nvim-cmp', -- Autocompletion plugin
+    'hrsh7th/nvim-cmp', -- Autocompletion plugin
     event = 'InsertEnter',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
       'hrsh7th/cmp-buffer',
       'https://codeberg.org/FelipeLema/cmp-async-path',
-      'L3MON4D3/LuaSnip', -- Snippets plugin
-      'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
+      -- 'L3MON4D3/LuaSnip', -- Snippets plugin
+      'garymjr/nvim-snippets',
+      -- 'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
       {
         'tzachar/cmp-tabnine',
         build = (vim.fn.has('win32') == 1) and 'powershell ./install.ps1' or './install.sh',
@@ -238,12 +297,14 @@ return {
     config = function ()
       -- Set up nvim-cmp.
       local cmp = require('cmp')
-      local luasnip = require('luasnip')
+      -- local luasnip = require('luasnip')
       cmp.setup({
         completion = { completeopt = 'menu,menuone,noinsert' },
         snippet = {
           expand = function(args)
-            luasnip.lsp_expand(args.body) -- For `luasnip` users.
+            -- luasnip.lsp_expand(args.body) -- For `luasnip` users.
+            vim.snippet.active()
+            vim.snippet.expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -266,24 +327,25 @@ return {
           --     fallback()
           --   end
           -- end, { 'i', 's' }),
-          ['<C-j>'] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
-              vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), "")
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-          ['<C-k>'] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
-              vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), "")
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
+          -- ['<C-j>'] = cmp.mapping(function(fallback)
+          --   if luasnip.expand_or_jumpable() then
+          --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), "")
+          --   else
+          --     fallback()
+          --   end
+          -- end, { 'i', 's' }),
+          -- ['<C-k>'] = cmp.mapping(function(fallback)
+          --   if luasnip.jumpable(-1) then
+          --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), "")
+          --   else
+          --     fallback()
+          --   end
+          -- end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
           { name = 'cmp_tabnine' },
-          { name = 'luasnip' },
+          -- { name = 'luasnip' },
+          { name = 'snippets' },
           { name = 'nvim_lua' },
           -- { name = 'crates' },
           { name = 'nvim_lsp' },
