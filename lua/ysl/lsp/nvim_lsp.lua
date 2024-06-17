@@ -270,6 +270,7 @@ return {
         friendly_snippets = true,
         search_paths = {
           U.CUSTOM_SNIPPETS_PATH,
+          U.path({vim.fn.stdpath('data'), 'lazy', 'cython-snips'}),
         }
       })
     end
