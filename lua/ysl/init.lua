@@ -1754,7 +1754,7 @@ vim.list_extend(M, {
     },
     config = function()
       require('aerial').setup({
-        backends = { 'treesitter' },
+        backends = { 'lsp', 'treesitter', 'markdown', 'asciidoc', 'man' },
         layout = {
           placement = 'edge'
         },
