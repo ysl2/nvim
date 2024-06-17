@@ -519,7 +519,7 @@ return {
   },
   {
     'mfussenegger/nvim-lint',
-    event = vim.list_extend({ 'BufReadPre', 'InsertLeave', 'CursorMoved' }, U.EVENTS.YSLFILE),
+    event = vim.list_extend({ 'BufReadPre', 'TextChanged' }, U.EVENTS.YSLFILE),
     dependencies = {
       'williamboman/mason.nvim',
       'rshkarin/mason-nvim-lint',
@@ -544,7 +544,7 @@ return {
         ensure_installed = ensure_installed,
       })
 
-      vim.api.nvim_create_autocmd(vim.list_extend({ 'BufReadPre', 'InsertLeave', 'CursorMoved' }, U.EVENTS.YSLFILE), {
+      vim.api.nvim_create_autocmd(vim.list_extend({ 'BufReadPre', 'TextChanged' }, U.EVENTS.YSLFILE), {
         callback = function()
 
           -- try_lint without arguments runs the linters defined in `linters_by_ft`
