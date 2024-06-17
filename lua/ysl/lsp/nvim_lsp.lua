@@ -88,7 +88,7 @@ return {
       'williamboman/mason.nvim',
       'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
-      'folke/neodev.nvim',
+      -- 'folke/neodev.nvim',
       'b0o/schemastore.nvim',
       'simrat39/rust-tools.nvim',
     },
@@ -131,9 +131,9 @@ return {
         -- For example, a handler override for the `rust_analyzer`:
         lua_ls = function()
           -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-          require('neodev').setup({
-            -- add any options here, or leave empty to use the default settings
-          })
+          -- require('neodev').setup({
+          --   -- add any options here, or leave empty to use the default settings
+          -- })
 
           lspconfig.lua_ls.setup(vim.tbl_deep_extend('force', {}, capabilities, {
             settings = {
@@ -293,6 +293,7 @@ return {
       'onsails/lspkind.nvim',
       'windwp/nvim-autopairs',
       -- 'saecki/crates.nvim',
+      'folke/lazydev.nvim'
     },
     config = function ()
       -- Set up nvim-cmp.
@@ -343,6 +344,7 @@ return {
           -- end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
+          { name = 'lazydev' },
           { name = 'cmp_tabnine' },
           -- { name = 'luasnip' },
           { name = 'snippets' },
@@ -564,4 +566,17 @@ return {
       require('dressing').setup()
     end
   },
+  {
+    'folke/lazydev.nvim',
+    dependencies = 'Bilal2453/luvit-meta',
+    ft = 'lua', -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+  { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
 }
