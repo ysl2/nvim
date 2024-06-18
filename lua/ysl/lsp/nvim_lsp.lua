@@ -489,7 +489,7 @@ return {
           print('"vim.g.autoformat" = ' .. tostring(vim.g.autoformat))
         end
       end, {
-        desc = 'Re-enable autoformat-on-save',
+        -- desc = 'Re-enable autoformat-on-save',
         bang = true,
       })
 
