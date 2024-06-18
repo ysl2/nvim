@@ -20,7 +20,7 @@ return {
       -- Use LspAttach autocommand to only map the following keys
       -- after the language server attaches to the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = U.GROUP.NVIM_LSP,
+        group = U.GROUPS.NVIM_LSP,
         callback = function(ev)
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -430,7 +430,7 @@ return {
     config = function()
       require('inc_rename').setup()
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = U.GROUP.NVIM_LSP,
+        group = U.GROUPS.NVIM_LSP,
         callback = function(ev)
           vim.keymap.set('n', '<LocalLeader>rn', function()
             return ':IncRename ' .. vim.fn.expand('<cword>')

@@ -1841,7 +1841,7 @@ vim.list_extend(M, {
   --         command = 'redrawstatus'
   --       })
   --       vim.api.nvim_create_autocmd('LspAttach', {
-  --         group = U.GROUP.NVIM_LSP,
+  --         group = U.GROUPS.NVIM_LSP,
   --         callback = function(ev)
   --           local noice_lsp = require('noice.lsp')
   --           vim.keymap.set({'n', 'i', 's'}, '<c-f>', function()

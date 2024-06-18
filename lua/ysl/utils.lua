@@ -104,7 +104,7 @@ M.TOBOOLEAN = {
 
 M.SIGNS = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 
-M.GROUP = {
+M.GROUPS = {
   NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
 }
 
