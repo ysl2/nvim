@@ -1999,14 +1999,15 @@ vim.list_extend(M, {
     ft = 'cython'
   },
   {
+    -- 'NullptrExceptions/cython-snips',
     'ysl2/cython-snips',
     ft = 'cython',
     dependencies = 'rafamadriz/friendly-snippets',
-    build = function ()
-      if vim.fn.has('win32') == 0 then
-        os.execute('/usr/bin/env python ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' cython')
-      end
-    end
+    -- build = function ()
+    --   if vim.fn.has('win32') == 0 then
+    --     os.execute('/usr/bin/env python ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' cython')
+    --   end
+    -- end
   },
   -- {
   --   'Exafunction/codeium.vim',
