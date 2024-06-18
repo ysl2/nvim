@@ -226,39 +226,16 @@ return {
       {
         '<C-j>',
         function()
-          if vim.snippet.active({ direction = 1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(1)
-            end)
-            return
-          end
-          return '<C-j>'
+          return vim.snippet.active({ direction = 1 }) and '<cmd>lua vim.snippet.jump(1)<cr>' or '<C-j>'
         end,
         expr = true,
         silent = true,
-        mode = 'i',
-      },
-      {
-        '<C-j>',
-        function()
-          vim.schedule(function()
-            vim.snippet.jump(1)
-          end)
-        end,
-        expr = true,
-        silent = true,
-        mode = 's',
+        mode = { 'i', 's' },
       },
       {
         '<C-k>',
         function()
-          if vim.snippet.active({ direction = -1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(-1)
-            end)
-            return
-          end
-          return '<C-k>'
+          return vim.snippet.active({ direction = -1 }) and '<cmd>lua vim.snippet.jump(-1)<cr>' or '<C-k>'
         end,
         expr = true,
         silent = true,
