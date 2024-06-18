@@ -322,10 +322,10 @@ return {
           -- end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
-          { name = 'lazydev' },
           { name = 'cmp_tabnine' },
           -- { name = 'luasnip' },
           { name = 'snippets' },
+          { name = 'lazydev' },
           { name = 'nvim_lua' },
           -- { name = 'crates' },
           { name = 'nvim_lsp' },
