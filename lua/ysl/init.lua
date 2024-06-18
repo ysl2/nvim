@@ -359,9 +359,9 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     config = function()
       require('illuminate').configure({
-        providers = {
-          'regex',
-        },
+        -- providers = {
+        --   'regex',
+        -- },
       })
     end
   },
