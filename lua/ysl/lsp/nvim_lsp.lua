@@ -480,6 +480,8 @@ return {
         end
       })
 
+      require('mason-conform').setup()
+
       vim.api.nvim_create_user_command('Format', function(args)
         local range = nil
         if args.count ~= -1 then
@@ -491,8 +493,6 @@ return {
         end
         conform.format({ async = true, lsp_fallback = true, range = range })
       end, { range = true })
-
-      require('mason-conform').setup()
 
       vim.api.nvim_create_user_command('MySaveAndFormatToggle', function(args)
         if args.bang then
