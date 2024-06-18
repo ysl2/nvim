@@ -224,18 +224,18 @@ return {
     },
     keys = {
       {
-        '<C-j>',
+        '<TAB>',
         function()
-          return vim.snippet.active({ direction = 1 }) and '<cmd>lua vim.snippet.jump(1)<cr>' or '<C-j>'
+          return vim.snippet.active({ direction = 1 }) and '<cmd>lua vim.snippet.jump(1)<cr>' or '<TAB>'
         end,
         expr = true,
         silent = true,
         mode = { 'i', 's' },
       },
       {
-        '<C-k>',
+        '<S-TAB>',
         function()
-          return vim.snippet.active({ direction = -1 }) and '<cmd>lua vim.snippet.jump(-1)<cr>' or '<C-k>'
+          return vim.snippet.active({ direction = -1 }) and '<cmd>lua vim.snippet.jump(-1)<cr>' or '<S-TAB>'
         end,
         expr = true,
         silent = true,
@@ -282,7 +282,7 @@ return {
         snippet = {
           expand = function(args)
             -- luasnip.lsp_expand(args.body) -- For `luasnip` users.
-            vim.snippet.active()
+            -- vim.snippet.active()
             vim.snippet.expand(args.body)
           end,
         },
