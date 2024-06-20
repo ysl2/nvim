@@ -315,7 +315,7 @@ local M = {}
 vim.list_extend(M, {
   {
     'kylechui/nvim-surround',
-    version = '*', -- Use for stability; omit to use `main` branch for the latest features
+    -- version = '*', -- Use for stability; omit to use `main` branch for the latest features
     event = 'VeryLazy',
     config = function()
       require('nvim-surround').setup({
@@ -367,7 +367,7 @@ vim.list_extend(M, {
   },
   {
     'smoka7/hop.nvim',
-    version = '*',
+    -- version = '*',
     event = 'VeryLazy',
     keys = {
       { 's', '<CMD>silent! HopChar1MW<CR>', mode = { 'n', 'o', 'x' }, silent = true },
@@ -1210,7 +1210,7 @@ vim.list_extend(M, {
   {
     'echasnovski/mini.clue',
     event = 'VeryLazy',
-    version = false,
+    -- version = false,
     config = function()
       local miniclue = require('mini.clue')
       miniclue.setup({
@@ -1705,7 +1705,6 @@ vim.list_extend(M, {
   {
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
-    version = '3.*',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
       require('bufferline').setup({
