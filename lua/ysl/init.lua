@@ -251,6 +251,16 @@ vim.api.nvim_create_autocmd('OptionSet', {
   end
 })
 
+-- Checkhealth
+vim.api.nvim_create_user_command('Checkhealth', function() vim.cmd('tabnew | silent! checkhealth | q') end, {})
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'checkhealth',
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set('n', 'q', '<cmd>bwipe!<cr>', { buffer = event.buf, silent = true })
+  end,
+})
+
 
 -- ===============
 -- === Plugins ===
