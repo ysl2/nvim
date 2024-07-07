@@ -31,7 +31,10 @@ vim.opt.cursorline = true
 vim.opt.exrc = true
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
-vim.cmd('language en_US.UTF8')
+local os_name = vim.loop.os_uname().sysname
+if os_name ~= "Darwin" then
+    vim.cmd('language en_US.UTF8')
+end
 pcall(vim.cmd, 'autocmd! nvim_swapfile')
 vim.opt.lazyredraw = true
 
@@ -413,7 +416,7 @@ M[#M + 1] = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'colorscheme' }),
   })
 
 local requires = U.set(U.safeget(S, 'requires'), {
-  'ysl.lsp.coc'
+  'ysl.lsp.nvim_lsp'
 })
 local _, lsp = U.greplist('ysl%.lsp.*', requires)
 
