@@ -538,12 +538,12 @@ return {
       })
     end
   },
-  { 'stevearc/dressing.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('dressing').setup()
-    end
-  },
+  -- { 'stevearc/dressing.nvim',
+  --   event = 'VeryLazy',
+  --   config = function()
+  --     require('dressing').setup()
+  --   end
+  -- },
   {
     'folke/lazydev.nvim',
     dependencies = 'Bilal2453/luvit-meta',
