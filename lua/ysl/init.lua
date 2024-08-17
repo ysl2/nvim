@@ -2020,6 +2020,13 @@ vim.list_extend(M, {
         --   position = 'bottom',
         -- }
       })
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'trouble',
+        callback = function()
+          vim.keymap.set('n', '<C-w>q', 'q', { silent = true, buffer = true, remap = true })
+        end
+      })
     end
   },
   {
