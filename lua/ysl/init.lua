@@ -596,6 +596,7 @@ vim.list_extend(M, {
           'yaml',
           'json',
           'html',
+          'bibtex',
           -- 'dockerfile',  -- This is sometime not precise, so disable this.
         },
 
