@@ -118,6 +118,7 @@ return {
         'clangd',
         'typst_lsp',
         'yamlls',
+        'ruff_lsp'
       }
 
       local lspconfig = require('lspconfig')
@@ -462,11 +463,11 @@ return {
       conform.setup({
         formatters_by_ft = {
           lua = { 'stylua' },
-          python = {
-            'ruff_fix',
-            'ruff_format',
-            'ruff_organize_imports'
-          },
+          -- python = {
+          --   'ruff_fix',
+          --   'ruff_format',
+          --   'ruff_organize_imports'
+          -- },
           sh = { 'shfmt' },
         },
         format_on_save = function(bufnr)
