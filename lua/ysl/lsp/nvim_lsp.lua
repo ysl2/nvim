@@ -117,9 +117,11 @@ return {
         'sourcery',
         'clangd',
         'typst_lsp',
+        'yamlls',
       }
 
       local lspconfig = require('lspconfig')
+      local schemastore = require('schemastore')
       local handlers = {
         -- The first entry (without a key) will be the default handler
         -- and will be called for each installed server that doesn't have
@@ -155,7 +157,7 @@ return {
           lspconfig.jsonls.setup(vim.tbl_deep_extend('force', {}, capabilities, {
             settings = {
               json = {
-                schemas = require('schemastore').json.schemas(),
+                schemas = schemastore.json.schemas(),
                 validate = { enable = true },
               },
             }
@@ -167,6 +169,22 @@ return {
               capabilities = capabilities,
             }
           })
+        end,
+        yamlls = function()
+          lspconfig.yamlls.setup(vim.tbl_deep_extend('force', {}, capabilities, {
+            settings = {
+              yaml = {
+                schemaStore = {
+                  -- You must disable built-in schemaStore support if you want to use
+                  -- this plugin and its advanced options like `ignore`.
+                  enable = false,
+                  -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                  url = '',
+                },
+                schemas = schemastore.yaml.schemas(),
+              },
+            }
+          }))
         end,
         -- ruff_lsp = function()
         --   lspconfig.ruff_lsp.setup(vim.tbl_deep_extend('force', {}, capabilities, {
@@ -449,6 +467,7 @@ return {
             'ruff_format',
             'ruff_organize_imports'
           },
+          sh = { 'shfmt' },
         },
         format_on_save = function(bufnr)
           if vim.g.autoformat or vim.b[bufnr].autoformat then
@@ -506,6 +525,8 @@ return {
       local lint = require('lint')
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        dockerfile = { 'hadolint' },
+        sh = { 'shellcheck' },
         -- python = { 'ruff' },
       }
       local always = {
