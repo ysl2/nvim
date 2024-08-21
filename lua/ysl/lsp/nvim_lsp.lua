@@ -535,8 +535,8 @@ return {
       }
 
       local ensure_installed = {}
-      for _, linter in pairs(lint.linters_by_ft) do
-        vim.list_extend(ensure_installed, linter)
+      for _, linters in pairs(lint.linters_by_ft) do
+        vim.list_extend(ensure_installed, linters)
       end
       vim.list_extend(ensure_installed, always)
 
