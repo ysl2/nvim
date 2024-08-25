@@ -110,14 +110,11 @@ return {
 
       local ensure_installed = {
         'jedi_language_server',
-        'jsonls',
         'vimls',
-        'bashls',
         'marksman',
         'sourcery',
         'clangd',
         'typst_lsp',
-        'yamlls',
         'ruff_lsp'
       }
 
@@ -171,6 +168,16 @@ return {
             }
           })
         end,
+        -- ruff_lsp = function()
+        --   lspconfig.ruff_lsp.setup(vim.tbl_deep_extend('force', {}, capabilities, {
+        --     on_attach = function(client, bufnr)
+        --       -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
+        --       client.server_capabilities.documentFormattingProvider = false
+        --       client.server_capabilities.hoverProvider = false
+        --       client.server_capabilities.renameProvider = false
+        --     end
+        --   }))
+        -- end,
         yamlls = function()
           lspconfig.yamlls.setup(vim.tbl_deep_extend('force', {}, capabilities, {
             settings = {
@@ -187,16 +194,15 @@ return {
             }
           }))
         end,
-        -- ruff_lsp = function()
-        --   lspconfig.ruff_lsp.setup(vim.tbl_deep_extend('force', {}, capabilities, {
-        --     on_attach = function(client, bufnr)
-        --       -- Ref: https://github.com/astral-sh/ruff-lsp/issues/78
-        --       client.server_capabilities.documentFormattingProvider = false
-        --       client.server_capabilities.hoverProvider = false
-        --       client.server_capabilities.renameProvider = false
-        --     end
-        --   }))
-        -- end,
+        bashls = function()
+          lspconfig.bashls.setup(vim.tbl_deep_extend('force', {}, capabilities, {
+            settings = {
+              bashIde = {
+                shellcheckPath = ''
+              }
+            }
+          }))
+        end,
       }
 
       for k, _ in pairs(handlers) do
