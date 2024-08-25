@@ -1,4 +1,5 @@
 {
+  "LuaSnip": { "branch": "master", "commit": "7ad2eaeaca56d6ed63acacbfc114b99f1f67b982" },
   "aerial.nvim": { "branch": "master", "commit": "4e77964569ef47a70f9bb76c668dcfea2d089d5a" },
   "bufdelete.nvim": { "branch": "master", "commit": "576a142108117f9326365bf4f7c494619aed55fe" },
   "bufferline.nvim": { "branch": "main", "commit": "99337f63f0a3c3ab9519f3d1da7618ca4f91cffe" },
@@ -9,6 +10,7 @@
   "cmp-nvim-lsp": { "branch": "main", "commit": "39e2eda76828d88b773cc27a3f61d2ad782c922d" },
   "cmp-nvim-lua": { "branch": "main", "commit": "f12408bdb54c39c23e67cab726264c10db33ada8" },
   "cmp-tabnine": { "branch": "main", "commit": "d52aae40ee86b62960c31a003352ddfc9e31c8d2" },
+  "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
   "conform.nvim": { "branch": "master", "commit": "9a06e83527407a7600a2fe4e0d10adf432b6215e" },
   "copilot.lua": { "branch": "master", "commit": "86537b286f18783f8b67bccd78a4ef4345679625" },
   "csv.vim": { "branch": "master", "commit": "4d5255829afe3b6badb0c8a040116704c0d3213c" },
