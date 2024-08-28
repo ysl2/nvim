@@ -74,6 +74,12 @@ vim.api.nvim_create_autocmd('BufEnter', {
     vim.opt.filetype = 'masm'
   end
 })
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '*.j2',
+  callback = function()
+    vim.opt.filetype = 'htmldjango'
+  end
+})
 
 -- === Colorscheme settings.
 vim.api.nvim_create_autocmd('ColorScheme', {
@@ -598,6 +604,7 @@ vim.list_extend(M, {
           'html',
           'bibtex',
           -- 'dockerfile',  -- This is sometime not precise, so disable this.
+          'htmldjango',
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
