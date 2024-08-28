@@ -1776,6 +1776,7 @@ vim.list_extend(M, {
       vim.keymap.set('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { silent = true, expr = true })
     end
   },
+  -- { 'echasnovski/mini.pairs', version = false, opts = {} },
   {
     'stevearc/aerial.nvim',
     keys = {
