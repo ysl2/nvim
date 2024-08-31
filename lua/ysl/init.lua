@@ -2161,15 +2161,25 @@ vim.list_extend(M, {
   {
     'danymat/neogen',
     cmd = 'Neogen',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
+    dependencies = (function()
+      local deps = {
+        'nvim-treesitter/nvim-treesitter',
+      }
+      if lsp == 'ysl.lsp.nvim_lsp' then
+        deps[#deps + 1] = 'L3MON4D3/LuaSnip'
+      end
+      return deps
+    end)(),
     config = function()
       local neogen = require('neogen')
       neogen.setup({
-        snippet_engine = 'nvim'
+        snippet_engine = (lsp == 'ysl.lsp.nvim_lsp') and 'luasnip' or 'nvim'
       })
-      local opts = { silent = true }
-      vim.keymap.set('i', '<C-j>', function() neogen.jump_next() end, opts)
-      vim.keymap.set('i', '<C-k>', function() neogen.jump_prev() end, opts)
+      if lsp ~= 'ysl.lsp.nvim_lsp' then
+        local opts = { silent = true }
+        vim.keymap.set('i', '<C-j>', function() neogen.jump_next() end, opts)
+        vim.keymap.set('i', '<C-k>', function() neogen.jump_prev() end, opts)
+      end
     end,
   },
   {
