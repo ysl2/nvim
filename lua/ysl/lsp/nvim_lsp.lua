@@ -534,7 +534,7 @@ return {
         markdown = { 'markdownlint' },
         dockerfile = { 'hadolint' },
         sh = { 'shellcheck' },
-        -- python = { 'ruff' },
+        python = { 'mypy' },
       }
       local always = {
         -- 'cspell',
