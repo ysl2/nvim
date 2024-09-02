@@ -556,6 +556,9 @@ return {
         ensure_installed = ensure_installed,
       })
 
+      -- local mypy = lint.linters.mypy
+      -- mypy.args[#mypy.args + 1] = '--strict'
+
       vim.api.nvim_create_autocmd(vim.list_extend({ 'BufReadPre', 'TextChanged' }, U.EVENTS.YSLFILE), {
         callback = function()
 
