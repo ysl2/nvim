@@ -112,7 +112,6 @@ return {
         'jedi_language_server',
         'vimls',
         'marksman',
-        'sourcery',
         'clangd',
         'typst_lsp',
         'ruff_lsp'
@@ -200,6 +199,13 @@ return {
               bashIde = {
                 shellcheckPath = ''
               }
+            }
+          }))
+        end,
+        sourcery = function()
+          lspconfig.sourcery.setup(vim.tbl_deep_extend('force', {}, capabilities, {
+            init_options = {
+              token = U.LSP.SOURCERY.INIT_OPTIONS.TOKEN
             }
           }))
         end,

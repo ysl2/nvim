@@ -94,16 +94,7 @@ return {
         ['languageserver'] = {
           sourcery = {
             initializationOptions = {
-              token = (function()
-                if vim.fn.has('win32') == 1 then
-                  return nil
-                end
-                local token = '~/.config/sourcery/auth.yaml'
-                if not vim.fn.glob(token) then
-                  return nil
-                end
-                return U.exec('cat '..token.." | awk '{print $2}'")
-              end)()
+              token = U.LSP.SOURCERY.INIT_OPTIONS.TOKEN
             }
           }
         }

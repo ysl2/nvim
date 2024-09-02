@@ -108,39 +108,53 @@ M.GROUPS = {
   NVIM_LSP = vim.api.nvim_create_augroup('UserLspConfig', {})
 }
 
--- M.LSP = {
---   -- CSPELL = {
---   --   FILETYPES = {
---   --     'markdown',
---   --     'plaintext',
---   --     'latex'
---   --   },
---   --   EXTRA_ARGS = {
---   --     CONFIG = M.path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
---   --   }
---   -- },
---   -- FLAKE8 = {
---   --   EXTRA_ARGS = {
---   --     '--max-line-length=' .. vim.fn.winwidth('$'),
---   --     '--ignore=ANN101,ANN102,E402,E741,E203',
---   --   }
---   -- },
---   -- BLACK = {
---   --   EXTRA_ARGS = {
---   --     '--line-length=120',
---   --     '--skip-string-normalization',
---   --   }
---   -- },
---   -- RUFF = {
---   --   FORMAT = {
---   --     ARGS = {
---   --       "--line-length=" .. vim.fn.winwidth('$'),
---   --       "--config",
---   --       "format.quote-style='single'"
---   --     }
---   --   }
---   -- }
--- }
+M.LSP = {
+  -- CSPELL = {
+  --   FILETYPES = {
+  --     'markdown',
+  --     'plaintext',
+  --     'latex'
+  --   },
+  --   EXTRA_ARGS = {
+  --     CONFIG = M.path({vim.fn.stdpath('config'), 'templates', 'cspell.json'})
+  --   }
+  -- },
+  -- FLAKE8 = {
+  --   EXTRA_ARGS = {
+  --     '--max-line-length=' .. vim.fn.winwidth('$'),
+  --     '--ignore=ANN101,ANN102,E402,E741,E203',
+  --   }
+  -- },
+  -- BLACK = {
+  --   EXTRA_ARGS = {
+  --     '--line-length=120',
+  --     '--skip-string-normalization',
+  --   }
+  -- },
+  -- RUFF = {
+  --   FORMAT = {
+  --     ARGS = {
+  --       "--line-length=" .. vim.fn.winwidth('$'),
+  --       "--config",
+  --       "format.quote-style='single'"
+  --     }
+  --   }
+  -- }
+  SOURCERY = {
+    INIT_OPTIONS = {
+      TOKEN = (function()
+        if vim.fn.has('win32') == 1 then
+          return nil
+        end
+        local token = '~/.config/sourcery/auth.yaml'
+        if not vim.fn.glob(token) then
+          return nil
+        end
+        return M.exec('cat '..token.." | awk '{print $2}'")
+      end)()
+    }
+  }
+}
 
 M.CUSTOM_SNIPPETS_PATH = M.path({vim.fn.stdpath('config'), 'templates', 'snippets'})
 
