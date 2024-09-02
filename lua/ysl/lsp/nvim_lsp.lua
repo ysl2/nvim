@@ -114,7 +114,7 @@ return {
         'marksman',
         'clangd',
         'typst_lsp',
-        'ruff_lsp'
+        'ruff_lsp',
       }
 
       local lspconfig = require('lspconfig')
@@ -234,7 +234,11 @@ return {
         U.path({vim.fn.stdpath('data'), 'lazy', 'friendly-snippets'}),
         U.path({vim.fn.stdpath('data'), 'lazy', 'cython-snips'}),
       }})
+
       local luasnip = require('luasnip')
+      luasnip.filetype_extend('htmldjango', { 'html' })
+      luasnip.filetype_extend('cython', { 'python' })
+
       -- Stop snippets when you leave to normal mode
       vim.api.nvim_create_autocmd('ModeChanged', {
         callback = function()

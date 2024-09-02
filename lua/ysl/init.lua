@@ -2045,8 +2045,9 @@ vim.list_extend(M, {
   {
     -- 'NullptrExceptions/cython-snips',
     'ysl2/cython-snips',
+    branch = (lsp == 'ysl.lsp.nvim_lsp') and 'dev' or nil,
     ft = 'cython',
-    dependencies = 'rafamadriz/friendly-snippets',
+    dependencies = (lsp == 'ysl.lsp.nvim_lsp') and nil or 'rafamadriz/friendly-snippets',
     -- build = function ()
     --   if vim.fn.has('win32') == 0 then
     --     os.execute('/usr/bin/env python ' .. U.path({vim.fn.stdpath('config'), 'scripts', 'build_snippets.py'}) .. ' cython')
