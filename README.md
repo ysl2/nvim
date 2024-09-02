@@ -240,6 +240,13 @@ You can find language-specific outer debuggers below.
 
    This config will auto dynamically read `~/.config/sourcery/auth.yaml`(this is the default sourcery config file) to load the sourcery token.
 
+4. mypy
+
+    ```bash
+    # Install stubs
+    mypy --install-types
+    ```
+
 #### C
 
 For coc, you also need to manually install `clangd`.
