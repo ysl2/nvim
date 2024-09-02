@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end
 })
 vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = '*.j2',
+  pattern = { '*.j2', '*.jinja', '*.jinja2', '*.django', '*.htmldjango' },
   callback = function()
     vim.opt.filetype = 'htmldjango'
   end
