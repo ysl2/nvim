@@ -605,6 +605,8 @@ vim.list_extend(M, {
           'bibtex',
           -- 'dockerfile',  -- This is sometime not precise, so disable this.
           'htmldjango',
+          'go',
+          'gomod'
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -1001,6 +1003,8 @@ vim.list_extend(M, {
             cmd = ('cd "%s" && pdftoppm -f 1 -l 1 -png "%s" > "/tmp/%s.png" && chafa "/tmp/%s.png"'):format(dir, fileName, fileNameWithoutExt, fileNameWithoutExt)
           elseif ft == 'lua' then
             cmd = ('cd "%s" && lua %s'):format(dir, fileName)
+          elseif ft == 'go' then
+            cmd = ('cd "%s" && go run %s'):format(dir, fileName)
           end
           if cmd == nil then return end
           cmd = cmd:gsub('/', sep)

@@ -115,6 +115,7 @@ return {
         'clangd',
         'typst_lsp',
         'ruff_lsp',
+        'gopls',
       }
 
       local lspconfig = require('lspconfig')
