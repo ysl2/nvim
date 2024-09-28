@@ -61,9 +61,14 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'c', 'cpp' },
+  pattern = { 'c', 'cpp', 'go', 'yaml'  },
   callback = function()
     vim.opt_local.expandtab = false
+  end
+})
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'cpp' },
+  callback = function()
     vim.opt_local.cindent = true
   end
 })
@@ -78,12 +83,6 @@ vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { '*.j2', '*.jinja', '*.jinja2', '*.django', '*.htmldjango' },
   callback = function()
     vim.opt.filetype = 'htmldjango'
-  end
-})
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'go' },
-  callback = function()
-    vim.opt_local.expandtab = false
   end
 })
 
