@@ -1807,6 +1807,7 @@ vim.list_extend(M, {
         attach_mode = 'global',
         close_automatic_events = { 'unsupported' },
         show_guides = true,
+        disable_max_lines = 20000,
       })
     end
   },
