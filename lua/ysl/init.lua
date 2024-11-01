@@ -454,7 +454,11 @@ vim.list_extend(M, {
     'lewis6991/gitsigns.nvim',
     event = 'VeryLazy',
     config = function()
-      require('gitsigns').setup()
+      require('gitsigns').setup({
+        current_line_blame_opts = {
+          delay = 0,
+        },
+      })
     end,
   },
   {
