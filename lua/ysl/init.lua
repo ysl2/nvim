@@ -146,23 +146,23 @@ vim.keymap.set('n', '<C-w>z', '<C-w>|<C-w>_', { silent = true })
 -- :h emacs-keys
 vim.cmd([[
 	" start of line
-	:cnoremap <C-A>		<Home>
+	:cnoremap <C-A>		<HOME>
 	" back one character
-	:cnoremap <C-B>		<Left>
+	:cnoremap <C-B>		<LEFT>
 	" delete character under cursor
-	:cnoremap <C-D>		<Del>
+	:cnoremap <C-D>		<DEL>
 	" end of line
-	:cnoremap <C-E>		<End>
+	:cnoremap <C-E>		<END>
 	" forward one character
-	:cnoremap <C-F>		<Right>
+	:cnoremap <C-F>		<RIGHT>
 	" recall newer command-line
-	:cnoremap <C-N>		<Down>
+	:cnoremap <C-N>		<DOWN>
 	" recall previous (older) command-line
-	:cnoremap <C-P>		<Up>
+	:cnoremap <C-P>		<UP>
 	" back one word
-	:cnoremap <A-b>	<S-Left>
+	:cnoremap <A-b>	<S-LEFT>
 	" forward one word
-	:cnoremap <A-f>	<S-Right>
+	:cnoremap <A-f>	<S-RIGHT>
 ]])
 
 -- === Keymap functions.
@@ -185,7 +185,7 @@ local function _my_custom_diff_diffwins_clean()
   vim.cmd('diffoff!')
   _my_custom_diff_diffwins = {}
 end
-vim.keymap.set('n', '<Leader>d', function()
+vim.keymap.set('n', '<LEADER>d', function()
   if #_my_custom_diff_diffwins >= 2 then
     _my_custom_diff_diffwins_clean()
     return
@@ -200,7 +200,7 @@ vim.keymap.set('n', '<Leader>d', function()
     table.insert(_my_custom_diff_diffwins, winnr)
   end
 end, { silent = true })
-vim.keymap.set('n', '<Leader>D', function() return _my_custom_diff_diffwins_clean() end, { silent = true })
+vim.keymap.set('n', '<LEADER>D', function() return _my_custom_diff_diffwins_clean() end, { silent = true })
 
 -- ===
 -- === Functions
@@ -272,7 +272,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'checkhealth',
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set('n', 'q', '<cmd>bwipe!<cr>', { buffer = event.buf, silent = true })
+    vim.keymap.set('n', 'q', '<CMD>bwipe!<CR>', { buffer = event.buf, silent = true })
   end,
 })
 
@@ -396,7 +396,7 @@ vim.list_extend(M, {
     event = 'VeryLazy',
     keys = {
       { 's', '<CMD>silent! HopChar1MW<CR>', mode = { 'n', 'o', 'x' }, silent = true },
-      -- { '<Leader><Leader>', '<CMD>silent! HopPatternMW<CR>', mode = { 'n', 'o', 'x' }, silent = true }
+      -- { '<LEADER><LEADER>', '<CMD>silent! HopPatternMW<CR>', mode = { 'n', 'o', 'x' }, silent = true }
     },
     config = function()
       require('hop').setup()
@@ -547,7 +547,7 @@ vim.list_extend(M, {
   {
     'is0n/fm-nvim',
     keys = {
-       { '<Leader>l', '<CMD>Lf<CR>', mode = 'n', silent = true, desc = '<CMD>Lf<CR>' },
+       { '<LEADER>l', '<CMD>Lf<CR>', mode = 'n', silent = true, desc = '<CMD>Lf<CR>' },
     },
     config = function()
       require('fm-nvim').setup({
@@ -738,7 +738,7 @@ vim.list_extend(M, {
       { '<LEADER>M', '<CMD>Telescope vim_bookmarks all<CR>',          mode = 'n', silent = true },
       { '<LEADER>U', '<CMD>Telescope resume<CR>',                     mode = 'n', silent = true },
       {
-        '<Leader>/', function()
+        '<LEADER>/', function()
           require('telescope.builtin').current_buffer_fuzzy_find()
         end, mode = 'n', silent = true
       }
@@ -1228,10 +1228,10 @@ vim.list_extend(M, {
   -- {
   --   'ysl2/leetcode.vim',
   --   keys = {
-  --     { '<leader>Ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeList<CR>' },
-  --     { '<leader>Lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeTest<CR>' },
-  --     { '<leader>Ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSubmit<CR>' },
-  --     { '<leader>Li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSignIn<CR>' }
+  --     { '<LEADER>Ll', '<CMD>LeetCodeList<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeList<CR>' },
+  --     { '<LEADER>Lt', '<CMD>LeetCodeTest<CR>',   mode = 'n', silent = true, desc = '<CMD>LeetCodeTest<CR>' },
+  --     { '<LEADER>Ls', '<CMD>LeetCodeSubmit<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSubmit<CR>' },
+  --     { '<LEADER>Li', '<CMD>LeetCodeSignIn<CR>', mode = 'n', silent = true, desc = '<CMD>LeetCodeSignIn<CR>' }
   --   },
   --   config = function()
   --     vim.g.leetcode_china = 0
@@ -1266,10 +1266,10 @@ vim.list_extend(M, {
       miniclue.setup({
         triggers = {
           -- Leader triggers
-          { mode = 'n', keys = '<Leader>' },
-          { mode = 'x', keys = '<Leader>' },
-          { mode = 'n', keys = '<LocalLeader>' },
-          { mode = 'x', keys = '<LocalLeader>' },
+          { mode = 'n', keys = '<LEADER>' },
+          { mode = 'x', keys = '<LEADER>' },
+          { mode = 'n', keys = '<LOCALLEADER>' },
+          { mode = 'x', keys = '<LOCALLEADER>' },
 
           -- Built-in completion
           { mode = 'i', keys = '<C-x>' },
@@ -1298,7 +1298,7 @@ vim.list_extend(M, {
           { mode = 'x', keys = 'z' },
         },
         clues = {
-          -- Enhance this by adding descriptions for <Leader> mapping groups
+          -- Enhance this by adding descriptions for <LEADER> mapping groups
           miniclue.gen_clues.builtin_completion(),
           miniclue.gen_clues.g(),
           miniclue.gen_clues.marks(),
@@ -1849,7 +1849,7 @@ vim.list_extend(M, {
   --   cond = not vim.g.started_by_firenvim,
   --   lazy = true,
   --   keys = {
-  --     { '<Leader>:', '<CMD>NoiceDismiss<CR>', mode = 'n', silent = true }
+  --     { '<LEADER>:', '<CMD>NoiceDismiss<CR>', mode = 'n', silent = true }
   --   },
   --   dependencies = {
   --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -1944,7 +1944,7 @@ vim.list_extend(M, {
   --   'petertriho/nvim-scrollbar',
   --   event = 'VeryLazy',
   --   keys = {
-  --     { '<Leader>|', '<CMD>ScrollbarToggle<CR>', mode = 'n', silent = true }
+  --     { '<LEADER>|', '<CMD>ScrollbarToggle<CR>', mode = 'n', silent = true }
   --   },
   --   dependencies = {
   --     'lewis6991/gitsigns.nvim'
@@ -2023,7 +2023,7 @@ vim.list_extend(M, {
     cmd = 'AnsiEsc',
     keys = {
       {
-        '<Leader>E', function()
+        '<LEADER>E', function()
           local pos = vim.fn.getpos('.')
           local colors_name = vim.g.colors_name
           vim.cmd('silent! AnsiEsc')
@@ -2038,7 +2038,7 @@ vim.list_extend(M, {
     dependencies = 'nvim-tree/nvim-web-devicons',
     keys = {
       {
-        '<Leader>x', function()
+        '<LEADER>x', function()
           local cmd = 'Trouble diagnostics toggle'
           if lsp == 'ysl.lsp.coc' then
             cmd = [[
@@ -2260,7 +2260,7 @@ vim.list_extend(M, {
   {
     'jbyuki/venn.nvim',
     keys = {
-      { '<Leader>V', function()
+      { '<LEADER>V', function()
         local venn_enabled = vim.inspect(vim.b.venn_enabled)
         if venn_enabled == 'nil' then
           vim.b.venn_enabled = true

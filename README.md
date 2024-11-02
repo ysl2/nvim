@@ -333,7 +333,7 @@ marksman
 
 #### Multimedia
 
-need `chafa` and press `<Leader>r` to run `jpg`, `png`, `gif` file and show it's content.
+need `chafa` and press `<LEADER>r` to run `jpg`, `png`, `gif` file and show it's content.
 
 need `pdftoppm` and `chafa` for `pdf` preview.
 

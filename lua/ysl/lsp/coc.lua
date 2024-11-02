@@ -17,7 +17,7 @@ return {
       }
     },
     config = function()
-      -- vim.keymap.set('n', '<LocalLeader><TAB>', function()
+      -- vim.keymap.set('n', '<LOCALLEADER><TAB>', function()
       --   vim.cmd('ccl')
       --   vim.cmd('lcl')
       --   vim.cmd('set cmdheight=1')
@@ -167,7 +167,7 @@ return {
       -- Use tab for trigger completion with characters ahead and navigate.
       -- NOTE: There's always complete item selected by default, you may want to enable
       -- no select by `"suggest.noselect": true` in your configuration file.
-      -- NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+      -- NOTE: Use command ':verbose imap <TAB>' to make sure tab is not mapped by
       -- other plugin before putting this into your config.
       local opts = { silent = true, expr = true, replace_keycodes = false }
       -- vim.keymap.set('i', '<TAB>',
@@ -178,7 +178,7 @@ return {
 
       -- Make <CR> to accept selected completion item or notify coc.nvim to format
       -- <C-g>u breaks current undo, please make your own choice.
-      vim.keymap.set('i', '<cr>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+      vim.keymap.set('i', '<CR>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
         opts)
 
       -- Use <c-j> to trigger snippets
@@ -190,7 +190,7 @@ return {
       -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
       vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
       vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next)', { silent = true })
-      vim.keymap.set('n', '<LocalLeader>e', '<CMD>CocDiagnostics<CR>', { silent = true })
+      vim.keymap.set('n', '<LOCALLEADER>e', '<CMD>CocDiagnostics<CR>', { silent = true })
 
       -- GoTo code navigation.
       vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
@@ -244,7 +244,7 @@ return {
       })
 
       -- Applying codeAction to the selected region.
-      -- Example: `<leader>aap` for current paragraph
+      -- Example: `<LEADER>aap` for current paragraph
       local opts = { silent = true, nowait = true }
       vim.keymap.set('x', [[\ac]], '<Plug>(coc-codeaction-line)', opts)
       vim.keymap.set('n', [[\ac]], '<Plug>(coc-codeaction-line)', opts)
@@ -274,21 +274,21 @@ return {
       local opts = { silent = true, nowait = true, expr = true }
       vim.keymap.set('n', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
       vim.keymap.set('n', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
-      -- vim.keymap.set('i', '<C-f>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
-      -- vim.keymap.set('i', '<C-b>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
+      -- vim.keymap.set('i', '<C-f>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<CR>" : "<RIGHT>"', opts)
+      -- vim.keymap.set('i', '<C-b>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<CR>" : "<LEFT>"', opts)
       vim.keymap.set('i', '<C-f>', function()
         if vim.fn['coc#float#has_scroll']() == 1 then
           vim.cmd([[call coc#float#scroll(1)]])
           return
         end
-        return '<Right>'
+        return '<RIGHT>'
       end, opts)
       vim.keymap.set('i', '<C-b>', function()
         if vim.fn['coc#float#has_scroll']() == 1 then
           vim.cmd([[call coc#float#scroll(0)]])
           return
         end
-        return '<Left>'
+        return '<LEFT>'
       end, opts)
       vim.keymap.set('v', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
       vim.keymap.set('v', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
@@ -317,21 +317,21 @@ return {
       ---@diagnostic disable-next-line: redefined-local
       -- local opts = { silent = true, nowait = true }
       -- Show all diagnostics.
-      -- vim.keymap.set('n', '<space>a', ':<C-u>CocList diagnostics<cr>', opts)
+      -- vim.keymap.set('n', '<SPACE>a', ':<C-u>CocList diagnostics<CR>', opts)
       -- Manage extensions.
-      -- vim.keymap.set('n', '<space>e', ':<C-u>CocList extensions<cr>', opts)
+      -- vim.keymap.set('n', '<SPACE>e', ':<C-u>CocList extensions<CR>', opts)
       -- Show commands.
-      -- vim.keymap.set('n', '<space>c', ':<C-u>CocList commands<cr>', opts)
+      -- vim.keymap.set('n', '<SPACE>c', ':<C-u>CocList commands<CR>', opts)
       -- Find symbol of current document.
-      -- vim.keymap.set('n', '<space>o', ':<C-u>CocList outline<cr>', opts)
+      -- vim.keymap.set('n', '<SPACE>o', ':<C-u>CocList outline<CR>', opts)
       -- Search workspace symbols.
-      -- vim.keymap.set('n', '<space>s', ':<C-u>CocList -I symbols<cr>', opts)
+      -- vim.keymap.set('n', '<SPACE>s', ':<C-u>CocList -I symbols<CR>', opts)
       -- Do default action for next item.
-      -- vim.keymap.set('n', '<space>j', ':<C-u>CocNext<cr>', opts)
+      -- vim.keymap.set('n', '<SPACE>j', ':<C-u>CocNext<CR>', opts)
       -- Do default action for previous item.
-      -- vim.keymap.set('n', '<space>k', ':<C-u>CocPrev<cr>', opts)
+      -- vim.keymap.set('n', '<SPACE>k', ':<C-u>CocPrev<CR>', opts)
       -- Resume latest coc list.
-      -- vim.keymap.set('n', '<space>p', ':<C-u>CocListResume<cr>', opts)
+      -- vim.keymap.set('n', '<SPACE>p', ':<C-u>CocListResume<CR>', opts)
 
       -- vim.api.nvim_create_autocmd('VimLeavePre', {
       --   command = [[call coc#rpc#kill()]]
