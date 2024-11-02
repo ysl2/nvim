@@ -1797,23 +1797,52 @@ vim.list_extend(M, {
     end
   },
   -- { 'echasnovski/mini.pairs', version = false, opts = {} },
+  -- {
+  --   'stevearc/aerial.nvim',
+  --   keys = {
+  --     { '<LEADER>v', function() require('aerial').toggle({ focus = true }) end, mode = 'n', silent = true }
+  --   },
+  --   config = function()
+  --     require('aerial').setup({
+  --       backends = { 'lsp', 'treesitter', 'markdown', 'asciidoc', 'man' },
+  --       layout = {
+  --         placement = 'edge'
+  --       },
+  --       attach_mode = 'global',
+  --       close_automatic_events = { 'unsupported' },
+  --       show_guides = true,
+  --       disable_max_lines = 20000,
+  --     })
+  --   end
+  -- },
   {
-    'stevearc/aerial.nvim',
-    keys = {
-      { '<LEADER>v', function() require('aerial').toggle({ focus = true }) end, mode = 'n', silent = true }
+    'hedyhli/outline.nvim',
+    keys = { -- Example mapping to toggle outline
+      { '<LEADER>v', '<CMD>Outline<CR>', desc = 'Toggle outline' },
     },
-    config = function()
-      require('aerial').setup({
-        backends = { 'lsp', 'treesitter', 'markdown', 'asciidoc', 'man' },
-        layout = {
-          placement = 'edge'
+    opts = {
+      outline_window = {
+        -- Percentage or integer of columns
+        width = 20,
+        -- boolean or integer for milliseconds duration to apply a temporary highlight
+        -- when jumping. false to disable.
+        jump_highlight_duration = vim.highlight.priorities.user,
+      },
+      symbol_folding = {
+        -- Depth past which nodes will be folded by default. Set to false to unfold all on open.
+        autofold_depth = false,
+        auto_unfold = {
+          -- Auto fold when the root level only has this many nodes.
+          -- Set true for 1 node, false for 0.
+          only = false,
         },
-        attach_mode = 'global',
-        close_automatic_events = { 'unsupported' },
-        show_guides = true,
-        disable_max_lines = 20000,
-      })
-    end
+      },
+      preview_window = {
+        -- Experimental feature that let's you edit the source content live
+        -- in the preview window. Like VS Code's "peek editor".
+        live = true
+      },
+    },
   },
   -- {
   --   'folke/noice.nvim',
