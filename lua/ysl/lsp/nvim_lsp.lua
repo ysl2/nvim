@@ -290,11 +290,18 @@ return {
   -- },
   {
     -- 'ysl2/nvim-cmp', -- Autocompletion plugin
-    'hrsh7th/nvim-cmp', -- Autocompletion plugin
+    'iguanacucumber/magazine.nvim', name = 'nvim-cmp', -- Otherwise highlighting gets messed up
+    -- 'hrsh7th/nvim-cmp', -- Autocompletion plugin
     event = 'InsertEnter',
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
-      'hrsh7th/cmp-buffer',
+      -- 'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
+      -- 'hrsh7th/cmp-nvim-lua',
+      -- 'hrsh7th/cmp-buffer',
+      { 'iguanacucumber/mag-nvim-lsp', name = 'cmp-nvim-lsp', opts = {} },
+      { 'iguanacucumber/mag-nvim-lua', name = 'cmp-nvim-lua' },
+      { 'iguanacucumber/mag-buffer', name = 'cmp-buffer' },
+      -- { 'iguanacucumber/mag-cmdline', name = 'cmp-cmdline' },
+
       'https://codeberg.org/FelipeLema/cmp-async-path',
       'L3MON4D3/LuaSnip', -- Snippets plugin
       'garymjr/nvim-snippets',
@@ -303,7 +310,6 @@ return {
         'tzachar/cmp-tabnine',
         build = (vim.fn.has('win32') == 1) and 'powershell ./install.ps1' or './install.sh',
       },
-      'hrsh7th/cmp-nvim-lua',
       'onsails/lspkind.nvim',
       'windwp/nvim-autopairs',
       -- 'saecki/crates.nvim',
