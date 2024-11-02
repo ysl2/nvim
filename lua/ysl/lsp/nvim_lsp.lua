@@ -29,10 +29,10 @@ return {
 
           -- Global mappings.
           -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-          vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, opts)
+          vim.keymap.set('n', '<LOCALLEADER>e', vim.diagnostic.open_float, opts)
           vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
           vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-          vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist, opts)
+          vim.keymap.set('n', '<LOCALLEADER>q', vim.diagnostic.setloclist, opts)
 
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -41,16 +41,16 @@ return {
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-          vim.keymap.set('n', '<LocalLeader>wl', function()
+          vim.keymap.set('n', '<LOCALLEADER>wa', vim.lsp.buf.add_workspace_folder, opts)
+          vim.keymap.set('n', '<LOCALLEADER>wr', vim.lsp.buf.remove_workspace_folder, opts)
+          vim.keymap.set('n', '<LOCALLEADER>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts)
-          vim.keymap.set('n', '<LocalLeader>D', vim.lsp.buf.type_definition, opts)
-          -- vim.keymap.set('n', '<LocalLeader>rn', vim.lsp.buf.rename, opts)
-          vim.keymap.set({ 'n', 'v' }, '<LocalLeader>ca', vim.lsp.buf.code_action, opts)
+          vim.keymap.set('n', '<LOCALLEADER>D', vim.lsp.buf.type_definition, opts)
+          -- vim.keymap.set('n', '<LOCALLEADER>rn', vim.lsp.buf.rename, opts)
+          vim.keymap.set({ 'n', 'v' }, '<LOCALLEADER>ca', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-          vim.keymap.set('n', '<LocalLeader>f', function()
+          vim.keymap.set('n', '<LOCALLEADER>f', function()
             vim.lsp.buf.format { async = true }
           end, opts)
 
@@ -262,7 +262,7 @@ return {
   --     {
   --       '<TAB>',
   --       function()
-  --         return vim.snippet.active({ direction = 1 }) and '<cmd>lua vim.snippet.jump(1)<cr>' or '<TAB>'
+  --         return vim.snippet.active({ direction = 1 }) and '<CMD>lua vim.snippet.jump(1)<CR>' or '<TAB>'
   --       end,
   --       expr = true,
   --       silent = true,
@@ -271,7 +271,7 @@ return {
   --     {
   --       '<S-TAB>',
   --       function()
-  --         return vim.snippet.active({ direction = -1 }) and '<cmd>lua vim.snippet.jump(-1)<cr>' or '<S-TAB>'
+  --         return vim.snippet.active({ direction = -1 }) and '<CMD>lua vim.snippet.jump(-1)<CR>' or '<S-TAB>'
   --       end,
   --       expr = true,
   --       silent = true,
@@ -334,14 +334,14 @@ return {
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.abort(),
           ['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true, },
-          -- ['<Tab>'] = cmp.mapping(function(fallback)
+          -- ['<TAB>'] = cmp.mapping(function(fallback)
           --   if cmp.visible() then
           --     cmp.select_next_item()
           --   else
           --     fallback()
           --   end
           -- end, { 'i', 's' }),
-          -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+          -- ['<S-TAB>'] = cmp.mapping(function(fallback)
           --   if cmp.visible() then
           --     cmp.select_prev_item()
           --   else
@@ -451,7 +451,7 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = U.GROUPS.NVIM_LSP,
         callback = function(ev)
-          vim.keymap.set('n', '<LocalLeader>rn', function()
+          vim.keymap.set('n', '<LOCALLEADER>rn', function()
             return ':IncRename ' .. vim.fn.expand('<cword>')
           end, { expr = true })
         end
