@@ -28,6 +28,13 @@ Insights from:
 
 ### Prerequisites
 
+```
+NVIM v0.10.0
+Build type: Release
+LuaJIT 2.1.1723675123
+Run "nvim -V1 -v" for more info
+```
+
 - Linux/Mac/Windows:
     <!-- - Neovim version >= 0.10.0 -->
     - A build tool: Essential, for enhance telescope performance, choose one below depends on your system.
