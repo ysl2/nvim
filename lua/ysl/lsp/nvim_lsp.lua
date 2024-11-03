@@ -569,6 +569,7 @@ return {
 
       -- local mypy = lint.linters.mypy
       -- mypy.args[#mypy.args + 1] = '--strict'
+      -- mypy.args[#mypy.args + 1] = '--implicit-optional'
 
       vim.api.nvim_create_autocmd(vim.list_extend({ 'BufReadPre', 'TextChanged' }, U.EVENTS.YSLFILE), {
         callback = function()
