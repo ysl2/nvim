@@ -85,6 +85,12 @@ vim.api.nvim_create_autocmd('BufEnter', {
     vim.opt.filetype = 'htmldjango'
   end
 })
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'qf',
+--   callback = function()
+--     vim.cmd('autocmd BufLeave <buffer> bd')
+--   end
+-- })
 
 -- === Colorscheme settings.
 vim.api.nvim_create_autocmd('ColorScheme', {
@@ -2312,6 +2318,17 @@ vim.list_extend(M, {
   --   -- ~/.local/share/nvim/typst-preview/typst-preview-linux-x64
   --   -- ~/.local/share/nvim/typst-preview/websocat.x86_64-unknown-linux-musl
   -- }
+  {
+    'mei28/qfc.nvim',
+    ft = 'qf', -- for lazy load
+    config = function()
+      require('qfc').setup({
+        timeout = 0,   -- Timeout setting in milliseconds
+        enabled = true, -- Enable/disable autoclose feature
+      })
+     -- cmd = {'QFC'} -- for lazy load
+    end
+  }
 })
 
 _my_custom_load(M, { lsp = lsp })
