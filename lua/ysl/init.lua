@@ -1848,6 +1848,9 @@ vim.list_extend(M, {
         -- in the preview window. Like VS Code's "peek editor".
         live = true
       },
+      keymaps = {
+        goto_location = {'<CR>', '<2-LEFTMOUSE>'},
+      }
     },
   },
   -- {
