@@ -72,12 +72,18 @@ return {
       vim.diagnostic.config({
         virtual_text = false,
         float = false,
+        update_in_insert = true,
+        signs = function()
+          local result = { text = {}, linehl = {}, numhl = {} }
+          for type, icon in pairs(U.SIGNS) do
+            local hl = 'DiagnosticSign' .. type
+            result.text[vim.diagnostic.severity[string.upper(type)]] = icon
+            result.linehl[vim.diagnostic.severity[string.upper(type)]] = hl
+            result.numhl[vim.diagnostic.severity[string.upper(type)]] = hl
+          end
+          return result
+        end
       })
-
-      for type, icon in pairs(U.SIGNS) do
-        local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
     end
   },
   {
@@ -99,7 +105,9 @@ return {
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.tbl_deep_extend(
         'force',
-        {},
+        {
+          offset_encoding = { 'utf-8' }
+        },
         vim.lsp.protocol.make_client_capabilities(),
         require('cmp_nvim_lsp').default_capabilities()
       )
@@ -114,7 +122,7 @@ return {
         'marksman',
         'clangd',
         'typst_lsp',
-        'ruff_lsp',
+        'ruff',
         'gopls',
       }
 

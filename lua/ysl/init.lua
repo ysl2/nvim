@@ -1766,7 +1766,6 @@ vim.list_extend(M, {
       require('bufferline').setup({
         options = {
           mode = 'tabs',
-          diagnostics_update_in_insert = true,
           show_buffer_close_icons = false,
           show_close_icon = false,
           always_show_bufferline = false,
@@ -1832,7 +1831,7 @@ vim.list_extend(M, {
         width = 20,
         -- boolean or integer for milliseconds duration to apply a temporary highlight
         -- when jumping. false to disable.
-        jump_highlight_duration = vim.highlight.priorities.user,
+        jump_highlight_duration = vim.hl.priorities.user,
       },
       symbol_folding = {
         -- Depth past which nodes will be folded by default. Set to false to unfold all on open.
@@ -2019,7 +2018,7 @@ vim.list_extend(M, {
         },
         highlight = {
           on_put = false,
-          timer = vim.highlight.priorities.user,
+          timer = vim.hl.priorities.user,
         },
         preserve_cursor_position = {
           enabled = false,
