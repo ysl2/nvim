@@ -32,8 +32,8 @@ vim.opt.exrc = true
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 local os_name = vim.loop.os_uname().sysname
-if os_name ~= "Darwin" then
-    vim.cmd('language en_US.UTF8')
+if os_name ~= 'Darwin' then
+    pcall(vim.cmd, 'language en_US.UTF8')
 end
 pcall(vim.cmd, 'autocmd! nvim_swapfile')
 vim.opt.lazyredraw = true
@@ -1193,6 +1193,7 @@ vim.list_extend(M, {
   {
     'folke/persistence.nvim',
     lazy = false,
+    commit = '08af8fee779df4804b34a5fbfa74ce360a321bb4',
     -- dependencies = 'folke/noice.nvim',
     config = function()
       local persistence = require('persistence')
@@ -1766,7 +1767,6 @@ vim.list_extend(M, {
       require('bufferline').setup({
         options = {
           mode = 'tabs',
-          diagnostics_update_in_insert = true,
           show_buffer_close_icons = false,
           show_close_icon = false,
           always_show_bufferline = false,

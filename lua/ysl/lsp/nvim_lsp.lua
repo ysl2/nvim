@@ -72,6 +72,7 @@ return {
       vim.diagnostic.config({
         virtual_text = false,
         float = false,
+        update_in_insert = true,
       })
 
       for type, icon in pairs(U.SIGNS) do
@@ -114,7 +115,7 @@ return {
         'marksman',
         'clangd',
         'typst_lsp',
-        'ruff_lsp',
+        'ruff',
         'gopls',
       }
 
@@ -293,6 +294,7 @@ return {
     'iguanacucumber/magazine.nvim', name = 'nvim-cmp', -- Otherwise highlighting gets messed up
     -- 'hrsh7th/nvim-cmp', -- Autocompletion plugin
     event = 'InsertEnter',
+    commit = '99d8bd44223de36102305276ee51cbee081cd907',
     dependencies = {
       -- 'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
       -- 'hrsh7th/cmp-nvim-lua',
