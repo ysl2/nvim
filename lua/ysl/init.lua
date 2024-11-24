@@ -32,8 +32,8 @@ vim.opt.exrc = true
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 local os_name = vim.loop.os_uname().sysname
-if os_name ~= "Darwin" then
-    vim.cmd('language en_US.UTF8')
+if os_name ~= 'Darwin' then
+    pcall(vim.cmd, 'language en_US.UTF8')
 end
 pcall(vim.cmd, 'autocmd! nvim_swapfile')
 vim.opt.lazyredraw = true
