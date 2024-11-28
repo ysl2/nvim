@@ -7,6 +7,8 @@ local U = require('ysl.utils')
 -- ===
 -- === Settings
 -- ===
+
+-- === Basic Settings.
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.splitright = true
@@ -37,6 +39,8 @@ if os_name ~= 'Darwin' then
 end
 pcall(vim.cmd, 'autocmd! nvim_swapfile')
 vim.opt.lazyredraw = true
+-- Ref: https://github.com/folke/persistence.nvim/issues/80
+vim.opt.sessionoptions = { 'buffers', 'curdir', 'folds', 'help', 'tabpages', 'winsize', 'terminal' }
 
 -- === Filetype settings.
 vim.opt.tabstop = 4
@@ -1193,7 +1197,6 @@ vim.list_extend(M, {
   {
     'folke/persistence.nvim',
     lazy = false,
-    commit = '08af8fee779df4804b34a5fbfa74ce360a321bb4',
     -- dependencies = 'folke/noice.nvim',
     config = function()
       local persistence = require('persistence')
