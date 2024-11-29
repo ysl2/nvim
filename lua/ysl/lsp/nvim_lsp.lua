@@ -306,7 +306,7 @@ return {
 
       'https://codeberg.org/FelipeLema/cmp-async-path',
       'L3MON4D3/LuaSnip', -- Snippets plugin
-      'garymjr/nvim-snippets',
+      -- 'garymjr/nvim-snippets',
       'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
       {
         'tzachar/cmp-tabnine',
