@@ -114,7 +114,7 @@ return {
         'vimls',
         'marksman',
         'clangd',
-        'typst_lsp',
+        -- 'typst_lsp',
         'ruff',
         'gopls',
       }
