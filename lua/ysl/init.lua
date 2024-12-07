@@ -625,7 +625,8 @@ vim.list_extend(M, {
           -- 'dockerfile',  -- This is sometime not precise, so disable this.
           'htmldjango',
           'go',
-          'gomod'
+          'gomod',
+          'markdown'
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)

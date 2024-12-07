@@ -492,6 +492,7 @@ return {
           --   'ruff_format',
           --   'ruff_organize_imports'
           -- },
+          markdown = { 'prettier' },
           sh = { 'shfmt' },
         },
         format_on_save = function(bufnr)
@@ -544,12 +545,12 @@ return {
     event = vim.list_extend({ 'BufReadPre', 'TextChanged' }, U.EVENTS.YSLFILE),
     dependencies = {
       'williamboman/mason.nvim',
-      'rshkarin/mason-nvim-lint',
+      'ysl2/mason-nvim-lint',
     },
     config = function()
       local lint = require('lint')
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
+        markdown = { 'markdownlint-cli2' },
         dockerfile = { 'hadolint' },
         sh = { 'shellcheck' },
         -- python = { 'mypy' },
