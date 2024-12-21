@@ -15,6 +15,7 @@
   "csv.vim": { "branch": "master", "commit": "8633030a2c70640d5525e9dc946b4570391346db" },
   "cython-snips": { "branch": "dev", "commit": "7bcca888465bc43a44f467ce157f887bfca0881d" },
   "cython.vim": { "branch": "master", "commit": "a073ff9bc0cb7d80e8167fa506c7df99f73a3125" },
+  "firenvim": { "branch": "master", "commit": "dd2d6f6b3b87b3726d5ef59adfe8a6c444889dda" },
   "fm-nvim": { "branch": "master", "commit": "8e6a77049330e7c797eb9e63affd75eb796fe75e" },
   "friendly-snippets": { "branch": "main", "commit": "efff286dd74c22f731cdec26a70b46e5b203c619" },
   "gitsigns.nvim": { "branch": "main", "commit": "5f808b5e4fef30bd8aca1b803b4e555da07fc412" },
