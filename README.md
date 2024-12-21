@@ -494,7 +494,7 @@ You should comment the `cond = not not vim.g.started_by_firenvim,` line for the 
 
 If you not sure whether the firenvim is builded, you can first comment this line, then manually call `:call firenvim#install(0)` to build firenvim, then uncomment it.
 
-Then you should set the keymap to `<C-e>` in `chrome://extensions/shortcuts`:
+Then you should set the keymap `Turn the currently focused element into a neovim iframe.` to `<C-e>` in `chrome://extensions/shortcuts`:
 
 ![image_2024-01-17-23-44-13](assets/README/figures/2024-01-17-23-44-13.png)
 
