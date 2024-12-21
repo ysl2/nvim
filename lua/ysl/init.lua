@@ -713,7 +713,7 @@ vim.list_extend(M, {
         },
         indent = {  -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136
             enable = true,
-            disable = { 'c' }
+            disable = { 'c', 'python' }
         },
       })
       vim.cmd([[
@@ -2335,6 +2335,10 @@ vim.list_extend(M, {
       })
      -- cmd = {'QFC'} -- for lazy load
     end
+  },
+  {
+    'ysl2/vim-python-pep8-indent',
+    ft = 'python'
   }
 })
 

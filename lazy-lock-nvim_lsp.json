@@ -83,6 +83,7 @@
   "vim-illuminate": { "branch": "master", "commit": "5eeb7951fc630682c322e88a9bbdae5c224ff0aa" },
   "vim-markdown-toc": { "branch": "master", "commit": "aa9cc3b07791db5cbe5f29d661763bc0eb4fb7c1" },
   "vim-plugin-AnsiEsc": { "branch": "master", "commit": "8760f22da3ac497aad7ae99ad6ba9b850f18439a" },
+  "vim-python-pep8-indent": { "branch": "master", "commit": "8a82d7013bf016598e2d7b89d48581bf8ed591c7" },
   "vim-rsi": { "branch": "master", "commit": "616d0a8614d5f9fc52f4673a139adf103e971a2e" },
   "vim-table-mode": { "branch": "master", "commit": "e4365bde024f73e205eefa2fb78e3029ddb92ea9" },
   "vim-wakatime": { "branch": "master", "commit": "cf51327a9e08935569614d1cb24e779ee9f45519" },
