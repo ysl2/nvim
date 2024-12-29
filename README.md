@@ -178,11 +178,20 @@ check conflicts example: `:verbose imap`
 
 Experimental now. Not recommended.
 
-#### GUI font size
+#### GUI font size and color
 
-```vim
-set guifont=consolas:h20
-```
+1. Change font and size:
+
+    ```vim
+    set guifont=consolas:h20
+    ```
+
+2. Check highlight group:
+
+    ```vim
+    " Check the highlight group under cursor:
+    :Inspect
+    ```
 
 ### Session system
 
