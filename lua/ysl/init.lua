@@ -119,6 +119,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'LineNr', { fg = fg_conceal })
     vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = fg_conceal })
     vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = fg_conceal })
+    vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', { fg = fg_conceal })
 
     vim.api.nvim_set_hl(0, 'AerialLine', { reverse = true })
 
