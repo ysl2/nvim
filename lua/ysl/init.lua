@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'c', 'cpp', 'go' },
+  pattern = { 'c', 'cpp', 'go', 'gitconfig' },
   callback = function()
     vim.opt_local.expandtab = false
   end
