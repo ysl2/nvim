@@ -2187,6 +2187,37 @@ vim.list_extend(M, {
       })
     end,
   },
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    keys = {
+      { '<LEADER>c', '<CMD>CopilotChatToggle<CR>', mode = { 'n' }, silent = true },
+    },
+    dependencies = {
+      'zbirenbaum/copilot.lua', -- or zbirenbaum/copilot.lua
+      'nvim-lua/plenary.nvim', -- for curl, log and async functions
+    },
+    build = 'make tiktoken', -- Only on MacOS or Linux
+    opts = {
+      -- model = 'o1',
+      window = {
+        layout = 'float',
+        width = 0.8, -- fractional width of parent, or absolute width in columns when > 1
+        height = 0.8, -- fractional height of parent, or absolute height in rows when > 1
+      },
+      auto_insert_mode = true, -- Automatically enter insert mode when opening window and on new prompt
+      mappings = {
+        complete = {
+          insert = '<C-g>',
+        },
+        close = {
+          insert = '<C-[>',
+        },
+        submit_prompt = {
+          insert = '<C-CR>',
+        },
+      }
+    },
+  },
   -- {
   --   'jackMort/ChatGPT.nvim',
   --   event = 'VeryLazy',
