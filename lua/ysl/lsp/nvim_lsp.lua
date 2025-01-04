@@ -492,7 +492,7 @@ return {
           --   'ruff_format',
           --   'ruff_organize_imports'
           -- },
-          markdown = { 'prettier' },
+          markdown = { 'prettierd' },
           sh = { 'shfmt' },
         },
         format_on_save = function(bufnr)
