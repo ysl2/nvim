@@ -2330,7 +2330,7 @@ vim.list_extend(M, {
     }
   },
   {
-    'ysl2/vim-rsi',
+    'tpope/vim-rsi',
     event = 'InsertEnter'
   },
   {
