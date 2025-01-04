@@ -140,7 +140,7 @@ vim.keymap.set({'n', 'v'}, '<C-a>', '')
 vim.keymap.set({'n', 'v'}, '<C-x>', '')
 vim.keymap.set({'n', 'v'}, '<A-a>', '<C-a>', { silent = true })
 vim.keymap.set({'n', 'v'}, '<A-x>', '<C-x>', { silent = true })
-vim.keymap.set('t', '<A-[>', [[<C-\><C-n>]], { silent = true })
+vim.keymap.set('t', '<C-[>', [[<C-\><C-n>]], { silent = true })
 vim.keymap.set('t', '<ESC>', '<ESC>', { silent = true })
 vim.keymap.set('t', '<C-c>', '<C-c>', { silent = true })
 vim.keymap.set('n', '<C-w>z', '<C-w>|<C-w>_', { silent = true })
@@ -2190,7 +2190,7 @@ vim.list_extend(M, {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
     keys = {
-      { '<LEADER>c', '<CMD>CopilotChatToggle<CR>', mode = { 'n' }, silent = true },
+      { '<C-0>', '<CMD>CopilotChatToggle<CR>', mode = { 'n' }, silent = true },
     },
     dependencies = {
       'zbirenbaum/copilot.lua', -- or zbirenbaum/copilot.lua
@@ -2210,7 +2210,8 @@ vim.list_extend(M, {
           insert = '<C-g>',
         },
         close = {
-          insert = '<C-[>',
+          normal = '<C-0>',
+          insert = '<C-0>',
         },
         submit_prompt = {
           insert = '<C-CR>',
