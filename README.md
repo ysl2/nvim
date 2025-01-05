@@ -203,6 +203,8 @@ About debugger: My neovim configuration does not provide inner debugger like `nv
 
 You can find language-specific outer debuggers below.
 
+You can check current buffer's filetype by `:set filetype?`.
+
 #### Python
 
 1. Python environment dependencies
