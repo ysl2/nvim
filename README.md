@@ -440,6 +440,19 @@ You want to replace it to `0.82217`, you can do this:
 
 #### AI context complement
 
+##### TabNine
+
+For MacOS, trust the tabnine completion binaries by doing:
+
+```bash
+# Ref: https://github.com/alacritty/alacritty/issues/6500#issuecomment-2399558282
+xattr -dr com.apple.quarantine  /Users/yusongli/.local/share/nvim/lazy/cmp-tabnine/binaries/4.224.0/aarch64-apple-darwin/TabNine
+xattr -dr com.apple.quarantine  /Users/yusongli/.local/share/nvim/lazy/cmp-tabnine/binaries/4.224.0/aarch64-apple-darwin/TabNine-deep-cloud
+xattr -dr com.apple.quarantine  /Users/yusongli/.local/share/nvim/lazy/cmp-tabnine/binaries/4.224.0/aarch64-apple-darwin/TabNine-deep-local
+xattr -dr com.apple.quarantine  /Users/yusongli/.local/share/nvim/lazy/cmp-tabnine/binaries/4.224.0/aarch64-apple-darwin/TabNine-server-runner
+xattr -dr com.apple.quarantine  /Users/yusongli/.local/share/nvim/lazy/cmp-tabnine/binaries/4.224.0/aarch64-apple-darwin/WD-TabNine
+```
+
 ##### Copilot
 
 1. If you're in China you might need to add this into `lua/ysl/localhost.lua`:
