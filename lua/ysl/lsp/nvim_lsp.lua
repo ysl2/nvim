@@ -211,6 +211,11 @@ return {
             }
           }))
         end,
+        clangd = function()
+          lspconfig.clangd.setup(vim.tbl_deep_extend('force', {}, capabilities, {
+            cmd = { 'clangd', '--offset-encoding=utf-16' }
+          }))
+        end,
       }
 
       for k, _ in pairs(handlers) do
