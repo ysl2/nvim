@@ -143,14 +143,13 @@ M.config = {
       -- -- M.vim.opt.colorscheme, default value: { 'folke/tokyonight.nvim' }
       -- -- You can specify `colorscheme` to override default colorscheme.
       -- colorscheme = {
-      --   {
-      --     'folke/tokyonight.nvim',
-      --     lazy = false,
-      --     priority = 1000,
-      --     config = function()
-      --       vim.cmd('colorscheme tokyonight-storm')
-      --     end
-      --   }
+      --   'catppuccin/nvim',
+      --   name = 'catppuccin',
+      --   lazy = false,
+      --   priority = 1000,
+      --   config = function()
+      --     vim.cmd.colorscheme('catppuccin-mocha')
+      --   end
       -- }
     }
   }
