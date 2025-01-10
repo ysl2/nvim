@@ -1260,6 +1260,13 @@ vim.list_extend(M, {
       -- "ibhagwan/fzf-lua",
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim',
+      -- TODO: Try to add image support but failed.
+      -- {
+      --   '3rd/image.nvim',
+      --   opts = {
+      --    backend = 'ueberzug' -- brew install jstkdng/programs/ueberzugpp
+      --   }
+      -- }
     },
     opts = {
       -- configuration goes here
@@ -1268,6 +1275,7 @@ vim.list_extend(M, {
           enabled = true,
           translator = false,
       },
+      -- image_support = true,
     },
   },
   -- {
