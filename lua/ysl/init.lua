@@ -1253,6 +1253,7 @@ vim.list_extend(M, {
   -- },
   {
     'kawre/leetcode.nvim',
+    lazy = 'leetcode.nvim' ~= vim.fn.argv(0, -1),
     cmd = 'Leet',
     build = ':TSUpdate html', -- if you have `nvim-treesitter` installed
     dependencies = {
@@ -1276,6 +1277,9 @@ vim.list_extend(M, {
           translator = false,
       },
       -- image_support = true,
+      plugins = {
+          non_standalone = true,
+      }
     },
   },
   -- {
