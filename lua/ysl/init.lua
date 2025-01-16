@@ -427,6 +427,7 @@ local transparent = (not (vim.opt.winblend._value == 0)) and (not vim.g.started_
 M[#M + 1] = U.set(U.safeget(S, { 'config', 'vim', 'opt', 'colorscheme' }),
   {
     'folke/tokyonight.nvim',
+    cond = not vim.g.started_by_firenvim,
     lazy = false,
     priority = 1000,
     config = function()
