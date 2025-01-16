@@ -71,7 +71,9 @@ return {
 
       vim.diagnostic.config({
         virtual_text = false,
-        float = false,
+        float = {
+          border = 'single',
+        },
         update_in_insert = true,
       })
 
@@ -334,6 +336,10 @@ return {
             -- vim.snippet.active()  -- No need to add this at all, whether or not `luasnip` or `nvim-snippets` users.
             -- vim.snippet.expand(args.body)
           end,
+        },
+        window = {
+          completion = cmp.config.window.bordered({ border = 'single' }),
+          documentation = cmp.config.window.bordered({ border = 'single' }),
         },
         mapping = cmp.mapping.preset.insert({
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -623,7 +629,7 @@ return {
         bind = true,
         hint_enable = false,
         handler_opts = {
-          border = 'none'
+          border = 'single'
         }
       })
     end,
