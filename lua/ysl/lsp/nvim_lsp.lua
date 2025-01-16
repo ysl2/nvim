@@ -303,6 +303,7 @@ return {
       -- 'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
       -- 'hrsh7th/cmp-nvim-lua',
       -- 'hrsh7th/cmp-buffer',
+      -- { 'hrsh7th/cmp-nvim-lsp-signature-help' },
       { 'iguanacucumber/mag-nvim-lsp', name = 'cmp-nvim-lsp', opts = {} },
       { 'iguanacucumber/mag-nvim-lua', name = 'cmp-nvim-lua' },
       { 'iguanacucumber/mag-buffer', name = 'cmp-buffer' },
@@ -370,6 +371,7 @@ return {
           end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
+          -- { name = 'nvim_lsp_signature_help' },
           { name = 'cmp_tabnine' },
           { name = 'luasnip' },
           { name = 'snippets' },
@@ -613,4 +615,17 @@ return {
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'InsertEnter',
+    config = function() -- Ref: https://github.com/ray-x/lsp_signature.nvim/issues/341#issuecomment-2466260487
+      require('lsp_signature').on_attach({
+        bind = true,
+        hint_enable = false,
+        handler_opts = {
+          border = 'none'
+        }
+      })
+    end,
+  }
 }
