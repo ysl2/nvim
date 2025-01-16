@@ -2199,6 +2199,7 @@ vim.list_extend(M, {
   },
   {
     'zbirenbaum/copilot.lua',
+    cond = not vim.g.started_by_firenvim and 'leetcode.nvim' ~= vim.fn.argv(0, -1),
     event = 'InsertEnter',
     build = ':Copilot auth',
     config = function()
